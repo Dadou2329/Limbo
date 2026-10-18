@@ -1,0 +1,65 @@
+{
+  "titre": "Les mains de Sabine",
+  "description": "Sabine, l'apprentie de Brann, rêve d'une forge à elle. Elle a besoin de cristal de nacre pour tremper ses premières lames.",
+  "acte": 2,
+  "etapes": [
+    {
+      "id": "cristal",
+      "resume": "Apporter cinq cristaux de nacre à Sabine, à la forge de Clairval.",
+      "lieu": {
+        "nom": "Forge de Clairval",
+        "pos": [
+          16,
+          66,
+          146
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "cristal",
+          "type": "collecter",
+          "cible": "les_limbes:cristal_de_nacre",
+          "nombre": 5,
+          "texte": "Réunir cinq cristaux de nacre"
+        }
+      ]
+    },
+    {
+      "id": "donner",
+      "resume": "Donner les cristaux à Sabine.",
+      "lieu": {
+        "nom": "Forge de Clairval",
+        "pos": [
+          16,
+          66,
+          146
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "donner",
+          "type": "parler",
+          "cible": "sabine",
+          "manuel": true,
+          "texte": "Parler à Sabine"
+        }
+      ]
+    }
+  ],
+  "fin": [
+    {
+      "type": "experience",
+      "niveaux": 1
+    },
+    {
+      "type": "drapeau",
+      "nom": "sabine_recrutee"
+    },
+    {
+      "type": "message",
+      "texte": "Sabine rejoindra votre domaine dès que la forge royale sera bâtie."
+    }
+  ]
+}

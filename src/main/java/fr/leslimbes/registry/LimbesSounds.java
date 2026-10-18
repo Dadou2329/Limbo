@@ -27,6 +27,11 @@ public final class LimbesSounds {
 	public static final SoundEvent VEILLEUR_BLESSE = register("creature.veilleur.blesse");
 	public static final SoundEvent VEILLEUR_MORT = register("creature.veilleur.mort");
 	public static final SoundEvent DIALOGUE_OUVRIR = register("interface.dialogue");
+	public static final SoundEvent RAIE_APPEL = register("creature.raie.appel");
+	public static final SoundEvent RAIE_PACTE = register("creature.raie.pacte");
+	public static final SoundEvent ARRIVEE = register("monde.arrivee");
+	public static final SoundEvent MOULIN_GRINCE = register("bloc.moulin.grince");
+	public static final SoundEvent DALLE_EMERGE = register("bloc.dalle.emerge");
 
 	private static SoundEvent register(String path) {
 		Identifier id = LesLimbes.id(path);

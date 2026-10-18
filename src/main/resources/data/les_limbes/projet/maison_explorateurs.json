@@ -1,0 +1,66 @@
+{
+  "titre": "Ouvrir la maison des explorateurs",
+  "description": "Cartes, rumeurs, préparatifs d'expédition et un lit pour ceux qui reviennent de loin. Théo en sera le cartographe.",
+  "ordre": 5,
+  "lieu": "manoir",
+  "prerequis": [
+    {
+      "drapeau_monde": "domaine_aile_ouest"
+    },
+    {
+      "drapeau": "theo_recrute"
+    }
+  ],
+  "cout": [
+    {
+      "objet": "les_limbes:planches_d_aube",
+      "nombre": 32
+    },
+    {
+      "objet": "minecraft:paper",
+      "nombre": 12
+    },
+    {
+      "objet": "minecraft:compass",
+      "nombre": 1
+    }
+  ],
+  "gabarit": "les_limbes:manoir/maison_explorateurs",
+  "origine": [
+    -105,
+    65,
+    149
+  ],
+  "drapeau_monde": "domaine_explorateurs",
+  "apres": [
+    {
+      "type": "message",
+      "texte": "La maison des explorateurs est ouverte. Théo y dresse déjà la carte des Prairies."
+    },
+    {
+      "type": "deplacer_pnj",
+      "role": "theo",
+      "pos": [
+        -102,
+        66,
+        156
+      ],
+      "dimension": "les_limbes:limbes"
+    },
+    {
+      "type": "deplacer_pnj",
+      "role": "ysolde",
+      "pos": [
+        -98,
+        66,
+        154
+      ],
+      "dimension": "les_limbes:limbes",
+      "si": [
+        {
+          "drapeau": "ysolde_recrutee"
+        }
+      ]
+    }
+  ]
+}

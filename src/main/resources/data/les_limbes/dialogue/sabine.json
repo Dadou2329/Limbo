@@ -1,0 +1,149 @@
+{
+  "nom": "Sabine",
+  "debut": [
+    {
+      "noeud": "domaine",
+      "si": [
+        {
+          "drapeau": "forge_royale_batie"
+        }
+      ]
+    },
+    {
+      "noeud": "recrutee",
+      "si": [
+        {
+          "drapeau": "sabine_recrutee"
+        }
+      ]
+    },
+    {
+      "noeud": "cristal",
+      "si": [
+        {
+          "quete_active": "les_mains_de_sabine"
+        }
+      ]
+    },
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Attention, ça chauffe. Je suis Sabine, l'apprentie de Brann. Enfin, apprentie… Je forge depuis dix ans, mais ici, c'est sa forge.",
+        "Ce que je voudrais, c'est tremper des lames comme on le faisait pour le roi : avec du cristal de nacre dans l'eau. Cinq cristaux, et je vous montre ce que mes mains savent faire."
+      ],
+      "choix": [
+        {
+          "texte": "Je vous apporte cinq cristaux de nacre.",
+          "actions": [
+            {
+              "type": "demarrer_quete",
+              "quete": "les_mains_de_sabine"
+            }
+          ]
+        },
+        {
+          "texte": "Pas maintenant."
+        }
+      ]
+    },
+    "cristal": {
+      "texte": [
+        "Alors, ces cristaux ? On les trouve dans la pierre nacrée, sous les Prairies, ou chez ceux qui en portent… les Veilleurs, par exemple."
+      ],
+      "choix": [
+        {
+          "texte": "Voilà cinq cristaux.",
+          "si": [
+            {
+              "objet": {
+                "id": "les_limbes:cristal_de_nacre",
+                "nombre": 5
+              }
+            },
+            {
+              "quete_etape": {
+                "les_mains_de_sabine": ">=1"
+              }
+            }
+          ],
+          "actions": [
+            {
+              "type": "retirer",
+              "objet": "les_limbes:cristal_de_nacre",
+              "nombre": 5
+            },
+            {
+              "type": "objectif",
+              "quete": "les_mains_de_sabine",
+              "objectif": "donner"
+            }
+          ],
+          "suivant": "merci"
+        },
+        {
+          "texte": "J'y travaille."
+        }
+      ]
+    },
+    "merci": {
+      "texte": [
+        "Regardez cette trempe. Ça chante. Écoutez : si un jour vous avez une forge à vous, avec deux foyers et de la place, je viens. Je m'occuperai de vos armes."
+      ],
+      "choix": [
+        {
+          "texte": "C'est noté, Sabine."
+        }
+      ]
+    },
+    "recrutee": {
+      "texte": [
+        "Quand votre forge royale sera bâtie, je prends mes outils et j'arrive. Orielle connaît les projets du manoir."
+      ],
+      "choix": [
+        {
+          "texte": "Bientôt."
+        }
+      ]
+    },
+    "domaine": {
+      "texte": [
+        "Bienvenue dans votre forge. Posez votre Épée du Souverain sur l'enclume, en pensée : je peux affûter son tranchant. Trois cristaux de nacre par affûtage, trois affûtages au plus."
+      ],
+      "choix": [
+        {
+          "texte": "Affûter l'épée (3 cristaux de nacre).",
+          "si": [
+            {
+              "objet": {
+                "id": "les_limbes:cristal_de_nacre",
+                "nombre": 3
+              }
+            },
+            {
+              "non": {
+                "drapeau": "epee_affutee_3"
+              }
+            }
+          ],
+          "actions": [
+            {
+              "type": "retirer",
+              "objet": "les_limbes:cristal_de_nacre",
+              "nombre": 3
+            },
+            {
+              "type": "affuter_epee"
+            }
+          ]
+        },
+        {
+          "texte": "Juste bonjour."
+        }
+      ]
+    }
+  }
+}

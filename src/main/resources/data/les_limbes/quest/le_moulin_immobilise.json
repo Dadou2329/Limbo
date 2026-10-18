@@ -1,0 +1,39 @@
+{
+  "titre": "Le moulin immobilisé",
+  "description": "Le moulin de Clairval ne tourne plus depuis des années. Rosalie, la meunière, sait pourquoi : sa meule royale repose au fond du Lac du Crépuscule.",
+  "acte": 1,
+  "etapes": [
+    {
+      "id": "lac",
+      "resume": "Rejoindre le Lac du Crépuscule, à l'ouest du pied du pont. Rosalie dit qu'un chemin apparaît quand le jour s'incline.",
+      "lieu": {"nom": "Lac du Crépuscule", "pos": [-60, 66, 20], "dimension": "les_limbes:limbes"},
+      "objectifs": [
+        {"id": "lac", "type": "atteindre", "pos": [-60, 66, 20], "rayon": 24, "dimension": "les_limbes:limbes", "texte": "Trouver le Lac du Crépuscule"}
+      ]
+    },
+    {
+      "id": "meule",
+      "resume": "Attendre le crépuscule (ou l'aube) : les dalles de rosée émergent et mènent à l'îlot. Y reprendre la meule royale.",
+      "lieu": {"nom": "Îlot du Lac du Crépuscule", "pos": [-60, 66, 20], "dimension": "les_limbes:limbes"},
+      "objectifs": [
+        {"id": "meule", "type": "collecter", "cible": "les_limbes:meule_royale", "nombre": 1, "texte": "Récupérer la meule royale"}
+      ]
+    },
+    {
+      "id": "retour",
+      "resume": "Rapporter la meule à Rosalie, au moulin de Clairval.",
+      "lieu": {"nom": "Moulin de Clairval", "pos": [-28, 66, 126], "dimension": "les_limbes:limbes"},
+      "objectifs": [
+        {"id": "retour", "type": "parler", "cible": "rosalie", "manuel": true, "texte": "Donner la meule à Rosalie"}
+      ]
+    }
+  ],
+  "fin": [
+    {"type": "experience", "niveaux": 2},
+    {"type": "drapeau", "nom": "moulin_repare"},
+    {"type": "drapeau_monde", "nom": "moulin_repare"},
+    {"type": "modifier_bloc", "pos": [-28, 73, 126], "bloc": "les_limbes:ailes_de_moulin", "proprietes": {"actif": "true"}, "dimension": "les_limbes:limbes"},
+    {"type": "titre", "titre": "Le moulin tourne", "sous_titre": "Un blé donne un sac de farine à la meule"},
+    {"type": "son", "id": "les_limbes:bloc.moulin.grince"}
+  ]
+}

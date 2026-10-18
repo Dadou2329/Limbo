@@ -1,0 +1,116 @@
+{
+  "nom": "Loïc",
+  "debut": [
+    {
+      "noeud": "domaine",
+      "si": [
+        {
+          "drapeau_monde": "domaine_ecuries"
+        },
+        {
+          "drapeau": "loic_recrute"
+        }
+      ]
+    },
+    {
+      "noeud": "recrute",
+      "si": [
+        {
+          "drapeau": "loic_recrute"
+        }
+      ]
+    },
+    {
+      "noeud": "pacte",
+      "si": [
+        {
+          "quete_active": "loic_et_les_raies"
+        },
+        {
+          "drapeau": "pacte_raie"
+        }
+      ]
+    },
+    {
+      "noeud": "attente",
+      "si": [
+        {
+          "quete_active": "loic_et_les_raies"
+        }
+      ]
+    },
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Chut. Regardez, là-haut. Une raie. Elles passent au-dessus du lac tous les soirs.",
+        "Je m'appelle Loïc. J'ai élevé des bêtes toute ma vie, mais celles-là, je n'ai jamais réussi à les approcher. On dit qu'elles aiment une fleur de la prairie. Si quelqu'un en apprivoise une, je veux voir ça."
+      ],
+      "choix": [
+        {
+          "texte": "J'essaierai.",
+          "actions": [
+            {
+              "type": "demarrer_quete",
+              "quete": "loic_et_les_raies"
+            }
+          ]
+        },
+        {
+          "texte": "Une autre fois."
+        }
+      ]
+    },
+    "attente": {
+      "texte": [
+        "La fleur de rosée, blanche, dans l'herbe argentée. Tenez-en une dans la main et attendez qu'une raie descende. Il en faut trois, je crois. Soyez doux."
+      ],
+      "choix": [
+        {
+          "texte": "Je reviens avec une raie."
+        }
+      ]
+    },
+    "pacte": {
+      "texte": [
+        "Vous l'avez fait. Elle vous suit, elle vous écoute… Dix ans que j'attends de voir ça.",
+        "Si vous aviez des écuries, j'y installerais un perchoir pour elle, et je soignerais toutes vos montures. Pensez-y."
+      ],
+      "choix": [
+        {
+          "texte": "Venez au domaine quand les écuries seront prêtes.",
+          "actions": [
+            {
+              "type": "objectif",
+              "quete": "loic_et_les_raies",
+              "objectif": "montrer"
+            }
+          ]
+        }
+      ]
+    },
+    "recrute": {
+      "texte": [
+        "Dès que vos écuries sont dressées, j'arrive avec mon foin et mes brosses."
+      ],
+      "choix": [
+        {
+          "texte": "Bientôt."
+        }
+      ]
+    },
+    "domaine": {
+      "texte": [
+        "Votre raie se porte bien. Si elle est blessée, donnez-lui une fleur de rosée, ou laissez-la se reposer au perchoir : l'endurance revient vite ici."
+      ],
+      "choix": [
+        {
+          "texte": "Merci, Loïc."
+        }
+      ]
+    }
+  }
+}

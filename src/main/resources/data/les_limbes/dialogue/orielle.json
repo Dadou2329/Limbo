@@ -1,9 +1,27 @@
 {
   "nom": "Orielle",
   "debut": [
-    {"noeud": "apres", "si": [{"drapeau": "manoir_recu"}]},
-    {"noeud": "cles", "si": [{"quete_etape": {"l_etranger": ">=6"}}]},
-    {"noeud": "avant"}
+    {
+      "noeud": "apres",
+      "si": [
+        {
+          "drapeau": "manoir_recu"
+        }
+      ]
+    },
+    {
+      "noeud": "cles",
+      "si": [
+        {
+          "quete_etape": {
+            "l_etranger": ">=6"
+          }
+        }
+      ]
+    },
+    {
+      "noeud": "avant"
+    }
   ],
   "noeuds": {
     "avant": {
@@ -11,7 +29,23 @@
         "Le manoir n'est pas à visiter. Revenez quand Thibault vous aura présenté. Je suis Orielle, la régisseuse, et je tiens à ce que les choses se fassent dans l'ordre."
       ],
       "choix": [
-        {"texte": "Je reviendrai."}
+        {
+          "texte": "Voir les projets du domaine.",
+          "si": [
+            {
+              "drapeau": "manoir_recu"
+            }
+          ],
+          "actions": [
+            {
+              "type": "ouvrir_chantier",
+              "lieu": "manoir"
+            }
+          ]
+        },
+        {
+          "texte": "Je reviendrai."
+        }
       ]
     },
     "cles": {
@@ -21,12 +55,40 @@
         "Les chambres sont à l'étage, la cuisine au fond, la bibliothèque à gauche en entrant. Le jardin aura besoin de vous. Et le toit de l'aile ouest aussi, un jour."
       ],
       "actions": [
-        {"type": "donner", "objet": "les_limbes:cle_du_manoir", "nombre": 1, "une_fois": "cle_manoir_donnee"},
-        {"type": "drapeau", "nom": "manoir_recu"},
-        {"type": "objectif", "quete": "l_etranger", "objectif": "orielle"}
+        {
+          "type": "donner",
+          "objet": "les_limbes:cle_du_manoir",
+          "nombre": 1,
+          "une_fois": "cle_manoir_donnee"
+        },
+        {
+          "type": "drapeau",
+          "nom": "manoir_recu"
+        },
+        {
+          "type": "objectif",
+          "quete": "l_etranger",
+          "objectif": "orielle"
+        }
       ],
       "choix": [
-        {"texte": "Merci, Orielle. J'en prendrai soin."}
+        {
+          "texte": "Voir les projets du domaine.",
+          "si": [
+            {
+              "drapeau": "manoir_recu"
+            }
+          ],
+          "actions": [
+            {
+              "type": "ouvrir_chantier",
+              "lieu": "manoir"
+            }
+          ]
+        },
+        {
+          "texte": "Merci, Orielle. J'en prendrai soin."
+        }
       ]
     },
     "apres": {
@@ -34,7 +96,23 @@
         "Le toit tient. Le reste, c'est à vous. Quand vous voudrez restaurer une pièce, venez me voir : je sais où trouver des bras et des planches."
       ],
       "choix": [
-        {"texte": "À bientôt."}
+        {
+          "texte": "Voir les projets du domaine.",
+          "si": [
+            {
+              "drapeau": "manoir_recu"
+            }
+          ],
+          "actions": [
+            {
+              "type": "ouvrir_chantier",
+              "lieu": "manoir"
+            }
+          ]
+        },
+        {
+          "texte": "À bientôt."
+        }
       ]
     }
   }

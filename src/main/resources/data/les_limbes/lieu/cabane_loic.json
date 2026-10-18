@@ -1,0 +1,11 @@
+{
+  "nom": "Cabane de Loïc",
+  "pos": [
+    -36,
+    66,
+    34
+  ],
+  "rayon": 8,
+  "region": "prairies",
+  "description": "L'abri d'un éleveur qui observe les raies."
+}

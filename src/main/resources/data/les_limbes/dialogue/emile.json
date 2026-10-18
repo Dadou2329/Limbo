@@ -1,0 +1,101 @@
+{
+  "nom": "Émile",
+  "debut": [
+    {"noeud": "installe", "si": [{"drapeau": "maison_egaree_terminee"}]},
+    {"noeud": "farine", "si": [{"quete_etape": {"la_maison_egaree": ">=2"}}]},
+    {"noeud": "rencontre"}
+  ],
+  "noeuds": {
+    "rencontre": {
+      "texte": [
+        "Oh ! Quelqu'un ! Dites-moi que je rêve. Je faisais mon pain, le ciel est devenu blanc, et… tout est arrivé ici. La maison, le four, moi.",
+        "Je m'appelle Émile. Je suis boulanger. Enfin, je l'étais, là d'où je viens. Où sommes-nous ?"
+      ],
+      "actions": [
+        {"type": "demarrer_quete", "quete": "la_maison_egaree"},
+        {"type": "etape", "quete": "la_maison_egaree", "etape": 1}
+      ],
+      "choix": [
+        {"texte": "Dans les Limbes. Tout ce qui se perd ailleurs finit ici.", "suivant": "explication"},
+        {"texte": "Calmez-vous. Vous êtes en sécurité.", "suivant": "explication"}
+      ]
+    },
+    "explication": {
+      "texte": [
+        "Les Limbes… Bon. Je ne comprends pas tout, mais je comprends ceci : mon four est là, mes mains aussi, et un boulanger qui ne cuit rien devient fou.",
+        "Il me manque de la farine. Trois bons sacs. Si vous m'en apportez, je vous promets le meilleur pain de ce monde. Et de l'autre."
+      ],
+      "actions": [
+        {"type": "objectif", "quete": "la_maison_egaree", "objectif": "emile"}
+      ],
+      "choix": [
+        {"texte": "Où trouver de la farine ?", "suivant": "ou_farine"},
+        {"texte": "Je vous en apporte."}
+      ]
+    },
+    "ou_farine": {
+      "texte": [
+        "Là d'où je viens, on écrase du blé entre deux pierres. Trois blés, deux sacs, ça va. Mais un vrai moulin, c'est autre chose : un sac par blé, et de la bonne.",
+        "On m'a dit qu'il y a un moulin à Clairval. Qu'il ne tourne plus. Dommage."
+      ],
+      "choix": [
+        {"texte": "Je verrai ce que je peux faire."}
+      ]
+    },
+    "farine": {
+      "texte": [
+        "Alors, cette farine ? Mon four est chaud depuis ce matin."
+      ],
+      "choix": [
+        {"texte": "Voilà trois sacs de farine.", "si": [{"objet": {"id": "les_limbes:farine", "nombre": 3}}, {"quete_etape": {"la_maison_egaree": ">=3"}}], "suivant": "pain",
+         "actions": [
+           {"type": "retirer", "objet": "les_limbes:farine", "nombre": 3},
+           {"type": "donner", "objet": "les_limbes:pain_d_emile", "nombre": 4, "une_fois": "pain_emile_donne"}
+         ]},
+        {"texte": "Pas encore. J'y travaille."}
+      ]
+    },
+    "pain": {
+      "texte": [
+        "Regardez-moi ça. La croûte, la mie… Tenez, goûtez. Ce pain-là tient au corps.",
+        "Maintenant, dites-moi : je reste ici, dans ma maison tombée du ciel ? Ou je m'installe à Clairval, près des gens ? Je ferais bien le pain de tout le village."
+      ],
+      "choix": [
+        {"texte": "Venez à Clairval. L'auberge a besoin de pain.", "suivant": "clairval",
+         "actions": [
+           {"type": "drapeau", "nom": "emile_a_clairval"},
+           {"type": "drapeau_monde", "nom": "emile_a_clairval"},
+           {"type": "deplacer_pnj", "role": "emile", "pos": [20, 66, 127], "dimension": "les_limbes:limbes"},
+           {"type": "objectif", "quete": "la_maison_egaree", "objectif": "pain"}
+         ]},
+        {"texte": "Restez ici. Votre maison est devenue un lieu des Prairies.", "suivant": "reste",
+         "actions": [
+           {"type": "drapeau", "nom": "emile_reste"},
+           {"type": "objectif", "quete": "la_maison_egaree", "objectif": "pain"}
+         ]}
+      ]
+    },
+    "clairval": {
+      "texte": [
+        "Clairval, alors ! Je prends mon levain et j'arrive. Passez me voir près de l'auberge : il y aura toujours une miche pour vous."
+      ],
+      "choix": [{"texte": "À bientôt, Émile."}]
+    },
+    "reste": {
+      "texte": [
+        "Alors je reste. Une maison qui a traversé le ciel mérite qu'on l'habite. Revenez quand vous voulez : le four ne refroidira plus."
+      ],
+      "choix": [{"texte": "À bientôt, Émile."}]
+    },
+    "installe": {
+      "texte": [
+        "Le pain d'aujourd'hui est sorti il y a une heure. Prenez-en si vous avez faim, et si vous croisez quelqu'un qui arrive d'ailleurs, dites-lui qu'on s'y fait."
+      ],
+      "choix": [
+        {"texte": "Une miche, s'il vous plaît.", "si": [{"objet": {"id": "les_limbes:farine", "nombre": 1}}],
+         "actions": [{"type": "retirer", "objet": "les_limbes:farine", "nombre": 1}, {"type": "donner", "objet": "les_limbes:pain_d_emile", "nombre": 2}]},
+        {"texte": "Merci, Émile."}
+      ]
+    }
+  }
+}

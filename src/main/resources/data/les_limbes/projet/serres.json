@@ -1,0 +1,57 @@
+{
+  "titre": "Reconstruire les serres",
+  "description": "Remplacer la serre effondrée par une vraie verrière : plantes des Prairies, cuve d'alchimie, cuisine du jardin. Hanna y travaillera.",
+  "ordre": 4,
+  "lieu": "manoir",
+  "prerequis": [
+    {
+      "drapeau_monde": "domaine_aile_ouest"
+    },
+    {
+      "drapeau": "hanna_recrutee"
+    }
+  ],
+  "cout": [
+    {
+      "objet": "minecraft:glass",
+      "nombre": 48
+    },
+    {
+      "objet": "les_limbes:pierre_nacree_taillee",
+      "nombre": 16
+    },
+    {
+      "objet": "les_limbes:fleur_de_rosee",
+      "nombre": 6
+    }
+  ],
+  "gabarit": "les_limbes:manoir/serres",
+  "origine": [
+    -115,
+    65,
+    128
+  ],
+  "avant": "les_limbes:manoir/manoir",
+  "origine_avant": [
+    -133,
+    65,
+    139
+  ],
+  "drapeau_monde": "domaine_serres",
+  "apres": [
+    {
+      "type": "message",
+      "texte": "Les serres brillent sous la verrière. Hanna y fait pousser les plantes des Prairies."
+    },
+    {
+      "type": "deplacer_pnj",
+      "role": "hanna",
+      "pos": [
+        -111,
+        66,
+        136
+      ],
+      "dimension": "les_limbes:limbes"
+    }
+  ]
+}

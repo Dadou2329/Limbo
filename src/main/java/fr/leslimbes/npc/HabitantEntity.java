@@ -41,7 +41,7 @@ import java.util.Set;
  * venaient à disparaître (voir {@link EssentialNpcs}).</p>
  */
 public class HabitantEntity extends PathAwareEntity {
-	public static final Set<String> ROLES_ESSENTIELS = Set.of("maelle", "thibault", "orielle", "brann", "vaeron", "gaspard");
+	public static final Set<String> ROLES_ESSENTIELS = Set.of("maelle", "thibault", "orielle", "brann", "vaeron", "gaspard", "emile", "lisbeth", "rosalie");
 	private static final TrackedData<String> ROLE = DataTracker.registerData(HabitantEntity.class, TrackedDataHandlerRegistry.STRING);
 	private static final TrackedData<Boolean> EN_CONVERSATION = DataTracker.registerData(HabitantEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 

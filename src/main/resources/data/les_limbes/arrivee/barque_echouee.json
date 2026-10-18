@@ -1,0 +1,13 @@
+{
+  "titre": "La barque échouée",
+  "description": "Une barque de pêche d'un autre monde, couchée sur la rive du lac, avec sa capitaine.",
+  "echelle": "moyenne",
+  "gabarit": "les_limbes:arrivees/barque_echouee",
+  "ancre": [5, 0, 3],
+  "sites": "rive",
+  "poids": 10,
+  "unique": true,
+  "duree": 0,
+  "prerequis": [{"drapeau_monde": "domaine_aile_ouest"}],
+  "annonce": "Quelque chose de grand a glissé jusqu'à la rive"
+}

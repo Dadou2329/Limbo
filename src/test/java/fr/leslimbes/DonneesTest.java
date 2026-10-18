@@ -187,14 +187,16 @@ class DonneesTest {
 		JsonObject terrain = json(DATA.resolve("worldgen/density_function/terrain.json"));
 		String texte = terrain.toString();
 		assertTrue(texte.contains("\"les_limbes:aplanir\""), "la fonction d'aplanissement doit être utilisée");
-		for (int[] site : new int[][]{{0, 140}, {-120, 150}, {150, 60}, {0, 56}}) {
+		for (int[] site : new int[][]{{0, 140}, {-120, 150}, {150, 60}, {0, 56}, {70, 210}, {-80, 80}, {220, 150}, {-60, 20}}) {
 			assertTrue(texte.contains("\"x\":" + site[0] + ",\"z\":" + site[1] + ",\"y\":66"), "site aplani manquant : " + site[0] + "," + site[1]);
 		}
 		assertEquals(0, fr.leslimbes.world.dimension.LimbesSites.CLAIRVAL.getX());
 		assertEquals(140, fr.leslimbes.world.dimension.LimbesSites.CLAIRVAL.getZ());
 		assertEquals(66, fr.leslimbes.world.dimension.LimbesSites.SOL_PRAIRIES);
 		// Ensembles de structures à position fixe : le chunk déclaré contient bien le site.
-		for (String[] s : new String[][]{{"clairval", "0", "140"}, {"manoir", "-120", "150"}, {"relais_royal", "150", "60"}, {"sanctuaire", "0", "0"}}) {
+		assertEquals(-60, fr.leslimbes.world.dimension.LimbesSites.LAC_DU_CREPUSCULE.getX());
+		assertEquals(70, fr.leslimbes.world.dimension.LimbesSites.ARRIVEE_PRAIRIES_1.getX());
+		for (String[] s : new String[][]{{"clairval", "0", "140"}, {"manoir", "-120", "150"}, {"relais_royal", "150", "60"}, {"sanctuaire", "0", "0"}, {"lac_crepuscule", "-60", "20"}}) {
 			JsonObject set = json(DATA.resolve("worldgen/structure_set/" + s[0] + ".json"));
 			var chunk = set.getAsJsonObject("placement").getAsJsonArray("chunks").get(0).getAsJsonArray();
 			assertEquals(Integer.parseInt(s[1]) >> 4, chunk.get(0).getAsInt(), s[0] + " : chunk x");
@@ -203,6 +205,88 @@ class DonneesTest {
 			for (var piece : structure.getAsJsonArray("pieces")) {
 				String gabarit = piece.getAsJsonObject().get("gabarit").getAsString().substring("les_limbes:".length());
 				assertTrue(Files.exists(DATA.resolve("structure/" + gabarit + ".nbt")), "gabarit manquant : " + gabarit);
+			}
+		}
+	}
+
+	@Test
+	void lesArriveesSontValidesEtLeursSitesAplanis() throws IOException {
+		List<Path> defs = fichiers(DATA.resolve("arrivee"), ".json");
+		assertFalse(defs.isEmpty(), "aucune Arrivée définie");
+		java.util.Map<String, String> textes = new java.util.LinkedHashMap<>();
+		for (Path p : defs) {
+			textes.put(p.getFileName().toString().replace(".json", ""), Files.readString(p, StandardCharsets.UTF_8));
+		}
+		java.util.Map<String, String> sites = new java.util.LinkedHashMap<>();
+		for (Path p : fichiers(DATA.resolve("arrivee_site"), ".json")) {
+			sites.put(p.getFileName().toString().replace(".json", ""), Files.readString(p, StandardCharsets.UTF_8));
+		}
+		fr.leslimbes.arrivee.ArriveeLoader.chargerDepuisJson(textes, sites);
+		assertEquals(defs.size(), fr.leslimbes.arrivee.ArriveeLoader.definitions().size());
+		String terrain = json(DATA.resolve("worldgen/density_function/terrain.json")).toString();
+		for (fr.leslimbes.arrivee.ArriveeSite site : fr.leslimbes.arrivee.ArriveeLoader.sites().values()) {
+			assertTrue(terrain.contains("\"x\":" + site.pos().getX() + ",\"z\":" + site.pos().getZ()), "site d'Arrivée non aplani : " + site.id());
+		}
+		for (fr.leslimbes.arrivee.ArriveeDefinition def : fr.leslimbes.arrivee.ArriveeLoader.definitions().values()) {
+			String gabarit = def.gabarit().getPath();
+			assertTrue(Files.exists(DATA.resolve("structure/" + gabarit + ".nbt")), "gabarit d'Arrivée manquant : " + gabarit);
+			assertTrue(fr.leslimbes.arrivee.ArriveeLoader.sites().values().stream().anyMatch(st -> st.groupe().equals(def.groupeSites())), "aucun site pour le groupe " + def.groupeSites());
+			assertFalse(def.titre().isBlank());
+		}
+	}
+
+	@Test
+	void lesModelesDEntitesPilotesParDonneesSontCoherents() throws IOException {
+		List<Path> modeles = fichiers(ASSETS.resolve("models/entite"), ".json");
+		assertFalse(modeles.isEmpty(), "aucun modèle d'entité");
+		for (Path p : modeles) {
+			String id = p.getFileName().toString().replace(".json", "");
+			fr.leslimbes.client.render.modele.ModeleDonnees m = fr.leslimbes.client.render.modele.ModeleDonnees.parse(json(p));
+			Set<String> os = new java.util.HashSet<>();
+			for (var o : m.os()) {
+				assertTrue(os.add(o.nom()), id + " : os en double " + o.nom());
+			}
+			for (var o : m.os()) {
+				assertTrue(o.parent().isEmpty() || os.contains(o.parent()), id + " : parent inconnu " + o.parent());
+				for (var c : o.cubes()) {
+					assertTrue(c.u() + 2 * (c.sz() + c.sx()) <= m.largeurTexture() && c.v() + c.sz() + c.sy() <= m.hauteurTexture(), id + "/" + o.nom() + " : cube hors de la texture");
+				}
+			}
+			for (var a : m.animations()) {
+				assertTrue(os.contains(a.os()), id + " : animation sur un os inconnu " + a.os());
+				assertTrue(Set.of("rx", "ry", "rz", "x", "y", "z", "echelle").contains(a.propriete()), id + " : propriété inconnue " + a.propriete());
+			}
+			assertTrue(Files.exists(ASSETS.resolve("textures/entity/" + id + ".png")), id + " : texture manquante");
+			if (m.lueur()) {
+				assertTrue(Files.exists(ASSETS.resolve("textures/entity/" + id + "_lueur.png")), id + " : texture émissive manquante");
+			}
+		}
+	}
+
+	@Test
+	void lesObjetsDesQuetesExistent() throws IOException {
+		for (Path p : fichiers(DATA.resolve("quest"), ".json")) {
+			JsonObject q = json(p);
+			for (var e : q.getAsJsonArray("etapes")) {
+				for (var o : e.getAsJsonObject().getAsJsonArray("objectifs")) {
+					JsonObject obj = o.getAsJsonObject();
+					String type = obj.get("type").getAsString();
+					if (type.equals("collecter")) {
+						net.minecraft.util.Identifier id = net.minecraft.util.Identifier.of(obj.get("cible").getAsString());
+						boolean connu = id.getNamespace().equals("minecraft") ? net.minecraft.registry.Registries.ITEM.containsId(id)
+								: lang.containsKey("item.les_limbes." + id.getPath()) || lang.containsKey("block.les_limbes." + id.getPath());
+						assertTrue(connu, p.getFileName() + " : objet inconnu " + id);
+					}
+					if (type.equals("vaincre")) {
+						net.minecraft.util.Identifier id = net.minecraft.util.Identifier.of(obj.get("cible").getAsString());
+						boolean connu = id.getNamespace().equals("minecraft") ? net.minecraft.registry.Registries.ENTITY_TYPE.containsId(id)
+								: lang.containsKey("entity.les_limbes." + id.getPath());
+						assertTrue(connu, p.getFileName() + " : entité inconnue " + id);
+					}
+					if (type.equals("parler")) {
+						assertTrue(lang.containsKey("pnj.les_limbes." + obj.get("cible").getAsString()), p.getFileName() + " : rôle sans nom " + obj.get("cible"));
+					}
+				}
 			}
 		}
 	}

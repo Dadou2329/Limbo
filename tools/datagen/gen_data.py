@@ -51,7 +51,7 @@ def lb(path: str) -> str:
 
 # ----------------------------------------------------------------------------- blocs
 CUBE_ALL = ["pierre_nacree", "pierre_nacree_taillee", "pierre_nacree_polie", "pierre_nacree_sculptee",
-            "planches_d_aube", "terre_des_limbes", "cristal_de_nacre", "feuilles_d_aube"]
+            "planches_d_aube", "terre_des_limbes", "cristal_de_nacre", "feuilles_d_aube", "meule_royale"]
 CROSS = ["fibres_nacrees", "herbe_de_l_aube", "fleur_de_rosee", "pousse_d_aube"]
 
 
@@ -184,11 +184,33 @@ def gen_blocks() -> None:
             "east": {"uv": [6, 0, 10, 16], "texture": "#voile"}, "west": {"uv": [6, 0, 10, 16], "texture": "#voile"},
             "up": {"uv": [0, 6, 16, 10], "texture": "#voile"}, "down": {"uv": [0, 6, 16, 10], "texture": "#voile"}}}]})
     asset("models/item", "porte_des_limbes", {"parent": lb("block/porte_des_limbes_dormante")})
+    # Dalle de rosée : cachée (translucide) ou révélée (lumineuse)
+    asset("blockstates", "dalle_de_rosee", {"variants": {
+        "revelee=false": {"model": lb("block/dalle_de_rosee_cachee")}, "revelee=true": {"model": lb("block/dalle_de_rosee")}}})
+    asset("models/block", "dalle_de_rosee", {"parent": mc("block/cube_all"), "textures": {"all": lb("block/dalle_de_rosee")}})
+    asset("models/block", "dalle_de_rosee_cachee", {"parent": mc("block/cube_all"), "textures": {"all": lb("block/dalle_de_rosee_cachee")}})
+    asset("models/item", "dalle_de_rosee", {"parent": lb("block/dalle_de_rosee")})
+    # Meule du moulin (colonne) et axe des ailes (petit cube, les ailes sont rendues par le bloc-entité)
+    asset("blockstates", "meule_de_moulin", {"variants": {"": {"model": lb("block/meule_de_moulin")}}})
+    asset("models/block", "meule_de_moulin", {"parent": mc("block/cube_column"), "textures": {"end": lb("block/meule_de_moulin_top"), "side": lb("block/meule_de_moulin")}})
+    asset("models/item", "meule_de_moulin", {"parent": lb("block/meule_de_moulin")})
+    variants = {}
+    for facing, y in [("north", 0), ("east", 90), ("south", 180), ("west", 270)]:
+        for actif in ("false", "true"):
+            entry = {"model": lb("block/ailes_de_moulin")}
+            if y:
+                entry["y"] = y
+            variants[f"actif={actif},facing={facing}"] = entry
+    asset("blockstates", "ailes_de_moulin", {"variants": variants})
+    asset("models/block", "ailes_de_moulin", {"textures": {"particle": lb("block/buche_d_aube"), "axe": lb("block/buche_d_aube")},
+                                             "elements": [{"from": [5, 5, 0], "to": [11, 11, 16], "faces": {f: {"texture": "#axe"} for f in ["north", "south", "east", "west", "up", "down"]}}]})
+    asset("models/item", "ailes_de_moulin", {"parent": lb("block/ailes_de_moulin")})
 
 
 # ----------------------------------------------------------------------------- objets
 ITEMS_GENERATED = ["fragment_de_nacre", "boussole_nacree", "fibres_nacrees", "herbe_de_l_aube", "bouillon_de_l_aube",
-                   "fragment_de_couronne", "cle_du_manoir", "oeuf_habitant", "oeuf_poisson_lune", "oeuf_cerf_lanterne", "oeuf_veilleur_egare"]
+                   "fragment_de_couronne", "cle_du_manoir", "oeuf_habitant", "oeuf_poisson_lune", "oeuf_cerf_lanterne", "oeuf_veilleur_egare",
+                   "sifflet_de_raie", "oeuf_raie_celeste", "farine", "pain_d_emile", "journal_de_bord", "ragout_du_domaine"]
 
 
 def gen_items() -> None:
@@ -218,6 +240,11 @@ SOUNDS = {
     "creature.veilleur.blesse": ("creature/veilleur_blesse", "subtitles.les_limbes.creature.veilleur.blesse"),
     "creature.veilleur.mort": ("creature/veilleur_mort", "subtitles.les_limbes.creature.veilleur.mort"),
     "interface.dialogue": ("interface/dialogue", "subtitles.les_limbes.interface.dialogue"),
+    "creature.raie.appel": ("creature/raie_appel", "subtitles.les_limbes.creature.raie"),
+    "creature.raie.pacte": ("creature/raie_pacte", "subtitles.les_limbes.creature.raie.pacte"),
+    "monde.arrivee": ("monde/arrivee", "subtitles.les_limbes.monde.arrivee"),
+    "bloc.moulin.grince": ("bloc/moulin_grince", "subtitles.les_limbes.bloc.moulin"),
+    "bloc.dalle.emerge": ("bloc/dalle_emerge", "subtitles.les_limbes.bloc.dalle"),
 }
 
 
@@ -241,8 +268,9 @@ def gen_tags() -> None:
             data("tags/" + kind, name, {"replace": replace, "values": values})
 
     pierre = [lb(x) for x in ["pierre_nacree", "pierre_nacree_taillee", "pierre_nacree_polie", "pierre_nacree_sculptee",
-                             "escalier_de_pierre_nacree", "dalle_de_pierre_nacree", "muret_de_pierre_nacree", "cristal_de_nacre", "lanterne_nacree"]]
-    bois = [lb(x) for x in ["buche_d_aube", "planches_d_aube", "escalier_d_aube", "dalle_d_aube", "barriere_d_aube", "porte_d_aube"]]
+                             "escalier_de_pierre_nacree", "dalle_de_pierre_nacree", "muret_de_pierre_nacree", "cristal_de_nacre", "lanterne_nacree",
+                             "meule_royale", "meule_de_moulin"]]
+    bois = [lb(x) for x in ["buche_d_aube", "planches_d_aube", "escalier_d_aube", "dalle_d_aube", "barriere_d_aube", "porte_d_aube", "ailes_de_moulin"]]
     tag("block", "../../minecraft/tags/block/mineable/pickaxe", pierre)
     tag("block", "../../minecraft/tags/block/mineable/axe", bois)
     tag("block", "../../minecraft/tags/block/mineable/shovel", [lb("terre_des_limbes"), lb("herbe_argentee")])
@@ -292,7 +320,7 @@ def gen_tags() -> None:
     tag("worldgen/biome", "a_vestiges", [mc(x) for x in ["plains", "sunflower_plains", "forest", "flower_forest", "birch_forest", "meadow",
                                                          "savanna", "taiga", "cherry_grove", "dark_forest", "old_growth_birch_forest", "snowy_plains", "windswept_hills"]])
     tag("worldgen/structure", "vestiges", [lb("vestige")])
-    tag("entity_type", "../../minecraft/tags/entity_type/fall_damage_immune", [lb("poisson_lune")])
+    tag("entity_type", "../../minecraft/tags/entity_type/fall_damage_immune", [lb("poisson_lune"), lb("raie_celeste")])
 
 
 # ----------------------------------------------------------------------------- butin
@@ -311,8 +339,9 @@ def silk_or(block: str, alt: str):
 def gen_loot() -> None:
     for b in ["pierre_nacree", "pierre_nacree_taillee", "pierre_nacree_polie", "pierre_nacree_sculptee", "escalier_de_pierre_nacree",
               "muret_de_pierre_nacree", "cristal_de_nacre", "terre_des_limbes", "buche_d_aube", "planches_d_aube", "escalier_d_aube",
-              "barriere_d_aube", "pousse_d_aube", "fleur_de_rosee", "lanterne_nacree"]:
+              "barriere_d_aube", "pousse_d_aube", "fleur_de_rosee", "lanterne_nacree", "meule_royale", "meule_de_moulin", "ailes_de_moulin"]:
         data("loot_table/blocks", b, self_drop(b))
+    data("loot_table/blocks", "dalle_de_rosee", {"type": "minecraft:block", "pools": []})
     data("loot_table/blocks", "herbe_argentee", silk_or("herbe_argentee", "terre_des_limbes"))
     for b in ["dalle_de_pierre_nacree", "dalle_d_aube"]:
         data("loot_table/blocks", b, {"type": "minecraft:block", "pools": [{"rolls": 1, "bonus_rolls": 0, "entries": [{"type": "minecraft:item", "name": lb(b), "functions": [
@@ -363,6 +392,34 @@ def gen_loot() -> None:
             {"type": "minecraft:item", "name": lb("fibres_nacrees"), "weight": 3, "functions": [{"function": "minecraft:set_count", "count": {"type": "minecraft:uniform", "min": 1, "max": 4}}]},
             {"type": "minecraft:item", "name": lb("bouillon_de_l_aube"), "weight": 2},
             {"type": "minecraft:item", "name": "minecraft:bread", "weight": 3, "functions": [{"function": "minecraft:set_count", "count": {"type": "minecraft:uniform", "min": 1, "max": 2}}]}]}]})
+    data("loot_table/chests", "maison_egaree", {"type": "minecraft:chest", "pools": [
+        {"rolls": {"type": "minecraft:uniform", "min": 2, "max": 4}, "entries": [
+            {"type": "minecraft:item", "name": "minecraft:bread", "weight": 5, "functions": [{"function": "minecraft:set_count", "count": {"type": "minecraft:uniform", "min": 1, "max": 3}}]},
+            {"type": "minecraft:item", "name": "minecraft:wheat", "weight": 4, "functions": [{"function": "minecraft:set_count", "count": {"type": "minecraft:uniform", "min": 2, "max": 5}}]},
+            {"type": "minecraft:item", "name": "minecraft:egg", "weight": 2, "functions": [{"function": "minecraft:set_count", "count": {"type": "minecraft:uniform", "min": 1, "max": 3}}]},
+            {"type": "minecraft:item", "name": "minecraft:sugar", "weight": 2, "functions": [{"function": "minecraft:set_count", "count": {"type": "minecraft:uniform", "min": 1, "max": 2}}]},
+            {"type": "minecraft:item", "name": "minecraft:book", "weight": 1}]}]})
+    data("loot_table/chests", "caisse_tombee", {"type": "minecraft:chest", "pools": [
+        {"rolls": {"type": "minecraft:uniform", "min": 2, "max": 3}, "entries": [
+            {"type": "minecraft:item", "name": lb("fragment_de_nacre"), "weight": 4, "functions": [{"function": "minecraft:set_count", "count": {"type": "minecraft:uniform", "min": 1, "max": 2}}]},
+            {"type": "minecraft:item", "name": "minecraft:amethyst_shard", "weight": 3, "functions": [{"function": "minecraft:set_count", "count": {"type": "minecraft:uniform", "min": 1, "max": 3}}]},
+            {"type": "minecraft:item", "name": "minecraft:lantern", "weight": 2},
+            {"type": "minecraft:item", "name": "minecraft:name_tag", "weight": 1},
+            {"type": "minecraft:item", "name": "minecraft:paper", "weight": 3, "functions": [{"function": "minecraft:set_count", "count": {"type": "minecraft:uniform", "min": 1, "max": 4}}]},
+            {"type": "minecraft:item", "name": lb("fleur_de_rosee"), "weight": 3, "functions": [{"function": "minecraft:set_count", "count": {"type": "minecraft:uniform", "min": 1, "max": 3}}]},
+            {"type": "minecraft:item", "name": lb("pain_d_emile"), "weight": 2}]}]})
+    data("loot_table/chests", "barque", {"type": "minecraft:chest", "pools": [
+        {"rolls": {"type": "minecraft:uniform", "min": 2, "max": 3}, "entries": [
+            {"type": "minecraft:item", "name": "minecraft:cod", "weight": 4, "functions": [{"function": "minecraft:set_count", "count": {"type": "minecraft:uniform", "min": 2, "max": 4}}]},
+            {"type": "minecraft:item", "name": "minecraft:fishing_rod", "weight": 2},
+            {"type": "minecraft:item", "name": "minecraft:string", "weight": 3, "functions": [{"function": "minecraft:set_count", "count": {"type": "minecraft:uniform", "min": 2, "max": 5}}]},
+            {"type": "minecraft:item", "name": "minecraft:lantern", "weight": 2},
+            {"type": "minecraft:item", "name": "minecraft:spyglass", "weight": 1}]}]})
+    data("loot_table/chests", "ilot", {"type": "minecraft:chest", "pools": [
+        {"rolls": 1, "entries": [{"type": "minecraft:item", "name": lb("journal_de_bord")}]},
+        {"rolls": {"type": "minecraft:uniform", "min": 1, "max": 2}, "entries": [
+            {"type": "minecraft:item", "name": lb("fragment_de_nacre"), "weight": 3, "functions": [{"function": "minecraft:set_count", "count": {"type": "minecraft:uniform", "min": 1, "max": 2}}]},
+            {"type": "minecraft:item", "name": lb("cristal_de_nacre"), "weight": 2}]}]})
     # entités
     data("loot_table/entities", "veilleur_egare", {"type": "minecraft:entity", "pools": [
         {"rolls": 1, "entries": [{"type": "minecraft:item", "name": lb("fragment_de_nacre"), "functions": [{"function": "minecraft:set_count", "count": {"type": "minecraft:uniform", "min": 0, "max": 1}}]}]},
@@ -405,6 +462,9 @@ def gen_recipes() -> None:
     shaped("lanterne_nacree", ["NNN", "NCN", "NNN"], {"N": "minecraft:iron_nugget", "C": lb("cristal_de_nacre")}, lb("lanterne_nacree"), 2)
     shaped("cristal_de_nacre", ["FF", "FF"], {"F": lb("fragment_de_nacre")}, lb("cristal_de_nacre"), 1)
     shaped("corde_de_fibres", ["F", "F", "F"], {"F": lb("fibres_nacrees")}, "minecraft:string", 2)
+    shapeless("farine", ["minecraft:wheat", "minecraft:wheat", "minecraft:wheat"], lb("farine"), 2)
+    shapeless("pain_d_emile", [lb("farine"), lb("farine"), "minecraft:bucket"], lb("pain_d_emile"), 1)
+    shapeless("ragout_du_domaine", ["minecraft:bowl", lb("herbe_de_l_aube"), "minecraft:carrot", "minecraft:cod", lb("pain_d_emile")], lb("ragout_du_domaine"), 1)
     for b in ["pierre_nacree_taillee", "pierre_nacree_polie", "escalier_de_pierre_nacree", "dalle_de_pierre_nacree", "muret_de_pierre_nacree", "pierre_nacree_sculptee"]:
         count = 2 if b == "dalle_de_pierre_nacree" else 1
         data("recipe", "tailleur_" + b, {"type": "minecraft:stonecutting", "ingredient": {"item": lb("pierre_nacree")}, "result": {"id": lb(b), "count": count}})
@@ -476,6 +536,11 @@ SITES = [
     {"x": -120, "z": 150, "y": 66, "rayon": 34, "transition": 30},  # Manoir
     {"x": 150, "z": 60, "y": 66, "rayon": 34, "transition": 30},    # Relais royal
     {"x": 0, "z": 56, "y": 66, "rayon": 34, "transition": 30},      # Pied du pont
+    {"x": 70, "z": 210, "y": 66, "rayon": 16, "transition": 14},    # Site d'Arrivée 1
+    {"x": -80, "z": 80, "y": 66, "rayon": 16, "transition": 14},    # Site d'Arrivée 2
+    {"x": 220, "z": 150, "y": 66, "rayon": 16, "transition": 14},   # Site d'Arrivée 3
+    {"x": -60, "z": 20, "y": 66, "rayon": 22, "transition": 16},    # Lac du Crépuscule
+    {"x": -30, "z": 20, "y": 66, "rayon": 12, "transition": 12},    # Rive est du lac (site d'Arrivée « rive »)
 ]
 
 
@@ -596,15 +661,16 @@ def gen_worldgen() -> None:
     lapin = {"type": "minecraft:rabbit", "weight": 3, "minCount": 2, "maxCount": 3}
     poisson = {"type": lb("poisson_lune"), "weight": 12, "minCount": 3, "maxCount": 6}
     veilleur = {"type": lb("veilleur_egare"), "weight": 3, "minCount": 1, "maxCount": 1}
+    raie = {"type": lb("raie_celeste"), "weight": 4, "minCount": 1, "maxCount": 2}
     biome("plaines_nacrees", 0.7, 0x9FC4E8, 0xDDE3F0, 0x6EC4E8, 0x9AD8F0, 0xB4C6AC, 0xC9B7A2,
           [lb("arbres_aube_epars"), lb("grands_arbres_aube"), lb("bosquet_fibres"), lb("herbes_aube"), lb("fleurs_rosee")],
-          [cerf, mouton, lapin], [poisson], [veilleur], "minecraft:music.overworld.meadow")
+          [cerf, mouton, lapin, raie], [poisson], [veilleur], "minecraft:music.overworld.meadow")
     biome("vergers_suspendus", 0.8, 0xA8C8EC, 0xE6E0EA, 0x6EC4E8, 0x9AD8F0, 0xC2CDA8, 0xD9B59A,
           [lb("arbres_aube_verger"), lb("bosquet_fibres"), lb("herbes_aube_denses"), lb("fleurs_rosee")],
           [cerf, mouton, lapin], [poisson], [], "minecraft:music.overworld.cherry_grove")
     biome("vallee_des_lanternes", 0.6, 0x8FB8E6, 0xCFD9EE, 0x6EC4E8, 0x9AD8F0, 0xA9C0B4, 0xC9B7A2,
           [lb("arbres_aube_epars"), lb("bosquet_fibres_dense"), lb("lanternes_perdues"), lb("fleurs_rosee")],
-          [{"type": lb("cerf_lanterne"), "weight": 16, "minCount": 2, "maxCount": 5}], [{"type": lb("poisson_lune"), "weight": 16, "minCount": 4, "maxCount": 8}], [veilleur],
+          [{"type": lb("cerf_lanterne"), "weight": 16, "minCount": 2, "maxCount": 5}, raie], [{"type": lb("poisson_lune"), "weight": 16, "minCount": 4, "maxCount": 8}], [veilleur],
           "minecraft:music.overworld.forest")
     # Vestiges dans l'Overworld (structure composée ; le gabarit est produit par structgen)
     data("worldgen/structure", "vestige", {"type": lb("composee"), "biomes": "#" + lb("a_vestiges"), "step": "surface_structures", "terrain_adaptation": "beard_thin",

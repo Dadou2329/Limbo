@@ -1,0 +1,51 @@
+{
+  "titre": "Dresser les écuries et la volière",
+  "description": "Stalles couvertes et perchoir ouvert pour les raies, au nord-ouest. Loïc y soignera les montures.",
+  "ordre": 3,
+  "lieu": "manoir",
+  "prerequis": [
+    {
+      "drapeau_monde": "domaine_aile_ouest"
+    },
+    {
+      "drapeau": "loic_recrute"
+    }
+  ],
+  "cout": [
+    {
+      "objet": "les_limbes:planches_d_aube",
+      "nombre": 40
+    },
+    {
+      "objet": "minecraft:hay_block",
+      "nombre": 4
+    },
+    {
+      "objet": "les_limbes:barriere_d_aube",
+      "nombre": 12
+    }
+  ],
+  "gabarit": "les_limbes:manoir/ecuries",
+  "origine": [
+    -146,
+    65,
+    124
+  ],
+  "drapeau_monde": "domaine_ecuries",
+  "apres": [
+    {
+      "type": "message",
+      "texte": "Les écuries et la volière sont prêtes. Votre raie y trouvera un perchoir."
+    },
+    {
+      "type": "deplacer_pnj",
+      "role": "loic",
+      "pos": [
+        -139,
+        66,
+        130
+      ],
+      "dimension": "les_limbes:limbes"
+    }
+  ]
+}

@@ -115,9 +115,13 @@ public final class Actions {
 				String quete = JsonUtil.requireString(a, "quete", type);
 				String cle = JsonUtil.requireString(a, "cle", type);
 				Optional<BlockPos> pos = JsonUtil.blockPos(a, "pos");
-				if ("vestige".equals(JsonUtil.string(a, "localiser", ""))) {
+				String localiser = JsonUtil.string(a, "localiser", "");
+				if ("vestige".equals(localiser)) {
 					pos = LimbesPortal.localiserVestige(player.getServerWorld(), player.getBlockPos());
 					data.vestigeConnu = pos;
+				} else if (localiser.startsWith("arrivee:")) {
+					fr.leslimbes.arrivee.ArriveeEvenement e = fr.leslimbes.arrivee.ArriveeManager.plusProche(player.server, player.getBlockPos(), localiser.substring(8));
+					pos = e == null ? Optional.empty() : Optional.of(e.pos);
 				}
 				QuestProgress p = data.quetes.get(quete);
 				if (p != null && pos.isPresent()) {
@@ -125,6 +129,19 @@ public final class Actions {
 				}
 			}
 			case "apparition" -> apparition(player, a);
+			case "arrivee_resoudre" -> {
+				if (fr.leslimbes.arrivee.ArriveeManager.resoudre(player.server, JsonUtil.requireString(a, "id", type))) {
+					player.sendMessage(Text.translatable("message.les_limbes.arrivee.resolue").formatted(Formatting.LIGHT_PURPLE), false);
+				}
+			}
+			case "arrivee_declencher" -> {
+				fr.leslimbes.arrivee.ArriveeDefinition def = fr.leslimbes.arrivee.ArriveeLoader.get(JsonUtil.requireString(a, "id", type));
+				if (def != null) {
+					fr.leslimbes.arrivee.ArriveeManager.declencher(player.server, def, JsonUtil.string(a, "site", null));
+				}
+			}
+			case "deplacer_pnj" -> deplacerPnj(player, a);
+			case "modifier_bloc" -> modifierBloc(player, a);
 			default -> LesLimbes.LOGGER.warn("Action inconnue ignorée : {}", type);
 		}
 		if (uneFois != null) {
@@ -179,6 +196,72 @@ public final class Actions {
 			}
 			world.spawnEntity(e);
 		}
+	}
+
+	/**
+	 * Déplace un personnage (par rôle) vers une position et en fait son nouveau domicile ; il y
+	 * réapparaîtra désormais. <pre>{"type": "deplacer_pnj", "role": "emile", "pos": [20, 66, 126]}</pre>
+	 */
+	private static void deplacerPnj(ServerPlayerEntity player, JsonObject a) {
+		String role = JsonUtil.requireString(a, "role", "deplacer_pnj");
+		Optional<BlockPos> pos = JsonUtil.blockPos(a, "pos");
+		if (pos.isEmpty()) {
+			return;
+		}
+		net.minecraft.server.world.ServerWorld world = player.getServerWorld();
+		String dim = JsonUtil.string(a, "dimension", null);
+		if (dim != null) {
+			net.minecraft.server.world.ServerWorld autre = player.server.getWorld(net.minecraft.registry.RegistryKey.of(net.minecraft.registry.RegistryKeys.WORLD, Identifier.of(dim)));
+			if (autre != null) {
+				world = autre;
+			}
+		}
+		BlockPos cible = pos.get();
+		for (fr.leslimbes.npc.HabitantEntity pnj : world.getEntitiesByClass(fr.leslimbes.npc.HabitantEntity.class, new net.minecraft.util.math.Box(player.getBlockPos()).expand(64), h -> h.getRole().equals(role))) {
+			pnj.setDomicile(cible);
+			pnj.teleport(world, cible.getX() + 0.5, cible.getY(), cible.getZ() + 0.5, java.util.Set.of(), pnj.getYaw(), pnj.getPitch());
+			LimbesWorldState.get(player.server).ancrerPnj(role, cible);
+			return;
+		}
+		// Personnage introuvable à proximité : on déplace seulement son ancrage, la réapparition fera le reste.
+		LimbesWorldState.get(player.server).ancrerPnj(role, cible);
+	}
+
+	/**
+	 * Change l'état d'un bloc scénarisé (transformation visible du monde). Le bloc doit être du type indiqué.
+	 * <pre>{"type": "modifier_bloc", "pos": [-28, 73, 126], "bloc": "les_limbes:ailes_de_moulin", "proprietes": {"actif": "true"}}</pre>
+	 */
+	private static void modifierBloc(ServerPlayerEntity player, JsonObject a) {
+		Optional<BlockPos> pos = JsonUtil.blockPos(a, "pos");
+		if (pos.isEmpty()) {
+			return;
+		}
+		net.minecraft.server.world.ServerWorld world = player.getServerWorld();
+		String dim = JsonUtil.string(a, "dimension", null);
+		if (dim != null) {
+			net.minecraft.server.world.ServerWorld autre = player.server.getWorld(net.minecraft.registry.RegistryKey.of(net.minecraft.registry.RegistryKeys.WORLD, Identifier.of(dim)));
+			if (autre != null) {
+				world = autre;
+			}
+		}
+		Identifier bloc = Identifier.of(JsonUtil.requireString(a, "bloc", "modifier_bloc"));
+		net.minecraft.block.BlockState etat = world.getBlockState(pos.get());
+		if (!Registries.BLOCK.getId(etat.getBlock()).equals(bloc)) {
+			LesLimbes.LOGGER.warn("modifier_bloc : {} attendu en {}, trouvé {}", bloc, pos.get().toShortString(), Registries.BLOCK.getId(etat.getBlock()));
+			return;
+		}
+		JsonObject props = a.has("proprietes") ? a.getAsJsonObject("proprietes") : new JsonObject();
+		for (String nom : props.keySet()) {
+			net.minecraft.state.property.Property<?> prop = etat.getBlock().getStateManager().getProperty(nom);
+			if (prop != null) {
+				etat = avec(etat, prop, props.get(nom).getAsString());
+			}
+		}
+		world.setBlockState(pos.get(), etat, 3);
+	}
+
+	private static <T extends Comparable<T>> net.minecraft.block.BlockState avec(net.minecraft.block.BlockState etat, net.minecraft.state.property.Property<T> prop, String valeur) {
+		return prop.parse(valeur).map(v -> etat.with(prop, v)).orElse(etat);
 	}
 
 	private Actions() {

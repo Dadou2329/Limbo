@@ -1,0 +1,11 @@
+{
+  "nom": "Manoir de Clairval",
+  "pos": [
+    -120,
+    66,
+    150
+  ],
+  "rayon": 20,
+  "region": "prairies",
+  "description": "Votre domaine. Vieillissant, mais à vous."
+}

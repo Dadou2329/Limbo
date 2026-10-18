@@ -51,6 +51,7 @@ public final class LesLimbes implements ModInitializer {
 		Abilities.init();
 		DialogueLoader.init();
 		QuestLoader.init();
+		fr.leslimbes.arrivee.ArriveeLoader.init();
 		LimbesNetworking.init();
 		LimbesServerEvents.init();
 		LimbesCommands.init();

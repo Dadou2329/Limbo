@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "les_limbes:block/meule_de_moulin_top",
+    "side": "les_limbes:block/meule_de_moulin"
+  }
+}

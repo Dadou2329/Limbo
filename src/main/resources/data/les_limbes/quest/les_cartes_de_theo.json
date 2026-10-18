@@ -1,0 +1,82 @@
+{
+  "titre": "Les cartes de Théo",
+  "description": "Théo dresse la carte des Prairies, mais il n'ose pas aller partout. Il a besoin de quelqu'un qui marche.",
+  "acte": 2,
+  "etapes": [
+    {
+      "id": "lieux",
+      "resume": "Découvrir quatre lieux des Prairies : l'observatoire, le moulin, le Lac du Crépuscule et l'ancien relais royal.",
+      "lieu": {
+        "nom": "Pied du grand pont",
+        "pos": [
+          4,
+          66,
+          62
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "observatoire",
+          "type": "drapeau",
+          "cible": "lieu:observatoire",
+          "texte": "Découvrir l'observatoire"
+        },
+        {
+          "id": "moulin",
+          "type": "drapeau",
+          "cible": "lieu:moulin",
+          "texte": "Découvrir le moulin"
+        },
+        {
+          "id": "lac",
+          "type": "drapeau",
+          "cible": "lieu:lac_crepuscule",
+          "texte": "Découvrir le Lac du Crépuscule"
+        },
+        {
+          "id": "relais",
+          "type": "drapeau",
+          "cible": "lieu:relais_royal",
+          "texte": "Découvrir l'ancien relais royal"
+        }
+      ]
+    },
+    {
+      "id": "retour",
+      "resume": "Raconter vos découvertes à Théo.",
+      "lieu": {
+        "nom": "Pied du grand pont",
+        "pos": [
+          4,
+          66,
+          62
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "retour",
+          "type": "parler",
+          "cible": "theo",
+          "manuel": true,
+          "texte": "Parler à Théo"
+        }
+      ]
+    }
+  ],
+  "fin": [
+    {
+      "type": "experience",
+      "niveaux": 1
+    },
+    {
+      "type": "drapeau",
+      "nom": "theo_recrute"
+    },
+    {
+      "type": "message",
+      "texte": "Théo tiendra la maison des explorateurs dès qu'elle sera ouverte."
+    }
+  ]
+}

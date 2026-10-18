@@ -1,0 +1,38 @@
+{
+  "titre": "Élever la galerie des merveilles",
+  "description": "Huit vitrines pour exposer ce que vous ramenez : chaque objet y raconte d'où il vient.",
+  "ordre": 6,
+  "lieu": "manoir",
+  "prerequis": [
+    {
+      "drapeau_monde": "domaine_aile_ouest"
+    }
+  ],
+  "cout": [
+    {
+      "objet": "les_limbes:pierre_nacree_polie",
+      "nombre": 40
+    },
+    {
+      "objet": "minecraft:glass",
+      "nombre": 24
+    },
+    {
+      "objet": "les_limbes:pierre_nacree_sculptee",
+      "nombre": 8
+    }
+  ],
+  "gabarit": "les_limbes:manoir/galerie",
+  "origine": [
+    -140,
+    65,
+    166
+  ],
+  "drapeau_monde": "domaine_galerie",
+  "apres": [
+    {
+      "type": "message",
+      "texte": "La galerie des merveilles attend vos découvertes : posez un objet dans une vitrine."
+    }
+  ]
+}

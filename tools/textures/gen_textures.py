@@ -289,7 +289,74 @@ def tex_porte_d_aube(part: str) -> Image.Image:
     return img
 
 
+def tex_dalle_de_rosee() -> Image.Image:
+    img = new()
+    fill_noise(img, P["nacre_clair"], palette=[P["nacre"], P["nacre_clair"], P["nacre_clair"], P["blanc"]], scale=3, seed=81)
+    outline(img, (0, 0, 16, 16), P["nacre_bleu"])
+    for x, y in [(4, 4), (11, 5), (7, 11), (12, 12), (3, 10)]:
+        put(img, x, y, P["lueur"])
+    return img
+
+
+def tex_dalle_de_rosee_cachee() -> Image.Image:
+    img = new()
+    eau = hex_to_rgba("6EC4E8", 70)
+    fill_noise(img, eau, variation=0.1, scale=4, seed=82)
+    for x, y in [(4, 4), (11, 5), (7, 11), (12, 12)]:
+        put(img, x, y, hex_to_rgba("FFF8E2", 120))
+    return img
+
+
+def tex_meule_royale() -> Image.Image:
+    img = new()
+    fill_noise(img, P["nacre_sombre"], palette=[P["mortier"], P["nacre_sombre"], P["nacre"], P["nacre_clair"]], scale=3, seed=83)
+    for a in range(0, 360, 30):
+        x = int(round(7.5 + 6 * math.cos(math.radians(a)))); y = int(round(7.5 + 6 * math.sin(math.radians(a))))
+        put(img, x, y, P["or_sombre"])
+    rect(img, (6, 6, 10, 10), P["or"])
+    put(img, 7, 7, P["bleu_clair"]); put(img, 8, 8, P["bleu_clair"])
+    return img
+
+
+def tex_meule_de_moulin() -> Image.Image:
+    img = new()
+    fill_noise(img, P["nacre_sombre"], palette=[P["mortier"], P["nacre_sombre"], P["nacre_sombre"], P["nacre"]], scale=3, seed=84)
+    for y in range(0, 16, 4):
+        for x in range(16):
+            put(img, x, y, shade(P["nacre_sombre"], 0.8))
+    return img
+
+
+def tex_meule_de_moulin_top() -> Image.Image:
+    img = new()
+    fill_noise(img, P["nacre_sombre"], palette=[P["mortier"], P["nacre_sombre"], P["nacre"]], scale=3, seed=85)
+    for a in range(0, 360, 20):
+        for r in (3, 6):
+            x = int(round(7.5 + r * math.cos(math.radians(a)))); y = int(round(7.5 + r * math.sin(math.radians(a))))
+            put(img, x, y, shade(P["nacre_sombre"], 0.7))
+    rect(img, (7, 7, 9, 9), P["noir"])
+    return img
+
+
+def tex_toile_de_moulin() -> Image.Image:
+    img = new()
+    fill_noise(img, hex_to_rgba("F4EFE6"), variation=0.08, scale=2, seed=86)
+    for y in range(0, 16, 5):
+        for x in range(16):
+            put(img, x, y, hex_to_rgba("D9CFC0"))
+    for x in (0, 15):
+        for y in range(16):
+            put(img, x, y, hex_to_rgba("B8977E"))
+    return img
+
+
 def gen_blocks() -> None:
+    save(tex_dalle_de_rosee(), out_path("block", "dalle_de_rosee"))
+    save(tex_dalle_de_rosee_cachee(), out_path("block", "dalle_de_rosee_cachee"))
+    save(tex_meule_royale(), out_path("block", "meule_royale"))
+    save(tex_meule_de_moulin(), out_path("block", "meule_de_moulin"))
+    save(tex_meule_de_moulin_top(), out_path("block", "meule_de_moulin_top"))
+    save(tex_toile_de_moulin(), out_path("block", "toile_de_moulin"))
     save(tex_pierre_nacree(), out_path("block", "pierre_nacree"))
     save(tex_pierre_nacree_taillee(), out_path("block", "pierre_nacree_taillee"))
     save(tex_pierre_nacree_polie(), out_path("block", "pierre_nacree_polie"))
@@ -482,7 +549,87 @@ def tex_item_porte_d_aube() -> Image.Image:
     return img
 
 
+def tex_item_sifflet_de_raie() -> Image.Image:
+    """Sifflet d'os nacré, cordon bleu, embouchure dorée."""
+    img = new()
+    os_ = P["nacre"]
+    for x in range(3, 13):
+        put(img, x, 7, os_); put(img, x, 8, shade(os_, 0.85))
+    for x in range(3, 7):
+        put(img, x, 6, shade(os_, 1.1))
+    put(img, 12, 6, P["or"]); put(img, 13, 7, P["or"]); put(img, 13, 8, P["or_sombre"])
+    put(img, 5, 9, P["bleu_clair"]); put(img, 4, 10, P["bleu_clair"]); put(img, 3, 11, P["bleu"]); put(img, 2, 12, P["bleu"]); put(img, 2, 13, P["bleu_clair"])
+    put(img, 8, 6, P["noir"]); put(img, 9, 6, P["noir"])
+    return img
+
+
+def tex_item_farine() -> Image.Image:
+    """Sac de toile noué, farine qui déborde."""
+    img = new()
+    toile = hex_to_rgba("D9C7A8")
+    for y in range(5, 15):
+        w = 4 if y < 7 else 5
+        for x in range(8 - w, 8 + w):
+            put(img, x, y, shade(toile, 0.9 + 0.1 * ((x + y) % 2)))
+    for x in range(5, 11):
+        put(img, x, 4, hex_to_rgba("8E7260"))
+        put(img, x, 3, P["blanc"])
+    put(img, 6, 2, P["blanc"]); put(img, 9, 2, P["nacre_clair"])
+    for x in range(4, 12):
+        put(img, x, 14, shade(toile, 0.75))
+    return img
+
+
+def tex_item_pain_d_emile() -> Image.Image:
+    """Miche dorée, grignée."""
+    img = new()
+    croute = hex_to_rgba("C98B45")
+    mie = hex_to_rgba("F2DDB0")
+    for y in range(5, 12):
+        for x in range(2, 14):
+            dx = abs(x - 7.5) / 6.5
+            dy = abs(y - 8.5) / 3.5
+            if dx * dx + dy * dy <= 1.05:
+                put(img, x, y, shade(croute, 0.85 + 0.25 * (1 - dy)))
+    for x in range(4, 12, 3):
+        put(img, x, 6, mie); put(img, x + 1, 7, mie)
+    for x in range(3, 13):
+        put(img, x, 12, shade(croute, 0.7))
+    return img
+
+
+def tex_item_journal_de_bord() -> Image.Image:
+    img = new()
+    cuir = hex_to_rgba("22305E")
+    rect(img, (3, 2, 13, 14), cuir)
+    rect(img, (4, 3, 12, 13), shade(cuir, 1.15))
+    for y in range(4, 13, 2):
+        put(img, 5, y, P["or"]); put(img, 10, y, P["or"])
+    rect(img, (6, 6, 10, 8), P["or_clair"])
+    put(img, 3, 7, P["blanc"]); put(img, 3, 8, P["blanc"])
+    return img
+
+
+def tex_item_ragout_du_domaine() -> Image.Image:
+    img = new()
+    bol = hex_to_rgba("8E7260")
+    for x in range(3, 13):
+        put(img, x, 9, bol); put(img, x, 10, shade(bol, 0.9)); put(img, x, 11, shade(bol, 0.8))
+    for x in range(4, 12):
+        put(img, x, 12, shade(bol, 0.7)); put(img, x, 8, hex_to_rgba("C98B45"))
+    for x in range(5, 11):
+        put(img, x, 7, hex_to_rgba("D9A066"))
+    put(img, 6, 6, P["herbe_sombre"]); put(img, 9, 6, hex_to_rgba("E07A5A")); put(img, 7, 5, P["blanc"])
+    return img
+
+
 def gen_items() -> None:
+    save(tex_item_sifflet_de_raie(), out_path("item", "sifflet_de_raie"))
+    save(tex_item_journal_de_bord(), out_path("item", "journal_de_bord"))
+    save(tex_item_ragout_du_domaine(), out_path("item", "ragout_du_domaine"))
+    save(tex_item_farine(), out_path("item", "farine"))
+    save(tex_item_pain_d_emile(), out_path("item", "pain_d_emile"))
+    save(tex_item_oeuf(hex_to_rgba("8FB5DE"), P["lueur"]), out_path("item", "oeuf_raie_celeste"))
     save(tex_item_porte_d_aube(), out_path("item", "porte_d_aube"))
     save(tex_item_fragment_de_nacre(), out_path("item", "fragment_de_nacre"))
     save(tex_item_boussole_nacree(), out_path("item", "boussole_nacree"))
@@ -642,6 +789,17 @@ SKINS = {
     "habitant_2": {"seed": 12, "peau": "C58F6A", "cheveux": "1E1A18", "haut": "8A6A4E", "bas": "35455E", "accent": "E3C97E", "col": "E9E3DA"},
     "habitant_3": {"seed": 13, "peau": "F2D6C2", "cheveux": "D9A066", "haut": "5E8A6E", "bas": "6A5A4A", "accent": "F0CBD8",
                    "cheveux_longs": True, "longueur_cheveux": 3},
+    "emile": {"seed": 21, "peau": "E8C4A8", "cheveux": "4A3326", "haut": "F4EFE6", "bas": "6B5A4A", "accent": "C9B7A2", "tablier": "E9E3DA"},
+    "lisbeth": {"seed": 22, "peau": "D9B092", "cheveux": "2E2A3A", "haut": "3C57A0", "bas": "22305E", "accent": "E3C97E", "cheveux_longs": True, "longueur_cheveux": 3, "col": "F8EBB6"},
+    "rosalie": {"seed": 23, "peau": "F0D2BE", "cheveux": "A8743E", "haut": "B4C6AC", "bas": "8E7260", "accent": "F0CBD8", "tablier": "FFFFFF", "chapeau": "E3C97E", "cheveux_longs": True, "longueur_cheveux": 2},
+    "sabine": {"seed": 31, "peau": "C8926C", "cheveux": "2A1E1A", "haut": "6A6880", "bas": "3B3748", "accent": "E3C97E", "tablier": "4A4858", "cheveux_longs": True, "longueur_cheveux": 1},
+    "loic": {"seed": 32, "peau": "E6C0A0", "cheveux": "8E5A2E", "haut": "8FA589", "bas": "63555C", "accent": "C2D8EF", "chapeau": "B99D8F"},
+    "hanna": {"seed": 33, "peau": "A86C48", "cheveux": "1E1A18", "haut": "CDE9DF", "bas": "7F6F76", "accent": "F0CBD8", "tablier": "D3DFCB", "cheveux_longs": True, "longueur_cheveux": 3},
+    "theo": {"seed": 34, "peau": "F2D6C2", "cheveux": "C9B7A2", "haut": "3C57A0", "bas": "22305E", "accent": "F8EBB6", "col": "E9E3DA"},
+    "marguerite": {"seed": 35, "peau": "E0B898", "cheveux": "D9D4CC", "haut": "A33E3E", "bas": "4F4A3E", "accent": "F4EFE6", "tablier": "F4EFE6", "cheveux_longs": True, "longueur_cheveux": 2},
+    "ysolde": {"seed": 36, "peau": "D4A07A", "cheveux": "6B3A1E", "haut": "22305E", "bas": "151E3D", "accent": "E3C97E", "col": "B4934A", "chapeau": "151E3D"},
+    "marchand_1": {"seed": 37, "peau": "E8C4A8", "cheveux": "4A3326", "haut": "D9B99A", "bas": "6B5A4A", "accent": "A33E3E"},
+    "marchand_2": {"seed": 38, "peau": "C58F6A", "cheveux": "1E1A18", "haut": "CDE9DF", "bas": "35455E", "accent": "E3C97E", "cheveux_longs": True, "longueur_cheveux": 2},
 }
 
 

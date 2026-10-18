@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "les_limbes:farine"
+    },
+    {
+      "item": "les_limbes:farine"
+    },
+    {
+      "item": "minecraft:bucket"
+    }
+  ],
+  "result": {
+    "id": "les_limbes:pain_d_emile",
+    "count": 1
+  }
+}

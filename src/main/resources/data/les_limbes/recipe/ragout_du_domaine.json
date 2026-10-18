@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:bowl"
+    },
+    {
+      "item": "les_limbes:herbe_de_l_aube"
+    },
+    {
+      "item": "minecraft:carrot"
+    },
+    {
+      "item": "minecraft:cod"
+    },
+    {
+      "item": "les_limbes:pain_d_emile"
+    }
+  ],
+  "result": {
+    "id": "les_limbes:ragout_du_domaine",
+    "count": 1
+  }
+}

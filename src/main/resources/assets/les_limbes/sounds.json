@@ -112,5 +112,35 @@
     "sounds": [
       "les_limbes:interface/dialogue"
     ]
+  },
+  "creature.raie.appel": {
+    "subtitle": "subtitles.les_limbes.creature.raie",
+    "sounds": [
+      "les_limbes:creature/raie_appel"
+    ]
+  },
+  "creature.raie.pacte": {
+    "subtitle": "subtitles.les_limbes.creature.raie.pacte",
+    "sounds": [
+      "les_limbes:creature/raie_pacte"
+    ]
+  },
+  "monde.arrivee": {
+    "subtitle": "subtitles.les_limbes.monde.arrivee",
+    "sounds": [
+      "les_limbes:monde/arrivee"
+    ]
+  },
+  "bloc.moulin.grince": {
+    "subtitle": "subtitles.les_limbes.bloc.moulin",
+    "sounds": [
+      "les_limbes:bloc/moulin_grince"
+    ]
+  },
+  "bloc.dalle.emerge": {
+    "subtitle": "subtitles.les_limbes.bloc.dalle",
+    "sounds": [
+      "les_limbes:bloc/dalle_emerge"
+    ]
   }
 }

@@ -337,8 +337,9 @@ def build_clairval_sol() -> Canvas:
     xx, zz = L(-20, 110)
     garden_bed(c, xx, 0, zz, xx + 4, zz + 4, HERBE_AUBE)
     fence_rect(c, xx - 1, 1, zz - 1, xx + 5, zz + 5, (xx + 2, zz + 5, "south"))
-    # Vaëron sur la place (monde (3, 66, 142)), panneau de bienvenue à l'entrée nord
+    # Vaëron sur la place (monde (3, 66, 142)), panneau de bienvenue à l'entrée nord ; Théo au pied du pont
     data_marker(c, L(3, 142)[0], 1, L(3, 142)[1], "pnj:vaeron")
+    data_marker(c, L(4, 62)[0], 1, L(4, 62)[1], "pnj:theo")
     xx, zz = L(3, 127)
     c.sign_standing(xx, 1, zz, "minecraft:oak", 8, ["Clairval", "Auberge du Moulin →", "Forge : est", "Manoir : ouest"])
     return c
@@ -466,8 +467,9 @@ def build_auberge() -> Canvas:
     c.set(14, 6, 9, "minecraft:barrel[facing=up,open=false]")
     hanging_lantern(c, 7, 8, 6)
     hanging_lantern(c, 12, 8, 6)
-    # Thibault derrière le comptoir
+    # Thibault derrière le comptoir, Marguerite en cuisine
     data_marker(c, 4, 1, 3, "pnj:thibault")
+    data_marker(c, 13, 1, 4, "pnj:marguerite")
     # Lanterne extérieure sous l'auvent
     if c.inside(7, 3, D):
         c.set(7, 3, D, LANTERNE_H)
@@ -520,6 +522,7 @@ def build_forge() -> Canvas:
     window(c, W - 1, 2, 3, "east", 2)
     c.sign_wall(0, 3, 1, "minecraft:oak", "west", ["Forge", "de Brann", "réparations", "& outils"])
     data_marker(c, 5, 1, 4, "pnj:brann")
+    data_marker(c, 8, 1, 3, "pnj:sabine")
     return c
 
 
@@ -578,19 +581,12 @@ def build_moulin() -> Canvas:
     c.set(5, 1, 6, "minecraft:barrel[facing=up,open=false]")
     c.set(2, 1, 6, "minecraft:chest[facing=east,type=single,waterlogged=false]", {"id": "minecraft:chest", "LootTable": "les_limbes:chests/manoir"})
     hanging_lantern(c, 4, 4, 4)
-    # Ailes figées (croix de barrières en façade sud, axe en bûche)
-    c.set(4, 8, D - 1, log("z"))
-    for i in range(1, 5):
-        if c.inside(4 + i, 8, D - 1):
-            c.set(4 + i, 8, D - 1, BARRIERE)
-        if c.inside(4 - i, 8, D - 1):
-            c.set(4 - i, 8, D - 1, BARRIERE)
-        if c.inside(4, 8 + i, D - 1):
-            c.set(4, 8 + i, D - 1, BARRIERE)
-        if c.inside(4, 8 - i, D - 1):
-            c.set(4, 8 - i, D - 1, BARRIERE)
-    for i in range(1, 5):
-        c.set(4 + i, 8, D - 1, "minecraft:white_wool") if i == 4 else None
+    # Ailes du moulin : axe en façade sud (bloc animé côté client, immobile tant que le moulin n'est pas réparé)
+    c.set(4, 8, D - 1, "les_limbes:ailes_de_moulin[actif=false,facing=south]")
+    # Meule du moulin (remplace la botte de foin) et Rosalie, la meunière
+    c.set(3, 1, 2, "les_limbes:meule_de_moulin")
+    data_marker(c, 4, 1, 5, "pnj:rosalie")
+    c.sign_wall(5, 3, D - 2, "minecraft:oak", "south", ["Moulin", "de Clairval", "— immobile —", "Rosalie"])
     return c
 
 
@@ -841,6 +837,535 @@ def build_relais() -> Canvas:
     return c
 
 
+# ============================================================================== ARRIVÉES
+def build_maison_egaree() -> Canvas:
+    """Maison venue d'un autre monde : chêne, pierre grise, toit d'épicéa ; four à pain, Émile désorienté."""
+    c = Canvas("maison_egaree", 13, 14, 13)
+    c.note("Arrivée « La maison égarée » : chaumière d'ailleurs (chêne, pavés), four à pain, Émile.")
+    W, D = 11, 11
+    c.shift = (1, 1, 1)
+    c.fill(-1, -1, -1, W, -1, D, "minecraft:coarse_dirt")       # terre retournée par l'atterrissage
+    c.fill(0, -1, 0, W - 1, -1, D - 1, "minecraft:cobblestone")
+    c.fill(1, -1, 1, W - 2, -1, D - 2, "minecraft:oak_planks")
+    c.walls(0, 0, 0, W - 1, 3, D - 1, "minecraft:oak_planks")
+    c.fill(1, 0, 1, W - 2, 3, D - 2, AIR)
+    c.fill(0, 0, 0, W - 1, 0, D - 1, "minecraft:cobblestone")
+    c.fill(1, 0, 1, W - 2, 0, D - 2, AIR)
+    for x, z in [(0, 0), (0, D - 1), (W - 1, 0), (W - 1, D - 1)]:
+        c.column(x, 0, 3, z, "minecraft:oak_log[axis=y]")
+    c.fill(0, 4, 0, W - 1, 4, D - 1, "minecraft:oak_planks")
+    c.gable_roof(0, 0, W - 1, D - 1, 5, "minecraft:spruce", axis="x", overhang=1)
+    c.door(5, 0, D - 1, "minecraft:oak", "south")
+    for x in (2, 8):
+        window(c, x, 1, D - 1, "south", 2)
+        window(c, x, 1, 0, "north", 2)
+    window(c, 0, 1, 4, "west", 2)
+    window(c, W - 1, 1, 4, "east", 2)
+    # Four à pain (fournil) côté ouest, lit côté est, table au centre
+    c.fill(1, 0, 1, 3, 2, 1, "minecraft:bricks")
+    c.set(2, 0, 1, "minecraft:smoker[facing=south,lit=true]")
+    c.set(2, 1, 1, "minecraft:furnace[facing=south,lit=false]")
+    c.column(2, 3, 6, 1, "minecraft:bricks")
+    c.set(1, 0, 2, "minecraft:barrel[facing=up,open=false]", {"id": "minecraft:barrel", "LootTable": "les_limbes:chests/maison_egaree"})
+    c.set(3, 0, 2, "minecraft:crafting_table")
+    c.set(1, 0, 4, "minecraft:cauldron")
+    c.bed(8, 0, 2, "red", "north")
+    c.set(9, 0, 1, "minecraft:chest[facing=west,type=single,waterlogged=false]", {"id": "minecraft:chest", "LootTable": "les_limbes:chests/maison_egaree"})
+    c.set(7, 0, 1, "minecraft:lantern[hanging=false,waterlogged=false]")
+    for i in range(2):
+        c.set(5 + i, 0, 5, "minecraft:oak_fence")
+        c.set(5 + i, 1, 5, "minecraft:white_carpet")
+    c.set(4, 0, 5, "minecraft:oak_stairs[facing=east,half=bottom,shape=straight,waterlogged=false]")
+    c.set(7, 0, 5, "minecraft:oak_stairs[facing=west,half=bottom,shape=straight,waterlogged=false]")
+    c.set(5, 3, 5, "minecraft:lantern[hanging=true,waterlogged=false]")
+    c.set(1, 0, 8, "minecraft:bookshelf")
+    c.flower_pot(9, 0, 8, "minecraft:potted_red_tulip")
+    c.set(8, 0, 9, "minecraft:composter[level=2]")
+    c.set(2, 0, 9, "minecraft:hay_block[axis=y]")
+    # Trace de l'Arrivée : cristal de nacre sur le faîte, éclats autour
+    c.set(5, 10, 5, CRISTAL)
+    for x, z in [(-1, 3), (W, 7), (4, -1), (6, D)]:
+        c.set(x, 0, z, CRISTAL) if c.inside(x, 0, z) else None
+    data_marker(c, 6, 0, 7, "pnj:emile")
+    return c
+
+
+def build_caisse_tombee() -> Canvas:
+    """Petite Arrivée : caisse de voyage, lanterne, éclats de nacre encore tièdes."""
+    c = Canvas("caisse_tombee", 3, 3, 3)
+    c.note("Arrivée « La caisse tombée » : coffre, lanterne et cristaux ; disparaît après deux jours.")
+    c.fill(0, 0, 0, 2, 0, 2, "minecraft:coarse_dirt")
+    c.set(1, 1, 1, "minecraft:chest[facing=south,type=single,waterlogged=false]", {"id": "minecraft:chest", "LootTable": "les_limbes:chests/caisse_tombee"})
+    c.set(0, 1, 0, CRISTAL)
+    c.set(2, 1, 2, "minecraft:lantern[hanging=false,waterlogged=false]")
+    c.set(2, 1, 0, slab(DALLE_PIERRE))
+    return c
+
+
+def build_barque_echouee() -> Canvas:
+    """Arrivée : barque de pêche échouée sur la rive, voile déchirée, caisses ; Ysolde la capitaine."""
+    c = Canvas("barque_echouee", 11, 6, 7)
+    c.note("Arrivée « La barque échouée » : coque de planches couchée sur la rive, mât brisé, caisses ; Ysolde.")
+    W, D = 11, 7
+    for x in range(1, 10):
+        for z in range(1, 6):
+            larg = 2 if x in (1, 9) else 3
+            if abs(z - 3) <= larg - 1:
+                c.set(x, 0, z, "minecraft:spruce_planks")
+                if abs(z - 3) == larg - 1 or x in (1, 9):
+                    c.set(x, 1, z, "minecraft:spruce_planks")
+                    c.set(x, 2, z, "minecraft:spruce_trapdoor[facing=north,half=top,open=false,powered=false,waterlogged=false]") if x not in (1, 9) else None
+    c.set(0, 0, 3, "minecraft:spruce_stairs[facing=east,half=bottom,shape=straight,waterlogged=false]")
+    c.set(10, 0, 3, "minecraft:spruce_stairs[facing=west,half=bottom,shape=straight,waterlogged=false]")
+    c.column(5, 1, 4, 3, "minecraft:spruce_fence")
+    c.set(5, 5, 3, "minecraft:white_wool"); c.set(6, 4, 3, "minecraft:white_wool"); c.set(6, 3, 4, "minecraft:white_wool")
+    c.set(3, 1, 3, "minecraft:chest[facing=south,type=single,waterlogged=false]", {"id": "minecraft:chest", "LootTable": "les_limbes:chests/barque"})
+    c.set(7, 1, 2, "minecraft:barrel[facing=up,open=false]")
+    c.set(7, 1, 4, "minecraft:lantern[hanging=false,waterlogged=false]")
+    c.set(2, 1, 4, "minecraft:oak_fence"); c.set(2, 2, 4, "minecraft:white_carpet")
+    c.set(0, 0, 0, CRISTAL); c.set(10, 0, 6, CRISTAL)
+    data_marker(c, 5, 1, 2, "pnj:ysolde")
+    return c
+
+
+# ============================================================================== OBSERVATOIRE DE CLAIRVAL
+def build_observatoire() -> Canvas:
+    """Tour de Lisbeth : base de pierre, escalier intérieur, plate-forme de bois avec lunette et registre."""
+    c = Canvas("observatoire", 9, 17, 9)
+    c.note("Observatoire de Clairval : tour de pierre nacrée, plate-forme d'observation, lunette, registre des Arrivées, Lisbeth.")
+    W, D = 9, 9
+    c.fill(0, 0, 0, W - 1, 0, D - 1, PIERRE_T)
+    for y in range(1, 11):
+        c.walls(1, y, 1, W - 2, y, D - 2, PIERRE_T if y % 4 else PIERRE_P)
+        c.fill(2, y, 2, W - 3, y, D - 3, AIR)
+    door(c, 4, 1, D - 2, "south")
+    window(c, 4, 4, 1, "north", 1)
+    window(c, 1, 7, 4, "west", 1)
+    window(c, W - 2, 7, 4, "east", 1)
+    # Escalier en colimaçon (marches d'angle) jusqu'à la plate-forme (y=11)
+    marches = [(2, 2, "east"), (3, 2, "east"), (4, 2, "east"), (5, 2, "east"), (6, 2, "south"), (6, 3, "south"), (6, 4, "south"), (6, 5, "south"), (6, 6, "west"),
+               (5, 6, "west"), (4, 6, "west"), (3, 6, "west"), (2, 6, "north"), (2, 5, "north"), (2, 4, "north"), (2, 3, "north"), (3, 2, "east"), (4, 2, "east"), (5, 2, "east"), (6, 2, "south")]
+    y = 1
+    for i, (x, z, f) in enumerate(marches[:10]):
+        c.set(x, y, z, stair(STAIR_BOIS, f))
+        y += 1
+    c.fill(2, 11, 2, 6, 11, 6, PLANCHES)
+    c.set(6, 11, 2, AIR)
+    c.set(6, 10, 2, stair(STAIR_BOIS, "south"))
+    c.set(4, 1, 4, "minecraft:lectern[facing=south,has_book=true,powered=false]", {"id": "minecraft:lectern", "Page": 0, "Book": Canvas.written_book(
+        "Registre des Arrivées", "Lisbeth", [
+            "Registre des Arrivées de Clairval.\n\nPremier printemps : une barque sans rames, au nord du lac. Deux voyageurs, vivants, qui parlaient une langue de chansons.",
+            "Hiver suivant : un étage de bibliothèque, tombé entier dans les vergers. Les livres sentaient encore la poussière de l'autre monde.",
+            "Règle que je me suis fixée : noter la direction, la distance, et aller voir avec quelqu'un. On ne laisse personne seul dans une maison tombée du ciel."])})
+    c.bed(2, 1, 6, "blue", "north")
+    c.set(6, 1, 6, "minecraft:chest[facing=north,type=single,waterlogged=false]")
+    c.set(3, 4, 2, "minecraft:lantern[hanging=true,waterlogged=false]")
+    c.set(5, 8, 6, "minecraft:lantern[hanging=true,waterlogged=false]")
+    # Plate-forme : garde-corps, lunette (barre de cuivre + verre), lanternes, Lisbeth
+    c.fill(1, 12, 1, W - 2, 12, D - 2, PLANCHES)
+    c.fill(2, 12, 2, W - 3, 12, D - 3, PLANCHES)
+    for x in range(1, W - 1):
+        c.set(x, 13, 1, BARRIERE); c.set(x, 13, D - 2, BARRIERE)
+    for z in range(1, D - 1):
+        c.set(1, 13, z, BARRIERE); c.set(W - 2, 13, z, BARRIERE)
+    for x, z in [(1, 1), (W - 2, 1), (1, D - 2), (W - 2, D - 2)]:
+        c.set(x, 14, z, LANTERNE)
+    c.set(4, 13, 2, "minecraft:lightning_rod[facing=north,powered=false,waterlogged=false]")
+    c.set(4, 14, 2, "minecraft:glass")
+    c.set(4, 13, 3, "minecraft:spruce_trapdoor[facing=south,half=top,open=false,powered=false,waterlogged=false]")
+    c.item_frame(4, 13, 6, "up", "minecraft:spyglass")
+    c.hanging_sign_wall(4, 15, 2, "minecraft:oak", "south", ["Observatoire", "de Clairval"])
+    data_marker(c, 3, 13, 4, "pnj:lisbeth")
+    return c
+
+
+# ============================================================================== LAC DU CRÉPUSCULE
+def build_lac_crepuscule() -> Canvas:
+    """Lac aux dalles de rosée : bassin, îlot-sanctuaire avec la meule royale, chemin immergé qui n'émerge qu'au crépuscule."""
+    import math
+    W, H, D = 45, 8, 45
+    c = Canvas("lac_crepuscule", W, H, D)
+    c.note("Lac du Crépuscule : bassin clair, îlot avec la meule royale ; les dalles de rosée n'offrent un appui qu'au crépuscule et à l'aube.")
+    cx, cz = 22, 22
+    FOND, EAU_HAUT = 1, 4   # y local : fond 1 (monde 62), eau 2..4 (monde 63..65), sol des rives à 4 (monde 65)
+    for x in range(W):
+        for z in range(D):
+            d = math.hypot((x - cx) / 20.0, (z - cz) / 16.0)
+            if d <= 1.0:
+                c.set(x, FOND, z, "minecraft:gravel" if (x * 3 + z * 5) % 4 else PIERRE)
+                c.fill(x, FOND + 1, z, x, EAU_HAUT, z, "minecraft:water[level=0]")
+                c.fill(x, EAU_HAUT + 1, z, x, EAU_HAUT + 3, z, AIR)
+            elif d <= 1.12:
+                c.set(x, 4, z, "minecraft:sand" if (x + z) % 3 else PIERRE_P)
+                c.set(x, 5, z, AIR)
+    # Îlot central (rayon 4) : herbe, sanctuaire à quatre piliers, meule royale sur socle sculpté
+    for x in range(cx - 4, cx + 5):
+        for z in range(cz - 4, cz + 5):
+            if math.hypot(x - cx, z - cz) <= 4.2:
+                c.set(x, 2, z, TERRE); c.set(x, 3, z, TERRE); c.set(x, 4, z, HERBE)
+                c.set(x, 5, z, AIR)
+    c.fill(cx - 1, 4, cz - 1, cx + 1, 4, cz + 1, PIERRE_P)
+    c.set(cx, 5, cz, PIERRE_S)
+    c.set(cx, 6, cz, "les_limbes:meule_royale")
+    for dx, dz in [(-3, -3), (3, -3), (-3, 3), (3, 3)]:
+        c.column(cx + dx, 5, 7, cz + dz, PIERRE_T)
+        c.set(cx + dx, 8 - 1, cz + dz, LANTERNE) if c.inside(cx + dx, 7, cz + dz) else None
+    for dx, dz in [(-2, 0), (2, 0), (0, -2), (0, 2)]:
+        c.set(cx + dx, 5, cz + dz, FIBRES)
+    c.sign_standing(cx + 1, 5, cz + 2, "minecraft:oak", 0, ["Ici dormait", "la meule", "du moulin", "de Clairval"])
+    # Chemin de dalles de rosée : de la rive ouest à l'îlot, en zigzag, au niveau de la surface de l'eau
+    chemin = [(3, 22), (5, 22), (7, 23), (9, 23), (11, 22), (12, 20), (13, 18), (15, 18), (17, 19), (18, 21), (19, 22)]
+    for x, z in chemin:
+        c.set(x, EAU_HAUT, z, "les_limbes:dalle_de_rosee[revelee=false]")
+    # Rives : fibres, fleurs, un banc et un panneau côté ouest
+    for x, z in [(1, 20), (1, 25), (43, 20), (22, 1), (22, 43), (10, 6), (34, 38)]:
+        if c.get(x, 4, z) in (VOID, "minecraft:sand"):
+            c.set(x, 4, z, TERRE)
+            c.set(x, 5, z, FIBRES if (x + z) % 2 else FLEUR)
+    c.set(2, 5, 19, stair(STAIR_BOIS, "east"))
+    c.set(2, 5, 20, stair(STAIR_BOIS, "east"))
+    c.sign_standing(2, 5, 24, "minecraft:oak", 12, ["Lac du", "Crépuscule", "« Quand le jour", "s'incline... »"])
+    lamppost(c, 2, 5, 26, 2)
+    return c
+
+
+# ============================================================================== DOMAINE : PROJETS DU MANOIR
+# Coin du manoir : (-133, 65, 139). Les annexes se placent sur le plateau aplani (rayon 34 autour de -120/150).
+def build_aile_ouest() -> Canvas:
+    """Réparation de l'aile ouest : plancher du grenier, rangée de toit manquante, toiles retirées."""
+    c = Canvas("aile_ouest", 5, 8, 6)
+    c.note("Projet : réparer l'aile ouest du manoir (plancher du grenier, toit, toiles).")
+    c.fill(0, 0, 0, 4, 0, 5, AIR)                      # y local 0 = monde 74 : toiles d'araignée retirées
+    c.fill(0, 1, 0, 4, 1, 5, PLANCHES)                  # plancher du grenier (monde 75)
+    c.fill(0, 2, 0, 4, 6, 5, AIR)
+    c.fill(0, 7, 0, 4, 7, 0, stair(STAIR_BOIS, "south"))  # rangée de toit (monde 81, z 147)
+    c.set(2, 2, 3, "minecraft:lantern[hanging=false,waterlogged=false]")
+    c.set(1, 2, 4, "minecraft:chest[facing=east,type=single,waterlogged=false]", {"id": "minecraft:chest", "LootTable": "les_limbes:chests/manoir"})
+    c.set(3, 2, 1, "minecraft:barrel[facing=up,open=false]")
+    return c
+
+
+def build_forge_royale() -> Canvas:
+    """Forge royale : atelier à deux foyers, enclume, meule, bassin de trempe, plan de travail ; Sabine."""
+    c = Canvas("forge_royale", 11, 9, 9)
+    c.note("Projet : forge royale (annexe ouest). Deux foyers, enclume, bassin de trempe, établi d'armes ; Sabine la forgeronne.")
+    W, D = 11, 9
+    c.fill(0, 0, 0, W - 1, 0, D - 1, PIERRE_T)
+    c.fill(1, 0, 1, W - 2, 0, D - 2, PIERRE_P)
+    c.walls(0, 1, 0, W - 1, 4, D - 1, PIERRE_T)
+    c.fill(1, 1, 1, W - 2, 4, D - 2, AIR)
+    corner_logs(c, 0, 1, 0, W - 1, D - 1, 4)
+    c.fill(0, 5, 0, W - 1, 5, D - 1, slab(DALLE_PIERRE))
+    c.fill(1, 5, 1, W - 2, 5, D - 2, PIERRE_T)
+    door(c, 5, 1, D - 1, "south")
+    door(c, 5, 1, 0, "north")
+    window(c, 2, 2, D - 1, "south", 2); window(c, 7, 2, D - 1, "south", 2)
+    window(c, 0, 2, 3, "west", 2); window(c, W - 1, 2, 3, "east", 2)
+    for x in (2, 8):
+        c.set(x, 1, 1, "minecraft:blast_furnace[facing=south,lit=true]")
+        c.set(x, 2, 1, PIERRE_T); c.column(x, 3, 7, 1, PIERRE_T); c.set(x, 8, 1, slab(DALLE_PIERRE))
+    c.set(5, 1, 1, "minecraft:anvil[facing=east]")
+    c.set(4, 1, 1, PIERRE_S); c.set(6, 1, 1, PIERRE_S)
+    c.set(1, 1, 4, "minecraft:water_cauldron[level=3]")
+    c.set(1, 1, 5, "minecraft:grindstone[face=floor,facing=east]")
+    c.set(9, 1, 4, "minecraft:smithing_table")
+    c.set(9, 1, 5, "minecraft:chest[facing=west,type=single,waterlogged=false]", {"id": "minecraft:chest", "LootTable": "les_limbes:chests/relais"})
+    c.set(9, 1, 6, "minecraft:barrel[facing=up,open=false]")
+    counter(c, 3, 1, 7, 5, "x")
+    c.set(2, 1, 7, CRISTAL)
+    hanging_lantern(c, 5, 4, 4)
+    c.item_frame(5, 2, 2, "south", "les_limbes:epee_du_souverain")
+    c.sign_wall(4, 3, D - 1, "minecraft:oak", "south", ["Forge royale", "Sabine", "armes & trempe", ""])
+    return c
+
+
+def build_ecuries() -> Canvas:
+    """Écuries et volière : stalles, foin, abreuvoirs, perchoir à raies sous auvent ; Loïc."""
+    c = Canvas("ecuries", 13, 9, 11)
+    c.note("Projet : écuries et volière (annexe nord-ouest). Stalles, abreuvoirs, perchoir ouvert pour les raies ; Loïc l'éleveur.")
+    W, D = 13, 11
+    c.fill(0, 0, 0, W - 1, 0, D - 1, "minecraft:coarse_dirt")
+    c.fill(0, 0, 0, W - 1, 0, 0, PIERRE_T); c.fill(0, 0, D - 1, W - 1, 0, D - 1, PIERRE_T)
+    for x in (0, 6, 12):
+        c.column(x, 1, 5, 0, log()); c.column(x, 1, 5, D - 1, log())
+    c.fill(0, 6, 0, W - 1, 6, D - 1, slab(DALLE_BOIS, "top"))
+    c.fill(0, 5, 0, W - 1, 5, 0, PLANCHES); c.fill(0, 5, D - 1, W - 1, 5, D - 1, PLANCHES)
+    # Stalles (ouest) : trois boxes fermés par barrières
+    for i in range(3):
+        z = 1 + i * 3
+        c.fill(1, 1, z, 4, 1, z, BARRIERE) if i else None
+        c.set(5, 1, z + 1, f"minecraft:oak_fence_gate[facing=east,in_wall=false,open=false,powered=false]")
+        c.column(5, 1, 3, z, BARRIERE) if i else None
+        c.set(2, 1, z + 1, "minecraft:hay_block[axis=y]")
+        c.set(1, 1, z + 2, "minecraft:water_cauldron[level=3]")
+    c.fill(5, 1, 1, 5, 1, 9, BARRIERE)
+    c.set(5, 1, 2, "minecraft:oak_fence_gate[facing=east,in_wall=false,open=false,powered=false]")
+    c.set(5, 1, 5, "minecraft:oak_fence_gate[facing=east,in_wall=false,open=false,powered=false]")
+    c.set(5, 1, 8, "minecraft:oak_fence_gate[facing=east,in_wall=false,open=false,powered=false]")
+    # Volière (est) : perchoir ouvert, cristaux, fleurs de rosée en pots
+    c.fill(7, 1, 1, 11, 1, 9, PIERRE_P)
+    c.fill(8, 1, 2, 10, 1, 8, HERBE)
+    for x, z in [(8, 2), (10, 2), (8, 8), (10, 8)]:
+        c.column(x, 2, 3, z, BARRIERE)
+        c.set(x, 4, z, LANTERNE)
+    c.set(9, 1, 5, PIERRE_S); c.set(9, 2, 5, CRISTAL)
+    c.set(8, 2, 5, "minecraft:potted_azure_bluet"); c.set(10, 2, 5, "minecraft:potted_azure_bluet")
+    c.fill(7, 2, 1, 11, 2, 1, "minecraft:oak_trapdoor[facing=south,half=top,open=false,powered=false,waterlogged=false]")
+    c.set(6, 1, 1, "minecraft:chest[facing=east,type=single,waterlogged=false]")
+    c.set(6, 1, 9, "minecraft:barrel[facing=up,open=false]")
+    c.sign_standing(6, 1, 5, "minecraft:oak", 12, ["Écuries", "& volière", "Loïc", "soins des montures"])
+    return c
+
+
+def build_serres() -> Canvas:
+    """Serres : verrière sur murets, bacs de culture régionale, cuve d'alchimie ; Hanna."""
+    c = Canvas("serres", 9, 7, 15)
+    c.note("Projet : serres (nord-est, à la place de la serre effondrée). Verrière, bacs de plantes régionales, cuve ; Hanna la jardinière.")
+    W, D = 9, 15
+    c.fill(0, 0, 0, W - 1, 0, D - 1, PIERRE_T)
+    c.fill(1, 0, 1, W - 2, 0, D - 2, "minecraft:dirt_path")
+    c.walls(0, 1, 0, W - 1, 1, D - 1, PIERRE_T)
+    for y in (2, 3):
+        c.walls(0, y, 0, W - 1, y, D - 1, "minecraft:glass")
+    c.fill(1, 1, 1, W - 2, 3, D - 2, AIR)
+    c.fill(0, 4, 0, W - 1, 4, D - 1, "minecraft:glass")
+    for x in range(1, W - 1):
+        c.set(x, 5, 7, "minecraft:glass")
+    c.fill(1, 4, 1, W - 2, 4, D - 2, "minecraft:glass")
+    for x in (0, W - 1):
+        for z in (0, 7, D - 1):
+            c.column(x, 1, 4, z, log())
+    door(c, 4, 1, D - 1, "south")
+    # Bacs : herbes de l'aube, fleurs de rosée, blé, fibres
+    for z0, crop in [(1, HERBE_AUBE), (5, FLEUR), (9, "minecraft:wheat[age=7]"), (12, FIBRES)]:
+        for x in (1, 7):
+            c.fill(x, 0, z0, x + 1, 0, z0 + 2, TERRE if crop != "minecraft:wheat[age=7]" else "minecraft:farmland[moisture=7]")
+            for zz in range(z0, z0 + 3):
+                c.set(x, 1, zz, crop); c.set(x + 1, 1, zz, crop)
+    c.set(4, 0, 4, "minecraft:water[level=0]"); c.set(4, 0, 10, "minecraft:water[level=0]")
+    c.set(4, 1, 1, "minecraft:water_cauldron[level=3]")
+    c.set(4, 1, 2, "minecraft:brewing_stand[has_bottle_0=false,has_bottle_1=false,has_bottle_2=false]")
+    c.set(3, 1, 1, "minecraft:composter[level=3]")
+    c.set(5, 1, 1, "minecraft:chest[facing=south,type=single,waterlogged=false]")
+    hanging_lantern(c, 4, 3, 7)
+    return c
+
+
+def build_maison_explorateurs() -> Canvas:
+    """Maison des explorateurs : table des cartes, cartothèque, préparatifs, dortoir ; Théo, puis Ysolde."""
+    c = Canvas("maison_explorateurs", 13, 13, 13)
+    c.shift = (1, 0, 1)
+    c.note("Projet : maison des explorateurs (annexe est). Table des cartes, cartothèque, préparatifs d'expédition ; Théo le cartographe, Ysolde la capitaine.")
+    W, D = 11, 11
+    c.fill(0, 0, 0, W - 1, 0, D - 1, PIERRE_T)
+    c.fill(1, 0, 1, W - 2, 0, D - 2, PLANCHES)
+    c.walls(0, 1, 0, W - 1, 4, D - 1, PLANCHES)
+    c.fill(1, 1, 1, W - 2, 4, D - 2, AIR)
+    corner_logs(c, 0, 1, 0, W - 1, D - 1, 4)
+    c.fill(0, 1, 0, W - 1, 1, D - 1, PIERRE_T); c.fill(1, 1, 1, W - 2, 1, D - 2, AIR)
+    c.fill(0, 5, 0, W - 1, 5, D - 1, PLANCHES)
+    c.gable_roof(0, 0, W - 1, D - 1, 6, STAIR_PIERRE, axis="z", overhang=1)
+    door(c, 0, 1, 5, "west")
+    window(c, 3, 2, 0, "north", 2); window(c, 6, 2, 0, "north", 2)
+    window(c, 3, 2, D - 1, "south", 2); window(c, 6, 2, D - 1, "south", 2)
+    window(c, W - 1, 2, 4, "east", 2)
+    # Table des cartes (centre) : cartographie, cartes encadrées
+    c.set(4, 1, 5, "minecraft:cartography_table"); c.set(5, 1, 5, "minecraft:cartography_table")
+    c.set(6, 1, 5, "minecraft:lectern[facing=west,has_book=true,powered=false]", {"id": "minecraft:lectern", "Page": 0, "Book": Canvas.written_book(
+        "Rumeurs des Prairies", "Théo", [
+            "Rumeurs notées par Théo, cartographe du domaine.\n\nUn moulin qui tourne sans vent, une tour où l'on regarde tomber le ciel, un lac qui n'a de chemin qu'au crépuscule.",
+            "Plus loin : une mer qui tient dans le ciel, des arbres gros comme des villes, un désert qui garde les heures, des montagnes de verre. Les routes royales y menaient. Elles sont éteintes.",
+            "Règle d'explorateur : on note tout, on revient toujours, on raconte au retour."])})
+    for z in (2, 8):
+        c.item_frame(5, 2, z, "south" if z == 2 else "north", "minecraft:map")
+    bookshelves(c, 1, 1, 1, 1, 3, 3)
+    bookshelves(c, 9, 1, 1, 9, 3, 3)
+    c.set(1, 1, 9, "minecraft:chest[facing=east,type=single,waterlogged=false]", {"id": "minecraft:chest", "LootTable": "les_limbes:chests/relais"})
+    c.set(2, 1, 9, "minecraft:barrel[facing=up,open=false]")
+    c.set(9, 1, 9, "minecraft:lantern[hanging=false,waterlogged=false]")
+    c.bed(8, 1, 7, "green", "east")
+    c.set(1, 1, 6, "minecraft:campfire[facing=east,lit=true,signal_fire=false,waterlogged=false]")
+    hanging_lantern(c, 5, 4, 5)
+    c.sign_wall(0, 3, 4, "minecraft:oak", "west", ["Maison des", "explorateurs", "cartes & rumeurs", ""])
+    return c
+
+
+def build_galerie() -> Canvas:
+    """Galerie des merveilles : vitrines sur socles, éclairage, cartouches ; les objets exposés racontent leur provenance."""
+    c = Canvas("galerie", 15, 8, 9)
+    c.note("Projet : galerie des merveilles (sud-ouest). Huit vitrines sur socles ; un objet posé y est exposé avec son histoire.")
+    W, D = 15, 9
+    c.fill(0, 0, 0, W - 1, 0, D - 1, PIERRE_T)
+    c.fill(1, 0, 1, W - 2, 0, D - 2, PIERRE_P)
+    c.walls(0, 1, 0, W - 1, 4, D - 1, PIERRE_T)
+    c.fill(1, 1, 1, W - 2, 4, D - 2, AIR)
+    for x in range(0, W, 2):
+        c.column(x, 1, 4, 0, PIERRE_S); c.column(x, 1, 4, D - 1, PIERRE_S)
+    c.fill(0, 5, 0, W - 1, 5, D - 1, PIERRE_T)
+    c.fill(1, 5, 1, W - 2, 5, D - 2, "minecraft:glass")
+    c.walls(1, 6, 1, W - 2, 6, D - 2, slab(DALLE_PIERRE))
+    door(c, 7, 1, 0, "north")
+    for x in (3, 11):
+        window(c, x, 2, D - 1, "south", 2)
+    for i, x in enumerate((2, 5, 9, 12)):
+        for z in (2, 6):
+            c.set(x, 1, z, PIERRE_S)
+            c.set(x, 2, z, "les_limbes:vitrine[facing=south]")
+    c.fill(7, 1, 3, 7, 1, 5, "minecraft:blue_carpet")
+    hanging_lantern(c, 4, 4, 4); hanging_lantern(c, 10, 4, 4)
+    c.sign_wall(6, 3, 0, "minecraft:oak", "north", ["Galerie des", "merveilles", "posez un objet", "dans une vitrine"])
+    return c
+
+
+def build_salle_passages() -> Canvas:
+    """Salle des passages : rotonde avec le cadran des relais ; porte de relais du domaine."""
+    c = Canvas("salle_passages", 9, 8, 9)
+    c.note("Projet : salle des passages (sud). Rotonde de pierre, porte de relais du domaine reliée aux relais découverts.")
+    W, D = 9, 9
+    import math
+    for x in range(W):
+        for z in range(D):
+            d = math.hypot(x - 4, z - 4)
+            if d <= 4.3:
+                c.set(x, 0, z, PIERRE_P if int(d) % 2 else PIERRE_T)
+                if 3.4 < d <= 4.3:
+                    c.column(x, 1, 4, z, PIERRE_T if (x + z) % 2 else PIERRE_S)
+                    c.set(x, 5, z, slab(DALLE_PIERRE))
+                else:
+                    c.fill(x, 1, z, x, 5, z, AIR)
+                    c.set(x, 6, z, PIERRE_P)
+    c.set(4, 1, 0, AIR); c.set(4, 2, 0, AIR)  # entrée nord
+    c.set(4, 7, 4, CRISTAL)
+    c.set(4, 1, 4, "les_limbes:porte_de_relais[facing=north]", {"id": "les_limbes:porte_de_relais", "relais": "manoir"})
+    for x, z in [(1, 4), (7, 4), (4, 7)]:
+        c.set(x, 1, z, LANTERNE)
+    for x, z in [(2, 2), (6, 2), (2, 6), (6, 6)]:
+        c.set(x, 4, z, LANTERNE_H) if c.get(x, 5, z) != VOID else None
+    c.sign_standing(4, 1, 6, "minecraft:oak", 0, ["Salle des", "passages", "un pas, un relais", ""])
+    return c
+
+
+def build_chambres() -> Canvas:
+    """Chambres des compagnons : grenier du manoir aménagé (lits, coffres, coin de lecture) ; scènes de vie des recrues."""
+    c = Canvas("chambres", 21, 4, 7)
+    c.note("Projet : chambres des compagnons (grenier du manoir). Quatre alcôves, coin commun, lanternes.")
+    W, D = 21, 7
+    c.fill(0, 0, 0, W - 1, 0, D - 1, PLANCHES)
+    c.fill(0, 1, 0, W - 1, 3, D - 1, AIR)
+    for i, x in enumerate((1, 6, 14, 19)):
+        c.bed(x, 1, 2, ["blue", "white", "green", "red"][i], "north")
+        c.set(x, 1, 1, "minecraft:chest[facing=south,type=single,waterlogged=false]") if i % 2 else c.set(x + 1, 1, 1, "minecraft:chest[facing=south,type=single,waterlogged=false]")
+        c.set(x, 1, 5, "minecraft:lantern[hanging=false,waterlogged=false]")
+        c.set(x, 1, 4, "minecraft:potted_azure_bluet") if i in (0, 3) else None
+    for x in (4, 9, 11, 16):
+        c.column(x, 1, 3, 0, PLANCHES); c.column(x, 1, 3, 1, PLANCHES)
+    table(c, 9, 1, 3, 3, "x")
+    chair(c, 9, 1, 4, "north"); chair(c, 11, 1, 4, "north")
+    c.set(10, 1, 5, "minecraft:bookshelf"); c.set(9, 1, 5, "minecraft:bookshelf")
+    hanging_lantern(c, 10, 3, 3)
+    c.carpet(8, 1, 4, "light_blue"); c.carpet(12, 1, 4, "light_blue")
+    return c
+
+
+def build_jardin() -> Canvas:
+    """Jardin d'agrément : belvédère, bains, bancs, massifs."""
+    c = Canvas("jardin", 11, 6, 11)
+    c.note("Projet : jardin d'agrément et bains (sud-est). Belvédère, bassin d'eau chaude, bancs, massifs de fleurs.")
+    W, D = 11, 11
+    c.fill(0, 0, 0, W - 1, 0, D - 1, HERBE)
+    c.fill(3, 0, 3, 7, 0, 7, PIERRE_P)
+    c.fill(4, 0, 4, 6, 0, 6, "minecraft:water[level=0]")
+    c.set(5, 0, 5, PIERRE_S)
+    for x, z in [(3, 3), (7, 3), (3, 7), (7, 7)]:
+        c.column(x, 1, 3, z, BARRIERE); c.set(x, 4, z, LANTERNE)
+    c.fill(3, 4, 3, 7, 4, 7, slab(DALLE_BOIS, "top")) if False else None
+    for x in (3, 7):
+        c.set(x, 1, 5, stair(STAIR_BOIS, "west" if x == 3 else "east"))
+    for z in (3, 7):
+        c.set(5, 1, z, stair(STAIR_BOIS, "north" if z == 3 else "south"))
+    for x, z in [(1, 1), (9, 1), (1, 9), (9, 9), (1, 5), (9, 5), (5, 1), (5, 9)]:
+        c.set(x, 0, z, TERRE); c.set(x, 1, z, FLEUR if (x + z) % 2 else HERBE_AUBE)
+    c.fill(0, 0, 5, 2, 0, 5, "minecraft:dirt_path"); c.fill(8, 0, 5, 10, 0, 5, "minecraft:dirt_path")
+    lamppost(c, 0, 1, 0, 3); lamppost(c, 10, 1, 10, 3)
+    c.sign_standing(2, 1, 8, "minecraft:oak", 4, ["Bains du", "domaine", "eau de source", "chaude"])
+    return c
+
+
+def build_marche() -> Canvas:
+    """Marché et ateliers : trois étals couverts, atelier de tissage, étal de cuisine ; Marguerite."""
+    c = Canvas("marche", 15, 7, 7)
+    c.note("Projet : marché et ateliers (sud). Trois étals couverts, atelier de tissage, cuisine de plein air ; Marguerite la cuisinière.")
+    W, D = 15, 7
+    c.fill(0, 0, 0, W - 1, 0, D - 1, PIERRE_T)
+    c.fill(1, 0, 1, W - 2, 0, D - 2, "minecraft:dirt_path")
+    for i, x0 in enumerate((0, 5, 10)):
+        for x, z in [(x0, 0), (x0 + 4, 0), (x0, D - 1), (x0 + 4, D - 1)]:
+            c.column(x, 1, 3, z, log())
+        c.fill(x0, 4, 0, x0 + 4, 4, D - 1, slab(DALLE_BOIS, "bottom") if i % 2 else ["minecraft:white_wool", "minecraft:light_blue_wool", "minecraft:white_wool"][i])
+        counter(c, x0 + 1, 1, 1, 3, "x")
+        c.set(x0 + 2, 2, 1, "minecraft:lantern[hanging=false,waterlogged=false]")
+    c.set(1, 1, 5, "minecraft:loom[facing=north]"); c.set(2, 1, 5, "minecraft:barrel[facing=up,open=false]")
+    c.set(6, 1, 5, "minecraft:smoker[facing=north,lit=true]"); c.set(7, 1, 5, "minecraft:campfire[facing=north,lit=true,signal_fire=false,waterlogged=false]"); c.set(8, 1, 5, "minecraft:water_cauldron[level=3]")
+    c.set(11, 1, 5, "minecraft:crafting_table"); c.set(12, 1, 5, "minecraft:chest[facing=north,type=single,waterlogged=false]"); c.set(13, 1, 5, "minecraft:composter[level=0]")
+    c.item_frame(2, 2, 0, "south", "les_limbes:fibres_nacrees")
+    c.item_frame(7, 2, 0, "south", "les_limbes:pain_d_emile")
+    c.item_frame(12, 2, 0, "south", "les_limbes:lanterne_nacree")
+    data_marker(c, 2, 1, 3, "pnj:marchand_1")
+    data_marker(c, 12, 1, 3, "pnj:marchand_2")
+    return c
+
+
+# ============================================================================== RENCONTRES DES RECRUES
+def build_cabane_loic() -> Canvas:
+    """Cabane de Loïc, près du lac : abri de planches, foin, observation des raies."""
+    c = Canvas("cabane_loic", 9, 9, 9)
+    c.shift = (1, 0, 1)
+    c.note("Cabane de Loïc l'éleveur, au bord du Lac du Crépuscule.")
+    W, D = 7, 7
+    c.fill(0, 0, 0, W - 1, 0, D - 1, PLANCHES)
+    c.walls(0, 1, 0, W - 1, 3, D - 1, PLANCHES)
+    c.fill(1, 1, 1, W - 2, 3, D - 2, AIR)
+    corner_logs(c, 0, 1, 0, W - 1, D - 1, 3)
+    c.gable_roof(0, 0, W - 1, D - 1, 4, STAIR_BOIS, axis="z", overhang=1)
+    door(c, 3, 1, D - 1, "south")
+    window(c, 3, 2, 0, "north", 1)
+    c.bed(1, 1, 1, "brown", "north")
+    c.set(5, 1, 1, "minecraft:hay_block[axis=y]"); c.set(5, 1, 2, "minecraft:hay_block[axis=y]")
+    c.set(1, 1, 5, "minecraft:chest[facing=east,type=single,waterlogged=false]")
+    c.set(5, 1, 5, "minecraft:potted_azure_bluet")
+    hanging_lantern(c, 3, 3, 3)
+    data_marker(c, 3, 1, 3, "pnj:loic")
+    return c
+
+
+def build_jardin_hanna() -> Canvas:
+    """Jardin de Hanna : carrés de plantes, tonnelle, cabanon."""
+    c = Canvas("jardin_hanna", 13, 7, 11)
+    c.note("Jardin de Hanna la jardinière, sur le plateau de Clairval : carrés de cultures, tonnelle, cabanon.")
+    W, D = 13, 11
+    c.fill(0, 0, 0, W - 1, 0, D - 1, HERBE)
+    fence_rect(c, 0, 1, 0, W - 1, D - 1, (6, D - 1, "south"))
+    garden_bed(c, 1, 0, 1, 4, 3, HERBE_AUBE)
+    garden_bed(c, 8, 0, 1, 11, 3, FLEUR)
+    c.fill(1, 0, 6, 4, 0, 9, "minecraft:farmland[moisture=7]")
+    for x in range(1, 5):
+        for z in range(6, 10):
+            c.set(x, 1, z, "minecraft:wheat[age=7]")
+    c.fill(8, 0, 6, 11, 0, 9, PLANCHES)
+    c.walls(8, 1, 6, 11, 3, 9, PLANCHES); c.fill(9, 1, 7, 10, 3, 8, AIR)
+    c.fill(8, 4, 6, 11, 4, 9, slab(DALLE_BOIS, "bottom"))
+    c.set(9, 1, 6, AIR); c.set(9, 2, 6, AIR)
+    c.set(10, 1, 8, "minecraft:chest[facing=west,type=single,waterlogged=false]")
+    c.set(10, 1, 7, "minecraft:composter[level=4]")
+    c.set(6, 0, 5, "minecraft:water[level=0]")
+    for x, z in [(5, 4), (7, 4), (5, 6), (7, 6)]:
+        c.column(x, 1, 2, z, BARRIERE)
+    c.fill(5, 3, 4, 7, 3, 6, FEUILLES)
+    c.set(6, 2, 5, LANTERNE_H)
+    data_marker(c, 6, 1, 7, "pnj:hanna")
+    return c
+
+
 # ============================================================================== ASSEMBLAGE ET EXPORT
 def structure_json(biomes: str, adaptation: str, y: int, pieces: list[dict]) -> dict:
     return {"type": "les_limbes:composee", "biomes": biomes, "step": "surface_structures", "terrain_adaptation": adaptation,
@@ -931,6 +1456,23 @@ def main() -> None:
         "clairval/moulin": build_moulin(),
         "manoir/manoir": build_manoir(),
         "relais/relais_royal": build_relais(),
+        "clairval/observatoire": build_observatoire(),
+        "arrivees/maison_egaree": build_maison_egaree(),
+        "arrivees/caisse_tombee": build_caisse_tombee(),
+        "arrivees/barque_echouee": build_barque_echouee(),
+        "lac/lac_crepuscule": build_lac_crepuscule(),
+        "manoir/aile_ouest": build_aile_ouest(),
+        "manoir/forge_royale": build_forge_royale(),
+        "manoir/ecuries": build_ecuries(),
+        "manoir/serres": build_serres(),
+        "manoir/maison_explorateurs": build_maison_explorateurs(),
+        "manoir/galerie": build_galerie(),
+        "manoir/salle_passages": build_salle_passages(),
+        "manoir/chambres": build_chambres(),
+        "manoir/jardin": build_jardin(),
+        "manoir/marche": build_marche(),
+        "rencontres/cabane_loic": build_cabane_loic(),
+        "rencontres/jardin_hanna": build_jardin_hanna(),
     }
     lignes = ["# Rapport des structures\n"]
     for rel, c in canvases.items():
@@ -962,7 +1504,9 @@ def main() -> None:
         piece("les_limbes:clairval/maison_1", (-23, 65, 123), o),
         piece("les_limbes:clairval/maison_2", (-21, 65, 145), o),
         piece("les_limbes:clairval/maison_3", (7, 65, 153), o),
-        piece("les_limbes:clairval/moulin", (-32, 65, 118), o)]))
+        piece("les_limbes:clairval/moulin", (-32, 65, 118), o),
+        piece("les_limbes:clairval/observatoire", (26, 65, 108), o),
+        piece("les_limbes:rencontres/jardin_hanna", (54, 65, 106), o)]))
     write_json(os.path.join(WG, "structure_set", "clairval.json"), set_json("les_limbes:clairval", chunk_of(0, 140), 1002))
     # Manoir : chunk (-8,9), origine (-128, 66, 144)
     o = (-128, 66, 144)
@@ -974,6 +1518,12 @@ def main() -> None:
     write_json(os.path.join(WG, "structure", "relais_royal.json"), structure_json(lim, "none", 66, [
         piece("les_limbes:relais/relais_royal", (140, 65, 51), o)]))
     write_json(os.path.join(WG, "structure_set", "relais_royal.json"), set_json("les_limbes:relais_royal", chunk_of(150, 60), 1004))
+    # Lac du Crépuscule : site (-60, 66, 20) ; l'origine d'une structure composée est le coin de son chunk
+    o = (chunk_of(-60, 20)[0] * 16, 66, chunk_of(-60, 20)[1] * 16)
+    write_json(os.path.join(WG, "structure", "lac_crepuscule.json"), structure_json(lim, "none", 66, [
+        piece("les_limbes:lac/lac_crepuscule", (-82, 61, -2), o),
+        piece("les_limbes:rencontres/cabane_loic", (-41, 65, 29), o)]))
+    write_json(os.path.join(WG, "structure_set", "lac_crepuscule.json"), set_json("les_limbes:lac_crepuscule", chunk_of(-60, 20), 1005))
     with open(os.path.join(RAPPORT_DIR, "RAPPORT.md"), "w", encoding="utf-8") as fh:
         fh.write("\n".join(lignes))
     print(f"{len(canvases)} gabarits écrits ; rapport : {os.path.relpath(RAPPORT_DIR, ROOT)}/RAPPORT.md")

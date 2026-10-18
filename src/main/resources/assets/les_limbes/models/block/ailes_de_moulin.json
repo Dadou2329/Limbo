@@ -1,0 +1,40 @@
+{
+  "textures": {
+    "particle": "les_limbes:block/buche_d_aube",
+    "axe": "les_limbes:block/buche_d_aube"
+  },
+  "elements": [
+    {
+      "from": [
+        5,
+        5,
+        0
+      ],
+      "to": [
+        11,
+        11,
+        16
+      ],
+      "faces": {
+        "north": {
+          "texture": "#axe"
+        },
+        "south": {
+          "texture": "#axe"
+        },
+        "east": {
+          "texture": "#axe"
+        },
+        "west": {
+          "texture": "#axe"
+        },
+        "up": {
+          "texture": "#axe"
+        },
+        "down": {
+          "texture": "#axe"
+        }
+      }
+    }
+  ]
+}

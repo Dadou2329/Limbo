@@ -1,0 +1,72 @@
+{
+  "titre": "La table de Marguerite",
+  "description": "Marguerite tient la cuisine de l'auberge. Elle veut goûter le pain d'Émile et refaire son bouillon d'enfance.",
+  "acte": 2,
+  "etapes": [
+    {
+      "id": "vivres",
+      "resume": "Apporter deux pains d'Émile et trois bouillons de l'aube à Marguerite.",
+      "lieu": {
+        "nom": "Auberge du Moulin",
+        "pos": [
+          14,
+          66,
+          128
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "pain",
+          "type": "collecter",
+          "cible": "les_limbes:pain_d_emile",
+          "nombre": 2,
+          "texte": "Obtenir deux pains d'Émile"
+        },
+        {
+          "id": "bouillon",
+          "type": "collecter",
+          "cible": "les_limbes:bouillon_de_l_aube",
+          "nombre": 3,
+          "texte": "Préparer trois bouillons de l'aube"
+        }
+      ]
+    },
+    {
+      "id": "donner",
+      "resume": "Donner les vivres à Marguerite.",
+      "lieu": {
+        "nom": "Auberge du Moulin",
+        "pos": [
+          14,
+          66,
+          128
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "donner",
+          "type": "parler",
+          "cible": "marguerite",
+          "manuel": true,
+          "texte": "Parler à Marguerite"
+        }
+      ]
+    }
+  ],
+  "fin": [
+    {
+      "type": "experience",
+      "niveaux": 1
+    },
+    {
+      "type": "drapeau",
+      "nom": "marguerite_recrutee"
+    },
+    {
+      "type": "message",
+      "texte": "Marguerite cuisinera au marché du domaine dès qu'il sera ouvert."
+    }
+  ]
+}

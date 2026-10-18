@@ -142,6 +142,28 @@ public final class LimbesCommands {
 				.then(CommandManager.literal("structure").then(CommandManager.argument("id", IdentifierArgumentType.identifier())
 						.executes(ctx -> placerStructure(ctx, null))
 						.then(CommandManager.argument("pos", BlockPosArgumentType.blockPos()).executes(ctx -> placerStructure(ctx, BlockPosArgumentType.getLoadedBlockPos(ctx, "pos"))))))
+				.then(CommandManager.literal("arrivee")
+						.then(CommandManager.literal("liste").executes(LimbesCommands::listerArrivees))
+						.then(CommandManager.literal("declencher").then(CommandManager.argument("id", StringArgumentType.word()).executes(ctx -> {
+							String id = StringArgumentType.getString(ctx, "id");
+							fr.leslimbes.arrivee.ArriveeDefinition def = fr.leslimbes.arrivee.ArriveeLoader.get(id);
+							if (def == null) {
+								ctx.getSource().sendError(Text.literal("Arrivée inconnue : " + id + " (" + String.join(", ", fr.leslimbes.arrivee.ArriveeLoader.definitions().keySet()) + ")"));
+								return 0;
+							}
+							var e = fr.leslimbes.arrivee.ArriveeManager.declencher(ctx.getSource().getServer(), def, null);
+							if (e.isEmpty()) {
+								ctx.getSource().sendError(Text.literal("Aucun site libre ou vérifié pour cette Arrivée."));
+								return 0;
+							}
+							ctx.getSource().sendFeedback(() -> Text.literal("Arrivée « " + def.titre() + " » en " + e.get().pos.toShortString()), false);
+							return 1;
+						})))
+						.then(CommandManager.literal("resoudre").then(CommandManager.argument("id", StringArgumentType.word()).executes(ctx -> {
+							boolean ok = fr.leslimbes.arrivee.ArriveeManager.resoudre(ctx.getSource().getServer(), StringArgumentType.getString(ctx, "id"));
+							ctx.getSource().sendFeedback(() -> Text.literal(ok ? "Arrivée résolue." : "Aucune Arrivée active de ce type."), false);
+							return ok ? 1 : 0;
+						}))))
 				.then(CommandManager.literal("diag").executes(LimbesCommands::diag)));
 	}
 
@@ -189,6 +211,20 @@ public final class LimbesCommands {
 		template.get().place(world, origine, origine, new StructurePlacementData().setIgnoreEntities(false), world.getRandom(), 2);
 		ctx.getSource().sendFeedback(() -> Text.literal("Gabarit " + id + " placé en " + origine.toShortString() + " (taille " + template.get().getSize().toShortString() + ")"), false);
 		return 1;
+	}
+
+	private static int listerArrivees(CommandContext<ServerCommandSource> ctx) {
+		LimbesWorldState etat = LimbesWorldState.get(ctx.getSource().getServer());
+		var toutes = etat.toutesArrivees();
+		ctx.getSource().sendFeedback(() -> Text.literal("Types : " + String.join(", ", fr.leslimbes.arrivee.ArriveeLoader.definitions().keySet())
+				+ " ; sites : " + String.join(", ", fr.leslimbes.arrivee.ArriveeLoader.sites().keySet())), false);
+		if (toutes.isEmpty()) {
+			ctx.getSource().sendFeedback(() -> Text.literal("Aucune Arrivée survenue."), false);
+		}
+		for (var e : toutes) {
+			ctx.getSource().sendFeedback(() -> Text.literal(e.instance + " : " + e.etat + " en " + e.pos.toShortString() + " (site " + e.site + ")"), false);
+		}
+		return toutes.size();
 	}
 
 	private static int diag(CommandContext<ServerCommandSource> ctx) {

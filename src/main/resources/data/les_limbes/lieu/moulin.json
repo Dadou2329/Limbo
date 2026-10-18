@@ -1,0 +1,11 @@
+{
+  "nom": "Moulin de Clairval",
+  "pos": [
+    -28,
+    66,
+    122
+  ],
+  "rayon": 8,
+  "region": "prairies",
+  "description": "Immobile depuis des années, jusqu'à ce que quelqu'un retrouve sa meule."
+}

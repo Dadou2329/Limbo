@@ -1,0 +1,13 @@
+{
+  "titre": "La caisse tombée",
+  "description": "Une caisse de voyage, tombée de nulle part, encore tiède de lumière.",
+  "echelle": "petite",
+  "gabarit": "les_limbes:arrivees/caisse_tombee",
+  "ancre": [1, 1, 1],
+  "sites": "prairies",
+  "poids": 25,
+  "unique": false,
+  "duree": 36000,
+  "prerequis": [],
+  "annonce": "Quelque chose de petit est tombé"
+}

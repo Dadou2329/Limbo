@@ -1,0 +1,11 @@
+{
+  "nom": "Clairval",
+  "pos": [
+    0,
+    66,
+    140
+  ],
+  "rayon": 30,
+  "region": "prairies",
+  "description": "Le village d'accueil des Prairies : auberge, forge, moulin."
+}

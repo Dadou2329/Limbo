@@ -1,11 +1,6 @@
 package fr.leslimbes.world.structure;
 
-import fr.leslimbes.LesLimbes;
-import fr.leslimbes.npc.HabitantEntity;
-import fr.leslimbes.registry.LimbesEntities;
 import fr.leslimbes.registry.LimbesWorldgen;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.SpawnReason;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.structure.SimpleStructurePiece;
 import net.minecraft.structure.StructurePlacementData;
@@ -48,37 +43,27 @@ public class ComposedPiece extends SimpleStructurePiece {
 	}
 
 	@Override
-	protected void handleMetadata(String metadata, BlockPos pos, ServerWorldAccess world, Random random, BlockBox boundingBox) {
-		world.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
-		if (metadata.startsWith("pnj:")) {
-			String role = metadata.substring(4).trim();
-			HabitantEntity pnj = LimbesEntities.HABITANT.create(world.toServerWorld());
-			if (pnj == null) {
-				return;
-			}
-			pnj.refreshPositionAndAngles(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, random.nextFloat() * 360.0F, 0.0F);
-			pnj.setRole(role);
-			pnj.setDomicile(pos);
-			pnj.setPersistent();
-			pnj.initialize(world, world.getLocalDifficulty(pos), SpawnReason.STRUCTURE, null);
-			world.spawnEntityAndPassengers(pnj);
-		} else if (metadata.startsWith("entite:")) {
-			Identifier id = Identifier.tryParse(metadata.substring(7).trim());
-			if (id == null) {
-				return;
-			}
-			net.minecraft.registry.Registries.ENTITY_TYPE.getOrEmpty(id).ifPresentOrElse(type -> {
-				net.minecraft.entity.Entity e = type.create(world.toServerWorld());
-				if (e == null) {
-					return;
-				}
-				e.refreshPositionAndAngles(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, random.nextFloat() * 360.0F, 0.0F);
-				if (e instanceof net.minecraft.entity.mob.MobEntity mob) {
-					mob.setPersistent();
-					mob.initialize(world, world.getLocalDifficulty(pos), SpawnReason.STRUCTURE, null);
-				}
-				world.spawnEntityAndPassengers(e);
-			}, () -> LesLimbes.LOGGER.warn("Métadonnée de structure : entité inconnue {}", id));
+	public void generate(net.minecraft.world.StructureWorldAccess world, net.minecraft.world.gen.StructureAccessor structureAccessor,
+						 net.minecraft.world.gen.chunk.ChunkGenerator chunkGenerator, Random random, BlockBox chunkBox,
+						 net.minecraft.util.math.ChunkPos chunkPos, BlockPos pivot) {
+		super.generate(world, structureAccessor, chunkGenerator, random, chunkBox, chunkPos, pivot);
+		// Les blocs qui s'animent seuls (dalles de rosée) reçoivent leur premier tick planifié ici :
+		// onBlockAdded n'est pas appelé par la génération.
+		BlockBox box = this.getBoundingBox();
+		int x1 = Math.max(box.getMinX(), chunkBox.getMinX()), x2 = Math.min(box.getMaxX(), chunkBox.getMaxX());
+		int z1 = Math.max(box.getMinZ(), chunkBox.getMinZ()), z2 = Math.min(box.getMaxZ(), chunkBox.getMaxZ());
+		if (x1 > x2 || z1 > z2) {
+			return;
 		}
+		for (BlockPos p : BlockPos.iterate(x1, box.getMinY(), z1, x2, box.getMaxY(), z2)) {
+			if (world.getBlockState(p).getBlock() instanceof fr.leslimbes.block.DalleDeRoseeBlock dalle) {
+				fr.leslimbes.block.DalleDeRoseeBlock.planifier(world, p, dalle);
+			}
+		}
+	}
+
+	@Override
+	protected void handleMetadata(String metadata, BlockPos pos, ServerWorldAccess world, Random random, BlockBox boundingBox) {
+		MarqueursDeStructure.appliquer(world, metadata, pos, random);
 	}
 }

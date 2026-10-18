@@ -1,0 +1,11 @@
+{
+  "nom": "Pied du grand pont",
+  "pos": [
+    0,
+    66,
+    56
+  ],
+  "rayon": 10,
+  "region": "prairies",
+  "description": "Là où le pont du Sanctuaire touche les Prairies."
+}

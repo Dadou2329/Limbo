@@ -1,0 +1,49 @@
+{
+  "titre": "La maison égarée",
+  "description": "Une lumière est tombée dans les Prairies. Lisbeth, à l'observatoire, dit qu'une maison entière est arrivée, avec quelqu'un dedans.",
+  "acte": 1,
+  "etapes": [
+    {
+      "id": "lumiere",
+      "resume": "Rejoindre l'endroit où la lumière est tombée.",
+      "cle_lieu": "arrivee",
+      "lieu": {"nom": "La lumière tombée", "pos": [70, 66, 210], "dimension": "les_limbes:limbes"},
+      "debut": [{"type": "lieu_quete", "quete": "la_maison_egaree", "cle": "arrivee", "localiser": "arrivee:maison_egaree"}],
+      "objectifs": [
+        {"id": "arrivee", "type": "atteindre", "cle_lieu": "arrivee", "rayon": 14, "dimension": "les_limbes:limbes", "texte": "Trouver ce qui est tombé"}
+      ]
+    },
+    {
+      "id": "emile",
+      "resume": "Parler à l'occupant de la maison.",
+      "cle_lieu": "arrivee",
+      "lieu": {"nom": "La maison égarée", "pos": [70, 66, 210], "dimension": "les_limbes:limbes"},
+      "objectifs": [
+        {"id": "emile", "type": "parler", "cible": "emile", "manuel": true, "texte": "Parler à Émile"}
+      ]
+    },
+    {
+      "id": "farine",
+      "resume": "Émile voudrait cuire du pain, mais il n'a plus de farine. Il en faut trois sacs (trois blés donnent deux sacs ; le moulin de Clairval, s'il tourne, fait mieux).",
+      "cle_lieu": "arrivee",
+      "lieu": {"nom": "La maison égarée", "pos": [70, 66, 210], "dimension": "les_limbes:limbes"},
+      "objectifs": [
+        {"id": "farine", "type": "collecter", "cible": "les_limbes:farine", "nombre": 3, "texte": "Réunir de la farine"}
+      ]
+    },
+    {
+      "id": "pain",
+      "resume": "Apporter la farine à Émile.",
+      "cle_lieu": "arrivee",
+      "lieu": {"nom": "La maison égarée", "pos": [70, 66, 210], "dimension": "les_limbes:limbes"},
+      "objectifs": [
+        {"id": "pain", "type": "parler", "cible": "emile", "manuel": true, "texte": "Donner la farine à Émile"}
+      ]
+    }
+  ],
+  "fin": [
+    {"type": "experience", "niveaux": 2},
+    {"type": "drapeau", "nom": "maison_egaree_terminee"},
+    {"type": "arrivee_resoudre", "id": "maison_egaree"}
+  ]
+}

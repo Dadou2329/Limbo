@@ -45,6 +45,7 @@ public final class LimbesServerEvents {
 		ServerEntityWorldChangeEvents.AFTER_PLAYER_CHANGE_WORLD.register((player, origin, destination) -> PlayerDataSync.envoyer(player));
 
 		ServerTickEvents.END_SERVER_TICK.register(server -> {
+			fr.leslimbes.arrivee.ArriveeManager.tick(server);
 			long time = server.getOverworld().getTime();
 			for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
 				Abilities.tick(player);

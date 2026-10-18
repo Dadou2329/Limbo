@@ -3,6 +3,7 @@ package fr.leslimbes.client.hud;
 import fr.leslimbes.LesLimbes;
 import fr.leslimbes.client.ClientLimbesData;
 import fr.leslimbes.client.input.LimbesKeys;
+import fr.leslimbes.entity.RaieCelesteEntity;
 import fr.leslimbes.item.BoussoleNacreeItem;
 import fr.leslimbes.power.Abilities;
 import fr.leslimbes.quest.QuestDefinition;
@@ -42,7 +43,22 @@ public final class LimbesHud {
 				dessinerMajeste(context, client, data);
 			}
 			dessinerSuiviQuete(context, client, data);
+			if (client.player.getVehicle() instanceof RaieCelesteEntity raie) {
+				dessinerEndurance(context, client, raie);
+			}
 		});
+	}
+
+	/** Endurance de vol de la monture : barre centrée au-dessus de la barre d'objets. */
+	private static void dessinerEndurance(DrawContext context, MinecraftClient client, RaieCelesteEntity raie) {
+		int largeur = 120;
+		int x = context.getScaledWindowWidth() / 2 - largeur / 2;
+		int y = context.getScaledWindowHeight() - 48;
+		float ratio = raie.getEndurance() / RaieCelesteEntity.ENDURANCE_MAX;
+		context.fill(x - 1, y - 1, x + largeur + 1, y + 4, 0xA0141A33);
+		context.fill(x, y, x + Math.round(largeur * ratio), y + 3, ratio > 0.25F ? 0xFF8FD8F0 : 0xFFE07A5A);
+		String texte = Text.translatable("hud.les_limbes.endurance").getString();
+		context.drawTextWithShadow(client.textRenderer, texte, x + largeur / 2 - client.textRenderer.getWidth(texte) / 2, y - 11, GRIS);
 	}
 
 	/**

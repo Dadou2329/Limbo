@@ -1,0 +1,115 @@
+{
+  "nom": "Théo",
+  "debut": [
+    {
+      "noeud": "domaine",
+      "si": [
+        {
+          "drapeau_monde": "domaine_explorateurs"
+        },
+        {
+          "drapeau": "theo_recrute"
+        }
+      ]
+    },
+    {
+      "noeud": "recrute",
+      "si": [
+        {
+          "drapeau": "theo_recrute"
+        }
+      ]
+    },
+    {
+      "noeud": "lieux",
+      "si": [
+        {
+          "quete_active": "les_cartes_de_theo"
+        }
+      ]
+    },
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Vous descendez du pont ? Alors vous venez d'arriver. Je suis Théo. Je dessine la carte des Prairies, assis ici, parce que je n'ose pas aller plus loin que le village.",
+        "Si vous voyez l'observatoire, le moulin, le lac du Crépuscule et l'ancien relais royal, revenez me le dire : je les mettrai sur la carte, avec votre nom dessous."
+      ],
+      "choix": [
+        {
+          "texte": "J'irai voir ces quatre lieux.",
+          "actions": [
+            {
+              "type": "demarrer_quete",
+              "quete": "les_cartes_de_theo"
+            }
+          ]
+        },
+        {
+          "texte": "Une autre fois."
+        }
+      ]
+    },
+    "lieux": {
+      "texte": [
+        "L'observatoire est la tour au nord-est de la place ; le moulin à l'ouest ; le lac à l'ouest du pied du pont ; le relais loin à l'est. Chaque lieu que vous découvrez s'inscrit dans votre journal."
+      ],
+      "choix": [
+        {
+          "texte": "Je les ai tous vus.",
+          "si": [
+            {
+              "quete_etape": {
+                "les_cartes_de_theo": ">=1"
+              }
+            }
+          ],
+          "actions": [
+            {
+              "type": "objectif",
+              "quete": "les_cartes_de_theo",
+              "objectif": "retour"
+            }
+          ],
+          "suivant": "merci"
+        },
+        {
+          "texte": "J'y vais."
+        }
+      ]
+    },
+    "merci": {
+      "texte": [
+        "Quatre lieux, quatre encres. Vous savez quoi ? Si vous ouvrez une maison des explorateurs, je m'y installe et je dresse la carte de tout ce que vous trouverez. Même au-delà des Prairies."
+      ],
+      "choix": [
+        {
+          "texte": "Je vous le dirai."
+        }
+      ]
+    },
+    "recrute": {
+      "texte": [
+        "Ma plume est prête. Ouvrez la maison des explorateurs et j'y porte mes cartes."
+      ],
+      "choix": [
+        {
+          "texte": "Bientôt."
+        }
+      ]
+    },
+    "domaine": {
+      "texte": [
+        "Regardez la carte dans votre journal : chaque lieu découvert y est. Les routes royales menaient à cinq autres régions ; quand vous les rouvrirez, je tracerai la suite."
+      ],
+      "choix": [
+        {
+          "texte": "Merci, Théo."
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "nom": "Lac du Crépuscule",
+  "pos": [
+    -60,
+    66,
+    20
+  ],
+  "rayon": 24,
+  "region": "prairies",
+  "description": "Ses dalles n'émergent que quand le jour s'incline."
+}

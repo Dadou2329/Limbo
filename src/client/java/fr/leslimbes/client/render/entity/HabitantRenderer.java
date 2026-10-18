@@ -13,7 +13,7 @@ import java.util.Set;
 
 /** Rendu des habitants : modèle de joueur et skin propre à chaque rôle. */
 public class HabitantRenderer extends MobEntityRenderer<HabitantEntity, PlayerEntityModel<HabitantEntity>> {
-	private static final Set<String> SKINS = Set.of("maelle", "thibault", "orielle", "brann", "vaeron", "gaspard", "habitant_1", "habitant_2", "habitant_3");
+	private static final Set<String> SKINS = Set.of("maelle", "thibault", "orielle", "brann", "vaeron", "gaspard", "habitant_1", "habitant_2", "habitant_3", "emile", "lisbeth", "rosalie");
 	private static final Map<String, Identifier> CACHE = new java.util.concurrent.ConcurrentHashMap<>();
 
 	public HabitantRenderer(EntityRendererFactory.Context ctx) {

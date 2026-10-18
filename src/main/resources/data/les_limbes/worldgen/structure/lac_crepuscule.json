@@ -1,0 +1,31 @@
+{
+  "type": "les_limbes:composee",
+  "biomes": "#les_limbes:limbes",
+  "step": "surface_structures",
+  "terrain_adaptation": "none",
+  "spawn_overrides": {},
+  "ancre": [
+    0,
+    0,
+    0
+  ],
+  "y": 66,
+  "pieces": [
+    {
+      "gabarit": "les_limbes:lac/lac_crepuscule",
+      "decalage": [
+        -18,
+        -5,
+        -18
+      ]
+    },
+    {
+      "gabarit": "les_limbes:rencontres/cabane_loic",
+      "decalage": [
+        23,
+        -1,
+        13
+      ]
+    }
+  ]
+}

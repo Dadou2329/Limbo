@@ -42,7 +42,8 @@ public final class PlayerLimbesData {
 			GlobalPos.CODEC.optionalFieldOf("lieu_sur").forGetter(d -> d.lieuSur),
 			BlockPos.CODEC.optionalFieldOf("vestige_connu").forGetter(d -> d.vestigeConnu),
 			Codec.BOOL.optionalFieldOf("carnet_recu", false).forGetter(d -> d.carnetRecu),
-			Codec.unboundedMap(Codec.STRING, Codec.INT).optionalFieldOf("compteurs", Map.of()).forGetter(d -> d.compteurs)
+			Codec.unboundedMap(Codec.STRING, Codec.INT).optionalFieldOf("compteurs", Map.of()).forGetter(d -> d.compteurs),
+			Codec.unboundedMap(Codec.STRING, Codec.STRING).optionalFieldOf("montures", Map.of()).forGetter(d -> d.montures)
 	).apply(instance, PlayerLimbesData::new));
 
 	public int version;
@@ -58,15 +59,18 @@ public final class PlayerLimbesData {
 	public Optional<BlockPos> vestigeConnu;
 	public boolean carnetRecu;
 	public final Map<String, Integer> compteurs;
+	/** Montures liées par pacte : clé de monture -> UUID de l'entité (recréée au rappel si introuvable). */
+	public final Map<String, String> montures;
 
 	public PlayerLimbesData() {
 		this(VERSION, MAJESTE_INITIALE, MAJESTE_INITIALE, List.of(), List.of("", "", ""), List.of(), List.of(), "",
-				Optional.empty(), Optional.empty(), Optional.empty(), false, Map.of());
+				Optional.empty(), Optional.empty(), Optional.empty(), false, Map.of(), Map.of());
 	}
 
 	public PlayerLimbesData(int version, float majeste, float majesteMax, List<String> pouvoirs, List<String> equipes,
 							List<QuestProgress> quetes, List<String> drapeaux, String queteSuivie, Optional<GlobalPos> retourOverworld,
-							Optional<GlobalPos> lieuSur, Optional<BlockPos> vestigeConnu, boolean carnetRecu, Map<String, Integer> compteurs) {
+							Optional<GlobalPos> lieuSur, Optional<BlockPos> vestigeConnu, boolean carnetRecu, Map<String, Integer> compteurs,
+							Map<String, String> montures) {
 		this.version = version;
 		this.majeste = majeste;
 		this.majesteMax = majesteMax;
@@ -86,6 +90,7 @@ public final class PlayerLimbesData {
 		this.vestigeConnu = vestigeConnu;
 		this.carnetRecu = carnetRecu;
 		this.compteurs = new HashMap<>(compteurs);
+		this.montures = new HashMap<>(montures);
 	}
 
 	/** Accès aux données d'un joueur (serveur ou client) ; créées à la demande. */

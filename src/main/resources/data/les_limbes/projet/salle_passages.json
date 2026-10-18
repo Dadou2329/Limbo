@@ -1,0 +1,45 @@
+{
+  "titre": "Creuser la salle des passages",
+  "description": "Une rotonde et une porte de relais : d'ici, un pas mène à chaque relais que vous avez découvert.",
+  "ordre": 7,
+  "lieu": "manoir",
+  "prerequis": [
+    {
+      "drapeau_monde": "domaine_aile_ouest"
+    },
+    {
+      "pouvoir": "pas_court"
+    }
+  ],
+  "cout": [
+    {
+      "objet": "les_limbes:pierre_nacree_taillee",
+      "nombre": 40
+    },
+    {
+      "objet": "les_limbes:cristal_de_nacre",
+      "nombre": 4
+    },
+    {
+      "objet": "les_limbes:fragment_de_nacre",
+      "nombre": 6
+    }
+  ],
+  "gabarit": "les_limbes:manoir/salle_passages",
+  "origine": [
+    -124,
+    65,
+    170
+  ],
+  "drapeau_monde": "domaine_passages",
+  "apres": [
+    {
+      "type": "message",
+      "texte": "La salle des passages s'ouvre. Touchez la porte de relais pour choisir une destination."
+    },
+    {
+      "type": "drapeau",
+      "nom": "relais:manoir"
+    }
+  ]
+}

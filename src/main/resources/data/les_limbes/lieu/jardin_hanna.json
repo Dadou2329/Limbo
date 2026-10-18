@@ -1,0 +1,11 @@
+{
+  "nom": "Jardin de Hanna",
+  "pos": [
+    60,
+    66,
+    112
+  ],
+  "rayon": 10,
+  "region": "prairies",
+  "description": "Carrés de cultures et tonnelle sur le plateau de Clairval."
+}

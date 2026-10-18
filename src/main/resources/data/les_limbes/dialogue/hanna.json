@@ -1,0 +1,154 @@
+{
+  "nom": "Hanna",
+  "debut": [
+    {
+      "noeud": "domaine",
+      "si": [
+        {
+          "drapeau_monde": "domaine_serres"
+        },
+        {
+          "drapeau": "hanna_recrutee"
+        }
+      ]
+    },
+    {
+      "noeud": "recrutee",
+      "si": [
+        {
+          "drapeau": "hanna_recrutee"
+        }
+      ]
+    },
+    {
+      "noeud": "plantes",
+      "si": [
+        {
+          "quete_active": "le_jardin_de_hanna"
+        }
+      ]
+    },
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Ne marchez pas sur les semis ! Pardon. Bonjour. Je suis Hanna. Tout ce qui pousse ici, je l'ai planté.",
+        "Je voudrais essayer des boutures de fleur de rosée et d'herbe de l'aube, mais mes jambes ne vont plus très loin. Six fleurs, quatre herbes : vous me rendriez un grand service."
+      ],
+      "choix": [
+        {
+          "texte": "Je vous les apporte.",
+          "actions": [
+            {
+              "type": "demarrer_quete",
+              "quete": "le_jardin_de_hanna"
+            }
+          ]
+        },
+        {
+          "texte": "Une autre fois."
+        }
+      ]
+    },
+    "plantes": {
+      "texte": [
+        "Les fleurs de rosée poussent dans l'herbe argentée, les herbes de l'aube au pied des arbres. Prenez votre temps, elles repoussent."
+      ],
+      "choix": [
+        {
+          "texte": "Voilà les plantes.",
+          "si": [
+            {
+              "objet": {
+                "id": "les_limbes:fleur_de_rosee",
+                "nombre": 6
+              }
+            },
+            {
+              "objet": {
+                "id": "les_limbes:herbe_de_l_aube",
+                "nombre": 4
+              }
+            },
+            {
+              "quete_etape": {
+                "le_jardin_de_hanna": ">=1"
+              }
+            }
+          ],
+          "actions": [
+            {
+              "type": "retirer",
+              "objet": "les_limbes:fleur_de_rosee",
+              "nombre": 6
+            },
+            {
+              "type": "retirer",
+              "objet": "les_limbes:herbe_de_l_aube",
+              "nombre": 4
+            },
+            {
+              "type": "donner",
+              "objet": "les_limbes:pousse_d_aube",
+              "nombre": 2,
+              "une_fois": "pousses_hanna"
+            },
+            {
+              "type": "objectif",
+              "quete": "le_jardin_de_hanna",
+              "objectif": "donner"
+            }
+          ],
+          "suivant": "merci"
+        },
+        {
+          "texte": "J'y travaille."
+        }
+      ]
+    },
+    "merci": {
+      "texte": [
+        "Elles sont parfaites. Tenez, deux pousses d'aube pour votre jardin. Et si vous avez des serres un jour, de vraies serres avec une verrière, je viendrai y faire pousser les plantes de toutes les régions."
+      ],
+      "choix": [
+        {
+          "texte": "Les serres du manoir sont à reconstruire. Venez quand ce sera fait."
+        }
+      ]
+    },
+    "recrutee": {
+      "texte": [
+        "Dites-moi quand les serres sont prêtes. J'ai déjà mis des graines de côté."
+      ],
+      "choix": [
+        {
+          "texte": "Bientôt."
+        }
+      ]
+    },
+    "domaine": {
+      "texte": [
+        "La verrière chauffe bien. Prenez des herbes de l'aube quand vous voulez pour vos bouillons ; elles repoussent en deux jours."
+      ],
+      "choix": [
+        {
+          "texte": "Quelques herbes, s'il vous plaît.",
+          "actions": [
+            {
+              "type": "donner",
+              "objet": "les_limbes:herbe_de_l_aube",
+              "nombre": 3,
+              "une_fois": "herbes_hanna_jour"
+            }
+          ]
+        },
+        {
+          "texte": "Merci, Hanna."
+        }
+      ]
+    }
+  }
+}

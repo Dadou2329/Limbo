@@ -124,7 +124,7 @@ public final class DialogueSession {
 		contenu.putInt("pnj", pnj.getId());
 		NbtList lignes = new NbtList();
 		for (String l : noeud.texte()) {
-			lignes.add(NbtString.of(l));
+			lignes.add(NbtString.of(remplacer(player, l)));
 		}
 		contenu.put("texte", lignes);
 		NbtList choix = new NbtList();
@@ -135,6 +135,15 @@ public final class DialogueSession {
 		if (ServerPlayNetworking.canSend(player, LimbesPayloads.OuvrirDialogue.ID)) {
 			ServerPlayNetworking.send(player, new LimbesPayloads.OuvrirDialogue(contenu));
 		}
+	}
+
+	/** Remplace les marqueurs dynamiques du texte : {joueur}, {arrivees}. */
+	private static String remplacer(ServerPlayerEntity player, String texte) {
+		if (texte.indexOf('{') < 0) {
+			return texte;
+		}
+		return texte.replace("{joueur}", player.getName().getString())
+				.replace("{arrivees}", fr.leslimbes.arrivee.ArriveeManager.resumePour(player));
 	}
 
 	/** Nettoyage à la déconnexion. */

@@ -84,7 +84,30 @@ public final class CaptureAutomatique {
 			case 1650 -> commande(client, "limbes tp clairval");
 			case 1790 -> regarder(client, 135.0F, -30.0F);
 			case 1830 -> capture(client, "12_nuit_constellations");
-			case 1870 -> {
+			// Étape 3 : raie céleste apprivoisée, moulin qui tourne, observatoire, lac au crépuscule, maison égarée.
+			case 1850 -> commande(client, "time set day");
+			case 1860 -> commande(client, "tp @s -20 67 130");
+			case 1900 -> commande(client, "summon les_limbes:raie_celeste -24 69 126 {Tame:1b}");
+			case 1980 -> regarder(client, 50.0F, -8.0F);
+			case 2020 -> capture(client, "13_raie_celeste");
+			case 2040 -> commande(client, "limbes quete demarrer le_moulin_immobilise");
+			case 2050 -> commande(client, "limbes quete etape le_moulin_immobilise 3");
+			case 2080 -> commande(client, "tp @s -28 67 136");
+			case 2160 -> regarder(client, 180.0F, -25.0F);
+			case 2200 -> capture(client, "14_moulin_tourne");
+			case 2220 -> commande(client, "tp @s 30 67 124");
+			case 2300 -> regarder(client, 180.0F, -20.0F);
+			case 2340 -> capture(client, "15_observatoire");
+			case 2360 -> commande(client, "tp @s -84 67 22");
+			case 2380 -> commande(client, "time set 12800");
+			case 2500 -> regarder(client, -90.0F, 8.0F);
+			case 2540 -> capture(client, "16_lac_crepuscule");
+			case 2560 -> commande(client, "time set day");
+			case 2570 -> commande(client, "limbes arrivee declencher maison_egaree");
+			case 2580 -> commande(client, "tp @s 70 67 226");
+			case 2700 -> regarder(client, 180.0F, -4.0F);
+			case 2740 -> capture(client, "17_maison_egaree");
+			case 2780 -> {
 				LesLimbes.LOGGER.info("CAPTURE : scénario terminé.");
 				client.scheduleStop();
 			}

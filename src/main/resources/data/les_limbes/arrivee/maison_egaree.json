@@ -1,0 +1,13 @@
+{
+  "titre": "La maison égarée",
+  "description": "Une petite maison d'un autre monde, avec son four et son occupant désorienté.",
+  "echelle": "moyenne",
+  "gabarit": "les_limbes:arrivees/maison_egaree",
+  "ancre": [6, 1, 6],
+  "sites": "prairies",
+  "poids": 10,
+  "unique": true,
+  "duree": 0,
+  "prerequis": [{"drapeau_monde": "acte_1_commence"}],
+  "annonce": "Une lumière est tombée du ciel"
+}

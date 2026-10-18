@@ -14,6 +14,8 @@ import fr.leslimbes.client.render.entity.PoissonLuneModel;
 import fr.leslimbes.client.render.entity.PoissonLuneRenderer;
 import fr.leslimbes.client.render.entity.VeilleurEgareModel;
 import fr.leslimbes.client.render.entity.VeilleurEgareRenderer;
+import fr.leslimbes.client.render.modele.ModeleDonneesRegistry;
+import fr.leslimbes.client.render.modele.RenduDonneesRenderer;
 import fr.leslimbes.client.render.particle.LimbesParticleFactories;
 import fr.leslimbes.registry.LimbesBlocks;
 import fr.leslimbes.registry.LimbesEntities;
@@ -34,7 +36,9 @@ public final class LesLimbesClient implements ClientModInitializer {
 		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), LimbesBlocks.FIBRES_NACREES, LimbesBlocks.HERBE_DE_L_AUBE,
 				LimbesBlocks.FLEUR_DE_ROSEE, LimbesBlocks.POUSSE_D_AUBE, LimbesBlocks.LANTERNE_NACREE, LimbesBlocks.PORTE_D_AUBE);
 		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutoutMipped(), LimbesBlocks.FEUILLES_D_AUBE);
-		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getTranslucent(), LimbesBlocks.PORTE_DES_LIMBES, LimbesBlocks.CRISTAL_DE_NACRE);
+		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getTranslucent(), LimbesBlocks.PORTE_DES_LIMBES, LimbesBlocks.CRISTAL_DE_NACRE, LimbesBlocks.DALLE_DE_ROSEE);
+		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), LimbesBlocks.AILES_DE_MOULIN);
+		net.minecraft.client.render.block.entity.BlockEntityRendererFactories.register(fr.leslimbes.registry.LimbesBlockEntities.AILES_DE_MOULIN, fr.leslimbes.client.render.block.MoulinRenderer::new);
 
 		EntityModelLayerRegistry.registerModelLayer(PoissonLuneRenderer.LAYER, PoissonLuneModel::getTexturedModelData);
 		EntityModelLayerRegistry.registerModelLayer(CerfLanterneRenderer.LAYER, CerfLanterneModel::getTexturedModelData);
@@ -43,6 +47,8 @@ public final class LesLimbesClient implements ClientModInitializer {
 		EntityRendererRegistry.register(LimbesEntities.POISSON_LUNE, PoissonLuneRenderer::new);
 		EntityRendererRegistry.register(LimbesEntities.CERF_LANTERNE, CerfLanterneRenderer::new);
 		EntityRendererRegistry.register(LimbesEntities.VEILLEUR_EGARE, VeilleurEgareRenderer::new);
+		ModeleDonneesRegistry.init();
+		EntityRendererRegistry.register(LimbesEntities.RAIE_CELESTE, ctx -> new RenduDonneesRenderer<>(ctx, "raie_celeste"));
 		LivingEntityFeatureRendererRegistrationCallback.EVENT.register((entityType, entityRenderer, registrationHelper, context) -> {
 			if (entityType == EntityType.PLAYER && entityRenderer instanceof PlayerEntityRenderer playerRenderer) {
 				registrationHelper.register(new FragmentDeCouronneFeature(playerRenderer));

@@ -1,0 +1,38 @@
+{
+  "titre": "Dessiner le jardin d'agrément",
+  "description": "Bains d'eau chaude, belvédère, bancs et massifs au sud-est du manoir.",
+  "ordre": 9,
+  "lieu": "manoir",
+  "prerequis": [
+    {
+      "drapeau_monde": "domaine_aile_ouest"
+    }
+  ],
+  "cout": [
+    {
+      "objet": "les_limbes:pierre_nacree_polie",
+      "nombre": 24
+    },
+    {
+      "objet": "les_limbes:fleur_de_rosee",
+      "nombre": 8
+    },
+    {
+      "objet": "les_limbes:lanterne_nacree",
+      "nombre": 2
+    }
+  ],
+  "gabarit": "les_limbes:manoir/jardin",
+  "origine": [
+    -100,
+    65,
+    160
+  ],
+  "drapeau_monde": "domaine_jardin",
+  "apres": [
+    {
+      "type": "message",
+      "texte": "Le jardin d'agrément est dessiné. Les bains fument doucement."
+    }
+  ]
+}

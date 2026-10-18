@@ -1,0 +1,72 @@
+{
+  "titre": "Le jardin de Hanna",
+  "description": "Hanna cultive un jardin sur le plateau de Clairval. Elle cherche des plantes des Prairies pour ses semis.",
+  "acte": 2,
+  "etapes": [
+    {
+      "id": "plantes",
+      "resume": "Réunir six fleurs de rosée et quatre herbes de l'aube pour Hanna.",
+      "lieu": {
+        "nom": "Jardin de Hanna",
+        "pos": [
+          60,
+          66,
+          112
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "fleurs",
+          "type": "collecter",
+          "cible": "les_limbes:fleur_de_rosee",
+          "nombre": 6,
+          "texte": "Cueillir des fleurs de rosée"
+        },
+        {
+          "id": "herbes",
+          "type": "collecter",
+          "cible": "les_limbes:herbe_de_l_aube",
+          "nombre": 4,
+          "texte": "Cueillir des herbes de l'aube"
+        }
+      ]
+    },
+    {
+      "id": "donner",
+      "resume": "Apporter les plantes à Hanna.",
+      "lieu": {
+        "nom": "Jardin de Hanna",
+        "pos": [
+          60,
+          66,
+          112
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "donner",
+          "type": "parler",
+          "cible": "hanna",
+          "manuel": true,
+          "texte": "Parler à Hanna"
+        }
+      ]
+    }
+  ],
+  "fin": [
+    {
+      "type": "experience",
+      "niveaux": 1
+    },
+    {
+      "type": "drapeau",
+      "nom": "hanna_recrutee"
+    },
+    {
+      "type": "message",
+      "texte": "Hanna viendra cultiver vos serres dès qu'elles seront reconstruites."
+    }
+  ]
+}

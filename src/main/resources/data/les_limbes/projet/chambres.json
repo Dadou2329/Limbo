@@ -1,0 +1,44 @@
+{
+  "titre": "Aménager les chambres des compagnons",
+  "description": "Le grenier devient quatre alcôves et un coin commun pour celles et ceux qui rejoignent le domaine.",
+  "ordre": 8,
+  "lieu": "manoir",
+  "prerequis": [
+    {
+      "drapeau_monde": "domaine_aile_ouest"
+    }
+  ],
+  "cout": [
+    {
+      "objet": "les_limbes:planches_d_aube",
+      "nombre": 24
+    },
+    {
+      "objet": "minecraft:white_wool",
+      "nombre": 12
+    },
+    {
+      "objet": "les_limbes:lanterne_nacree",
+      "nombre": 4
+    }
+  ],
+  "gabarit": "les_limbes:manoir/chambres",
+  "origine": [
+    -130,
+    76,
+    144
+  ],
+  "avant": "les_limbes:manoir/manoir",
+  "origine_avant": [
+    -133,
+    65,
+    139
+  ],
+  "drapeau_monde": "domaine_chambres",
+  "apres": [
+    {
+      "type": "message",
+      "texte": "Les chambres des compagnons sont prêtes sous les toits."
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "titre": "Réparer l'aile ouest",
+  "description": "Le toit de l'aile ouest s'est effondré sur le grenier. Planches et pierre taillée suffisent à refermer le manoir.",
+  "ordre": 1,
+  "lieu": "manoir",
+  "prerequis": [
+    {
+      "drapeau": "manoir_recu"
+    }
+  ],
+  "cout": [
+    {
+      "objet": "les_limbes:planches_d_aube",
+      "nombre": 24
+    },
+    {
+      "objet": "les_limbes:pierre_nacree_taillee",
+      "nombre": 8
+    }
+  ],
+  "gabarit": "les_limbes:manoir/aile_ouest",
+  "origine": [
+    -130,
+    74,
+    147
+  ],
+  "avant": "les_limbes:manoir/manoir",
+  "origine_avant": [
+    -133,
+    65,
+    139
+  ],
+  "drapeau_monde": "domaine_aile_ouest",
+  "apres": [
+    {
+      "type": "message",
+      "texte": "Le toit de l'aile ouest est refermé. Le grenier est de nouveau au sec."
+    }
+  ]
+}

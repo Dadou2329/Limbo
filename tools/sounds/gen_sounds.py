@@ -100,7 +100,7 @@ def save(name: str, samples: np.ndarray) -> None:
         w.setframerate(SR)
         data = (samples * 32767).astype("<i2").tobytes()
         w.writeframes(data)
-    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", wav_path, "-c:a", "libvorbis", "-q:a", "4", path], check=True)
+    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", wav_path, "-c:a", "libvorbis", "-q:a", "4", "-fflags", "+bitexact", "-flags:a", "+bitexact", path], check=True)
     os.unlink(wav_path)
     print("  ", path.replace(ROOT + "/", ""))
 
@@ -162,6 +162,16 @@ def main() -> None:
                                        sweep(160, 40, 1.2, 0.5) * env(int(SR * 1.2), 0.0, 0.9),
                                        chime([659.25, 523.25], 0.9, 0.3, 0.2, False)))
     save("interface/dialogue", chime([880.0, 1108.73], 0.35, 0.08, 0.3, False))
+    save("creature/raie_appel", mix(tone(392.0, 1.1, 0.4, harmonics=((1, 1.0), (2, 0.3), (3, 0.12)), vibrato=0.03) * env(int(SR * 1.1), 0.15, 0.7),
+                                    sweep(620, 940, 1.1, 0.14) * env(int(SR * 1.1), 0.2, 0.7)))
+    save("creature/raie_pacte", chime([523.25, 783.99, 1046.5, 1318.5], 1.0, 0.15, 0.4))
+    n = int(SR * 3.0)
+    t = np.arange(n) / SR
+    pli = 0.25 * np.sin(2 * math.pi * (180 + 60 * np.sin(2 * math.pi * 0.5 * t)) * t) * env(n, 0.4, 0.3, 0.6, 0.3)
+    save("monde/arrivee", mix(pli, sweep(200, 1600, 2.2, 0.2) * env(int(SR * 2.2), 0.3, 0.6), chime([880.0, 1318.5, 1760.0, 2637.0], 1.6, 0.35, 0.35)))
+    save("bloc/moulin_grince", mix(sweep(140, 90, 1.4, 0.35) * env(int(SR * 1.4), 0.1, 0.8), noise(1.4, 0.18, 50, 13) * env(int(SR * 1.4), 0.2, 0.7),
+                                   tone(70, 1.4, 0.25, harmonics=((1, 1.0), (3, 0.3))) * env(int(SR * 1.4), 0.05, 0.9)))
+    save("bloc/dalle_emerge", mix(chime([659.25, 880.0, 1174.66], 0.7, 0.1, 0.35), noise(0.5, 0.15, 30, 14) * env(int(SR * 0.5), 0.05, 0.9)))
     print("Terminé.")
 
 

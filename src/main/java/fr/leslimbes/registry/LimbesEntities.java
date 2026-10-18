@@ -3,6 +3,7 @@ package fr.leslimbes.registry;
 import fr.leslimbes.LesLimbes;
 import fr.leslimbes.entity.CerfLanterneEntity;
 import fr.leslimbes.entity.PoissonLuneEntity;
+import fr.leslimbes.entity.RaieCelesteEntity;
 import fr.leslimbes.entity.VeilleurEgareEntity;
 import fr.leslimbes.npc.HabitantEntity;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
@@ -26,6 +27,9 @@ public final class LimbesEntities {
 			EntityType.Builder.create(CerfLanterneEntity::new, SpawnGroup.CREATURE).dimensions(0.9F, 1.7F).eyeHeight(1.5F).maxTrackingRange(10));
 	public static final EntityType<VeilleurEgareEntity> VEILLEUR_EGARE = register("veilleur_egare",
 			EntityType.Builder.create(VeilleurEgareEntity::new, SpawnGroup.MONSTER).dimensions(0.9F, 2.4F).eyeHeight(2.0F).maxTrackingRange(10));
+	public static final EntityType<RaieCelesteEntity> RAIE_CELESTE = register("raie_celeste",
+			EntityType.Builder.create(RaieCelesteEntity::new, SpawnGroup.CREATURE).dimensions(1.5F, 0.6F).eyeHeight(0.4F)
+					.passengerAttachments(0.75F).maxTrackingRange(10));
 
 	private static <T extends net.minecraft.entity.Entity> EntityType<T> register(String path, EntityType.Builder<T> builder) {
 		return Registry.register(Registries.ENTITY_TYPE, LesLimbes.id(path), builder.build(path));
@@ -39,6 +43,8 @@ public final class LimbesEntities {
 		SpawnRestriction.register(POISSON_LUNE, SpawnLocationTypes.UNRESTRICTED, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, PoissonLuneEntity::peutApparaitre);
 		SpawnRestriction.register(CERF_LANTERNE, SpawnLocationTypes.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::isValidNaturalSpawn);
 		SpawnRestriction.register(VEILLEUR_EGARE, SpawnLocationTypes.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, HostileEntity::canSpawnIgnoreLightLevel);
+		FabricDefaultAttributeRegistry.register(RAIE_CELESTE, RaieCelesteEntity.creerAttributs());
+		SpawnRestriction.register(RAIE_CELESTE, SpawnLocationTypes.UNRESTRICTED, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, RaieCelesteEntity::peutApparaitre);
 	}
 
 	private LimbesEntities() {

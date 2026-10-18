@@ -1,0 +1,127 @@
+{
+  "nom": "Ysolde",
+  "debut": [
+    {
+      "noeud": "domaine",
+      "si": [
+        {
+          "drapeau_monde": "domaine_explorateurs"
+        },
+        {
+          "drapeau": "ysolde_recrutee"
+        }
+      ]
+    },
+    {
+      "noeud": "recrutee",
+      "si": [
+        {
+          "drapeau": "ysolde_recrutee"
+        }
+      ]
+    },
+    {
+      "noeud": "journal",
+      "si": [
+        {
+          "quete_active": "la_barque_echouee"
+        }
+      ]
+    },
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Ne touchez pas à la coque, elle a déjà assez souffert. Capitaine Ysolde. Je pêchais au large, une lumière, un vent qui n'existe pas, et me voilà sur une rive sans mer.",
+        "J'ai perdu mon journal de bord dans la traversée. Il a coulé vers l'îlot, là-bas, au milieu du lac. Sans lui, je ne sais même plus combien de jours j'ai navigué."
+      ],
+      "choix": [
+        {
+          "texte": "Je vais le chercher.",
+          "actions": [
+            {
+              "type": "demarrer_quete",
+              "quete": "la_barque_echouee"
+            }
+          ]
+        },
+        {
+          "texte": "Une autre fois."
+        }
+      ]
+    },
+    "journal": {
+      "texte": [
+        "L'îlot est au milieu du lac. On m'a dit que des dalles blanches y mènent quand le jour s'incline. Mon journal a une couverture bleue, avec une ancre dorée."
+      ],
+      "choix": [
+        {
+          "texte": "Voilà votre journal.",
+          "si": [
+            {
+              "objet": {
+                "id": "les_limbes:journal_de_bord",
+                "nombre": 1
+              }
+            },
+            {
+              "quete_etape": {
+                "la_barque_echouee": ">=1"
+              }
+            }
+          ],
+          "actions": [
+            {
+              "type": "retirer",
+              "objet": "les_limbes:journal_de_bord",
+              "nombre": 1
+            },
+            {
+              "type": "objectif",
+              "quete": "la_barque_echouee",
+              "objectif": "rendre"
+            }
+          ],
+          "suivant": "merci"
+        },
+        {
+          "texte": "J'y vais."
+        }
+      ]
+    },
+    "merci": {
+      "texte": [
+        "Mon journal… Quarante-deux jours de mer, et pas une page perdue. Vous me rendez plus que des pages.",
+        "Une capitaine sans bateau, c'est une exploratrice. Si vous avez une maison pour ceux qui partent loin, je mènerai vos expéditions. Et un jour, on me rendra une mer."
+      ],
+      "choix": [
+        {
+          "texte": "La maison des explorateurs du domaine vous attendra."
+        }
+      ]
+    },
+    "recrutee": {
+      "texte": [
+        "Ouvrez la maison des explorateurs et je viens y accrocher mon journal."
+      ],
+      "choix": [
+        {
+          "texte": "Bientôt."
+        }
+      ]
+    },
+    "domaine": {
+      "texte": [
+        "On me parle d'une mer suspendue, loin à l'est, et d'un port qu'on appelle Port-Nacre. Quand les routes rouvriront, je veux être la première à y poser un pied. Préparez des vivres : une expédition, ça se prépare."
+      ],
+      "choix": [
+        {
+          "texte": "Nous irons, capitaine."
+        }
+      ]
+    }
+  }
+}

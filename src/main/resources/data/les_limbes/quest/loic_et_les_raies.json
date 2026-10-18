@@ -1,0 +1,64 @@
+{
+  "titre": "Loïc et les raies",
+  "description": "Loïc observe les raies célestes depuis sa cabane au bord du lac. Il voudrait en voir une acceptée par quelqu'un.",
+  "acte": 2,
+  "etapes": [
+    {
+      "id": "pacte",
+      "resume": "Conclure un pacte avec une raie céleste (trois fleurs de rosée), puis revenir voir Loïc.",
+      "lieu": {
+        "nom": "Cabane de Loïc",
+        "pos": [
+          -36,
+          66,
+          34
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "pacte",
+          "type": "drapeau",
+          "cible": "pacte_raie",
+          "texte": "Conclure un pacte avec une raie"
+        }
+      ]
+    },
+    {
+      "id": "montrer",
+      "resume": "Montrer la raie à Loïc.",
+      "lieu": {
+        "nom": "Cabane de Loïc",
+        "pos": [
+          -36,
+          66,
+          34
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "montrer",
+          "type": "parler",
+          "cible": "loic",
+          "manuel": true,
+          "texte": "Parler à Loïc"
+        }
+      ]
+    }
+  ],
+  "fin": [
+    {
+      "type": "experience",
+      "niveaux": 1
+    },
+    {
+      "type": "drapeau",
+      "nom": "loic_recrute"
+    },
+    {
+      "type": "message",
+      "texte": "Loïc soignera vos montures dès que les écuries seront dressées."
+    }
+  ]
+}

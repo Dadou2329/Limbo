@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "actif=false,facing=north": {
+      "model": "les_limbes:block/ailes_de_moulin"
+    },
+    "actif=true,facing=north": {
+      "model": "les_limbes:block/ailes_de_moulin"
+    },
+    "actif=false,facing=east": {
+      "model": "les_limbes:block/ailes_de_moulin",
+      "y": 90
+    },
+    "actif=true,facing=east": {
+      "model": "les_limbes:block/ailes_de_moulin",
+      "y": 90
+    },
+    "actif=false,facing=south": {
+      "model": "les_limbes:block/ailes_de_moulin",
+      "y": 180
+    },
+    "actif=true,facing=south": {
+      "model": "les_limbes:block/ailes_de_moulin",
+      "y": 180
+    },
+    "actif=false,facing=west": {
+      "model": "les_limbes:block/ailes_de_moulin",
+      "y": 270
+    },
+    "actif=true,facing=west": {
+      "model": "les_limbes:block/ailes_de_moulin",
+      "y": 270
+    }
+  }
+}

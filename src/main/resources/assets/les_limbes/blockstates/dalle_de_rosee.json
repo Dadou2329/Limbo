@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "revelee=false": {
+      "model": "les_limbes:block/dalle_de_rosee_cachee"
+    },
+    "revelee=true": {
+      "model": "les_limbes:block/dalle_de_rosee"
+    }
+  }
+}

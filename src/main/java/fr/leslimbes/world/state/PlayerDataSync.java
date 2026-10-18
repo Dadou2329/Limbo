@@ -11,6 +11,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 /** Envoi des données du joueur vers son client (affichage de la majesté, du journal, des pouvoirs). */
 public final class PlayerDataSync {
 	public static void envoyer(ServerPlayerEntity player) {
+		fr.leslimbes.registry.LimbesAttachments.publier(player);
 		if (!ServerPlayNetworking.canSend(player, LimbesPayloads.SyncJoueur.ID)) {
 			return;
 		}

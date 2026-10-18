@@ -33,6 +33,41 @@
           "y": 66,
           "rayon": 34,
           "transition": 30
+        },
+        {
+          "x": 70,
+          "z": 210,
+          "y": 66,
+          "rayon": 16,
+          "transition": 14
+        },
+        {
+          "x": -80,
+          "z": 80,
+          "y": 66,
+          "rayon": 16,
+          "transition": 14
+        },
+        {
+          "x": 220,
+          "z": 150,
+          "y": 66,
+          "rayon": 16,
+          "transition": 14
+        },
+        {
+          "x": -60,
+          "z": 20,
+          "y": 66,
+          "rayon": 22,
+          "transition": 16
+        },
+        {
+          "x": -30,
+          "z": 20,
+          "y": 66,
+          "rayon": 12,
+          "transition": 12
         }
       ],
       "argument": {

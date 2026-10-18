@@ -39,6 +39,49 @@ public final class Conditions {
 		return true;
 	}
 
+	/** Conditions évaluables sans joueur (prérequis d'événements du monde) : drapeau_monde, tout, un_de, non. */
+	public static boolean toutesMonde(net.minecraft.server.MinecraftServer server, List<JsonObject> conditions) {
+		for (JsonObject c : conditions) {
+			if (!verifierMonde(server, c)) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public static boolean verifierMonde(net.minecraft.server.MinecraftServer server, JsonObject c) {
+		for (Map.Entry<String, JsonElement> entry : c.entrySet()) {
+			JsonElement v = entry.getValue();
+			boolean ok = switch (entry.getKey()) {
+				case "drapeau_monde" -> LimbesWorldState.get(server).aDrapeau(v.getAsString());
+				case "sans_drapeau_monde" -> !LimbesWorldState.get(server).aDrapeau(v.getAsString());
+				case "arrivee_active" -> fr.leslimbes.arrivee.ArriveeManager.plusProche(server, net.minecraft.util.math.BlockPos.ORIGIN, v.getAsString()) != null;
+				case "tout" -> {
+					for (JsonElement e : v.getAsJsonArray()) {
+						if (!verifierMonde(server, e.getAsJsonObject())) {
+							yield false;
+						}
+					}
+					yield true;
+				}
+				case "un_de" -> {
+					for (JsonElement e : v.getAsJsonArray()) {
+						if (verifierMonde(server, e.getAsJsonObject())) {
+							yield true;
+						}
+					}
+					yield false;
+				}
+				case "non" -> !verifierMonde(server, v.getAsJsonObject());
+				default -> true;
+			};
+			if (!ok) {
+				return false;
+			}
+		}
+		return true;
+	}
+
 	public static boolean verifier(ServerPlayerEntity player, JsonObject c) {
 		PlayerLimbesData data = PlayerLimbesData.of(player);
 		boolean reconnue = false;
@@ -56,6 +99,9 @@ public final class Conditions {
 				case "objet" -> possedeObjet(player, v.getAsJsonObject());
 				case "drapeau_monde" -> LimbesWorldState.get(player.server).aDrapeau(v.getAsString());
 				case "pouvoir" -> data.possedePouvoir(v.getAsString());
+				case "sans_drapeau_monde" -> !LimbesWorldState.get(player.server).aDrapeau(v.getAsString());
+				case "arrivee_active" -> fr.leslimbes.arrivee.ArriveeManager.plusProche(player.server, player.getBlockPos(), v.getAsString()) != null;
+				case "monture" -> data.montures.containsKey(v.getAsString());
 				case "tout" -> {
 					for (JsonElement e : v.getAsJsonArray()) {
 						if (!verifier(player, e.getAsJsonObject())) {

@@ -33,6 +33,16 @@ public final class LimbesSites {
 	/** Ancien relais royal : lieu du premier sauvetage. */
 	public static final BlockPos RELAIS_ROYAL = new BlockPos(150, SOL_PRAIRIES, 60);
 
+	/** Observatoire de Clairval (tour de Lisbeth), au nord-est de la place. */
+	public static final BlockPos OBSERVATOIRE = new BlockPos(30, SOL_PRAIRIES, 112);
+	/** Sites réservés aux Arrivées dans les Prairies (terrain aplani, jamais construits par le jeu). */
+	public static final BlockPos ARRIVEE_PRAIRIES_1 = new BlockPos(70, SOL_PRAIRIES, 210);
+	public static final BlockPos ARRIVEE_PRAIRIES_2 = new BlockPos(-80, SOL_PRAIRIES, 80);
+	public static final BlockPos ARRIVEE_PRAIRIES_3 = new BlockPos(220, SOL_PRAIRIES, 150);
+	/** Lac du Crépuscule : ses dalles n'émergent qu'au crépuscule. */
+	public static final BlockPos LAC_DU_CREPUSCULE = new BlockPos(-60, SOL_PRAIRIES, 20);
+	public static final int RAYON_APLANI_ARRIVEE = 16;
+
 	/** Rayon (blocs) des zones aplanies ; cohérent avec les fichiers de densité. */
 	public static final int RAYON_APLANI_VILLAGE = 70;
 	public static final int RAYON_APLANI_SITE = 34;

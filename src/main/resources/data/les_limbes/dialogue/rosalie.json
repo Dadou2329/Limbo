@@ -1,0 +1,53 @@
+{
+  "nom": "Rosalie",
+  "debut": [
+    {"noeud": "tourne", "si": [{"drapeau_monde": "moulin_repare"}]},
+    {"noeud": "meule_rapportee", "si": [{"quete_etape": {"le_moulin_immobilise": ">=2"}}, {"objet": {"id": "les_limbes:meule_royale", "nombre": 1}}]},
+    {"noeud": "en_cours", "si": [{"quete_active": "le_moulin_immobilise"}]},
+    {"noeud": "accueil"}
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Vous regardez les ailes ? Elles ne bougent plus depuis que j'étais petite. Mon père disait qu'un moulin sans meule, c'est une maison sans cœur.",
+        "La meule royale, celle que le roi avait offerte au village, est tombée dans le Lac du Crépuscule pendant une crue. Personne n'a pu la reprendre : l'îlot est au milieu de l'eau, et elle pèse une tonne.",
+        "Mais il y a une chose. Mon père racontait qu'au moment où le jour s'incline, des dalles blanches remontent à la surface du lac et font un chemin. Je n'ai jamais osé y aller seule."
+      ],
+      "choix": [
+        {"texte": "J'irai voir ce lac au crépuscule.", "actions": [{"type": "demarrer_quete", "quete": "le_moulin_immobilise"}]},
+        {"texte": "Où est ce lac ?", "suivant": "ou_lac", "actions": [{"type": "demarrer_quete", "quete": "le_moulin_immobilise"}]},
+        {"texte": "Une autre fois."}
+      ]
+    },
+    "ou_lac": {
+      "texte": [
+        "À l'ouest du pied du grand pont. Suivez les lampadaires de la route, puis coupez à travers les fibres : vous verrez l'eau briller. Allez-y avant la nuit, et attendez que le ciel rosisse."
+      ],
+      "choix": [{"texte": "Compris."}]
+    },
+    "en_cours": {
+      "texte": [
+        "Le lac est à l'ouest du pied du pont. Les dalles n'émergent que quand le jour s'incline, et à l'aube aussi, dit-on. Prenez votre temps : elles reviennent chaque soir."
+      ],
+      "choix": [{"texte": "J'y retourne."}]
+    },
+    "meule_rapportee": {
+      "texte": [
+        "C'est… c'est elle. La meule royale. Vous l'avez vraiment reprise au lac ?",
+        "Aidez-moi à la caler sur l'axe. Là. Maintenant, reculez un peu."
+      ],
+      "choix": [
+        {"texte": "Voilà la meule.", "actions": [
+          {"type": "retirer", "objet": "les_limbes:meule_royale", "nombre": 1},
+          {"type": "objectif", "quete": "le_moulin_immobilise", "objectif": "retour"}
+        ]}
+      ]
+    },
+    "tourne": {
+      "texte": [
+        "Écoutez-moi ça. Le moulin tourne. Si vous avez du blé, posez-le sur la meule, là, derrière vous : un épi, un sac de farine. Émile, s'il est encore dans sa maison tombée du ciel, va être content."
+      ],
+      "choix": [{"texte": "Merci, Rosalie."}]
+    }
+  }
+}

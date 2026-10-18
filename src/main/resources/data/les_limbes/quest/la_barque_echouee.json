@@ -1,0 +1,69 @@
+{
+  "titre": "La barque échouée",
+  "description": "Une barque a glissé du ciel jusqu'à la rive du lac. Sa capitaine, Ysolde, a perdu son journal de bord dans la traversée.",
+  "acte": 2,
+  "etapes": [
+    {
+      "id": "journal",
+      "resume": "Retrouver le journal de bord d'Ysolde. Il a coulé vers l'îlot du Lac du Crépuscule.",
+      "lieu": {
+        "nom": "Îlot du Lac du Crépuscule",
+        "pos": [
+          -60,
+          66,
+          20
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "journal",
+          "type": "collecter",
+          "cible": "les_limbes:journal_de_bord",
+          "nombre": 1,
+          "texte": "Retrouver le journal de bord"
+        }
+      ]
+    },
+    {
+      "id": "rendre",
+      "resume": "Rendre le journal à Ysolde, sur la rive est du lac.",
+      "lieu": {
+        "nom": "La barque échouée",
+        "pos": [
+          -30,
+          66,
+          20
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "rendre",
+          "type": "parler",
+          "cible": "ysolde",
+          "manuel": true,
+          "texte": "Parler à Ysolde"
+        }
+      ]
+    }
+  ],
+  "fin": [
+    {
+      "type": "experience",
+      "niveaux": 2
+    },
+    {
+      "type": "drapeau",
+      "nom": "ysolde_recrutee"
+    },
+    {
+      "type": "arrivee_resoudre",
+      "id": "barque_echouee"
+    },
+    {
+      "type": "message",
+      "texte": "Ysolde rejoindra la maison des explorateurs du domaine quand elle sera ouverte."
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "nom": "Marchand du domaine",
+  "debut": [
+    {
+      "noeud": "etal"
+    }
+  ],
+  "noeuds": {
+    "etal": {
+      "texte": [
+        "Fibres, cordes, lanternes : tout ce qui se tresse ou s'allume, c'est chez moi.",
+        "Deux lanternes nacrées contre quatre cristaux de nacre."
+      ],
+      "choix": [
+        {
+          "texte": "Marché conclu.",
+          "si": [
+            {
+              "objet": {
+                "id": "les_limbes:cristal_de_nacre",
+                "nombre": 4
+              }
+            }
+          ],
+          "actions": [
+            {
+              "type": "retirer",
+              "objet": "les_limbes:cristal_de_nacre",
+              "nombre": 4
+            },
+            {
+              "type": "donner",
+              "objet": "les_limbes:lanterne_nacree",
+              "nombre": 2
+            }
+          ]
+        },
+        {
+          "texte": "Pas aujourd'hui."
+        }
+      ]
+    }
+  }
+}

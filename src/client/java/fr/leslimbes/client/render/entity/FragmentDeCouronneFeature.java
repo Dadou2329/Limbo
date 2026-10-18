@@ -19,8 +19,7 @@ import org.joml.Matrix4f;
 
 /**
  * Fragment de couronne flottant au-dessus du joueur qui a éveillé sa magie royale.
- * (Seul le joueur local connaît sa progression ; les autres joueurs seront couverts par une
- * synchronisation d'état public dans une tranche ultérieure.)
+ * Le niveau de couronne est un état public synchronisé (attachement) : tous les joueurs le voient.
  */
 public class FragmentDeCouronneFeature extends FeatureRenderer<AbstractClientPlayerEntity, PlayerEntityModel<AbstractClientPlayerEntity>> {
 	private static final Identifier TEXTURE = LesLimbes.id("textures/entity/fragment_de_couronne.png");
@@ -32,8 +31,12 @@ public class FragmentDeCouronneFeature extends FeatureRenderer<AbstractClientPla
 	@Override
 	public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, AbstractClientPlayerEntity entity,
 					   float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
+		int niveau = fr.leslimbes.registry.LimbesAttachments.niveauCouronne(entity);
 		MinecraftClient client = MinecraftClient.getInstance();
-		if (client.player == null || entity != client.player || ClientLimbesData.get().pouvoirs.isEmpty() || entity.isInvisible()) {
+		if (niveau <= 0 && client.player == entity && !ClientLimbesData.get().pouvoirs.isEmpty()) {
+			niveau = 1;
+		}
+		if (niveau <= 0 || entity.isInvisible()) {
 			return;
 		}
 		matrices.push();

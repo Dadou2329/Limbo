@@ -1,0 +1,51 @@
+{
+  "titre": "Ouvrir le marché et les ateliers",
+  "description": "Trois étals couverts, un atelier de tissage et une cuisine de plein air. Marguerite y cuisinera ; des marchands viendront.",
+  "ordre": 10,
+  "lieu": "manoir",
+  "prerequis": [
+    {
+      "drapeau_monde": "domaine_aile_ouest"
+    },
+    {
+      "drapeau": "marguerite_recrutee"
+    }
+  ],
+  "cout": [
+    {
+      "objet": "les_limbes:planches_d_aube",
+      "nombre": 36
+    },
+    {
+      "objet": "minecraft:white_wool",
+      "nombre": 16
+    },
+    {
+      "objet": "les_limbes:pierre_nacree_taillee",
+      "nombre": 16
+    }
+  ],
+  "gabarit": "les_limbes:manoir/marche",
+  "origine": [
+    -128,
+    65,
+    180
+  ],
+  "drapeau_monde": "domaine_marche",
+  "apres": [
+    {
+      "type": "message",
+      "texte": "Le marché du domaine est ouvert. Marguerite allume déjà le feu."
+    },
+    {
+      "type": "deplacer_pnj",
+      "role": "marguerite",
+      "pos": [
+        -121,
+        66,
+        183
+      ],
+      "dimension": "les_limbes:limbes"
+    }
+  ]
+}

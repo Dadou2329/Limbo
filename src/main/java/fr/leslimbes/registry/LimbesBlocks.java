@@ -2,6 +2,9 @@ package fr.leslimbes.registry;
 
 import fr.leslimbes.LesLimbes;
 import fr.leslimbes.block.CristalDeNacreBlock;
+import fr.leslimbes.block.DalleDeRoseeBlock;
+import fr.leslimbes.block.MeuleDeMoulinBlock;
+import fr.leslimbes.block.MoulinBlock;
 import fr.leslimbes.block.FibresNacreesBlock;
 import fr.leslimbes.block.HerbeArgenteeBlock;
 import fr.leslimbes.block.HerbeDeLAubeBlock;
@@ -110,6 +113,18 @@ public final class LimbesBlocks {
 			AbstractBlock.Settings.create().mapColor(MapColor.BLACK).strength(-1.0F, 3600000.0F).dropsNothing()
 					.nonOpaque().noCollision().luminance(state -> state.get(PorteDesLimbesBlock.ACTIVE) ? 11 : 2)
 					.sounds(BlockSoundGroup.AMETHYST_BLOCK).pistonBehavior(PistonBehavior.BLOCK)));
+
+	// --- Lieux scénarisés des Prairies -------------------------------------------------------------
+	public static final Block DALLE_DE_ROSEE = register("dalle_de_rosee", new DalleDeRoseeBlock(
+			AbstractBlock.Settings.create().mapColor(MapColor.LIGHT_BLUE).strength(-1.0F, 3600000.0F).dropsNothing().nonOpaque()
+					.luminance(state -> state.get(DalleDeRoseeBlock.REVELEE) ? 11 : 2).sounds(BlockSoundGroup.AMETHYST_BLOCK)
+					.suffocates(LimbesBlocks::never).blockVision(LimbesBlocks::never).pistonBehavior(PistonBehavior.BLOCK)));
+	public static final Block MEULE_ROYALE = register("meule_royale", new Block(
+			AbstractBlock.Settings.create().mapColor(MapColor.OFF_WHITE).requiresTool().strength(2.0F, 6.0F).sounds(BlockSoundGroup.STONE)));
+	public static final Block MEULE_DE_MOULIN = register("meule_de_moulin", new MeuleDeMoulinBlock(
+			AbstractBlock.Settings.create().mapColor(MapColor.STONE_GRAY).requiresTool().strength(2.5F, 6.0F).sounds(BlockSoundGroup.STONE)));
+	public static final Block AILES_DE_MOULIN = register("ailes_de_moulin", new MoulinBlock(
+			AbstractBlock.Settings.create().mapColor(MapColor.TERRACOTTA_PINK).strength(2.0F, 3.0F).sounds(BlockSoundGroup.CHERRY_WOOD).nonOpaque()));
 
 	private static AbstractBlock.Settings pierre() {
 		return AbstractBlock.Settings.create().mapColor(MapColor.OFF_WHITE).instrument(NoteBlockInstrument.BASEDRUM)

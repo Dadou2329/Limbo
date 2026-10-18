@@ -1,0 +1,177 @@
+{
+  "nom": "Marguerite",
+  "debut": [
+    {
+      "noeud": "domaine",
+      "si": [
+        {
+          "drapeau_monde": "domaine_marche"
+        },
+        {
+          "drapeau": "marguerite_recrutee"
+        }
+      ]
+    },
+    {
+      "noeud": "recrutee",
+      "si": [
+        {
+          "drapeau": "marguerite_recrutee"
+        }
+      ]
+    },
+    {
+      "noeud": "vivres",
+      "si": [
+        {
+          "quete_active": "la_table_de_marguerite"
+        }
+      ]
+    },
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Vous sentez ? C'est mon bouillon. Je suis Marguerite, la cuisinière de l'auberge. Thibault sert, moi je cuisine.",
+        "On m'a parlé d'un boulanger tombé du ciel et de son pain. Deux pains d'Émile et trois bouillons de l'aube, et je vous apprends ma recette : le ragoût du domaine."
+      ],
+      "choix": [
+        {
+          "texte": "Je vous rapporte ça.",
+          "actions": [
+            {
+              "type": "demarrer_quete",
+              "quete": "la_table_de_marguerite"
+            }
+          ]
+        },
+        {
+          "texte": "Une autre fois."
+        }
+      ]
+    },
+    "vivres": {
+      "texte": [
+        "Le bouillon de l'aube : un bol, deux herbes de l'aube, des fibres nacrées. Le pain, c'est Émile. Allez, à vos fourneaux."
+      ],
+      "choix": [
+        {
+          "texte": "Voilà les vivres.",
+          "si": [
+            {
+              "objet": {
+                "id": "les_limbes:pain_d_emile",
+                "nombre": 2
+              }
+            },
+            {
+              "objet": {
+                "id": "les_limbes:bouillon_de_l_aube",
+                "nombre": 3
+              }
+            },
+            {
+              "quete_etape": {
+                "la_table_de_marguerite": ">=1"
+              }
+            }
+          ],
+          "actions": [
+            {
+              "type": "retirer",
+              "objet": "les_limbes:pain_d_emile",
+              "nombre": 2
+            },
+            {
+              "type": "retirer",
+              "objet": "les_limbes:bouillon_de_l_aube",
+              "nombre": 3
+            },
+            {
+              "type": "donner",
+              "objet": "les_limbes:ragout_du_domaine",
+              "nombre": 2,
+              "une_fois": "ragout_marguerite"
+            },
+            {
+              "type": "objectif",
+              "quete": "la_table_de_marguerite",
+              "objectif": "donner"
+            }
+          ],
+          "suivant": "merci"
+        },
+        {
+          "texte": "J'y travaille."
+        }
+      ]
+    },
+    "merci": {
+      "texte": [
+        "Goûtez. Un bol, une herbe de l'aube, une carotte, un poisson, un pain d'Émile : ça tient au corps et ça réchauffe. Si vous ouvrez un marché avec une vraie cuisine, je viens y tenir le feu."
+      ],
+      "choix": [
+        {
+          "texte": "Le marché du domaine vous attendra."
+        }
+      ]
+    },
+    "recrutee": {
+      "texte": [
+        "Quand votre marché sera ouvert, j'apporte mes marmites."
+      ],
+      "choix": [
+        {
+          "texte": "Bientôt."
+        }
+      ]
+    },
+    "domaine": {
+      "texte": [
+        "Le feu est allumé. Un ragoût du domaine contre un pain d'Émile et un poisson ? Je vous le fais tout de suite."
+      ],
+      "choix": [
+        {
+          "texte": "Un ragoût, s'il vous plaît.",
+          "si": [
+            {
+              "objet": {
+                "id": "les_limbes:pain_d_emile",
+                "nombre": 1
+              }
+            },
+            {
+              "objet": {
+                "id": "minecraft:cod",
+                "nombre": 1
+              }
+            }
+          ],
+          "actions": [
+            {
+              "type": "retirer",
+              "objet": "les_limbes:pain_d_emile",
+              "nombre": 1
+            },
+            {
+              "type": "retirer",
+              "objet": "minecraft:cod",
+              "nombre": 1
+            },
+            {
+              "type": "donner",
+              "objet": "les_limbes:ragout_du_domaine",
+              "nombre": 1
+            }
+          ]
+        },
+        {
+          "texte": "Merci, Marguerite."
+        }
+      ]
+    }
+  }
+}

@@ -2,7 +2,7 @@
 
 Ordre conseillé par le cahier des charges : 1 socle → 2 Prairies/Clairval/manoir/première quête/premiers pouvoirs → 3 tranche de qualité (mini-aventure, monture, Arrivée, combat) → 4 domaine/journal/passages → 5 régions restantes → 6 prétendants/campagne/couronnement → 7 pouvoirs supérieurs/règne → 8 complétion/optimisation.
 
-État : étapes 1 et 2 réalisées (tranche « Le Passage ») ; étape 3 partiellement (combat représentatif, pas encore de monture ni d'Arrivée).
+État : étapes 1, 2 et 3 réalisées (tranche « Le Passage », puis monture, Arrivées, mini-aventures et systèmes réutilisables) ; étape 4 (domaine) en cours.
 
 ## Prochaines actions exécutables (par priorité)
 
@@ -14,12 +14,13 @@ Ordre conseillé par le cahier des charges : 1 socle → 2 Prairies/Clairval/man
 - [ ] Jouer le combat du relais : équilibrer santé/dégâts des Veilleurs, fenêtre d'esquive.
 - [ ] Serveur dédié avec deux joueurs : synchronisation, dialogues simultanés, réapparition des PNJ.
 
-### B. Compléter l'étape 3 (tranche de qualité)
-- [ ] Monture : raie céleste (apprivoisement par nourriture, vol avec inertie, rappel, protection de chute).
-- [ ] Système d'Arrivées : état monde, emplacements réservés vérifiés, limite d'événements simultanés ; première Arrivée scénarisée (maison avec occupant désorienté près de Clairval) déclenchée par l'acte I.
-- [ ] Mini-aventure : « Le moulin immobilisé » (le remettre en marche) ou « Le lac aux passages révélés au crépuscule ».
-- [ ] Fragment de couronne visible pour les autres joueurs (synchronisation d'un état public).
-- [ ] Musiques originales (ou libres documentées) à la place des pistes vanilla.
+### B. Étape 3 (tranche de qualité) — réalisée
+- [x] Monture : raie céleste (pacte par nourriture, vol au regard, endurance, rappel, recréation, chute lente).
+- [x] Système d'Arrivées (types et sites en données, vérification de zone, limite simultanée, annonce, effet de ciel, expiration, archivage) ; « La maison égarée » et « La caisse tombée » ; observatoire de Lisbeth.
+- [x] Mini-aventures : « Le moulin immobilisé » et le Lac du Crépuscule (dalles de rosée horaires).
+- [x] Fragment de couronne visible par tous (attachement synchronisé `etat_public`).
+- [x] Modèles d'entités pilotés par données (JSON + textures peintes par cube) pour toutes les créatures à venir.
+- [ ] Musiques originales (ou libres documentées) à la place des pistes vanilla (étape 8).
 
 ### C. Domaine (étape 4)
 - [ ] Projets de restauration du manoir : aile ouest, serre, puits, forge royale ; aperçu d'emprise, détection de conflits avec les constructions du joueur, préservation des inventaires.

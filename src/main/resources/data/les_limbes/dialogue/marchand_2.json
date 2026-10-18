@@ -1,0 +1,44 @@
+{
+  "nom": "Marchande du domaine",
+  "debut": [
+    {
+      "noeud": "etal"
+    }
+  ],
+  "noeuds": {
+    "etal": {
+      "texte": [
+        "Graines, pousses et petits trésors des Prairies. Regardez, mais ne touchez pas aux éclats.",
+        "Un éclat de nacre contre huit fibres nacrées."
+      ],
+      "choix": [
+        {
+          "texte": "Marché conclu.",
+          "si": [
+            {
+              "objet": {
+                "id": "les_limbes:fibres_nacrees",
+                "nombre": 8
+              }
+            }
+          ],
+          "actions": [
+            {
+              "type": "retirer",
+              "objet": "les_limbes:fibres_nacrees",
+              "nombre": 8
+            },
+            {
+              "type": "donner",
+              "objet": "les_limbes:fragment_de_nacre",
+              "nombre": 1
+            }
+          ]
+        },
+        {
+          "texte": "Pas aujourd'hui."
+        }
+      ]
+    }
+  }
+}

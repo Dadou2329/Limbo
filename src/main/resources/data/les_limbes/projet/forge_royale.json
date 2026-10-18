@@ -1,0 +1,55 @@
+{
+  "titre": "Bâtir la forge royale",
+  "description": "Une annexe à deux foyers, à l'ouest du manoir, pour tremper et personnaliser les armes invoquées. Sabine s'y installera.",
+  "ordre": 2,
+  "lieu": "manoir",
+  "prerequis": [
+    {
+      "drapeau_monde": "domaine_aile_ouest"
+    },
+    {
+      "drapeau": "sabine_recrutee"
+    }
+  ],
+  "cout": [
+    {
+      "objet": "les_limbes:pierre_nacree_taillee",
+      "nombre": 48
+    },
+    {
+      "objet": "minecraft:iron_ingot",
+      "nombre": 6
+    },
+    {
+      "objet": "les_limbes:cristal_de_nacre",
+      "nombre": 2
+    }
+  ],
+  "gabarit": "les_limbes:manoir/forge_royale",
+  "origine": [
+    -150,
+    65,
+    148
+  ],
+  "drapeau_monde": "domaine_forge_royale",
+  "apres": [
+    {
+      "type": "message",
+      "texte": "La forge royale est bâtie. Sabine y prend ses quartiers."
+    },
+    {
+      "type": "drapeau",
+      "nom": "forge_royale_batie"
+    },
+    {
+      "type": "deplacer_pnj",
+      "role": "sabine",
+      "pos": [
+        -145,
+        66,
+        153
+      ],
+      "dimension": "les_limbes:limbes"
+    }
+  ]
+}
