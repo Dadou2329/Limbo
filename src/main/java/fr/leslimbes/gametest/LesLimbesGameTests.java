@@ -6,8 +6,7 @@ import fr.leslimbes.quest.QuestManager;
 import fr.leslimbes.quest.QuestSignal;
 import fr.leslimbes.registry.LimbesBlocks;
 import fr.leslimbes.registry.LimbesItems;
-import fr.leslimbes.world.dimension.LimbesDimension;
-import fr.leslimbes.world.dimension.LimbesSites;
+import fr.leslimbes.world.structure.ComposedPiece;
 import fr.leslimbes.world.state.PlayerLimbesData;
 import net.fabricmc.fabric.api.entity.FakePlayer;
 import net.fabricmc.fabric.api.gametest.v1.FabricGameTest;
@@ -18,7 +17,10 @@ import net.minecraft.structure.StructureTemplate;
 import net.minecraft.test.GameTest;
 import net.minecraft.test.TestContext;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.BlockRotation;
+import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3i;
@@ -109,49 +111,34 @@ public final class LesLimbesGameTests implements FabricGameTest {
 		context.complete();
 	}
 
-	@GameTest(templateName = EMPTY_STRUCTURE, tickLimit = 1200)
-	public void leSanctuaireEtClairvalSeGenerentAPositionFixe(TestContext context) {
-		ServerWorld limbes = LimbesDimension.monde(context.getWorld().getServer());
-		context.assertTrue(limbes != null, "la dimension des Limbes doit exister");
-		// Chargement forcé des chunks des sites (génération synchrone).
-		for (int cx = -2; cx <= 2; cx++) {
-			for (int cz = -2; cz <= 2; cz++) {
-				limbes.setChunkForced(cx, cz, true);
-				limbes.getChunk(cx, cz);
-			}
-		}
-		for (int cx = -1; cx <= 1; cx++) {
-			for (int cz = 7; cz <= 9; cz++) {
-				limbes.setChunkForced(cx, cz, true);
-				limbes.getChunk(cx, cz);
-			}
-		}
-		BlockPos arche = new BlockPos(0, 84, -8);
-		BlockState s = limbes.getBlockState(arche);
-		context.assertTrue(s.getBlock() instanceof PorteDesLimbesBlock && s.get(PorteDesLimbesBlock.ACTIVE), "arche de retour active attendue en " + arche + ", trouvé " + s);
-		context.assertTrue(limbes.getBlockState(BlockPos.ofFloored(LimbesSites.ARRIVEE)).isAir(), "la dalle d'arrivée doit être libre");
-		context.assertTrue(!limbes.getBlockState(BlockPos.ofFloored(LimbesSites.ARRIVEE).down()).isAir(), "sol attendu sous le point d'arrivée");
-		// Clairval : la place est pavée de pierre nacrée à l'altitude des Prairies, et l'air est libre au-dessus.
-		BlockPos place = new BlockPos(0, 65, 140);
-		context.assertTrue(limbes.getBlockState(place).isOf(LimbesBlocks.PIERRE_NACREE_POLIE) || limbes.getBlockState(place).isOf(LimbesBlocks.PIERRE_NACREE_TAILLEE)
-				|| limbes.getBlockState(place).isOf(LimbesBlocks.PIERRE_NACREE_SCULPTEE), "place de Clairval attendue en " + place + ", trouvé " + limbes.getBlockState(place));
-		context.assertTrue(limbes.getBlockState(new BlockPos(0, 66, 140)).isAir() || limbes.getBlockState(new BlockPos(0, 66, 140)).getCollisionShape(limbes, new BlockPos(0, 66, 140)).isEmpty(), "l'air doit être libre au-dessus de la place");
-		// Les personnages essentiels apparaissent une fois les entités chargées.
-		context.runAtTick(200, () -> {
-			List<HabitantEntity> pres = limbes.getEntitiesByClass(HabitantEntity.class, new Box(new BlockPos(0, 82, 0)).expand(24, 16, 24), h -> h.getRole().equals("maelle"));
-			context.assertTrue(!pres.isEmpty(), "Maëlle doit se trouver au Sanctuaire");
-			List<HabitantEntity> thibault = limbes.getEntitiesByClass(HabitantEntity.class, new Box(new BlockPos(14, 66, 126)).expand(24, 16, 24), h -> h.getRole().equals("thibault"));
-			context.assertTrue(!thibault.isEmpty(), "Thibault doit se trouver à l'auberge de Clairval");
-			for (int cx = -2; cx <= 2; cx++) {
-				for (int cz = -2; cz <= 2; cz++) {
-					limbes.setChunkForced(cx, cz, false);
-				}
-			}
-			for (int cx = -1; cx <= 1; cx++) {
-				for (int cz = 7; cz <= 9; cz++) {
-					limbes.setChunkForced(cx, cz, false);
-				}
-			}
+	@GameTest(templateName = EMPTY_STRUCTURE, tickLimit = 400)
+	public void lesPiecesComposeesSeGenerentAvecLeursMarqueurs(TestContext context) {
+		// Le serveur de GameTest est un monde plat sans dimensions de datapack : on exerce ici la pièce
+		// composée (gabarit + marqueurs pnj:/entite:) ; la génération réelle de la dimension est couverte par AutoTest.
+		ServerWorld world = context.getWorld();
+		BlockPos origine = context.getAbsolutePos(new BlockPos(0, 1, 0));
+		ComposedPiece piece = new ComposedPiece(world.getStructureTemplateManager(), Identifier.of("les_limbes", "vestige/vestige"), origine, BlockRotation.NONE);
+		BlockBox box = piece.getBoundingBox();
+		ChunkPos chunkPos = new ChunkPos(origine);
+		piece.generate(world, world.getStructureAccessor(), world.getChunkManager().getChunkGenerator(), world.getRandom(),
+				new BlockBox(box.getMinX() - 16, world.getBottomY(), box.getMinZ() - 16, box.getMaxX() + 16, world.getTopY(), box.getMaxZ() + 16), chunkPos, origine);
+		// Voile dormant 3x3 à (7..9, 5..7, 3) dans le gabarit.
+		BlockState porte = world.getBlockState(origine.add(8, 6, 3));
+		context.assertTrue(porte.getBlock() instanceof PorteDesLimbesBlock && !porte.get(PorteDesLimbesBlock.ACTIVE), "porte dormante attendue dans le vestige, trouvé " + porte);
+		context.assertTrue(world.getBlockState(origine.add(5, 5, 10)).isOf(net.minecraft.block.Blocks.LECTERN), "pupitre du gardien attendu");
+		// Pièce avec marqueur PNJ : la forge de Clairval fait apparaître Brann.
+		BlockPos origineForge = context.getAbsolutePos(new BlockPos(0, 1, 20));
+		ComposedPiece forge = new ComposedPiece(world.getStructureTemplateManager(), Identifier.of("les_limbes", "clairval/forge"), origineForge, BlockRotation.NONE);
+		BlockBox fb = forge.getBoundingBox();
+		forge.generate(world, world.getStructureAccessor(), world.getChunkManager().getChunkGenerator(), world.getRandom(),
+				new BlockBox(fb.getMinX() - 16, world.getBottomY(), fb.getMinZ() - 16, fb.getMaxX() + 16, world.getTopY(), fb.getMaxZ() + 16), new ChunkPos(origineForge), origineForge);
+		context.runAtTick(40, () -> {
+			List<HabitantEntity> brann = world.getEntitiesByClass(HabitantEntity.class, new Box(origineForge).expand(16, 8, 16), h -> h.getRole().equals("brann"));
+			context.assertTrue(!brann.isEmpty(), "Brann doit apparaître depuis le marqueur pnj:brann de la forge");
+			context.assertTrue(brann.get(0).isInvulnerableTo(world.getDamageSources().generic()), "un personnage essentiel est invulnérable aux dégâts ordinaires");
+			context.assertTrue(brann.get(0).getDomicile().isPresent(), "le personnage a un domicile");
+			context.assertTrue(world.getBlockState(origineForge.add(6, 1, 5)).isAir(), "le bloc marqueur a été remplacé par de l'air");
+			brann.forEach(h -> h.discard());
 			context.complete();
 		});
 	}

@@ -2,6 +2,7 @@ package fr.leslimbes;
 
 import fr.leslimbes.command.LimbesCommands;
 import fr.leslimbes.event.LimbesServerEvents;
+import fr.leslimbes.gametest.AutoTest;
 import fr.leslimbes.npc.dialogue.DialogueLoader;
 import fr.leslimbes.power.Abilities;
 import fr.leslimbes.quest.QuestLoader;
@@ -53,5 +54,6 @@ public final class LesLimbes implements ModInitializer {
 		LimbesNetworking.init();
 		LimbesServerEvents.init();
 		LimbesCommands.init();
+		AutoTest.init();
 	}
 }

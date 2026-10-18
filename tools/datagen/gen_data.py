@@ -569,6 +569,7 @@ def gen_worldgen() -> None:
     placed("bosquet_fibres", "bosquet_fibres", [{"type": "minecraft:count", "count": 4}, {"type": "minecraft:in_square"}, heightmap, {"type": "minecraft:biome"}])
     placed("bosquet_fibres_dense", "bosquet_fibres", [{"type": "minecraft:count", "count": 12}, {"type": "minecraft:in_square"}, heightmap, {"type": "minecraft:biome"}])
     placed("herbes_aube", "herbes_aube", [{"type": "minecraft:rarity_filter", "chance": 3}, {"type": "minecraft:in_square"}, heightmap, {"type": "minecraft:biome"}])
+    placed("herbes_aube_denses", "herbes_aube", [{"type": "minecraft:count", "count": 2}, {"type": "minecraft:in_square"}, heightmap, {"type": "minecraft:biome"}])
     placed("fleurs_rosee", "fleurs_rosee", [{"type": "minecraft:rarity_filter", "chance": 4}, {"type": "minecraft:in_square"}, heightmap, {"type": "minecraft:biome"}])
     placed("lanternes_perdues", "lanternes_perdues", [{"type": "minecraft:rarity_filter", "chance": 2}, {"type": "minecraft:in_square"}, heightmap, {"type": "minecraft:biome"}])
     placed("lacs", "lac", [{"type": "minecraft:rarity_filter", "chance": 9}, {"type": "minecraft:in_square"}, {"type": "minecraft:heightmap", "heightmap": "WORLD_SURFACE_WG"}, {"type": "minecraft:biome"}])
@@ -597,7 +598,7 @@ def gen_worldgen() -> None:
           [lb("arbres_aube_epars"), lb("grands_arbres_aube"), lb("bosquet_fibres"), lb("herbes_aube"), lb("fleurs_rosee")],
           [cerf, mouton, lapin], [poisson], [veilleur], "minecraft:music.overworld.meadow")
     biome("vergers_suspendus", 0.8, 0xA8C8EC, 0xE6E0EA, 0x6EC4E8, 0x9AD8F0, 0xC2CDA8, 0xD9B59A,
-          [lb("arbres_aube_verger"), lb("bosquet_fibres"), lb("herbes_aube"), lb("herbes_aube"), lb("fleurs_rosee")],
+          [lb("arbres_aube_verger"), lb("bosquet_fibres"), lb("herbes_aube_denses"), lb("fleurs_rosee")],
           [cerf, mouton, lapin], [poisson], [], "minecraft:music.overworld.cherry_grove")
     biome("vallee_des_lanternes", 0.6, 0x8FB8E6, 0xCFD9EE, 0x6EC4E8, 0x9AD8F0, 0xA9C0B4, 0xC9B7A2,
           [lb("arbres_aube_epars"), lb("bosquet_fibres_dense"), lb("lanternes_perdues"), lb("fleurs_rosee")],

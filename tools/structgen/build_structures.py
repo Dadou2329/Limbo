@@ -68,7 +68,6 @@ def build_vestige() -> Canvas:
             elif 1 <= x <= 15 and 1 <= z <= 15:
                 c.set(x, 4, z, "minecraft:grass_block[snowy=false]")
     c.trapdoor(12, 4, 8, "minecraft:oak", "west", half="top")   # accès à la cave (sous une dalle)
-    c.set(12, 4, 8, "minecraft:oak_trapdoor[facing=west,half=top,open=false,powered=false,waterlogged=false]")
     # Arche de la porte (côté nord, z=3) : piliers, linteau sculpté, voile dormant 3x3
     for y in range(5, 10):
         c.set(6, y, 3, PIERRE_T)
@@ -200,7 +199,6 @@ def build_ile() -> Canvas:
         c.column(x, SURF + 1, SURF + 4, 37, PIERRE_T)
         c.set(x, SURF + 5, 37, LANTERNE)
     c.fill(18, SURF, 30, 22, SURF, 40, PIERRE_T)
-    c.fill(18, SURF, 30, 22, SURF, 40, PIERRE_T)
     c.line(20, SURF, 30, 20, 40, PIERRE_P)
     for z in range(30, 41):
         c.set(17, SURF + 1, z, MURET)
@@ -285,7 +283,7 @@ def build_clairval_sol() -> Canvas:
     x, z = L(0, 140)
     fountain(c, x, 0, z)
     for wx, wz in [(-8, 132), (8, 132), (-8, 148), (8, 148)]:
-        lamppost(c, *L(wx, wz)[0:1], 1, L(wx, wz)[1], 3) if False else lamppost(c, L(wx, wz)[0], 1, L(wx, wz)[1], 3)
+        lamppost(c, L(wx, wz)[0], 1, L(wx, wz)[1], 3)
     for wx, wz, f in [(-4, 134, "south"), (4, 134, "south"), (-4, 146, "north"), (4, 146, "north")]:
         xx, zz = L(wx, wz)
         c.set(xx, 1, zz, stair(STAIR_BOIS, f))
@@ -296,8 +294,6 @@ def build_clairval_sol() -> Canvas:
         c.set(xx, 0, zz, TERRE)
         c.set(xx, 1, zz, FLEUR)
     # Chemins vers les bâtiments
-    for wx in range(10, 16):      # vers l'auberge (porte côté ouest de l'auberge en x=6? non : l'auberge est au nord-est, entrée sud)
-        pass
     for wx in range(10, 18):      # chemin place -> porte de l'auberge (porte en (15..16, 130))
         xx, zz = L(wx, 131)
         path(c, xx, zz, xx, zz + 1, 0)
@@ -322,8 +318,6 @@ def build_clairval_sol() -> Canvas:
     for wz in range(126, 128):
         xx, zz = L(-28, wz)
         path(c, xx, zz, xx, zz, 0)
-    for wz in range(-20, 0):      # vers le manoir : amorce ouest
-        pass
     for wx in range(-40, -22):
         xx, zz = L(wx, 140)
         path(c, xx, zz, xx, zz + 1, 0)
@@ -332,7 +326,7 @@ def build_clairval_sol() -> Canvas:
         path(c, xx, zz, xx, zz + 1, 0)
     # Arbres et potagers
     for wx, wz in [(-30, 136), (30, 134), (-6, 118), (6, 118), (26, 150), (-28, 150)]:
-        tree(c, *L(wx, wz)[0:1], 1, L(wx, wz)[1], 5, 2) if False else tree(c, L(wx, wz)[0], 1, L(wx, wz)[1], 5, 2)
+        tree(c, L(wx, wz)[0], 1, L(wx, wz)[1], 5, 2)
     xx, zz = L(16, 110)
     garden_bed(c, xx, 0, zz, xx + 5, zz + 3)
     fence_rect(c, xx - 1, 1, zz - 1, xx + 6, zz + 4, (xx + 2, zz - 1, "north"))
@@ -383,8 +377,7 @@ def build_auberge() -> Canvas:
     c.set(10, 3, D - 1, PLANCHES)
     for x in range(8, 12):
         c.set(x, 4, D, slab(DALLE_BOIS, "top")) if c.inside(x, 4, D) else None
-    c.hanging_sign_wall(8, 3, D - 1, "minecraft:oak", "south", ["Auberge", "du Moulin"]) if False else c.sign_wall(8, 3, D - 1, "minecraft:oak", "south", ["Auberge", "du Moulin", "chambres", "& bouillon"])
-    c.set(11, 3, D - 1, LANTERNE_H) if False else None
+    c.sign_wall(8, 3, D - 1, "minecraft:oak", "south", ["Auberge", "du Moulin", "chambres", "& bouillon"])
     # Salle commune (x 1..10, z 1..11) : comptoir, cheminée, tables
     counter(c, 2, 1, 2, 6, "x")
     c.set(2, 1, 1, "minecraft:barrel[facing=up,open=false]")
@@ -399,7 +392,6 @@ def build_auberge() -> Canvas:
     c.fill(0, 4, 5, 0, 8, 7, PIERRE_T)
     c.set(0, 9, 6, PIERRE_T)
     c.set(0, 10, 6, PIERRE_T)
-    c.set(0, 11, 6, "minecraft:campfire[facing=north,lit=false,signal_fire=false,waterlogged=false]") if False else None
     for x, z in [(3, 5), (3, 9), (7, 5), (7, 9)]:
         table(c, x, 1, z, 2, "x")
         chair(c, x - 1, 1, z, "east")
@@ -456,7 +448,7 @@ def build_auberge() -> Canvas:
         c.bed(bx + 1, 6, 2, "light_blue" if bx == 1 else "white", "north")
         c.set(bx, 6, 1, "minecraft:chest[facing=east,type=single,waterlogged=false]")
         c.set(bx + 3, 6, 1, "minecraft:lantern[hanging=false,waterlogged=false]")
-        c.set(bx + 3, 6, 2, "minecraft:flower_pot") if False else c.flower_pot(bx + 3, 6, 2, "minecraft:potted_azure_bluet")
+        c.flower_pot(bx + 3, 6, 2, "minecraft:potted_azure_bluet")
     c.bed(14, 6, 2, "cyan", "north")
     c.set(13, 6, 1, "minecraft:chest[facing=east,type=single,waterlogged=false]")
     # Chambres sud + bains
@@ -472,10 +464,9 @@ def build_auberge() -> Canvas:
     hanging_lantern(c, 12, 8, 6)
     # Thibault derrière le comptoir
     data_marker(c, 4, 1, 3, "pnj:thibault")
-    # Habitant de passage à l'étage ? non : Thibault seul. Lanternes extérieures
-    c.set(7, 3, D, LANTERNE_H) if c.inside(7, 3, D) else None
-    for x in (7, 12):
-        c.set(x, 3, D - 1, "minecraft:wall_torch[facing=south]") if False else None
+    # Lanterne extérieure sous l'auvent
+    if c.inside(7, 3, D):
+        c.set(7, 3, D, LANTERNE_H)
     return c
 
 
@@ -515,7 +506,7 @@ def build_forge() -> Canvas:
     c.fill(1, 1, 7, W - 2, 3, 7, PLANCHES)
     c.set(5, 1, 7, AIR)
     c.set(5, 2, 7, AIR)
-    c.bed(2, 1, 8, "red", "east") if False else c.bed(1, 1, 8, "red", "east")
+    c.bed(1, 1, 8, "red", "east")
     c.set(4, 1, 8, "minecraft:chest[facing=north,type=single,waterlogged=false]")
     c.set(7, 1, 8, "minecraft:crafting_table")
     c.set(9, 1, 8, "minecraft:lantern[hanging=false,waterlogged=false]")
@@ -523,7 +514,7 @@ def build_forge() -> Canvas:
     window(c, 2, 2, D - 1, "south", 2)
     window(c, 7, 2, D - 1, "south", 2)
     window(c, W - 1, 2, 3, "east", 2)
-    c.sign_wall(1, 3, 0, "minecraft:oak", "north", ["Forge", "de Brann", "réparations", "& outils"]) if False else c.sign_wall(0, 3, 1, "minecraft:oak", "west", ["Forge", "de Brann", "réparations", "& outils"])
+    c.sign_wall(0, 3, 1, "minecraft:oak", "west", ["Forge", "de Brann", "réparations", "& outils"])
     data_marker(c, 5, 1, 4, "pnj:brann")
     return c
 
@@ -542,13 +533,12 @@ def build_maison(nom: str, role: str, lit: str, variante: int) -> Canvas:
     c.fill(0, 4, 0, W - 1, 4, D - 1, PLANCHES)
     c.gable_roof(0, 0, W - 1, D - 1, 5, STAIR_BOIS if variante != 3 else STAIR_PIERRE, axis="x" if variante != 2 else "z", overhang=1)
     door(c, 4, 1, D - 1, "south")
-    c.set(4, 3, D - 1, LANTERNE_H) if False else None
     window(c, 1, 2, D - 1, "south", 2)
     window(c, 6, 2, D - 1, "south", 2)
     window(c, 0, 2, 3, "west", 2)
     window(c, W - 1, 2, 3, "east", 2)
     window(c, 3, 2, 0, "north", 2)
-    c.bed(1, 1, 1, lit, "east") if False else c.bed(1, 1, 2, lit, "north")
+    c.bed(1, 1, 2, lit, "north")
     c.set(1, 1, 1, "minecraft:chest[facing=east,type=single,waterlogged=false]")
     c.set(7, 1, 1, "minecraft:furnace[facing=south,lit=false]")
     c.set(6, 1, 1, "minecraft:crafting_table")
@@ -562,7 +552,6 @@ def build_maison(nom: str, role: str, lit: str, variante: int) -> Canvas:
     c.carpet(3, 1, 7, ["light_blue", "white", "lime"][variante - 1])
     c.carpet(4, 1, 7, ["light_blue", "white", "lime"][variante - 1])
     data_marker(c, 4, 1, 6, "pnj:" + role)
-    c.set(4, 3, 8, "minecraft:wall_torch[facing=south]") if False else None
     return c
 
 
@@ -585,8 +574,6 @@ def build_moulin() -> Canvas:
     c.set(5, 1, 6, "minecraft:barrel[facing=up,open=false]")
     c.set(2, 1, 6, "minecraft:chest[facing=east,type=single,waterlogged=false]", {"id": "minecraft:chest", "LootTable": "les_limbes:chests/manoir"})
     hanging_lantern(c, 4, 4, 4)
-    for y in range(2, 9):
-        c.set(4, y, 4, "minecraft:ladder[facing=north,waterlogged=false]") if False else None
     # Ailes figées (croix de barrières en façade sud, axe en bûche)
     c.set(4, 8, D - 1, log("z"))
     for i in range(1, 5):
@@ -640,7 +627,6 @@ def build_manoir() -> Canvas:
     c.fill(10, 0, z2 + 1, 15, 0, z2 + 2, PIERRE_P)
     c.set(10, 1, z2 + 1, LANTERNE)
     c.set(15, 1, z2 + 1, LANTERNE)
-    c.set(11, 4, z2, "minecraft:wall_torch[facing=south]") if False else None
     # Fenêtres
     for x in (4, 8, 17, 21):
         window(c, x, 2, z2, "south", 2)
@@ -675,7 +661,6 @@ def build_manoir() -> Canvas:
     c.set(12, 4, 5, PLANCHES); c.set(13, 4, 5, PLANCHES)
     hanging_lantern(c, 10, 4, 10)
     hanging_lantern(c, 15, 4, 10)
-    c.sign_wall(13, 3, z1 + 1, "minecraft:oak", "south", ["Manoir", "de l'intendant", "Clairval", ""]) if False else None
     c.set(10, 1, 16, "minecraft:lectern[facing=east,has_book=false,powered=false]")
     c.flower_pot(15, 1, 16, "minecraft:potted_azure_bluet")
     # Bibliothèque (x 3..8, z 5..17)
@@ -746,7 +731,6 @@ def build_manoir() -> Canvas:
     # Jardin sud (z 19..22) : fontaine, massifs, allée ; serre à restaurer à l'est (x 20..26, z 0..3) ; puits ouest
     c.fill(0, 0, 19, W - 1, 0, D - 1, HERBE)
     c.fill(12, 0, 19, 13, 0, D - 1, CHEMIN)
-    fountain(c, 5, 0, 20) if False else None
     garden_bed(c, 16, 0, 20, 21, 21)
     garden_bed(c, 4, 0, 20, 9, 21, HERBE_AUBE)
     for x in (1, 25):
@@ -759,15 +743,12 @@ def build_manoir() -> Canvas:
         c.set(x, 2, 0, VERRE); c.set(x, 2, 3, VERRE)
     c.set(20, 2, 1, VERRE); c.set(26, 2, 2, VERRE)
     c.set(22, 2, 1, HERBE_AUBE); c.set(24, 2, 2, FLEUR)
-    c.set(23, 1, 1, "minecraft:cobweb") if False else None
     # Puits
     c.fill(0, 0, 7, 1, 0, 8, COBBLE)
     c.set(0, 1, 7, COBBLE); c.set(1, 1, 8, COBBLE)
-    c.set(0, 1, 8, "minecraft:water[level=0]") if False else None
     # Orielle devant l'entrée
     data_marker(c, 14, 1, z2 + 2, "pnj:orielle")
     # Lanterne de porte
-    c.set(12, 4, z2 + 1, LANTERNE_H) if False else None
     return c
 
 
@@ -821,13 +802,12 @@ def build_relais() -> Canvas:
     c.set(5, 1, 7, AIR); c.set(5, 2, 7, AIR)
     c.set(3, 1, 10, "minecraft:barrel[facing=up,open=false]")
     c.set(4, 1, 11, "minecraft:lantern[hanging=false,waterlogged=false]")
-    c.bed(6, 1, 10, "brown", "south") if False else c.bed(6, 1, 9, "brown", "south")
+    c.bed(6, 1, 9, "brown", "south")
     data_marker(c, 4, 1, 9, "pnj:gaspard")
     # Cave (sous l'arrière-salle)
     # (pas de cave ici : la masse sous le gabarit est remplie par beard_thin)
     # Écurie (est, x 15..19, z 3..9) : barrières, foin, abreuvoir
     fence_rect(c, 15, 1, 3, 19, 9, (17, 9, "south"))
-    c.fill(16, 1, 4, 18, 1, 5, "minecraft:hay_block[axis=y]") if False else None
     c.set(16, 1, 4, "minecraft:hay_block[axis=y]")
     c.set(18, 1, 4, "minecraft:water_cauldron[level=2]")
     c.set(16, 1, 8, "minecraft:hay_block[axis=y]")
