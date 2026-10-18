@@ -8,17 +8,17 @@ Légende : **F** fonctionnel · **P** partiel · **—** absent (voir `BACKLOG.m
 |---|---|---|---|
 | Carnet du voyageur (livre français) | F | première connexion | GameTest quêtes, lecture en jeu non vérifiée |
 | Boussole nacrée (indication en barre d'action) | F | recette boussole + 4 améthystes | JUnit directions |
-| Vestige des Limbes (Overworld, structure composée, cave cachée, journal, porte dormante) | F | random_spread, biomes de prairies/forêts/savanes/taïgas | gabarit chargé (GameTest) ; génération Overworld non vérifiée en jeu |
+| Vestige des Limbes (Overworld, structure composée, cave cachée, journal, porte dormante) | F | random_spread, biomes de prairies/forêts/savanes/taïgas | gabarit chargé et pièce générée (GameTest) ; localisable sur serveur dédié (AutoTest) |
 | Porte des Limbes (dormante → réveil avec 3 éclats, voile connecté ≤ 32 blocs) | F | clic droit avec éclats | GameTest réveil/idempotence |
 | Voyage Overworld ↔ Limbes, retour exact au point de départ | F | marcher dans le voile | non vérifié en jeu (joueur réel) |
-| Dimension des Limbes : terrain suspendu, îles flottantes, brumes, lacs, cristaux | F | — | GameTest génération ; rendu non vérifié |
+| Dimension des Limbes : terrain suspendu, îles flottantes, brumes, lacs, cristaux | F | — | AutoTest serveur dédié (génération réelle) ; rendu non vérifié |
 | Biomes : plaines nacrées, vergers suspendus, vallée des lanternes | F | multi-bruit (température/humidité) | — |
 | Ciel nacré, constellations, silhouette du palais, nuages bas | P | client | compilé, non vérifié visuellement |
 | Protection des brumes (retour au dernier lieu sûr, chute lente) | F | y < 12 | non vérifié en jeu |
-| Sanctuaire de l'Arrivée (île, esplanade, arche de retour, Maëlle, grand pont) | F | position fixe 0/82/0 | GameTest : arche active, Maëlle présente |
-| Clairval (place, fontaine, auberge, forge, 3 maisons, moulin, chemins, jardins) | F | position fixe 0/66/140 | GameTest : place, Thibault |
-| Manoir du joueur (hall, bibliothèque, cuisine, réserve, 4 chambres, aile à restaurer, jardin, serre) | P | clé donnée par Orielle ; restauration non implémentée | gabarit chargé |
-| Ancien relais royal (ruine, écurie, Gaspard, 3 Veilleurs) | F | position fixe 150/66/60 | gabarit chargé |
+| Sanctuaire de l'Arrivée (île, esplanade, arche de retour, Maëlle, grand pont) | F | position fixe 0/82/0 | AutoTest : arche active, arrivée libre, Maëlle présente |
+| Clairval (place, fontaine, auberge, forge, 3 maisons, moulin, chemins, jardins) | F | position fixe 0/66/140 | AutoTest : place pavée, Thibault, Brann, Vaëron présents |
+| Manoir du joueur (hall, bibliothèque, cuisine, réserve, 4 chambres, aile à restaurer, jardin, serre) | P | clé donnée par Orielle ; restauration non implémentée | AutoTest : généré, Orielle présente |
+| Ancien relais royal (ruine, écurie, Gaspard, 3 Veilleurs) | F | position fixe 150/66/60 | AutoTest : généré, Gaspard et 3 Veilleurs présents |
 
 ## Blocs (23) et objets
 

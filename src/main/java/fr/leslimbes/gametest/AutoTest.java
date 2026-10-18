@@ -117,7 +117,9 @@ public final class AutoTest {
 				"dalle de téléportation libre en " + libre.toShortString() + " (trouvé " + limbes.getBlockState(libre) + ")");
 		for (int[] p : new int[][]{{40, 65, 100}, {-60, 65, 140}, {0, 65, 60}, {30, 65, 170}, {-100, 65, 130}, {140, 65, 40}}) {
 			BlockPos sol = new BlockPos(p[0], p[1], p[2]);
-			verifier(!limbes.getBlockState(sol).isAir() && limbes.getBlockState(sol.up()).isAir(), "terrain aplani à 66 en " + sol.toShortString() + " (sol " + limbes.getBlockState(sol) + ", dessus " + limbes.getBlockState(sol.up()) + ")");
+			boolean solPlein = !limbes.getBlockState(sol).getCollisionShape(limbes, sol).isEmpty();
+			boolean dessusLibre = limbes.getBlockState(sol.up()).getCollisionShape(limbes, sol.up()).isEmpty();
+			verifier(solPlein && dessusLibre, "terrain aplani à 66 en " + sol.toShortString() + " (sol " + limbes.getBlockState(sol) + ", dessus " + limbes.getBlockState(sol.up()) + ")");
 		}
 		// Diagnostic : densité finale réelle autour de la surface (zéro attendu entre 65 et 66).
 		net.minecraft.world.gen.densityfunction.DensityFunction finale = limbes.getChunkManager().getNoiseConfig().getNoiseRouter().finalDensity();

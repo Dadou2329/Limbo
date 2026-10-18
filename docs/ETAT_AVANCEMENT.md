@@ -12,8 +12,8 @@ Dans une nouvelle sauvegarde de survie : lire le carnet, fabriquer la boussole n
 |---|---|
 | Compilation complète (`./gradlew build`, JAR produit) | OK |
 | Tests unitaires (`./gradlew test`) : validité des quêtes/dialogues, références, langues, textures, cohérence des sites, logique de progression, aplanissement, sérialisation | 11/11 OK |
-| GameTests headless (`./gradlew runGametest`) : chargement des registres de génération, réveil de la porte, enchaînement complet de la quête « Le Passage » et objectifs manuels, chargement des 12 gabarits, génération réelle du Sanctuaire (arche active) et de Clairval (place) avec apparition de Maëlle et Thibault | voir section « Journal des exécutions » |
-| Serveur dédié (`./gradlew runServer`) : démarrage avec le mod, dimension présente | voir section « Journal des exécutions » |
+| GameTests headless (`./gradlew runGametest`) : registres de génération, réveil de la porte, quête « Le Passage », gabarits, pièces composées et marqueurs PNJ | 4/4 OK |
+| Serveur dédié réel (`./gradlew runAutotest`) : dimension, génération des lieux à position fixe, terrain aplani, personnages essentiels, Veilleurs, vestige Overworld | 20 vérifications OK (voir journal) |
 
 ## Non vérifié (impossible ici : pas d'affichage ni de client)
 
@@ -32,4 +32,13 @@ Ces scénarios sont documentés comme **à jouer** dans `BACKLOG.md` (section A)
 
 ## Journal des exécutions
 
-(renseigné à la fin de chaque session de validation)
+### 18 octobre 2026 — session de création (environnement sans affichage)
+
+| Exécution | Résultat |
+|---|---|
+| `./gradlew build` | OK, JAR `build/libs/les-limbes-0.1.0.jar` |
+| `./gradlew test` (JUnit) | 11/11 OK |
+| `./gradlew runGametest` (serveur de test plat) | 4/4 OK : réveil du voile (9 blocs, idempotent), enchaînement complet de « Le Passage » et objectifs manuels avec un joueur factice, chargement des 12 gabarits, génération des pièces composées avec apparition de Brann depuis un marqueur |
+| `./gradlew runAutotest` (serveur dédié réel, monde vierge) | dimension présente ; 148 chunks des Limbes générés en 3,3–5,1 s ; arche de retour active en 0/84/−8 ; point d'arrivée libre ; place de Clairval pavée ; plateaux à 65/66 sur six points de contrôle ; Maëlle, Thibault, Brann, Vaëron, Orielle, Gaspard présents à leur poste ; trois Veilleurs au relais ; vestige localisable depuis l'apparition de l'Overworld (deux graines : 144/80 et −624/−624) |
+
+Bugs trouvés et corrigés par ces exécutions : clé `predicate_type` du filtre de minerai ; feature dupliquée (cycle d'ordre) ; `minecraft:lake` qui plantait en bordure de chunk (remplacée par `les_limbes:lac`) ; `beard_thin` qui creusait le sol des villages ; terme des îles qui relevait la surface d'un bloc par interpolation ; constantes de l'arche et du point d'arrivée ; téléportation dans la fontaine.
