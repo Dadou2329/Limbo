@@ -34,6 +34,10 @@ public final class MarqueurMonde {
 		if (client.player == null || client.world == null || context.consumers() == null) {
 			return;
 		}
+		fr.leslimbes.client.OptionsLimbes options = fr.leslimbes.client.OptionsLimbes.get();
+		if (!options.marqueurs || options.discret) {
+			return;
+		}
 		Optional<QuestProgress> suivie = ClientLimbesData.get().queteSuivie();
 		if (suivie.isEmpty()) {
 			return;

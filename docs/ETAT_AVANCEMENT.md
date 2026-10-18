@@ -1,4 +1,4 @@
-# État d'avancement — version 0.2.0 « Le Passage » + tranche de qualité
+# État d'avancement — version 0.3.0 « Le Passage », tranche de qualité et domaine
 
 Dernière mise à jour : 18 octobre 2026. Ce document distingue honnêtement ce qui est **fonctionnel et vérifié**, ce qui est **fonctionnel mais non vérifié en jeu** (compilé, testé hors affichage), ce qui est **partiel** et ce qui **reste à réaliser**.
 
@@ -8,15 +8,17 @@ Dans une nouvelle sauvegarde de survie : lire le carnet, fabriquer la boussole n
 
 Depuis la tranche de qualité (étape 3) : apprivoiser une raie céleste avec trois fleurs de rosée et la monter (vol au regard, endurance, sifflet de rappel, recréation si elle est perdue, chute lente au démontage) ; voir le ciel se plisser et une Arrivée se poser sur un site réservé des Prairies (« La maison égarée » avec Émile le boulanger, « La caisse tombée », « La barque échouée »), que Lisbeth situe depuis l'observatoire ; remettre en marche le moulin de Clairval (Rosalie) et moudre son blé ; traverser le Lac du Crépuscule sur des dalles qui n'émergent qu'au crépuscule et à l'aube, jusqu'à l'îlot et sa meule royale. Le fragment de couronne est visible par les autres joueurs.
 
+Depuis l'étape du domaine (étape 4) : Orielle ouvre l'écran des **projets du domaine** (dix projets : aile ouest, forge royale, écuries, serres, maison des explorateurs, galerie des merveilles, salle des passages, chambres des compagnons, jardin, marché et ateliers) ; chaque projet montre son emprise dans le monde, signale les constructions du joueur qui la gênent et propose de bâtir autour sans y toucher, consomme des ressources des Prairies et transforme le manoir immédiatement, les inventaires étant préservés. Six compagnons se recrutent par de vraies rencontres (Sabine, Loïc, Hanna, Théo, Marguerite, Ysolde) et s'installent dans l'annexe bâtie ; Sabine affûte l'Épée du Souverain. Les portes de relais touchées en voyage (Sanctuaire, Clairval, relais royal) rejoignent la salle des passages, qui mène ensuite à chaque relais connu. Les vitrines de la galerie exposent un objet avec son histoire. Le journal a gagné les onglets Domaine, Carte et Options (densité des effets, secousses, flashes, marqueurs, indications discrètes, indices de tutoriel).
+
 ## Vérifications effectuées dans cet environnement (sans affichage)
 
 | Vérification | Résultat |
 |---|---|
 | Compilation complète (`./gradlew build`, JAR produit) | OK |
-| Tests unitaires (`./gradlew test`) : validité des quêtes/dialogues/Arrivées, références, langues, textures, modèles d'entités, cohérence des sites, logique de progression, aplanissement, sérialisation | 14/14 OK |
-| GameTests headless (`./gradlew runGametest`) : registres de génération, réveil de la porte, quête « Le Passage », gabarits, pièces composées et marqueurs PNJ, pacte/monte/rappel de la raie (joueur serveur factice connecté), dalles de rosée selon l'heure, meule du moulin, placement d'une Arrivée avec son occupant | 8/8 OK |
-| Serveur dédié réel (`./gradlew runAutotest`) : dimension, génération des lieux à position fixe, terrain aplani, personnages essentiels, Veilleurs, vestige Overworld, observatoire, lac et dalles, moulin, sites d'Arrivée, déclenchement/unicité/résolution d'une Arrivée, pacte et recréation de la raie | 40 vérifications OK (voir journal) |
-| Client réel sans écran (`./gradlew runCapture`, Xvfb + Mesa logiciel) : 17 captures du scénario automatique — arche, pont, traversée de l'arche vers l'Overworld, dialogue de Maëlle, ciel et palais, journal (quêtes, pouvoirs), Clairval, manoir, relais avec Veilleur, nuit, raie céleste, moulin en marche, observatoire, lac au crépuscule, maison égarée | OK, images dans `docs/captures/` |
+| Tests unitaires (`./gradlew test`) : validité des quêtes/dialogues/Arrivées/projets/lieux/relais, références, langues, textures, modèles d'entités, cohérence des sites et des gabarits, logique de progression, aplanissement, sérialisation | 15/15 OK |
+| GameTests headless (`./gradlew runGametest`) : registres de génération, réveil de la porte, quête « Le Passage », gabarits, pièces composées et marqueurs PNJ, raie (pacte, monte, rappel), dalles de rosée, meule du moulin, Arrivée placée avec son occupant, projet (conflits, blocs épargnés, inventaires rendus), lieux/relais/portes (découverte, réseau éteint puis éveillé, voyage), vitrine | 11/11 OK |
+| Serveur dédié réel (`./gradlew runAutotest`) : dimension, lieux à position fixe, terrain aplani, personnages essentiels, Veilleurs, vestige Overworld, observatoire, lac, moulin, Arrivées, raie, portes de relais générées avec leur identifiant, découverte de Clairval, projet « aile ouest » validé sur le manoir réel (conflit détecté, construction autour, coffre et contenu intacts, ressources consommées), voyage Clairval → Sanctuaire | 58 vérifications OK (voir journal) |
+| Client réel sans écran (`./gradlew runCapture`, Xvfb + Mesa logiciel) : 17 captures du scénario automatique (étapes 1 à 3) | OK, images dans `docs/captures/` ; les écrans de l'étape 4 (chantier, relais, carte, options, vitrine, porte de relais) seront capturés à la prochaine campagne de captures |
 
 ## Non vérifié (limites de l'environnement : pas de joueur réel, pas d'audio)
 
@@ -29,9 +31,9 @@ Ces scénarios sont documentés comme **à jouer** dans `BACKLOG.md` (section A)
 
 ## Fonctionnel / partiel / restant
 
-- **Fonctionnel** : chaîne de compilation, dimension et biomes, entrée et retour, structures à position fixe et pièces composées, PNJ essentiels et réapparition, dialogues et quêtes de l'acte I, huit quêtes secondaires des Prairies, journal et marqueurs, trois pouvoirs et majesté, cinq créatures dont la monture, modèles d'entités en données, système d'Arrivées (trois types, quatre sites), blocs scénarisés (dalle de rosée, moulin, meules), commandes d'administration, générateurs d'assets, tests.
-- **Partiel** : manoir (lieu complet, projets de restauration en données, exécution à l'étape 4) ; cerf-lanterne (sentiers vers des secrets à venir) ; musique (pistes vanilla) ; chemins hors plateaux.
-- **Restant** : voir `BACKLOG.md` — domaine et recrutement (en cours), cinq régions, prétendants, campagne et couronnement, pouvoirs supérieurs, règne, optimisation.
+- **Fonctionnel** : chaîne de compilation, dimension et biomes, entrée et retour, structures à position fixe et pièces composées, PNJ essentiels et réapparition, dialogues et quêtes de l'acte I, huit quêtes secondaires des Prairies, journal (quêtes, pouvoirs, domaine, carte, options) et marqueurs, trois pouvoirs et majesté, cinq créatures dont la monture, modèles d'entités en données, système d'Arrivées (trois types, quatre sites), blocs scénarisés (dalle de rosée, moulin, meules, vitrine, porte de relais), domaine (dix projets, recrutement, salle des passages, galerie, affûtage), commandes d'administration, générateurs d'assets, tests.
+- **Partiel** : cerf-lanterne (sentiers vers des secrets à venir) ; musique (pistes vanilla) ; chemins hors plateaux ; compagnons installés mais sans scènes de vie ni échanges marchands ; domaine partagé par le monde en multijoueur (pas de domaine par groupe).
+- **Restant** : voir `BACKLOG.md` — cinq régions, prétendants, campagne et couronnement, pouvoirs supérieurs, règne, optimisation.
 
 ## Journal des exécutions
 
@@ -78,3 +80,16 @@ Bugs trouvés et corrigés par ces exécutions :
 - gabarit de test d'Arrivée qui touchait la plateforme (`BARRIER` compté comme sol naturel, origine rehaussée) ;
 - toiles de plusieurs gabarits trop petites pour leurs volumes (maison égarée, lampadaire du lac, maison des explorateurs, cabane) ;
 - encodage des sons non déterministe (numéro de série Ogg aléatoire) : `ffmpeg -fflags +bitexact`.
+
+### 18 octobre 2026 — domaine (projets, recrutement, salle des passages, journal)
+
+| Exécution | Résultat |
+|---|---|
+| `./gradlew build` | OK, JAR `build/libs/les-limbes-0.3.0.jar` |
+| `./gradlew test` (JUnit) | 15/15 OK (nouveau : projets ⇔ gabarits et plateau du manoir, lieux, relais ⇔ portes dans les gabarits) |
+| `./gradlew runGametest` | 11/11 OK (nouveaux : projet et inventaires, lieux/relais/portes avec voyage réel d'un joueur serveur, vitrine) |
+| `./gradlew runAutotest` (serveur dédié réel, monde vierge) | 58 succès, 0 échec : les 40 vérifications précédentes, trois portes de relais générées avec leur identifiant et un point d'arrivée sûr, Clairval et son relais découverts en entrant sur la place, projet « Réparer l'aile ouest » refusé sans ressources puis avec un coffre en conflit non ignoré, validé en construisant autour (plancher posé, coffre et contenu intacts, ressources consommées, drapeau du monde, état « construit »), voyage Clairval → Sanctuaire par le réseau |
+
+Bugs trouvés et corrigés par ces exécutions :
+- inventaires dupliqués à la pose d'un gabarit : vanilla disperse déjà le contenu d'un conteneur remplacé (`ItemScatterer.onStateReplaced`) mais pas quand le gabarit porte des données de bloc-entité à la même position (conteneur vidé avant remplacement) ; les conteneurs de l'emprise sont désormais vidés avant la pose puis leur contenu rendu, une seule fois ;
+- feuilles d'un arbre au-dessus d'un point de contrôle du plateau : la végétation (feuilles, troncs) est tolérée par l'auto-test au-dessus du sol aplani.

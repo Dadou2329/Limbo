@@ -63,6 +63,46 @@ public class EpeeDuSouverainItem extends SwordItem {
 		return true;
 	}
 
+	public static final int AFFUTAGE_MAX = 3;
+	public static final String COMPTEUR_AFFUTAGE = "epee_affutage";
+
+	/** Niveau d'affûtage d'un joueur (forge royale, Sabine) : 0 à {@link #AFFUTAGE_MAX}. */
+	public static int affutage(net.minecraft.entity.player.PlayerEntity player) {
+		return Math.min(AFFUTAGE_MAX, fr.leslimbes.world.state.PlayerLimbesData.of(player).compteurs.getOrDefault(COMPTEUR_AFFUTAGE, 0));
+	}
+
+	/** Applique le niveau d'affûtage à une épée (dégâts +1 par niveau, mention dans l'infobulle). */
+	public static void appliquerAffutage(ItemStack stack, int niveau) {
+		stack.set(net.minecraft.component.DataComponentTypes.ATTRIBUTE_MODIFIERS, SwordItem.createAttributeModifiers(MATERIAU, 3 + niveau, -2.2F));
+		if (niveau > 0) {
+			stack.set(net.minecraft.component.DataComponentTypes.LORE, new net.minecraft.component.type.LoreComponent(
+					List.of(Text.translatable("item.les_limbes.epee_du_souverain.affutee", niveau).formatted(Formatting.AQUA))));
+		} else {
+			stack.remove(net.minecraft.component.DataComponentTypes.LORE);
+		}
+	}
+
+	/** Action « affuter_epee » (dialogue de Sabine) : un niveau de plus, appliqué aux épées déjà en main. */
+	public static void affuter(net.minecraft.server.network.ServerPlayerEntity player) {
+		fr.leslimbes.world.state.PlayerLimbesData data = fr.leslimbes.world.state.PlayerLimbesData.of(player);
+		int niveau = data.compteurs.getOrDefault(COMPTEUR_AFFUTAGE, 0);
+		if (niveau >= AFFUTAGE_MAX) {
+			player.sendMessage(Text.translatable("message.les_limbes.epee.affutage_max").formatted(Formatting.GRAY), false);
+			return;
+		}
+		niveau++;
+		data.compteurs.put(COMPTEUR_AFFUTAGE, niveau);
+		data.poserDrapeau("epee_affutee_" + niveau);
+		for (int i = 0; i < player.getInventory().size(); i++) {
+			ItemStack s = player.getInventory().getStack(i);
+			if (s.isOf(fr.leslimbes.registry.LimbesItems.EPEE_DU_SOUVERAIN)) {
+				appliquerAffutage(s, niveau);
+			}
+		}
+		player.getServerWorld().playSound(null, player.getBlockPos(), fr.leslimbes.registry.LimbesSounds.POUVOIR_EPEE, net.minecraft.sound.SoundCategory.PLAYERS, 1.0F, 1.3F);
+		player.sendMessage(Text.translatable("message.les_limbes.epee.affutee", niveau, AFFUTAGE_MAX).formatted(Formatting.GOLD), false);
+	}
+
 	@Override
 	public boolean hasGlint(ItemStack stack) {
 		return true;

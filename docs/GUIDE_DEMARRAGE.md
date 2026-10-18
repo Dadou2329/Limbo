@@ -22,6 +22,14 @@ Vous venez de créer une partie de survie avec Les Limbes. Voici de quoi commenc
 - Vos pouvoirs royaux s'activent avec **R**, **V** et **G** (reconfigurables). Ils consomment de la **majesté**, une réserve qui se régénère vite : la barre en bas à gauche.
 - Ouvrez le journal (J), onglet **Pouvoirs**, pour équiper un pouvoir dans un emplacement.
 
+## Votre domaine
+
+- Quand on vous confie le manoir, parlez à sa régisseuse : elle propose des **projets** (réparer, bâtir, aménager). Choisissez-en un, réunissez les ressources indiquées, validez : la transformation est immédiate et visible.
+- Avant de lancer un projet, **Aperçu** montre l'emprise dans le monde pendant dix secondes. Si vous avez construit dans la zone, le jeu vous le dit et vous propose de bâtir autour sans toucher à vos blocs ni à vos coffres.
+- Les habitants que vous aidez dans la région peuvent **rejoindre votre domaine** une fois leur atelier bâti.
+- Les **portes de relais** que vous touchez en voyage s'ajoutent à votre réseau ; la salle des passages du manoir permet ensuite de passer de l'une à l'autre.
+- Le journal (J) a une **carte** des lieux découverts et un onglet **Options** (effets, secousses, indications discrètes).
+
 ## Conseils
 
 - Les fibres nacrées des prairies font de bonnes cordes ; l'herbe de l'aube et un bol donnent un bouillon réconfortant.

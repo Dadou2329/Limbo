@@ -1,0 +1,11 @@
+{
+  "nom": "Sanctuaire de l'Arrivée",
+  "description": "L'île où tout commence, près de l'arche du retour.",
+  "pos": [
+    -6,
+    83,
+    0
+  ],
+  "dimension": "les_limbes:limbes",
+  "ordre": 1
+}

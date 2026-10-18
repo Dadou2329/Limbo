@@ -15,7 +15,7 @@ import java.util.Optional;
  * exécute des actions. S'il remplace une partie d'un gabarit antérieur ({@code avant}), les blocs
  * de ce gabarit ne comptent pas comme des constructions du joueur.
  */
-public record ProjetDefinition(String id, String titre, String description, String lieu, int ordre, List<JsonObject> prerequis,
+public record ProjetDefinition(String id, String titre, String description, String indice, String lieu, int ordre, List<JsonObject> prerequis,
 							   List<Cout> cout, Identifier gabarit, BlockPos origine, Optional<Identifier> avant, BlockPos origineAvant,
 							   String drapeauMonde, List<JsonObject> apres) {
 
@@ -29,7 +29,7 @@ public record ProjetDefinition(String id, String titre, String description, Stri
 		}
 		Optional<Identifier> avant = Optional.ofNullable(JsonUtil.string(json, "avant", null)).map(Identifier::of);
 		return new ProjetDefinition(id, JsonUtil.requireString(json, "titre", "projet " + id), JsonUtil.string(json, "description", ""),
-				JsonUtil.string(json, "lieu", "manoir"), JsonUtil.integer(json, "ordre", 99), JsonUtil.objects(json, "prerequis"), List.copyOf(couts),
+				JsonUtil.string(json, "indice", ""), JsonUtil.string(json, "lieu", "manoir"), JsonUtil.integer(json, "ordre", 99), JsonUtil.objects(json, "prerequis"), List.copyOf(couts),
 				Identifier.of(JsonUtil.requireString(json, "gabarit", "projet " + id)),
 				JsonUtil.blockPos(json, "origine").orElseThrow(() -> new IllegalArgumentException("projet " + id + " : « origine » obligatoire")),
 				avant, JsonUtil.blockPos(json, "origine_avant").orElse(BlockPos.ORIGIN),

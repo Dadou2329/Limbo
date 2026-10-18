@@ -350,7 +350,70 @@ def tex_toile_de_moulin() -> Image.Image:
     return img
 
 
+def tex_vitrine() -> Image.Image:
+    """Verre de vitrine : panneau translucide bordé d'or, reflet diagonal."""
+    img = new()
+    verre = hex_to_rgba("DDF3FF", 90)
+    for y in range(16):
+        for x in range(16):
+            put(img, x, y, verre)
+    for d in range(16):
+        if 3 <= d <= 12:
+            put(img, d, 15 - d, hex_to_rgba("FFFFFF", 140))
+    outline(img, (0, 0, 16, 16), P["or_sombre"])
+    for x, y in [(1, 1), (14, 1), (1, 14), (14, 14)]:
+        put(img, x, y, P["or"])
+    return img
+
+
+def tex_vitrine_socle() -> Image.Image:
+    img = new()
+    fill_noise(img, P["nacre_clair"], variation=0.03, scale=8, seed=91)
+    outline(img, (0, 0, 16, 16), P["or_sombre"])
+    outline(img, (1, 1, 15, 15), P["nacre_sombre"])
+    return img
+
+
+def tex_porte_de_relais() -> Image.Image:
+    """Pierre nacrée des portes de relais : blocs taillés, incrustations d'or."""
+    img = new()
+    bricks(img, P["nacre"], P["mortier"], bw=8, bh=4, seed=92, variation=0.05)
+    for y in (2, 6, 10, 14):
+        put(img, 3, y, P["or_sombre"]); put(img, 12, y, P["or_sombre"])
+    put(img, 7, 7, P["or"]); put(img, 8, 8, P["or"]); put(img, 8, 7, P["or_clair"]); put(img, 7, 8, P["or_clair"])
+    return img
+
+
+def tex_porte_de_relais_voile() -> Image.Image:
+    """Voile éveillé : bleu profond traversé de constellations, translucide."""
+    img = new()
+    for y in range(16):
+        for x in range(16):
+            t = y / 15.0
+            put(img, x, y, hex_to_rgba("3C57A0", int(150 + 60 * (1 - t))))
+    for x, y in [(3, 2), (11, 4), (6, 7), (13, 9), (2, 11), (9, 13), (12, 14), (5, 12)]:
+        put(img, x, y, P["lueur"])
+    for x, y in [(4, 2), (6, 8), (8, 13)]:
+        put(img, x, y, hex_to_rgba("FFF8E2", 160))
+    return img
+
+
+def tex_porte_de_relais_voile_eteint() -> Image.Image:
+    img = new()
+    for y in range(16):
+        for x in range(16):
+            put(img, x, y, hex_to_rgba("151E3D", 110 if (x + y) % 3 else 140))
+    for x, y in [(6, 7), (9, 13)]:
+        put(img, x, y, hex_to_rgba("B8B4B0", 120))
+    return img
+
+
 def gen_blocks() -> None:
+    save(tex_vitrine(), out_path("block", "vitrine"))
+    save(tex_vitrine_socle(), out_path("block", "vitrine_socle"))
+    save(tex_porte_de_relais(), out_path("block", "porte_de_relais"))
+    save(tex_porte_de_relais_voile(), out_path("block", "porte_de_relais_voile"))
+    save(tex_porte_de_relais_voile_eteint(), out_path("block", "porte_de_relais_voile_eteint"))
     save(tex_dalle_de_rosee(), out_path("block", "dalle_de_rosee"))
     save(tex_dalle_de_rosee_cachee(), out_path("block", "dalle_de_rosee_cachee"))
     save(tex_meule_royale(), out_path("block", "meule_royale"))

@@ -126,6 +126,14 @@ public final class LimbesBlocks {
 	public static final Block AILES_DE_MOULIN = register("ailes_de_moulin", new MoulinBlock(
 			AbstractBlock.Settings.create().mapColor(MapColor.TERRACOTTA_PINK).strength(2.0F, 3.0F).sounds(BlockSoundGroup.CHERRY_WOOD).nonOpaque()));
 
+	// --- Domaine ---------------------------------------------------------------------------------
+	public static final Block VITRINE = register("vitrine", new fr.leslimbes.block.VitrineBlock(
+			AbstractBlock.Settings.create().mapColor(MapColor.OFF_WHITE).strength(1.0F, 3.0F).sounds(BlockSoundGroup.GLASS).nonOpaque()
+					.luminance(state -> 6).suffocates(LimbesBlocks::never).blockVision(LimbesBlocks::never)));
+	public static final Block PORTE_DE_RELAIS = register("porte_de_relais", new fr.leslimbes.block.PorteDeRelaisBlock(
+			AbstractBlock.Settings.create().mapColor(MapColor.OFF_WHITE).strength(-1.0F, 3600000.0F).sounds(BlockSoundGroup.AMETHYST_BLOCK).nonOpaque()
+					.luminance(state -> state.get(fr.leslimbes.block.PorteDeRelaisBlock.EVEILLEE) ? 13 : 4).pistonBehavior(PistonBehavior.BLOCK)));
+
 	private static AbstractBlock.Settings pierre() {
 		return AbstractBlock.Settings.create().mapColor(MapColor.OFF_WHITE).instrument(NoteBlockInstrument.BASEDRUM)
 				.requiresTool().strength(1.5F, 6.0F).sounds(BlockSoundGroup.STONE);

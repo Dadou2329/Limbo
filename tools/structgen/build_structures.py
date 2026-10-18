@@ -183,6 +183,9 @@ def build_ile() -> Canvas:
     c.fill(ax - 1, SURF, az + 1, ax + 1, SURF, az + 6, PIERRE_P)
     # Maëlle : monde (3,83,-2) => local (23, SURF+1, 18)
     data_marker(c, 23, SURF + 1, 18, "pnj:maelle")
+    # Porte de relais du Sanctuaire (ouest de l'esplanade) : monde (-8,83,0) => local (12, SURF+1, 20) ; arrivée en (-6,83,0)
+    c.set(12, SURF + 1, 20, "les_limbes:porte_de_relais[eveillee=false,facing=east]", {"id": "les_limbes:porte_de_relais", "relais": "sanctuaire"})
+    c.set(12, SURF + 2, 20, AIR)
     # Bancs, fleurs et arbres
     for x, z, f in [(14, 26, "east"), (26, 26, "west"), (14, 14, "east"), (26, 14, "west")]:
         c.set(x, SURF + 1, z, stair(STAIR_BOIS, f))
@@ -337,6 +340,10 @@ def build_clairval_sol() -> Canvas:
     xx, zz = L(-20, 110)
     garden_bed(c, xx, 0, zz, xx + 4, zz + 4, HERBE_AUBE)
     fence_rect(c, xx - 1, 1, zz - 1, xx + 5, zz + 5, (xx + 2, zz + 5, "south"))
+    # Porte de relais de Clairval, au sud de la place : monde (0,66,149) ; arrivée en (0,66,147)
+    xx, zz = L(0, 149)
+    c.set(xx, 1, zz, "les_limbes:porte_de_relais[eveillee=false,facing=north]", {"id": "les_limbes:porte_de_relais", "relais": "clairval"})
+    c.set(xx, 2, zz, AIR)
     # Vaëron sur la place (monde (3, 66, 142)), panneau de bienvenue à l'entrée nord ; Théo au pied du pont
     data_marker(c, L(3, 142)[0], 1, L(3, 142)[1], "pnj:vaeron")
     data_marker(c, L(4, 62)[0], 1, L(4, 62)[1], "pnj:theo")
@@ -794,6 +801,9 @@ def build_relais() -> Canvas:
     c.set(10, 1, 5, "minecraft:barrel[facing=up,open=false]")
     c.set(10, 1, 4, "minecraft:cobweb")
     c.set(12, 1, 3, "minecraft:chest[facing=south,type=single,waterlogged=false]", {"id": "minecraft:chest", "LootTable": "les_limbes:chests/relais"})
+    # Porte de relais royale, contre le mur nord de la grande salle : monde (148,66,54) ; arrivée en (148,66,56)
+    c.set(8, 1, 3, "les_limbes:porte_de_relais[eveillee=false,facing=south]", {"id": "les_limbes:porte_de_relais", "relais": "relais_royal"})
+    c.set(8, 2, 3, AIR)
     c.set(6, 1, 10, "minecraft:cobweb")
     c.set(12, 1, 10, "minecraft:hay_block[axis=y]")
     c.set(13, 1, 10, "minecraft:hay_block[axis=y]")
@@ -1236,7 +1246,8 @@ def build_salle_passages() -> Canvas:
                     c.set(x, 6, z, PIERRE_P)
     c.set(4, 1, 0, AIR); c.set(4, 2, 0, AIR)  # entrée nord
     c.set(4, 7, 4, CRISTAL)
-    c.set(4, 1, 4, "les_limbes:porte_de_relais[facing=north]", {"id": "les_limbes:porte_de_relais", "relais": "manoir"})
+    c.set(4, 1, 4, "les_limbes:porte_de_relais[eveillee=false,facing=north]", {"id": "les_limbes:porte_de_relais", "relais": "manoir"})
+    c.set(4, 2, 4, AIR)
     for x, z in [(1, 4), (7, 4), (4, 7)]:
         c.set(x, 1, z, LANTERNE)
     for x, z in [(2, 2), (6, 2), (2, 6), (6, 6)]:

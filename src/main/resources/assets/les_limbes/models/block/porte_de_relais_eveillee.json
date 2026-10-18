@@ -1,0 +1,125 @@
+{
+  "textures": {
+    "particle": "les_limbes:block/porte_de_relais",
+    "pierre": "les_limbes:block/porte_de_relais",
+    "voile": "les_limbes:block/porte_de_relais_voile"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        5
+      ],
+      "to": [
+        3,
+        29,
+        11
+      ],
+      "faces": {
+        "north": {
+          "texture": "#pierre"
+        },
+        "south": {
+          "texture": "#pierre"
+        },
+        "east": {
+          "texture": "#pierre"
+        },
+        "west": {
+          "texture": "#pierre"
+        },
+        "up": {
+          "texture": "#pierre"
+        },
+        "down": {
+          "texture": "#pierre"
+        }
+      }
+    },
+    {
+      "from": [
+        13,
+        0,
+        5
+      ],
+      "to": [
+        16,
+        29,
+        11
+      ],
+      "faces": {
+        "north": {
+          "texture": "#pierre"
+        },
+        "south": {
+          "texture": "#pierre"
+        },
+        "east": {
+          "texture": "#pierre"
+        },
+        "west": {
+          "texture": "#pierre"
+        },
+        "up": {
+          "texture": "#pierre"
+        },
+        "down": {
+          "texture": "#pierre"
+        }
+      }
+    },
+    {
+      "from": [
+        0,
+        29,
+        5
+      ],
+      "to": [
+        16,
+        32,
+        11
+      ],
+      "faces": {
+        "north": {
+          "texture": "#pierre"
+        },
+        "south": {
+          "texture": "#pierre"
+        },
+        "east": {
+          "texture": "#pierre"
+        },
+        "west": {
+          "texture": "#pierre"
+        },
+        "up": {
+          "texture": "#pierre"
+        },
+        "down": {
+          "texture": "#pierre"
+        }
+      }
+    },
+    {
+      "from": [
+        3,
+        0,
+        7
+      ],
+      "to": [
+        13,
+        29,
+        9
+      ],
+      "faces": {
+        "north": {
+          "texture": "#voile"
+        },
+        "south": {
+          "texture": "#voile"
+        }
+      }
+    }
+  ]
+}

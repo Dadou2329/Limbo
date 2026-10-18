@@ -34,10 +34,12 @@ public final class LimbesServerEvents {
 			ServerPlayerEntity player = handler.getPlayer();
 			PremiereConnexion.accueillir(player);
 			PlayerDataSync.envoyer(player);
+			fr.leslimbes.domaine.SyncLieux.envoyer(player);
 		});
 		ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> {
 			ServerPlayerEntity player = handler.getPlayer();
 			DialogueSession.onDeconnexion(player.getUuid());
+			fr.leslimbes.domaine.ProjetManager.onDeconnexion(player.getUuid());
 			Abilities.onDeconnexion(player.getUuid());
 			ArsenalDuSouverain.onDeconnexion(player.getUuid());
 		});
@@ -51,6 +53,7 @@ public final class LimbesServerEvents {
 				Abilities.tick(player);
 				if ((time + player.getId()) % 20L == 0L) {
 					QuestManager.tick(player);
+					fr.leslimbes.domaine.LieuxManager.tick(player);
 				}
 			}
 		});

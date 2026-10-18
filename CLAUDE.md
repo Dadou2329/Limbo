@@ -22,4 +22,5 @@ Puis `./gradlew build`. Les fichiers écrits à la main : `assets/les_limbes/lan
 - Sites fixes : `LimbesSites.java` ⇔ `SITES` dans `gen_data.py` ⇔ pièces dans `build_structures.py` (test JUnit `lesSitesFixesSontCoherentsAvecLaGeneration`).
 - Actions/conditions de dialogues et quêtes : `npc/dialogue/Actions.java`, `Conditions.java` ; objectifs : `quest/QuestDefinition.java`.
 - Rôles essentiels (invulnérables, réapparition) : `HabitantEntity.ROLES_ESSENTIELS` ; chaque rôle a un skin, un nom `pnj.les_limbes.<role>` et un dialogue.
+- Projets de domaine : `data/les_limbes/projet/*.json` ⇔ gabarits `manoir/*` dans `build_structures.py` (origines sur le plateau aplani du manoir, rayon 40) ; relais : `data/les_limbes/relais/*.json` ⇔ portes `les_limbes:porte_de_relais` posées dans les gabarits (test JUnit `lesProjetsLieuxEtRelaisSontCoherents`).
 - Tout texte joueur en français ; `en_us.json` est une copie de `fr_fr.json`.

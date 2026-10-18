@@ -7,5 +7,6 @@
   ],
   "rayon": 18,
   "region": "prairies",
-  "description": "Une étape des routes royales éteintes."
+  "description": "Une étape des routes royales éteintes.",
+  "relais": "relais_royal"
 }

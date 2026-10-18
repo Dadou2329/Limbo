@@ -63,10 +63,13 @@ Ordre recommandé après modification : textures → sons → données → struc
 - **Un personnage** : marqueur `pnj:<role>` dans un gabarit (ou commande `/limbes pnj reapparaitre <role>`), texture `textures/entity/habitant/<role>.png` (ajoutez le rôle dans `SKINS` du générateur et dans `HabitantRenderer`), nom `pnj.les_limbes.<role>` dans la langue, dialogue `dialogue/<role>.json`. Ajoutez le rôle à `ROLES_ESSENTIELS` pour l'invulnérabilité et la réapparition.
 - **Un lieu à position fixe** : coordonnées dans `LimbesSites.java`, site aplani dans `gen_data.py` (`SITES`), gabarit et structure composée dans `build_structures.py`. Le test `lesSitesFixesSontCoherentsAvecLaGeneration` garde le tout cohérent.
 - **Un pouvoir** : une `Ability` dans `Abilities.java`, une exécution serveur, un effet client dans `EffetsClient.java`, les clés `pouvoir.les_limbes.<id>`, `.court`, `.description`.
+- **Un projet de domaine** : un fichier `projet/<id>.json` (titre, description, `indice` lisible pour les prérequis, `ordre`, `prerequis` = conditions de dialogue, `cout`, `gabarit`, `origine`, éventuellement `avant`/`origine_avant` = gabarit d'origine dont les blocs ne comptent pas comme constructions du joueur, `drapeau_monde`, `apres` = actions). Le gabarit vient de `build_structures.py` ; `ProjetManager` fait le reste (aperçu, conflits, ressources, pose, inventaires rendus, drapeau, actions). Les origines doivent rester sur le plateau aplani du manoir (rayon 40), ce que vérifie `lesProjetsLieuxEtRelaisSontCoherents`.
+- **Un lieu d'intérêt** : `lieu/<id>.json` (nom, pos, rayon, région, dimension, éventuellement `relais`) ; découverte automatique (drapeau `lieu:<id>`), carte du journal. Un relais : `relais/<id>.json` (nom, pos = point d'arrivée devant la porte) **et** une porte de relais dans un gabarit (`les_limbes:porte_de_relais` avec `{"relais": "<id>"}` dans le bloc-entité).
+- **Une action ou condition de dialogue** : `Actions.java` / `Conditions.java` ; toute action accepte `"si": [conditions]` et `"une_fois": "<drapeau>"`.
 
 ## Commandes d'administration (`/limbes`, niveau 2)
 
-`tp sanctuaire|clairval|manoir|relais|overworld`, `quete liste|demarrer|etape|reinit`, `pouvoir <id>|tout`, `majeste <valeur>`, `drapeau poser|retirer`, `pnj reapparaitre <role>`, `porte reveiller` (bloc visé), `structure <id> [pos]` (place un gabarit pour inspection), `diag`.
+`tp sanctuaire|clairval|manoir|relais|overworld`, `quete liste|demarrer|etape|reinit`, `pouvoir <id>|tout`, `majeste <valeur>`, `drapeau poser|retirer`, `pnj reapparaitre <role>`, `porte reveiller` (bloc visé), `structure <id> [pos]` (place un gabarit pour inspection), `arrivee liste|declencher|resoudre`, `projet liste|construire <id> [ignorer]|conflits <id>`, `relais decouvrir <id>|tout`, `lieu tout`, `diag`.
 
 ## Génération de monde : leçons apprises (vérifiées sur serveur dédié)
 
@@ -86,7 +89,15 @@ Ordre recommandé après modification : textures → sons → données → struc
 
 ## Mixins
 
-Un seul mixin, volontairement minimal : `DimensionOptionsRegistryHolderMixin` déclare stable toute dimension du mod. Sans lui, Minecraft marque « expérimentale » toute dimension non vanilla et affiche un avertissement bloquant (« Je sais ce que je fais ! ») à chaque ouverture d'un monde en solo. Les listes des fichiers `les_limbes.mixins.json` (commun) et `les_limbes.client.mixins.json` (client) sont les seuls endroits à modifier pour en ajouter.
+Trois mixins, volontairement minimaux. Côté commun, `DimensionOptionsRegistryHolderMixin` et `DimensionsConfigMixin` déclarent stables les dimensions du mod : sans eux, Minecraft marque « expérimentale » toute dimension non vanilla et affiche un avertissement bloquant (« Je sais ce que je fais ! ») à chaque ouverture d'un monde en solo. Côté client, `CameraMixin` ajoute un décalage d'angle à la caméra pour les secousses (option désactivable) sans jamais toucher à l'orientation du joueur. Les listes des fichiers `les_limbes.mixins.json` (commun) et `les_limbes.client.mixins.json` (client) sont les seuls endroits à modifier pour en ajouter.
+
+## Domaine (étape 4)
+
+- **Projets** (`ProjetManager`) : l'écran de chantier s'ouvre depuis un dialogue (`ouvrir_chantier`) ; le client n'envoie que l'identifiant du projet et le choix « ignorer la zone occupée ». Le serveur recalcule état, coûts et conflits, pose le gabarit avec un `StructureProcessor` qui saute les positions occupées, et rend les inventaires remplacés (vidés avant la pose pour ne jamais dupliquer ce que vanilla disperse déjà). Un projet est partagé par le monde (drapeau `domaine_<id>`) : sur un serveur, le manoir est commun.
+- **Lieux** (`LieuxManager`) : vérification par seconde et par joueur ; `lieu:<id>` dans les drapeaux du joueur ; `SyncLieux` envoie définitions et état des projets au client à la connexion et après chaque projet.
+- **Relais** (`RelaisManager`) : découverte par la porte ou par le lieu ; voyage autorisé si le réseau est éveillé (`domaine_passages`), le joueur près d'une porte et le relais connu ; destination vérifiée (sol, espace, chunk chargé) ; délai de 3 s entre deux voyages.
+- **Vitrines** : bloc-entité synchronisé (`toUpdatePacket`), rendu de l'objet par `VitrineRenderer`, texte d'histoire `vitrine.les_limbes.<objet>` affiché par l'interface quand on la regarde.
+- **Options client** (`OptionsLimbes`, `config/les_limbes.json`) : densité des effets, secousses, flashes, marqueurs, indications discrètes, indices de tutoriel vus.
 
 ## Multijoueur
 

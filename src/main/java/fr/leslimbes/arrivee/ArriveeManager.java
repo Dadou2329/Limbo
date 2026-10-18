@@ -174,7 +174,7 @@ public final class ArriveeManager {
 		return null;
 	}
 
-	private static boolean naturel(BlockState s) {
+	public static boolean naturel(BlockState s) {
 		return s.isAir() || s.isReplaceable() || !s.getFluidState().isEmpty() || s.isIn(BlockTags.LEAVES) || s.isIn(BlockTags.LOGS)
 				|| s.isIn(BlockTags.DIRT) || s.isIn(BlockTags.FLOWERS) || s.isIn(BlockTags.SAPLINGS) || s.isOf(LimbesBlocks.PIERRE_NACREE)
 				|| s.isOf(LimbesBlocks.CRISTAL_DE_NACRE) || s.isOf(Blocks.STONE) || s.isOf(Blocks.GRAVEL) || s.isOf(Blocks.SAND)

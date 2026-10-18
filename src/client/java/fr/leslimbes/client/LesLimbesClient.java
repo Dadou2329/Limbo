@@ -37,8 +37,10 @@ public final class LesLimbesClient implements ClientModInitializer {
 				LimbesBlocks.FLEUR_DE_ROSEE, LimbesBlocks.POUSSE_D_AUBE, LimbesBlocks.LANTERNE_NACREE, LimbesBlocks.PORTE_D_AUBE);
 		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutoutMipped(), LimbesBlocks.FEUILLES_D_AUBE);
 		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getTranslucent(), LimbesBlocks.PORTE_DES_LIMBES, LimbesBlocks.CRISTAL_DE_NACRE, LimbesBlocks.DALLE_DE_ROSEE);
-		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), LimbesBlocks.AILES_DE_MOULIN);
+		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), LimbesBlocks.AILES_DE_MOULIN, LimbesBlocks.PORTE_DE_RELAIS);
+		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getTranslucent(), LimbesBlocks.VITRINE);
 		net.minecraft.client.render.block.entity.BlockEntityRendererFactories.register(fr.leslimbes.registry.LimbesBlockEntities.AILES_DE_MOULIN, fr.leslimbes.client.render.block.MoulinRenderer::new);
+		net.minecraft.client.render.block.entity.BlockEntityRendererFactories.register(fr.leslimbes.registry.LimbesBlockEntities.VITRINE, fr.leslimbes.client.render.block.VitrineRenderer::new);
 
 		EntityModelLayerRegistry.registerModelLayer(PoissonLuneRenderer.LAYER, PoissonLuneModel::getTexturedModelData);
 		EntityModelLayerRegistry.registerModelLayer(CerfLanterneRenderer.LAYER, CerfLanterneModel::getTexturedModelData);
@@ -61,6 +63,7 @@ public final class LesLimbesClient implements ClientModInitializer {
 		LimbesKeys.init();
 		LimbesHud.init();
 		MarqueurMonde.init();
+		fr.leslimbes.client.hud.ApercuChantier.init();
 		ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> ClientLimbesData.reinitialiser());
 		CaptureAutomatique.init();
 	}

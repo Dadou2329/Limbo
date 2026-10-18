@@ -1,6 +1,7 @@
 {
   "titre": "Réparer l'aile ouest",
   "description": "Le toit de l'aile ouest s'est effondré sur le grenier. Planches et pierre taillée suffisent à refermer le manoir.",
+  "indice": "la clé du manoir, remise par Orielle",
   "ordre": 1,
   "lieu": "manoir",
   "prerequis": [

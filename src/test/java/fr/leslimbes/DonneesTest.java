@@ -236,6 +236,92 @@ class DonneesTest {
 	}
 
 	@Test
+	void lesProjetsLieuxEtRelaisSontCoherents() throws IOException {
+		java.util.Map<String, String> projets = new java.util.LinkedHashMap<>();
+		for (Path p : fichiers(DATA.resolve("projet"), ".json")) {
+			projets.put(p.getFileName().toString().replace(".json", ""), Files.readString(p, StandardCharsets.UTF_8));
+		}
+		java.util.Map<String, String> lieux = new java.util.LinkedHashMap<>();
+		for (Path p : fichiers(DATA.resolve("lieu"), ".json")) {
+			lieux.put(p.getFileName().toString().replace(".json", ""), Files.readString(p, StandardCharsets.UTF_8));
+		}
+		java.util.Map<String, String> relais = new java.util.LinkedHashMap<>();
+		for (Path p : fichiers(DATA.resolve("relais"), ".json")) {
+			relais.put(p.getFileName().toString().replace(".json", ""), Files.readString(p, StandardCharsets.UTF_8));
+		}
+		fr.leslimbes.domaine.DomaineLoader.chargerDepuisJson(projets, lieux, relais);
+		assertTrue(fr.leslimbes.domaine.DomaineLoader.projets().size() >= 10, "au moins dix projets de domaine");
+		assertTrue(fr.leslimbes.domaine.DomaineLoader.lieux().size() >= 10, "au moins dix lieux d'intérêt");
+		assertEquals(4, fr.leslimbes.domaine.DomaineLoader.relais().size());
+		Set<String> prerequisConnus = Set.of("drapeau", "drapeau_monde", "sans_drapeau", "sans_drapeau_monde", "pouvoir", "quete_terminee", "quete_active", "objet", "tout", "un_de", "non");
+		Set<String> actionsConnues = Set.of("message", "drapeau", "drapeau_monde", "deplacer_pnj", "donner", "pouvoir", "decouvrir_relais", "decouvrir_lieu", "titre", "son",
+				"experience", "compteur", "modifier_bloc", "demarrer_quete", "objectif", "majeste_max", "apparition");
+		List<String> erreurs = new ArrayList<>();
+		for (fr.leslimbes.domaine.ProjetDefinition def : fr.leslimbes.domaine.DomaineLoader.projets().values()) {
+			if (!Files.exists(DATA.resolve("structure/" + def.gabarit().getPath() + ".nbt"))) {
+				erreurs.add(def.id() + " : gabarit manquant " + def.gabarit());
+			}
+			def.avant().ifPresent(a -> {
+				if (!Files.exists(DATA.resolve("structure/" + a.getPath() + ".nbt"))) {
+					erreurs.add(def.id() + " : gabarit antérieur manquant " + a);
+				}
+			});
+			if (def.indice().isBlank() || def.description().isBlank()) {
+				erreurs.add(def.id() + " : description et indice obligatoires");
+			}
+			for (fr.leslimbes.domaine.ProjetDefinition.Cout c : def.cout()) {
+				if (c.objet().getNamespace().equals("les_limbes") && !lang.containsKey("item.les_limbes." + c.objet().getPath()) && !lang.containsKey("block.les_limbes." + c.objet().getPath())) {
+					erreurs.add(def.id() + " : coût inconnu " + c.objet());
+				}
+			}
+			for (JsonObject p : def.prerequis()) {
+				for (String k : p.keySet()) {
+					if (!prerequisConnus.contains(k)) {
+						erreurs.add(def.id() + " : prérequis inconnu " + k);
+					}
+				}
+			}
+			for (JsonObject a : def.apres()) {
+				if (!actionsConnues.contains(a.get("type").getAsString())) {
+					erreurs.add(def.id() + " : action de suite inconnue " + a.get("type"));
+				}
+			}
+			// Toute annexe reste sur le plateau aplani du manoir (rayon 40 autour de -120/150).
+			double d = Math.hypot(def.origine().getX() + 120, def.origine().getZ() - 150);
+			if (d > 40) {
+				erreurs.add(def.id() + " : origine hors du plateau du manoir (" + (int) d + " blocs)");
+			}
+		}
+		Set<String> nomsLieux = new HashSet<>();
+		for (fr.leslimbes.domaine.LieuDefinition lieu : fr.leslimbes.domaine.DomaineLoader.lieux().values()) {
+			if (!nomsLieux.add(lieu.nom())) {
+				erreurs.add("nom de lieu en double : " + lieu.nom());
+			}
+			if (!lieu.relais().isEmpty() && fr.leslimbes.domaine.DomaineLoader.relais(lieu.relais()) == null) {
+				erreurs.add(lieu.id() + " : relais inconnu " + lieu.relais());
+			}
+		}
+		// Chaque relais a sa porte dans un gabarit (identifiant inscrit dans le bloc-entité) et chaque porte un relais défini.
+		String structures = Files.readString(Paths.get("tools/structgen/build_structures.py"), StandardCharsets.UTF_8);
+		java.util.regex.Matcher m = java.util.regex.Pattern.compile("\"relais\": \"(\\w+)\"").matcher(structures);
+		Set<String> portes = new HashSet<>();
+		while (m.find()) {
+			portes.add(m.group(1));
+		}
+		for (String id : fr.leslimbes.domaine.DomaineLoader.relais().keySet()) {
+			if (!portes.contains(id)) {
+				erreurs.add("relais sans porte dans les gabarits : " + id);
+			}
+		}
+		for (String id : portes) {
+			if (fr.leslimbes.domaine.DomaineLoader.relais(id) == null) {
+				erreurs.add("porte de relais vers un relais inconnu : " + id);
+			}
+		}
+		assertTrue(erreurs.isEmpty(), String.join("\n", erreurs));
+	}
+
+	@Test
 	void lesModelesDEntitesPilotesParDonneesSontCoherents() throws IOException {
 		List<Path> modeles = fichiers(ASSETS.resolve("models/entite"), ".json");
 		assertFalse(modeles.isEmpty(), "aucun modèle d'entité");

@@ -1,6 +1,7 @@
 {
   "titre": "Ouvrir le marché et les ateliers",
   "description": "Trois étals couverts, un atelier de tissage et une cuisine de plein air. Marguerite y cuisinera ; des marchands viendront.",
+  "indice": "l'aile ouest réparée et Marguerite recrutée (auberge de Clairval)",
   "ordre": 10,
   "lieu": "manoir",
   "prerequis": [

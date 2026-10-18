@@ -47,13 +47,22 @@ ACTE IV — LA COURONNE          COURONNEMENT JOUABLE                  ACTE V �
 
 Majesté : 60 au départ, +40 avec le fragment ; régénération 0,4/tick (8/s).
 
+## Domaine (acte II, début)
+
+Orielle (manoir) ouvre l'écran des **projets du domaine** une fois la clé reçue. Ordre conseillé : aile ouest → forge royale (Sabine) → écuries (Loïc) → serres (Hanna) → maison des explorateurs (Théo, Ysolde) → galerie des merveilles → salle des passages (Pas court) → chambres des compagnons → jardin → marché et ateliers (Marguerite). Chaque projet coûte des ressources des Prairies (planches et pierre nacrée surtout) et pose une annexe autour du manoir ; les recrues s'y installent.
+
+Recrutements (quêtes secondaires) : Sabine à la forge de Clairval (5 cristaux de nacre), Loïc à la cabane du lac, Hanna au jardin à l'est de Clairval, Théo au pied du pont, Marguerite à l'auberge, Ysolde avec l'Arrivée « La barque échouée ». Après recrutement, chacun attend que son installation soit bâtie, puis y vit et propose de nouveaux services (affûtage de l'épée chez Sabine).
+
+Réseau des passages : touchez les portes de relais (Sanctuaire, place de Clairval, relais royal) pour les apprendre ; la salle des passages du manoir éveille le réseau et chaque porte mène alors à n'importe quel relais connu.
+
 ## Déblocages par exploration / rencontres
 
 - Vestige (Overworld) → entrée.
 - Sanctuaire → retour fiable, premier dialogue.
 - Clairval → auberge, forge, maisons, moulin, place ; habitants avec dialogues.
 - Relais royal → combat représentatif, Gaspard, butin.
-- Manoir → foyer (restauration : backlog).
+- Manoir → foyer, puis domaine (10 projets), compagnons, salle des passages.
+- Lieux d'intérêt (10 dans les Prairies) → inscrits à la carte du journal en s'en approchant.
 - Vergers suspendus / vallée des lanternes → biomes à découvrir ; cerfs-lanternes, poissons-lune, lanternes perdues.
 
 ## Positions persistantes (toutes graines)
@@ -65,4 +74,7 @@ Majesté : 60 au départ, +40 avec le fragment ; régénération 0,4/tick (8/s).
 | Clairval (place) | 0 / 66 / 140 |
 | Manoir | −120 / 66 / 150 |
 | Relais royal | 150 / 66 / 60 |
+| Observatoire | 30 / 66 / 112 |
+| Lac du Crépuscule | −60 / 66 / 20 |
+| Portes de relais | Sanctuaire −8 / 83 / 0 ; Clairval 0 / 66 / 149 ; relais royal 148 / 66 / 54 ; manoir −120 / 66 / 174 (salle des passages) |
 | Palais (silhouette céleste) | cap nord-ouest, non chargé |

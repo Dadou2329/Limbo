@@ -72,6 +72,15 @@ public class DalleDeRoseeBlock extends Block implements net.minecraft.block.Flui
 		world.scheduleBlockTick(pos, block, 1);
 	}
 
+	/** Planifie toutes les dalles d'une boîte (gabarit posé en jeu : projet de domaine, Arrivée). */
+	public static void planifierDansBoite(WorldAccess world, BlockPos origine, net.minecraft.util.math.Vec3i taille) {
+		for (BlockPos p : BlockPos.iterate(origine, origine.add(taille.getX() - 1, taille.getY() - 1, taille.getZ() - 1))) {
+			if (world.getBlockState(p).getBlock() instanceof DalleDeRoseeBlock dalle) {
+				planifier(world, p, dalle);
+			}
+		}
+	}
+
 	@Override
 	protected boolean isTransparent(BlockState state, BlockView world, BlockPos pos) {
 		return !state.get(REVELEE);

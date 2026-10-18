@@ -122,6 +122,84 @@ public final class LimbesPayloads {
 		}
 	}
 
+	/** S2C : écran des projets d'un lieu du domaine (liste, états, coûts, conflits). */
+	public record OuvrirChantier(NbtCompound contenu) implements CustomPayload {
+		public static final Id<OuvrirChantier> ID = new Id<>(LesLimbes.id("ouvrir_chantier"));
+		public static final PacketCodec<RegistryByteBuf, OuvrirChantier> CODEC = PacketCodec.tuple(PacketCodecs.NBT_COMPOUND, OuvrirChantier::contenu, OuvrirChantier::new);
+
+		@Override
+		public Id<? extends CustomPayload> getId() {
+			return ID;
+		}
+	}
+
+	/** S2C : aperçu de l'emprise d'un projet (boîte et blocs en conflit), affiché dix secondes. */
+	public record ApercuProjet(NbtCompound contenu) implements CustomPayload {
+		public static final Id<ApercuProjet> ID = new Id<>(LesLimbes.id("apercu_projet"));
+		public static final PacketCodec<RegistryByteBuf, ApercuProjet> CODEC = PacketCodec.tuple(PacketCodecs.NBT_COMPOUND, ApercuProjet::contenu, ApercuProjet::new);
+
+		@Override
+		public Id<? extends CustomPayload> getId() {
+			return ID;
+		}
+	}
+
+	/** S2C : écran de la salle des passages (relais connus). */
+	public record OuvrirRelais(NbtCompound contenu) implements CustomPayload {
+		public static final Id<OuvrirRelais> ID = new Id<>(LesLimbes.id("ouvrir_relais"));
+		public static final PacketCodec<RegistryByteBuf, OuvrirRelais> CODEC = PacketCodec.tuple(PacketCodecs.NBT_COMPOUND, OuvrirRelais::contenu, OuvrirRelais::new);
+
+		@Override
+		public Id<? extends CustomPayload> getId() {
+			return ID;
+		}
+	}
+
+	/** S2C : lieux d'intérêt et relais du monde (noms, positions) pour la carte du journal. */
+	public record SyncLieux(NbtCompound contenu) implements CustomPayload {
+		public static final Id<SyncLieux> ID = new Id<>(LesLimbes.id("sync_lieux"));
+		public static final PacketCodec<RegistryByteBuf, SyncLieux> CODEC = PacketCodec.tuple(PacketCodecs.NBT_COMPOUND, SyncLieux::contenu, SyncLieux::new);
+
+		@Override
+		public Id<? extends CustomPayload> getId() {
+			return ID;
+		}
+	}
+
+	/** C2S : lancer un projet du chantier ouvert ({@code ignorer} : construire autour des blocs occupés). */
+	public record LancerProjet(String projet, boolean ignorer) implements CustomPayload {
+		public static final Id<LancerProjet> ID = new Id<>(LesLimbes.id("lancer_projet"));
+		public static final PacketCodec<RegistryByteBuf, LancerProjet> CODEC = PacketCodec.tuple(
+				PacketCodecs.STRING, LancerProjet::projet, PacketCodecs.BOOL, LancerProjet::ignorer, LancerProjet::new);
+
+		@Override
+		public Id<? extends CustomPayload> getId() {
+			return ID;
+		}
+	}
+
+	/** C2S : demander l'aperçu de l'emprise d'un projet. */
+	public record DemanderApercu(String projet) implements CustomPayload {
+		public static final Id<DemanderApercu> ID = new Id<>(LesLimbes.id("demander_apercu"));
+		public static final PacketCodec<RegistryByteBuf, DemanderApercu> CODEC = PacketCodec.tuple(PacketCodecs.STRING, DemanderApercu::projet, DemanderApercu::new);
+
+		@Override
+		public Id<? extends CustomPayload> getId() {
+			return ID;
+		}
+	}
+
+	/** C2S : voyager vers un relais connu depuis une porte de relais. */
+	public record VoyagerRelais(String relais) implements CustomPayload {
+		public static final Id<VoyagerRelais> ID = new Id<>(LesLimbes.id("voyager_relais"));
+		public static final PacketCodec<RegistryByteBuf, VoyagerRelais> CODEC = PacketCodec.tuple(PacketCodecs.STRING, VoyagerRelais::relais, VoyagerRelais::new);
+
+		@Override
+		public Id<? extends CustomPayload> getId() {
+			return ID;
+		}
+	}
+
 	public static final PacketCodec<RegistryByteBuf, Vec3d> VEC3D = PacketCodec.tuple(
 			PacketCodecs.DOUBLE, Vec3d::getX, PacketCodecs.DOUBLE, Vec3d::getY, PacketCodecs.DOUBLE, Vec3d::getZ, Vec3d::new);
 

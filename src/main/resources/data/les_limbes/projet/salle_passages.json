@@ -1,6 +1,7 @@
 {
   "titre": "Creuser la salle des passages",
   "description": "Une rotonde et une porte de relais : d'ici, un pas mène à chaque relais que vous avez découvert.",
+  "indice": "l'aile ouest réparée et le pouvoir Pas court",
   "ordre": 7,
   "lieu": "manoir",
   "prerequis": [

@@ -62,6 +62,10 @@ public final class Actions {
 		if (uneFois != null && data.aDrapeau(uneFois)) {
 			return;
 		}
+		// Condition facultative « si » : l'action n'est exécutée que si toutes ses conditions sont vraies.
+		if (a.has("si") && !Conditions.toutes(player, JsonUtil.objects(a, "si"))) {
+			return;
+		}
 		switch (type) {
 			case "demarrer_quete" -> QuestManager.demarrer(player, JsonUtil.requireString(a, "quete", type));
 			case "objectif" -> QuestManager.marquerObjectif(player, JsonUtil.requireString(a, "quete", type), JsonUtil.requireString(a, "objectif", type));
@@ -142,6 +146,16 @@ public final class Actions {
 			}
 			case "deplacer_pnj" -> deplacerPnj(player, a);
 			case "modifier_bloc" -> modifierBloc(player, a);
+			case "ouvrir_chantier" -> fr.leslimbes.domaine.ProjetManager.ouvrirChantier(player, JsonUtil.string(a, "lieu", "manoir"));
+			case "affuter_epee" -> fr.leslimbes.item.EpeeDuSouverainItem.affuter(player);
+			case "decouvrir_lieu" -> {
+				fr.leslimbes.domaine.LieuDefinition lieu = fr.leslimbes.domaine.DomaineLoader.lieu(JsonUtil.requireString(a, "id", type));
+				if (lieu != null) {
+					fr.leslimbes.domaine.LieuxManager.decouvrir(player, lieu, JsonUtil.bool(a, "annoncer", true));
+				}
+			}
+			case "decouvrir_relais" -> fr.leslimbes.domaine.RelaisManager.decouvrir(player, JsonUtil.requireString(a, "id", type), JsonUtil.bool(a, "annoncer", true));
+			case "compteur" -> data.compteurs.merge(JsonUtil.requireString(a, "nom", type), JsonUtil.integer(a, "valeur", 1), Integer::sum);
 			default -> LesLimbes.LOGGER.warn("Action inconnue ignorée : {}", type);
 		}
 		if (uneFois != null) {
@@ -217,14 +231,30 @@ public final class Actions {
 			}
 		}
 		BlockPos cible = pos.get();
-		for (fr.leslimbes.npc.HabitantEntity pnj : world.getEntitiesByClass(fr.leslimbes.npc.HabitantEntity.class, new net.minecraft.util.math.Box(player.getBlockPos()).expand(64), h -> h.getRole().equals(role))) {
-			pnj.setDomicile(cible);
-			pnj.teleport(world, cible.getX() + 0.5, cible.getY(), cible.getZ() + 0.5, java.util.Set.of(), pnj.getYaw(), pnj.getPitch());
-			LimbesWorldState.get(player.server).ancrerPnj(role, cible);
+		// Le personnage peut être loin du joueur (il est recruté à Clairval, le projet se valide au manoir) :
+		// on cherche parmi toutes les entités chargées de la dimension, puis dans les autres mondes.
+		fr.leslimbes.npc.HabitantEntity trouve = null;
+		for (net.minecraft.server.world.ServerWorld w : player.server.getWorlds()) {
+			for (net.minecraft.entity.Entity e : w.iterateEntities()) {
+				if (e instanceof fr.leslimbes.npc.HabitantEntity h && h.isAlive() && h.getRole().equals(role)) {
+					trouve = h;
+					break;
+				}
+			}
+			if (trouve != null) {
+				break;
+			}
+		}
+		LimbesWorldState.get(player.server).ancrerPnj(role, cible);
+		if (trouve != null) {
+			trouve.setDomicile(cible);
+			trouve.teleport(world, cible.getX() + 0.5, cible.getY(), cible.getZ() + 0.5, java.util.Set.of(), trouve.getYaw(), trouve.getPitch());
 			return;
 		}
-		// Personnage introuvable à proximité : on déplace seulement son ancrage, la réapparition fera le reste.
-		LimbesWorldState.get(player.server).ancrerPnj(role, cible);
+		// Personnage non chargé : l'ancrage est déplacé et la réapparition des essentiels fera le reste
+		// (l'ancien exemplaire, s'il réapparaît dans un chunk rechargé, est écarté par EssentialNpcs).
+		fr.leslimbes.npc.EssentialNpcs.reapparaitre(world, role, cible);
+		LimbesWorldState.get(player.server).noterReapparition(role, world.getTime());
 	}
 
 	/**

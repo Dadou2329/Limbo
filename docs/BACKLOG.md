@@ -2,7 +2,7 @@
 
 Ordre conseillé par le cahier des charges : 1 socle → 2 Prairies/Clairval/manoir/première quête/premiers pouvoirs → 3 tranche de qualité (mini-aventure, monture, Arrivée, combat) → 4 domaine/journal/passages → 5 régions restantes → 6 prétendants/campagne/couronnement → 7 pouvoirs supérieurs/règne → 8 complétion/optimisation.
 
-État : étapes 1, 2 et 3 réalisées (tranche « Le Passage », puis monture, Arrivées, mini-aventures et systèmes réutilisables) ; étape 4 (domaine) en cours.
+État : étapes 1 à 4 réalisées (tranche « Le Passage » ; monture, Arrivées, mini-aventures ; domaine, recrutement, salle des passages, journal/carte/options) ; étape 5 (régions) à suivre.
 
 ## Prochaines actions exécutables (par priorité)
 
@@ -22,11 +22,14 @@ Ordre conseillé par le cahier des charges : 1 socle → 2 Prairies/Clairval/man
 - [x] Modèles d'entités pilotés par données (JSON + textures peintes par cube) pour toutes les créatures à venir.
 - [ ] Musiques originales (ou libres documentées) à la place des pistes vanilla (étape 8).
 
-### C. Domaine (étape 4)
-- [ ] Projets de restauration du manoir : aile ouest, serre, puits, forge royale ; aperçu d'emprise, détection de conflits avec les constructions du joueur, préservation des inventaires.
-- [ ] Recrutement : forgeronne, éleveur, jardinière, cartographe, cuisinière, capitaine (rencontres réelles ; Gaspard boulanger comme premier recrutement).
-- [ ] Salle des passages : réseau de portes entre relais découverts (branche Portes).
-- [ ] Journal : carte, mode indications discrètes, suivi d'une quête à la fois (déjà) + archives.
+### C. Domaine (étape 4) — réalisée
+- [x] Dix projets (aile ouest, forge royale, écuries, serres, maison des explorateurs, galerie, salle des passages, chambres, jardin, marché) : aperçu d'emprise, détection des constructions du joueur, construction autour des blocs occupés, inventaires rendus.
+- [x] Recrutement par rencontres : Sabine, Loïc, Hanna, Théo, Marguerite, Ysolde (+ Émile) ; installation dans l'annexe bâtie ; affûtage de l'épée.
+- [x] Salle des passages : portes de relais, découverte en voyage, voyage vérifié.
+- [x] Journal : onglets Domaine, Carte, Options ; indications discrètes ; indices de tutoriel.
+- [ ] Rendu des nouveaux éléments (vitrine, porte de relais, écrans de chantier et de relais, carte) à vérifier en captures client (prévu à la fin de l'étape suivante).
+- [ ] Scènes de vie des compagnons (horaires, gestes) et services des marchands (échanges) : étape 8.
+- [ ] Multijoueur : le domaine est partagé par le monde (un manoir commun) ; domaines par groupe et permissions : étape 8.
 
 ### D. Régions (étape 5)
 - [ ] Mer suspendue (volumes d'eau stables, Port-Nacre, navigation, plongée), Jardins des Géants (Sylvécime, verticalité), Désert des Heures (Méridiane, mécanismes temporels locaux), Montagnes de Verre (Verréole, forges), Couronne Immobile (quartiers éveillables, cité de Vaëron).

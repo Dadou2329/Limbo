@@ -29,6 +29,19 @@ public final class ClientPayloadHandlers {
 				EffetsClient.jouer(context.client(), payload.type(), payload.pos(), payload.direction(), payload.donnee()));
 		ClientPlayNetworking.registerGlobalReceiver(LimbesPayloads.NotificationQuete.ID, (payload, context) ->
 				ClientLimbesData.notifier(payload.type(), payload.texte()));
+		ClientPlayNetworking.registerGlobalReceiver(LimbesPayloads.OuvrirChantier.ID, (payload, context) -> {
+			MinecraftClient client = context.client();
+			if (client.currentScreen instanceof fr.leslimbes.client.screen.ChantierScreen screen) {
+				screen.mettreAJour(payload.contenu());
+			} else {
+				client.setScreen(new fr.leslimbes.client.screen.ChantierScreen(payload.contenu()));
+			}
+		});
+		ClientPlayNetworking.registerGlobalReceiver(LimbesPayloads.ApercuProjet.ID, (payload, context) ->
+				fr.leslimbes.client.hud.ApercuChantier.recevoir(payload.contenu()));
+		ClientPlayNetworking.registerGlobalReceiver(LimbesPayloads.OuvrirRelais.ID, (payload, context) ->
+				context.client().setScreen(new fr.leslimbes.client.screen.RelaisScreen(payload.contenu())));
+		ClientPlayNetworking.registerGlobalReceiver(LimbesPayloads.SyncLieux.ID, (payload, context) -> ClientLimbesData.recevoirLieux(payload.contenu()));
 	}
 
 	private ClientPayloadHandlers() {

@@ -21,6 +21,13 @@ public final class LimbesNetworking {
 		PayloadTypeRegistry.playS2C().register(LimbesPayloads.FermerDialogue.ID, LimbesPayloads.FermerDialogue.CODEC);
 		PayloadTypeRegistry.playS2C().register(LimbesPayloads.Effet.ID, LimbesPayloads.Effet.CODEC);
 		PayloadTypeRegistry.playS2C().register(LimbesPayloads.NotificationQuete.ID, LimbesPayloads.NotificationQuete.CODEC);
+		PayloadTypeRegistry.playS2C().register(LimbesPayloads.OuvrirChantier.ID, LimbesPayloads.OuvrirChantier.CODEC);
+		PayloadTypeRegistry.playS2C().register(LimbesPayloads.ApercuProjet.ID, LimbesPayloads.ApercuProjet.CODEC);
+		PayloadTypeRegistry.playS2C().register(LimbesPayloads.OuvrirRelais.ID, LimbesPayloads.OuvrirRelais.CODEC);
+		PayloadTypeRegistry.playS2C().register(LimbesPayloads.SyncLieux.ID, LimbesPayloads.SyncLieux.CODEC);
+		PayloadTypeRegistry.playC2S().register(LimbesPayloads.LancerProjet.ID, LimbesPayloads.LancerProjet.CODEC);
+		PayloadTypeRegistry.playC2S().register(LimbesPayloads.DemanderApercu.ID, LimbesPayloads.DemanderApercu.CODEC);
+		PayloadTypeRegistry.playC2S().register(LimbesPayloads.VoyagerRelais.ID, LimbesPayloads.VoyagerRelais.CODEC);
 
 		ServerPlayNetworking.registerGlobalReceiver(LimbesPayloads.UtiliserPouvoir.ID, (payload, context) -> {
 			ServerPlayerEntity player = context.player();
@@ -65,6 +72,34 @@ public final class LimbesNetworking {
 					PlayerDataSync.envoyer(player);
 				}
 			});
+		});
+		domaine();
+	}
+
+	private static void domaine() {
+		ServerPlayNetworking.registerGlobalReceiver(LimbesPayloads.LancerProjet.ID, (payload, context) -> {
+			ServerPlayerEntity player = context.player();
+			String projet = payload.projet();
+			if (projet.length() > 64) {
+				return;
+			}
+			context.server().execute(() -> fr.leslimbes.domaine.ProjetManager.lancer(player, projet, payload.ignorer()));
+		});
+		ServerPlayNetworking.registerGlobalReceiver(LimbesPayloads.DemanderApercu.ID, (payload, context) -> {
+			ServerPlayerEntity player = context.player();
+			String projet = payload.projet();
+			if (projet.length() > 64) {
+				return;
+			}
+			context.server().execute(() -> fr.leslimbes.domaine.ProjetManager.apercu(player, projet));
+		});
+		ServerPlayNetworking.registerGlobalReceiver(LimbesPayloads.VoyagerRelais.ID, (payload, context) -> {
+			ServerPlayerEntity player = context.player();
+			String relais = payload.relais();
+			if (relais.length() > 64) {
+				return;
+			}
+			context.server().execute(() -> fr.leslimbes.domaine.RelaisManager.voyager(player, relais));
 		});
 	}
 

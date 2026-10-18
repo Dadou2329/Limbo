@@ -1,6 +1,7 @@
 {
   "titre": "Reconstruire les serres",
   "description": "Remplacer la serre effondrée par une vraie verrière : plantes des Prairies, cuve d'alchimie, cuisine du jardin. Hanna y travaillera.",
+  "indice": "l'aile ouest réparée et Hanna recrutée (jardin à l'est de Clairval)",
   "ordre": 4,
   "lieu": "manoir",
   "prerequis": [

@@ -1,6 +1,7 @@
 {
   "titre": "Ouvrir la maison des explorateurs",
   "description": "Cartes, rumeurs, préparatifs d'expédition et un lit pour ceux qui reviennent de loin. Théo en sera le cartographe.",
+  "indice": "l'aile ouest réparée et Théo recruté (pied du grand pont)",
   "ordre": 5,
   "lieu": "manoir",
   "prerequis": [

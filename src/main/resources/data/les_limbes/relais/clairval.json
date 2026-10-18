@@ -1,0 +1,11 @@
+{
+  "nom": "Place de Clairval",
+  "description": "Devant la fontaine, au cœur du village.",
+  "pos": [
+    0,
+    66,
+    147
+  ],
+  "dimension": "les_limbes:limbes",
+  "ordre": 2
+}

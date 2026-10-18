@@ -1,6 +1,7 @@
 {
   "titre": "Dessiner le jardin d'agrément",
   "description": "Bains d'eau chaude, belvédère, bancs et massifs au sud-est du manoir.",
+  "indice": "l'aile ouest réparée",
   "ordre": 9,
   "lieu": "manoir",
   "prerequis": [

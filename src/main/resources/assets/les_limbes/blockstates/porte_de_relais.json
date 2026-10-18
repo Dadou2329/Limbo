@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "eveillee=false,facing=north": {
+      "model": "les_limbes:block/porte_de_relais"
+    },
+    "eveillee=true,facing=north": {
+      "model": "les_limbes:block/porte_de_relais_eveillee"
+    },
+    "eveillee=false,facing=east": {
+      "model": "les_limbes:block/porte_de_relais",
+      "y": 90
+    },
+    "eveillee=true,facing=east": {
+      "model": "les_limbes:block/porte_de_relais_eveillee",
+      "y": 90
+    },
+    "eveillee=false,facing=south": {
+      "model": "les_limbes:block/porte_de_relais",
+      "y": 180
+    },
+    "eveillee=true,facing=south": {
+      "model": "les_limbes:block/porte_de_relais_eveillee",
+      "y": 180
+    },
+    "eveillee=false,facing=west": {
+      "model": "les_limbes:block/porte_de_relais",
+      "y": 270
+    },
+    "eveillee=true,facing=west": {
+      "model": "les_limbes:block/porte_de_relais_eveillee",
+      "y": 270
+    }
+  }
+}

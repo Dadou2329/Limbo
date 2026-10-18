@@ -1,6 +1,7 @@
 {
   "titre": "Bâtir la forge royale",
   "description": "Une annexe à deux foyers, à l'ouest du manoir, pour tremper et personnaliser les armes invoquées. Sabine s'y installera.",
+  "indice": "l'aile ouest réparée et Sabine recrutée (forge de Clairval)",
   "ordre": 2,
   "lieu": "manoir",
   "prerequis": [

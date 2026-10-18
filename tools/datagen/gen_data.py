@@ -205,6 +205,39 @@ def gen_blocks() -> None:
     asset("models/block", "ailes_de_moulin", {"textures": {"particle": lb("block/buche_d_aube"), "axe": lb("block/buche_d_aube")},
                                              "elements": [{"from": [5, 5, 0], "to": [11, 11, 16], "faces": {f: {"texture": "#axe"} for f in ["north", "south", "east", "west", "up", "down"]}}]})
     asset("models/item", "ailes_de_moulin", {"parent": lb("block/ailes_de_moulin")})
+    # Vitrine (galerie des merveilles) : socle nacré, cage de verre ; l'objet exposé est rendu par le bloc-entité
+    variants = {}
+    for facing, y in [("north", 0), ("east", 90), ("south", 180), ("west", 270)]:
+        entry = {"model": lb("block/vitrine")}
+        if y:
+            entry["y"] = y
+        variants[f"facing={facing}"] = entry
+    asset("blockstates", "vitrine", {"variants": variants})
+    faces_verre = {f: {"texture": "#verre"} for f in ["north", "south", "east", "west", "up"]}
+    asset("models/block", "vitrine", {"textures": {"particle": lb("block/vitrine"), "verre": lb("block/vitrine"), "socle": lb("block/vitrine_socle")},
+                                      "elements": [
+                                          {"from": [1, 0, 1], "to": [15, 3, 15], "faces": {f: {"texture": "#socle"} for f in ["north", "south", "east", "west", "up", "down"]}},
+                                          {"from": [2, 3, 2], "to": [14, 15, 14], "faces": faces_verre}]})
+    asset("models/item", "vitrine", {"parent": lb("block/vitrine")})
+    # Porte de relais : arche de deux blocs de haut (éléments jusqu'à y=32) ; voile éteint ou éveillé
+    variants = {}
+    for facing, y in [("north", 0), ("east", 90), ("south", 180), ("west", 270)]:
+        for eveillee in ("false", "true"):
+            entry = {"model": lb("block/porte_de_relais" + ("_eveillee" if eveillee == "true" else ""))}
+            if y:
+                entry["y"] = y
+            variants[f"eveillee={eveillee},facing={facing}"] = entry
+    asset("blockstates", "porte_de_relais", {"variants": variants})
+    for suffixe, voile in [("", "porte_de_relais_voile_eteint"), ("_eveillee", "porte_de_relais_voile")]:
+        pierre = {f: {"texture": "#pierre"} for f in ["north", "south", "east", "west", "up", "down"]}
+        asset("models/block", "porte_de_relais" + suffixe, {
+            "textures": {"particle": lb("block/porte_de_relais"), "pierre": lb("block/porte_de_relais"), "voile": lb("block/" + voile)},
+            "elements": [
+                {"from": [0, 0, 5], "to": [3, 29, 11], "faces": pierre},
+                {"from": [13, 0, 5], "to": [16, 29, 11], "faces": pierre},
+                {"from": [0, 29, 5], "to": [16, 32, 11], "faces": pierre},
+                {"from": [3, 0, 7], "to": [13, 29, 9], "faces": {"north": {"texture": "#voile"}, "south": {"texture": "#voile"}}}]})
+    asset("models/item", "porte_de_relais", {"parent": lb("block/porte_de_relais_eveillee")})
 
 
 # ----------------------------------------------------------------------------- objets
@@ -269,7 +302,7 @@ def gen_tags() -> None:
 
     pierre = [lb(x) for x in ["pierre_nacree", "pierre_nacree_taillee", "pierre_nacree_polie", "pierre_nacree_sculptee",
                              "escalier_de_pierre_nacree", "dalle_de_pierre_nacree", "muret_de_pierre_nacree", "cristal_de_nacre", "lanterne_nacree",
-                             "meule_royale", "meule_de_moulin"]]
+                             "meule_royale", "meule_de_moulin", "vitrine", "porte_de_relais"]]
     bois = [lb(x) for x in ["buche_d_aube", "planches_d_aube", "escalier_d_aube", "dalle_d_aube", "barriere_d_aube", "porte_d_aube", "ailes_de_moulin"]]
     tag("block", "../../minecraft/tags/block/mineable/pickaxe", pierre)
     tag("block", "../../minecraft/tags/block/mineable/axe", bois)
@@ -339,7 +372,8 @@ def silk_or(block: str, alt: str):
 def gen_loot() -> None:
     for b in ["pierre_nacree", "pierre_nacree_taillee", "pierre_nacree_polie", "pierre_nacree_sculptee", "escalier_de_pierre_nacree",
               "muret_de_pierre_nacree", "cristal_de_nacre", "terre_des_limbes", "buche_d_aube", "planches_d_aube", "escalier_d_aube",
-              "barriere_d_aube", "pousse_d_aube", "fleur_de_rosee", "lanterne_nacree", "meule_royale", "meule_de_moulin", "ailes_de_moulin"]:
+              "barriere_d_aube", "pousse_d_aube", "fleur_de_rosee", "lanterne_nacree", "meule_royale", "meule_de_moulin", "ailes_de_moulin",
+              "vitrine", "porte_de_relais"]:
         data("loot_table/blocks", b, self_drop(b))
     data("loot_table/blocks", "dalle_de_rosee", {"type": "minecraft:block", "pools": []})
     data("loot_table/blocks", "herbe_argentee", silk_or("herbe_argentee", "terre_des_limbes"))
@@ -533,7 +567,7 @@ def dmax(a, b):
 # Sites aplanis : doivent rester cohérents avec fr.leslimbes.world.dimension.LimbesSites (test unitaire).
 SITES = [
     {"x": 0, "z": 140, "y": 66, "rayon": 70, "transition": 40},   # Clairval
-    {"x": -120, "z": 150, "y": 66, "rayon": 34, "transition": 30},  # Manoir
+    {"x": -120, "z": 150, "y": 66, "rayon": 40, "transition": 30},  # Manoir et ses annexes (projets jusqu'à 37 blocs du centre)
     {"x": 150, "z": 60, "y": 66, "rayon": 34, "transition": 30},    # Relais royal
     {"x": 0, "z": 56, "y": 66, "rayon": 34, "transition": 30},      # Pied du pont
     {"x": 70, "z": 210, "y": 66, "rayon": 16, "transition": 14},    # Site d'Arrivée 1

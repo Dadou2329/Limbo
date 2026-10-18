@@ -1,0 +1,70 @@
+{
+  "textures": {
+    "particle": "les_limbes:block/vitrine",
+    "verre": "les_limbes:block/vitrine",
+    "socle": "les_limbes:block/vitrine_socle"
+  },
+  "elements": [
+    {
+      "from": [
+        1,
+        0,
+        1
+      ],
+      "to": [
+        15,
+        3,
+        15
+      ],
+      "faces": {
+        "north": {
+          "texture": "#socle"
+        },
+        "south": {
+          "texture": "#socle"
+        },
+        "east": {
+          "texture": "#socle"
+        },
+        "west": {
+          "texture": "#socle"
+        },
+        "up": {
+          "texture": "#socle"
+        },
+        "down": {
+          "texture": "#socle"
+        }
+      }
+    },
+    {
+      "from": [
+        2,
+        3,
+        2
+      ],
+      "to": [
+        14,
+        15,
+        14
+      ],
+      "faces": {
+        "north": {
+          "texture": "#verre"
+        },
+        "south": {
+          "texture": "#verre"
+        },
+        "east": {
+          "texture": "#verre"
+        },
+        "west": {
+          "texture": "#verre"
+        },
+        "up": {
+          "texture": "#verre"
+        }
+      }
+    }
+  ]
+}

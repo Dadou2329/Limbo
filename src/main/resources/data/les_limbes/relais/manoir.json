@@ -1,0 +1,11 @@
+{
+  "nom": "Salle des passages du manoir",
+  "description": "La rotonde du domaine : d'ici, un pas mène à chaque relais connu.",
+  "pos": [
+    -120,
+    66,
+    173
+  ],
+  "dimension": "les_limbes:limbes",
+  "ordre": 0
+}

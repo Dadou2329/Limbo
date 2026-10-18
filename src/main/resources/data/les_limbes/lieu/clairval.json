@@ -7,5 +7,6 @@
   ],
   "rayon": 30,
   "region": "prairies",
-  "description": "Le village d'accueil des Prairies : auberge, forge, moulin."
+  "description": "Le village d'accueil des Prairies : auberge, forge, moulin.",
+  "relais": "clairval"
 }

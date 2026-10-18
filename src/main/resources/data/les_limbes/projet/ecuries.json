@@ -1,6 +1,7 @@
 {
   "titre": "Dresser les écuries et la volière",
   "description": "Stalles couvertes et perchoir ouvert pour les raies, au nord-ouest. Loïc y soignera les montures.",
+  "indice": "l'aile ouest réparée et Loïc recruté (cabane du Lac du Crépuscule)",
   "ordre": 3,
   "lieu": "manoir",
   "prerequis": [

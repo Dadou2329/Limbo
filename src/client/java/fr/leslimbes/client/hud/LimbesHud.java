@@ -46,7 +46,100 @@ public final class LimbesHud {
 			if (client.player.getVehicle() instanceof RaieCelesteEntity raie) {
 				dessinerEndurance(context, client, raie);
 			}
+			dessinerVitrine(context, client);
+			dessinerIndices(context, client, data);
+			if (fr.leslimbes.client.hud.ApercuChantier.actif()) {
+				String t = Text.translatable("hud.les_limbes.apercu", fr.leslimbes.client.hud.ApercuChantier.titre()).getString();
+				context.drawCenteredTextWithShadow(client.textRenderer, t, context.getScaledWindowWidth() / 2, 64, OR);
+			}
+			fr.leslimbes.client.fx.Secousses.dessinerFlash(context);
 		});
+	}
+
+	/** Indices de tutoriel progressifs : chacun n'apparaît qu'une fois, dix secondes, quand sa situation se présente. */
+	private static final String[][] INDICES = {
+			{"pouvoir", "pouvoirs"}, {"raie", "monture"}, {"projet", "manoir_recu"}, {"relais", "relais"}, {"lieu", "lieu"}};
+	private static String indiceCourant = "";
+	private static long indiceDepuis;
+
+	private static boolean conditionIndice(String type, PlayerLimbesData data) {
+		return switch (type) {
+			case "pouvoirs" -> !data.pouvoirs.isEmpty();
+			case "monture" -> !data.montures.isEmpty();
+			case "manoir_recu" -> data.aDrapeau("manoir_recu");
+			case "relais" -> data.drapeaux.stream().anyMatch(d -> d.startsWith("relais:"));
+			case "lieu" -> data.drapeaux.stream().anyMatch(d -> d.startsWith("lieu:"));
+			default -> false;
+		};
+	}
+
+	private static void dessinerIndices(DrawContext context, MinecraftClient client, PlayerLimbesData data) {
+		fr.leslimbes.client.OptionsLimbes options = fr.leslimbes.client.OptionsLimbes.get();
+		long now = System.currentTimeMillis();
+		if (indiceCourant.isEmpty()) {
+			for (String[] indice : INDICES) {
+				if (!options.indiceVu(indice[0]) && conditionIndice(indice[1], data)) {
+					indiceCourant = indice[0];
+					indiceDepuis = now;
+					break;
+				}
+			}
+			if (indiceCourant.isEmpty()) {
+				return;
+			}
+		}
+		if (now - indiceDepuis > 10_000) {
+			options.marquerIndiceVu(indiceCourant);
+			indiceCourant = "";
+			return;
+		}
+		TextRenderer tr = client.textRenderer;
+		String texte = Text.translatable("hud.les_limbes.tutoriel." + indiceCourant).getString();
+		int largeur = Math.min(tr.getWidth(texte) + 12, context.getScaledWindowWidth() - 40);
+		int x = (context.getScaledWindowWidth() - largeur) / 2;
+		int y = context.getScaledWindowHeight() - 86;
+		int lignes = tr.wrapLines(Text.literal(texte), largeur - 8).size();
+		context.fill(x, y - 3, x + largeur, y + lignes * 10 + 2, FOND);
+		int yy = y;
+		for (net.minecraft.text.OrderedText l : tr.wrapLines(Text.literal(texte), largeur - 8)) {
+			context.drawTextWithShadow(tr, l, x + 4, yy, OR);
+			yy += 10;
+		}
+	}
+
+	/** Vitrine regardée : nom de l'objet, qui l'a exposé, son histoire. */
+	private static void dessinerVitrine(DrawContext context, MinecraftClient client) {
+		if (!(client.crosshairTarget instanceof net.minecraft.util.hit.BlockHitResult hit) || client.world == null) {
+			return;
+		}
+		if (!(client.world.getBlockEntity(hit.getBlockPos()) instanceof fr.leslimbes.block.VitrineBlock.VitrineBlockEntity vitrine) || vitrine.getObjet().isEmpty()) {
+			return;
+		}
+		TextRenderer tr = client.textRenderer;
+		net.minecraft.item.ItemStack objet = vitrine.getObjet();
+		String nom = objet.getName().getString();
+		net.minecraft.util.Identifier id = net.minecraft.registry.Registries.ITEM.getId(objet.getItem());
+		String cle = "vitrine.les_limbes." + id.getPath();
+		String histoire = id.getNamespace().equals(LesLimbes.MOD_ID) && net.minecraft.client.resource.language.I18n.hasTranslation(cle)
+				? Text.translatable(cle).getString() : Text.translatable("vitrine.les_limbes.inconnu").getString();
+		String exposant = vitrine.getExposant().isEmpty() ? "" : Text.translatable("hud.les_limbes.vitrine.exposant", vitrine.getExposant()).getString();
+		int largeur = Math.min(220, context.getScaledWindowWidth() - 40);
+		java.util.List<net.minecraft.text.OrderedText> lignes = tr.wrapLines(Text.literal(histoire), largeur - 8);
+		int hauteur = 14 + (exposant.isEmpty() ? 0 : 10) + lignes.size() * 10 + 4;
+		int x = (context.getScaledWindowWidth() - largeur) / 2;
+		int y = context.getScaledWindowHeight() / 2 + 14;
+		context.fill(x, y, x + largeur, y + hauteur, FOND);
+		context.drawBorder(x, y, largeur, hauteur, OR_SOMBRE);
+		context.drawTextWithShadow(tr, nom, x + 4, y + 3, OR);
+		int yy = y + 14;
+		if (!exposant.isEmpty()) {
+			context.drawTextWithShadow(tr, exposant, x + 4, yy, GRIS);
+			yy += 10;
+		}
+		for (net.minecraft.text.OrderedText l : lignes) {
+			context.drawTextWithShadow(tr, l, x + 4, yy, BLANC);
+			yy += 10;
+		}
 	}
 
 	/** Endurance de vol de la monture : barre centrée au-dessus de la barre d'objets. */
@@ -154,11 +247,24 @@ public final class LimbesHud {
 		String titre = def.titre();
 		context.drawTextWithShadow(tr, titre, droite - tr.getWidth(titre), y, OR);
 		y += 11;
-		for (QuestDefinition.Objectif o : etape.get().objectifs()) {
-			boolean fait = o.estAtteint(progress);
-			String ligne = (fait ? "✓ " : "• ") + o.texteAffiche(progress).getString();
-			context.drawTextWithShadow(tr, ligne, droite - tr.getWidth(ligne), y, fait ? GRIS : BLANC);
-			y += 10;
+		boolean discret = fr.leslimbes.client.OptionsLimbes.get().discret;
+		if (!discret) {
+			for (QuestDefinition.Objectif o : etape.get().objectifs()) {
+				boolean fait = o.estAtteint(progress);
+				String ligne = (fait ? "✓ " : "• ") + o.texteAffiche(progress).getString();
+				context.drawTextWithShadow(tr, ligne, droite - tr.getWidth(ligne), y, fait ? GRIS : BLANC);
+				y += 10;
+			}
+		} else {
+			// Mode discret : seulement la prochaine action, sans la liste des objectifs.
+			for (QuestDefinition.Objectif o : etape.get().objectifs()) {
+				if (!o.estAtteint(progress)) {
+					String ligne = o.texteAffiche(progress).getString();
+					context.drawTextWithShadow(tr, ligne, droite - tr.getWidth(ligne), y, GRIS);
+					y += 10;
+					break;
+				}
+			}
 		}
 		Optional<QuestDefinition.Lieu> lieu = def.lieuPour(progress);
 		if (lieu.isPresent() && client.world != null && client.world.getRegistryKey().getValue().equals(lieu.get().dimension())) {

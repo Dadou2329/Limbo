@@ -244,6 +244,121 @@ public final class LesLimbesGameTests implements FabricGameTest {
 		context.complete();
 	}
 
+	@GameTest(templateName = EMPTY_STRUCTURE)
+	public void unProjetRespecteLesBlocsDuJoueurEtRendLesInventaires(TestContext context) {
+		ServerWorld world = context.getWorld();
+		BlockPos origine = context.getAbsolutePos(new BlockPos(1, 2, 1));
+		Identifier gabarit = Identifier.of("les_limbes", "manoir/aile_ouest");
+		StructureTemplate template = world.getStructureTemplateManager().getTemplate(gabarit).orElseThrow();
+		fr.leslimbes.domaine.ProjetDefinition def = new fr.leslimbes.domaine.ProjetDefinition("test_aile", "Test", "d", "i", "manoir", 1, List.of(), List.of(),
+				gabarit, origine, Optional.empty(), BlockPos.ORIGIN, "test_projet", List.of());
+		// Un coffre posé par un joueur dans l'emprise, avec un contenu.
+		BlockPos coffre = origine.add(2, 1, 2);
+		world.setBlockState(coffre, net.minecraft.block.Blocks.CHEST.getDefaultState());
+		((net.minecraft.block.entity.ChestBlockEntity) world.getBlockEntity(coffre)).setStack(0, new ItemStack(net.minecraft.item.Items.DIAMOND, 3));
+		fr.leslimbes.domaine.ProjetManager.Conflits c = fr.leslimbes.domaine.ProjetManager.conflits(world.getServer(), world, def);
+		context.assertTrue(c.nombre() == 1 && c.positions().get(0).equals(coffre), "le coffre du joueur est le seul conflit (trouvé " + c.nombre() + ")");
+		// Construction autour : le coffre et son contenu restent, le plancher du gabarit est posé ailleurs.
+		fr.leslimbes.domaine.ProjetManager.construire(world.getServer(), world, def, template, new java.util.HashSet<>(c.positions()));
+		context.assertTrue(world.getBlockState(coffre).isOf(net.minecraft.block.Blocks.CHEST), "le coffre est resté en place");
+		context.assertTrue(((net.minecraft.block.entity.ChestBlockEntity) world.getBlockEntity(coffre)).getStack(0).getCount() == 3, "le contenu du coffre est intact");
+		context.assertTrue(world.getBlockState(origine.add(0, 1, 0)).isOf(LimbesBlocks.PLANCHES_D_AUBE), "le plancher du gabarit est posé");
+		context.assertTrue(fr.leslimbes.domaine.ProjetManager.conflits(world.getServer(), world, def).nombre() >= 1, "le bloc épargné reste signalé comme occupé");
+		// Un conteneur remplacé par le gabarit rend son contenu (au sol ou dans le nouveau conteneur).
+		BlockPos coffre2 = origine.add(3, 1, 4);
+		world.setBlockState(coffre2, net.minecraft.block.Blocks.CHEST.getDefaultState());
+		((net.minecraft.block.entity.ChestBlockEntity) world.getBlockEntity(coffre2)).setStack(0, new ItemStack(net.minecraft.item.Items.GOLD_INGOT, 5));
+		fr.leslimbes.domaine.ProjetManager.construire(world.getServer(), world, def, template, java.util.Set.of());
+		int rendus = 0;
+		for (net.minecraft.entity.ItemEntity e : world.getEntitiesByClass(net.minecraft.entity.ItemEntity.class, new Box(origine).expand(8), e -> e.getStack().isOf(net.minecraft.item.Items.GOLD_INGOT))) {
+			rendus += e.getStack().getCount();
+		}
+		if (world.getBlockEntity(coffre2) instanceof net.minecraft.inventory.Inventory inv) {
+			for (int i = 0; i < inv.size(); i++) {
+				if (inv.getStack(i).isOf(net.minecraft.item.Items.GOLD_INGOT)) {
+					rendus += inv.getStack(i).getCount();
+				}
+			}
+		}
+		context.assertTrue(rendus == 5, "les cinq lingots du coffre remplacé sont rendus (trouvé " + rendus + ")");
+		context.assertTrue(world.getBlockState(coffre2).isOf(LimbesBlocks.PLANCHES_D_AUBE), "le gabarit a bien remplacé le coffre non épargné");
+		context.complete();
+	}
+
+	@GameTest(templateName = EMPTY_STRUCTURE, tickLimit = 200)
+	public void lesLieuxLesRelaisEtLesPortesSeDecouvrent(TestContext context) {
+		ServerWorld world = context.getWorld();
+		net.minecraft.server.network.ServerPlayerEntity player = context.createMockCreativeServerPlayerInWorld();
+		BlockPos pos = context.getAbsolutePos(new BlockPos(2, 2, 2));
+		player.refreshPositionAndAngles(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, 0, 0);
+		PlayerLimbesData data = PlayerLimbesData.of(player);
+		String dim = world.getRegistryKey().getValue().toString();
+		// Découvrir un lieu inscrit son relais.
+		fr.leslimbes.domaine.LieuDefinition lieu = new fr.leslimbes.domaine.LieuDefinition("test_lieu", "Lieu de test", "", pos, 8, "prairies", dim, "relais_royal");
+		context.assertTrue(fr.leslimbes.domaine.LieuxManager.decouvrir(player, lieu, false), "première découverte du lieu");
+		context.assertTrue(data.aDrapeau("lieu:test_lieu") && data.aDrapeau("relais:relais_royal"), "le lieu et son relais sont inscrits");
+		context.assertTrue(!fr.leslimbes.domaine.LieuxManager.decouvrir(player, lieu, false), "une découverte ne compte qu'une fois");
+		// Une porte de relais touchée découvre son relais ; éteinte, elle ne mène nulle part.
+		BlockPos porte = context.getAbsolutePos(new BlockPos(4, 2, 2));
+		world.setBlockState(porte, LimbesBlocks.PORTE_DE_RELAIS.getDefaultState());
+		if (world.getBlockEntity(porte) instanceof fr.leslimbes.block.PorteDeRelaisBlock.PorteDeRelaisBlockEntity be) {
+			be.setRelais("clairval");
+		}
+		fr.leslimbes.domaine.RelaisManager.utiliserPorte(player, porte, "clairval");
+		context.assertTrue(data.aDrapeau("relais:clairval"), "la porte touchée inscrit le relais de Clairval");
+		context.assertTrue(!fr.leslimbes.domaine.RelaisManager.voyager(player, "clairval"), "sans salle des passages, aucun voyage");
+		// Réseau éveillé : voyage vers un relais de test dans ce monde (position sûre devant la cible).
+		fr.leslimbes.world.state.LimbesWorldState.get(world.getServer()).poserDrapeau(fr.leslimbes.domaine.RelaisManager.RESEAU_EVEILLE);
+		java.util.Map<String, fr.leslimbes.domaine.LieuDefinition> lieuxAvant = new java.util.LinkedHashMap<>(fr.leslimbes.domaine.DomaineLoader.lieux());
+		java.util.Map<String, fr.leslimbes.domaine.RelaisDefinition> relaisAvant = new java.util.LinkedHashMap<>(fr.leslimbes.domaine.DomaineLoader.relais());
+		java.util.Map<String, fr.leslimbes.domaine.RelaisDefinition> relais = new java.util.LinkedHashMap<>(relaisAvant);
+		BlockPos cible = context.getAbsolutePos(new BlockPos(7, 1, 7));
+		context.setBlockState(new BlockPos(7, 0, 7), LimbesBlocks.PIERRE_NACREE_TAILLEE.getDefaultState());
+		relais.put("test_relais", new fr.leslimbes.domaine.RelaisDefinition("test_relais", "Relais de test", "", cible, dim, 9));
+		fr.leslimbes.domaine.DomaineLoader.recevoir(lieuxAvant, relais);
+		try {
+			context.assertTrue(!fr.leslimbes.domaine.RelaisManager.voyager(player, "test_relais"), "un relais inconnu du joueur est refusé");
+			fr.leslimbes.domaine.RelaisManager.decouvrir(player, "test_relais", false);
+			boolean parti = fr.leslimbes.domaine.RelaisManager.voyager(player, "test_relais");
+			context.assertTrue(parti, "le voyage vers un relais connu, depuis une porte, est accepté");
+			context.assertTrue(player.getBlockPos().isWithinDistance(cible, 3.5), "le joueur arrive devant le relais (" + player.getBlockPos().toShortString() + " vs " + cible.toShortString() + ")");
+			context.assertTrue(data.compteurs.getOrDefault("voyages_relais", 0) == 1, "le voyage est compté");
+		} finally {
+			fr.leslimbes.domaine.DomaineLoader.recevoir(lieuxAvant, relaisAvant);
+		}
+		// Le tick planifié éveille la porte (drapeau du monde posé).
+		context.runAtTick(60, () -> {
+			BlockState etat = world.getBlockState(porte);
+			context.assertTrue(etat.isOf(LimbesBlocks.PORTE_DE_RELAIS) && etat.get(fr.leslimbes.block.PorteDeRelaisBlock.EVEILLEE), "la porte s'éveille avec le réseau (" + etat + ")");
+			world.getServer().getPlayerManager().remove(player);
+			context.complete();
+		});
+	}
+
+	@GameTest(templateName = EMPTY_STRUCTURE)
+	public void laVitrineExposeEtRendLObjet(TestContext context) {
+		ServerWorld world = context.getWorld();
+		FakePlayer player = FakePlayer.get(world);
+		player.getInventory().clear();
+		BlockPos p = new BlockPos(1, 1, 1);
+		BlockPos abs = context.getAbsolutePos(p);
+		context.setBlockState(p, LimbesBlocks.VITRINE.getDefaultState());
+		ItemStack sifflet = new ItemStack(LimbesItems.SIFFLET_DE_RAIE);
+		player.setStackInHand(net.minecraft.util.Hand.MAIN_HAND, sifflet);
+		net.minecraft.util.hit.BlockHitResult hit = new net.minecraft.util.hit.BlockHitResult(net.minecraft.util.math.Vec3d.ofCenter(abs), Direction.UP, abs, false);
+		world.getBlockState(abs).onUseWithItem(sifflet, world, player, net.minecraft.util.Hand.MAIN_HAND, hit);
+		fr.leslimbes.block.VitrineBlock.VitrineBlockEntity vitrine = (fr.leslimbes.block.VitrineBlock.VitrineBlockEntity) world.getBlockEntity(abs);
+		context.assertTrue(vitrine != null && vitrine.getObjet().isOf(LimbesItems.SIFFLET_DE_RAIE), "le sifflet est exposé");
+		context.assertTrue(sifflet.isEmpty() && player.getInventory().count(LimbesItems.SIFFLET_DE_RAIE) == 0, "l'objet a quitté la main du joueur");
+		context.assertTrue(vitrine.getExposant().equals(player.getName().getString()), "l'exposant est mémorisé");
+		// Main vide : l'objet revient au joueur et la vitrine se vide.
+		player.setStackInHand(net.minecraft.util.Hand.MAIN_HAND, ItemStack.EMPTY);
+		world.getBlockState(abs).onUse(world, player, hit);
+		context.assertTrue(vitrine.getObjet().isEmpty(), "la vitrine est vide après reprise");
+		context.assertTrue(player.getInventory().count(LimbesItems.SIFFLET_DE_RAIE) == 1, "le sifflet est revenu dans l'inventaire");
+		context.complete();
+	}
+
 	@GameTest(templateName = EMPTY_STRUCTURE, tickLimit = 200)
 	public void uneArriveeSePlaceAvecSesOccupants(TestContext context) {
 		ServerWorld world = context.getWorld();

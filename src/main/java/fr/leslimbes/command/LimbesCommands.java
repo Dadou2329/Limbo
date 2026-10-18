@@ -164,7 +164,69 @@ public final class LimbesCommands {
 							ctx.getSource().sendFeedback(() -> Text.literal(ok ? "Arrivée résolue." : "Aucune Arrivée active de ce type."), false);
 							return ok ? 1 : 0;
 						}))))
+				.then(CommandManager.literal("projet")
+						.then(CommandManager.literal("liste").executes(ctx -> {
+							ServerPlayerEntity p = ctx.getSource().getPlayerOrThrow();
+							for (fr.leslimbes.domaine.ProjetDefinition def : fr.leslimbes.domaine.DomaineLoader.projets().values()) {
+								fr.leslimbes.domaine.ProjetManager.Etat etat = fr.leslimbes.domaine.ProjetManager.etat(p, def);
+								ctx.getSource().sendFeedback(() -> Text.literal(def.id() + " — " + def.titre() + " [" + etat + "] origine " + def.origine().toShortString()), false);
+							}
+							return fr.leslimbes.domaine.DomaineLoader.projets().size();
+						}))
+						.then(CommandManager.literal("construire").then(CommandManager.argument("id", StringArgumentType.word()).executes(ctx -> construireProjet(ctx, false))
+								.then(CommandManager.literal("ignorer").executes(ctx -> construireProjet(ctx, true)))))
+						.then(CommandManager.literal("conflits").then(CommandManager.argument("id", StringArgumentType.word()).executes(ctx -> {
+							fr.leslimbes.domaine.ProjetDefinition def = fr.leslimbes.domaine.DomaineLoader.projet(StringArgumentType.getString(ctx, "id"));
+							ServerWorld monde = LimbesDimension.monde(ctx.getSource().getServer());
+							if (def == null || monde == null) {
+								ctx.getSource().sendError(Text.literal("Projet inconnu."));
+								return 0;
+							}
+							fr.leslimbes.domaine.ProjetManager.Conflits c = fr.leslimbes.domaine.ProjetManager.conflits(ctx.getSource().getServer(), monde, def);
+							ctx.getSource().sendFeedback(() -> Text.literal(c.nombre() + " bloc(s) en conflit" + (c.vide() ? "" : " (ex. " + c.exemple() + ")")), false);
+							return c.nombre();
+						}))))
+				.then(CommandManager.literal("relais")
+						.then(CommandManager.literal("decouvrir").then(CommandManager.argument("id", StringArgumentType.word()).executes(ctx -> {
+							ServerPlayerEntity p = ctx.getSource().getPlayerOrThrow();
+							boolean ok = fr.leslimbes.domaine.RelaisManager.decouvrir(p, StringArgumentType.getString(ctx, "id"), true);
+							ctx.getSource().sendFeedback(() -> Text.literal(ok ? "Relais découvert." : "Relais inconnu ou déjà découvert."), false);
+							return ok ? 1 : 0;
+						})))
+						.then(CommandManager.literal("tout").executes(ctx -> {
+							ServerPlayerEntity p = ctx.getSource().getPlayerOrThrow();
+							int n = 0;
+							for (String id : fr.leslimbes.domaine.DomaineLoader.relais().keySet()) {
+								n += fr.leslimbes.domaine.RelaisManager.decouvrir(p, id, false) ? 1 : 0;
+							}
+							int total = n;
+							ctx.getSource().sendFeedback(() -> Text.literal(total + " relais découvert(s)."), false);
+							return n;
+						})))
+				.then(CommandManager.literal("lieu")
+						.then(CommandManager.literal("tout").executes(ctx -> {
+							ServerPlayerEntity p = ctx.getSource().getPlayerOrThrow();
+							int n = 0;
+							for (fr.leslimbes.domaine.LieuDefinition lieu : fr.leslimbes.domaine.DomaineLoader.lieux().values()) {
+								n += fr.leslimbes.domaine.LieuxManager.decouvrir(p, lieu, false) ? 1 : 0;
+							}
+							int total = n;
+							ctx.getSource().sendFeedback(() -> Text.literal(total + " lieu(x) découvert(s)."), false);
+							return n;
+						})))
 				.then(CommandManager.literal("diag").executes(LimbesCommands::diag)));
+	}
+
+	private static int construireProjet(CommandContext<ServerCommandSource> ctx, boolean ignorer) throws com.mojang.brigadier.exceptions.CommandSyntaxException {
+		ServerPlayerEntity p = ctx.getSource().getPlayerOrThrow();
+		fr.leslimbes.domaine.ProjetDefinition def = fr.leslimbes.domaine.DomaineLoader.projet(StringArgumentType.getString(ctx, "id"));
+		if (def == null) {
+			ctx.getSource().sendError(Text.literal("Projet inconnu : " + String.join(", ", fr.leslimbes.domaine.DomaineLoader.projets().keySet())));
+			return 0;
+		}
+		boolean ok = fr.leslimbes.domaine.ProjetManager.valider(p, def, ignorer);
+		ctx.getSource().sendFeedback(() -> Text.literal(ok ? "Projet construit." : "Projet non construit (voir le message)."), false);
+		return ok ? 1 : 0;
 	}
 
 	private static int tp(CommandContext<ServerCommandSource> ctx, net.minecraft.registry.RegistryKey<World> monde, Vec3d pos) throws com.mojang.brigadier.exceptions.CommandSyntaxException {

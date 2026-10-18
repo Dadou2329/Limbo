@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "les_limbes:block/vitrine"
+    },
+    "facing=east": {
+      "model": "les_limbes:block/vitrine",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "les_limbes:block/vitrine",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "les_limbes:block/vitrine",
+      "y": 270
+    }
+  }
+}

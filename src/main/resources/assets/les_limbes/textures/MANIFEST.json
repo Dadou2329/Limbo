@@ -1,5 +1,10 @@
 {
   "block": [
+    "vitrine",
+    "vitrine_socle",
+    "porte_de_relais",
+    "porte_de_relais_voile",
+    "porte_de_relais_voile_eteint",
     "dalle_de_rosee",
     "dalle_de_rosee_cachee",
     "meule_royale",

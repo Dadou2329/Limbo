@@ -1,0 +1,11 @@
+{
+  "nom": "Ancien relais royal",
+  "description": "La grande salle en ruine, sur la route de la Couronne.",
+  "pos": [
+    148,
+    66,
+    56
+  ],
+  "dimension": "les_limbes:limbes",
+  "ordre": 3
+}

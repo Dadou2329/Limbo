@@ -46,6 +46,10 @@ public final class ArsenalDuSouverain {
 			return true;
 		}
 		ItemStack epee = new ItemStack(LimbesItems.EPEE_DU_SOUVERAIN);
+		int affutage = fr.leslimbes.item.EpeeDuSouverainItem.affutage(player);
+		if (affutage > 0) {
+			fr.leslimbes.item.EpeeDuSouverainItem.appliquerAffutage(epee, affutage);
+		}
 		int main = player.getInventory().selectedSlot;
 		ItemStack enMain = player.getInventory().getStack(main);
 		if (enMain.isEmpty()) {

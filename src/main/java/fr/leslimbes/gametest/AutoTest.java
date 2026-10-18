@@ -120,7 +120,9 @@ public final class AutoTest {
 		for (int[] p : new int[][]{{40, 65, 100}, {-60, 65, 140}, {0, 65, 60}, {30, 65, 170}, {-100, 65, 130}, {140, 65, 40}}) {
 			BlockPos sol = new BlockPos(p[0], p[1], p[2]);
 			boolean solPlein = !limbes.getBlockState(sol).getCollisionShape(limbes, sol).isEmpty() || !limbes.getFluidState(sol).isEmpty();
-			boolean dessusLibre = limbes.getBlockState(sol.up()).getCollisionShape(limbes, sol.up()).isEmpty();
+			BlockState dessus = limbes.getBlockState(sol.up());
+			// Végétation tolérée au-dessus du sol aplani : plantes sans collision, feuilles et troncs des arbres d'aube.
+			boolean dessusLibre = dessus.getCollisionShape(limbes, sol.up()).isEmpty() || dessus.isIn(net.minecraft.registry.tag.BlockTags.LEAVES) || dessus.isIn(net.minecraft.registry.tag.BlockTags.LOGS);
 			verifier(solPlein && dessusLibre, "terrain aplani à 66 en " + sol.toShortString() + " (sol " + limbes.getBlockState(sol) + ", dessus " + limbes.getBlockState(sol.up()) + ")");
 		}
 		// Diagnostic : densité finale réelle autour de la surface (zéro attendu entre 65 et 66).
@@ -181,8 +183,53 @@ public final class AutoTest {
 				verifier(fr.leslimbes.arrivee.ArriveeManager.resoudre(server, "maison_egaree"), "résolution de l'Arrivée");
 			}
 		}
-		// Raie céleste : pacte et rappel avec un joueur factice.
+		// Portes de relais générées avec leur identifiant (sanctuaire, Clairval, relais royal).
+		for (Object[] porte : new Object[][] {{new BlockPos(-8, 83, 0), "sanctuaire"}, {new BlockPos(0, 66, 149), "clairval"}, {new BlockPos(148, 66, 54), "relais_royal"}}) {
+			BlockPos pp = (BlockPos) porte[0];
+			net.minecraft.block.BlockState etatPorte = limbes.getBlockState(pp);
+			String relaisId = limbes.getBlockEntity(pp) instanceof fr.leslimbes.block.PorteDeRelaisBlock.PorteDeRelaisBlockEntity be ? be.getRelais() : "(aucun)";
+			verifier(etatPorte.isOf(LimbesBlocks.PORTE_DE_RELAIS) && relaisId.equals(porte[1]), "porte de relais « " + porte[1] + " » en " + pp.toShortString() + " (trouvé " + etatPorte + ", relais " + relaisId + ")");
+			fr.leslimbes.domaine.RelaisDefinition rd = fr.leslimbes.domaine.DomaineLoader.relais((String) porte[1]);
+			verifier(rd != null && fr.leslimbes.domaine.RelaisManager.destinationSure(limbes, rd.pos()) != null, "point d'arrivée sûr devant le relais « " + porte[1] + " »");
+		}
+		// Domaine : découverte de lieu, projet avec conflit, voyage entre relais (joueur factice).
 		net.fabricmc.fabric.api.entity.FakePlayer joueur = net.fabricmc.fabric.api.entity.FakePlayer.get(limbes);
+		fr.leslimbes.world.state.PlayerLimbesData donnees = fr.leslimbes.world.state.PlayerLimbesData.of(joueur);
+		joueur.refreshPositionAndAngles(LimbesSites.CLAIRVAL_ARRIVEE.getX() + 0.5, LimbesSites.CLAIRVAL_ARRIVEE.getY(), LimbesSites.CLAIRVAL_ARRIVEE.getZ() + 0.5, 0, 0);
+		fr.leslimbes.domaine.LieuxManager.tick(joueur);
+		verifier(donnees.aDrapeau("lieu:clairval") && donnees.aDrapeau("relais:clairval"), "Clairval et son relais découverts en entrant sur la place");
+		fr.leslimbes.domaine.ProjetDefinition aile = fr.leslimbes.domaine.DomaineLoader.projet("aile_ouest");
+		verifier(aile != null, "projet « aile_ouest » chargé");
+		if (aile != null) {
+			donnees.poserDrapeau("manoir_recu");
+			BlockPos coffre = new BlockPos(-127, 76, 149);
+			limbes.setBlockState(coffre, net.minecraft.block.Blocks.CHEST.getDefaultState(), 3);
+			if (limbes.getBlockEntity(coffre) instanceof net.minecraft.block.entity.ChestBlockEntity cbe) {
+				cbe.setStack(0, new net.minecraft.item.ItemStack(net.minecraft.item.Items.DIAMOND, 2));
+			}
+			fr.leslimbes.domaine.ProjetManager.Conflits conflits = fr.leslimbes.domaine.ProjetManager.conflits(server, limbes, aile);
+			verifier(conflits.nombre() == 1, "le coffre du joueur est le seul bloc en conflit avec l'aile ouest (trouvé " + conflits.nombre() + (conflits.vide() ? "" : ", ex. " + conflits.exemple()) + ")");
+			joueur.getInventory().clear();
+			verifier(!fr.leslimbes.domaine.ProjetManager.valider(joueur, aile, true), "sans ressources, le projet est refusé");
+			joueur.getInventory().insertStack(new net.minecraft.item.ItemStack(LimbesBlocks.PLANCHES_D_AUBE, 24));
+			joueur.getInventory().insertStack(new net.minecraft.item.ItemStack(LimbesBlocks.PIERRE_NACREE_TAILLEE, 8));
+			verifier(!fr.leslimbes.domaine.ProjetManager.valider(joueur, aile, false), "avec un conflit non ignoré, le projet est refusé");
+			verifier(fr.leslimbes.domaine.ProjetManager.valider(joueur, aile, true), "projet « Réparer l'aile ouest » validé en construisant autour du coffre");
+			verifier(fr.leslimbes.world.state.LimbesWorldState.get(server).aDrapeau("domaine_aile_ouest"), "drapeau du monde posé par le projet");
+			verifier(limbes.getBlockState(new BlockPos(-128, 75, 150)).isOf(LimbesBlocks.PLANCHES_D_AUBE), "plancher du grenier posé en -128/75/150 (trouvé " + limbes.getBlockState(new BlockPos(-128, 75, 150)) + ")");
+			boolean coffreIntact = limbes.getBlockState(coffre).isOf(net.minecraft.block.Blocks.CHEST) && limbes.getBlockEntity(coffre) instanceof net.minecraft.block.entity.ChestBlockEntity cbe2 && cbe2.getStack(0).getCount() == 2;
+			verifier(coffreIntact, "le coffre du joueur et son contenu sont intacts dans l'emprise");
+			verifier(joueur.getInventory().count(LimbesBlocks.PLANCHES_D_AUBE.asItem()) == 0, "les ressources du projet sont consommées");
+			verifier(fr.leslimbes.domaine.ProjetManager.etat(joueur, aile) == fr.leslimbes.domaine.ProjetManager.Etat.FAIT, "le projet est marqué construit");
+			limbes.removeBlock(coffre, false);
+		}
+		// Réseau des passages : depuis la porte de Clairval vers le Sanctuaire.
+		fr.leslimbes.world.state.LimbesWorldState.get(server).poserDrapeau(fr.leslimbes.domaine.RelaisManager.RESEAU_EVEILLE);
+		fr.leslimbes.domaine.RelaisManager.decouvrir(joueur, "sanctuaire", false);
+		joueur.refreshPositionAndAngles(0.5, 66, 147.5, 0, 0);
+		boolean voyage = fr.leslimbes.domaine.RelaisManager.voyager(joueur, "sanctuaire");
+		verifier(voyage && joueur.getBlockPos().isWithinDistance(new BlockPos(-6, 83, 0), 4.0), "voyage de Clairval au Sanctuaire par le réseau des passages (" + joueur.getBlockPos().toShortString() + ")");
+		// Raie céleste : pacte et rappel avec un joueur factice.
 		joueur.refreshPositionAndAngles(LimbesSites.CLAIRVAL_ARRIVEE.getX() + 0.5, LimbesSites.CLAIRVAL_ARRIVEE.getY(), LimbesSites.CLAIRVAL_ARRIVEE.getZ() + 0.5, 0, 0);
 		fr.leslimbes.world.state.PlayerLimbesData.of(joueur).montures.clear();
 		fr.leslimbes.entity.RaieCelesteEntity.rappeler(joueur);

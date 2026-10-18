@@ -1,6 +1,7 @@
 {
   "titre": "Aménager les chambres des compagnons",
   "description": "Le grenier devient quatre alcôves et un coin commun pour celles et ceux qui rejoignent le domaine.",
+  "indice": "l'aile ouest réparée",
   "ordre": 8,
   "lieu": "manoir",
   "prerequis": [

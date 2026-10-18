@@ -5,6 +5,9 @@ import fr.leslimbes.world.state.PlayerLimbesData;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtOps;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /** Copie côté client des données du joueur, uniquement pour l'affichage. */
 public final class ClientLimbesData {
 	private static PlayerLimbesData donnees = new PlayerLimbesData();
@@ -12,6 +15,27 @@ public final class ClientLimbesData {
 	private static long derniereNotification;
 	private static String texteNotification = "";
 	private static String typeNotification = "";
+	private static List<ProjetResume> projets = List.of();
+
+	/** Projet du domaine tel que le serveur le résume pour le journal. */
+	public record ProjetResume(String id, String titre, String lieu, boolean fait) {
+	}
+
+	public static List<ProjetResume> projets() {
+		return projets;
+	}
+
+	/** Lieux, relais et projets reçus du serveur (carte et onglet Domaine du journal). */
+	public static void recevoirLieux(NbtCompound nbt) {
+		fr.leslimbes.domaine.SyncLieux.recevoir(nbt);
+		List<ProjetResume> l = new ArrayList<>();
+		net.minecraft.nbt.NbtList liste = nbt.getList("projets", net.minecraft.nbt.NbtElement.COMPOUND_TYPE);
+		for (int i = 0; i < liste.size(); i++) {
+			NbtCompound p = liste.getCompound(i);
+			l.add(new ProjetResume(p.getString("id"), p.getString("titre"), p.getString("lieu"), p.getBoolean("fait")));
+		}
+		projets = List.copyOf(l);
+	}
 
 	public static PlayerLimbesData get() {
 		return donnees;
@@ -41,6 +65,7 @@ public final class ClientLimbesData {
 
 	public static void reinitialiser() {
 		donnees = new PlayerLimbesData();
+		projets = List.of();
 	}
 
 	private ClientLimbesData() {

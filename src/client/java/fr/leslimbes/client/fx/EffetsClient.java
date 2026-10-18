@@ -19,9 +19,32 @@ public final class EffetsClient {
 			return;
 		}
 		Random random = world.getRandom();
+		fr.leslimbes.client.OptionsLimbes options = fr.leslimbes.client.OptionsLimbes.get();
+		double distanceJoueur = client.player == null ? 64.0 : client.player.getPos().distanceTo(pos);
 		switch (type) {
+			case "chantier" -> {
+				// Arêtes de la boîte du chantier (dir = taille) parcourues d'étoiles, puis poussière de nacre au centre.
+				double sx = dir.x / 2.0, sy = dir.y / 2.0, sz = dir.z / 2.0;
+				int pas = options.quantite(10);
+				for (int i = 0; i <= pas; i++) {
+					double t = -1.0 + 2.0 * i / pas;
+					for (int k = 0; k < 4; k++) {
+						double ax = (k & 1) == 0 ? -sx : sx, az = (k & 2) == 0 ? -sz : sz;
+						world.addParticle(LimbesParticles.ETOILE_ROYALE, pos.x + ax, pos.y + t * sy, pos.z + az, 0, 0.02, 0);
+						world.addParticle(LimbesParticles.ETOILE_ROYALE, pos.x + t * sx, pos.y + ((k & 1) == 0 ? -sy : sy), pos.z + az, 0, 0.02, 0);
+						world.addParticle(LimbesParticles.ETOILE_ROYALE, pos.x + ax, pos.y + ((k & 1) == 0 ? -sy : sy), pos.z + t * sz, 0, 0.02, 0);
+					}
+				}
+				for (int i = 0; i < options.quantite(40); i++) {
+					world.addParticle(LimbesParticles.ECLAT_DE_NACRE, pos.x + (random.nextDouble() - 0.5) * dir.x, pos.y + (random.nextDouble() - 0.5) * dir.y,
+							pos.z + (random.nextDouble() - 0.5) * dir.z, 0, 0.04, 0);
+				}
+				if (distanceJoueur < 40) {
+					Secousses.secouer(0.35F);
+				}
+			}
 			case "epee_invocation" -> {
-				for (int i = 0; i < 24; i++) {
+				for (int i = 0; i < options.quantite(24); i++) {
 					double a = i / 24.0 * Math.PI * 2;
 					world.addParticle(LimbesParticles.ETOILE_ROYALE, pos.x + Math.cos(a) * 0.8, pos.y - 0.6 + i * 0.07, pos.z + Math.sin(a) * 0.8, 0, 0.02, 0);
 				}
@@ -64,14 +87,20 @@ public final class EffetsClient {
 					world.addParticle(LimbesParticles.ETOILE_ROYALE, pos.x + lat.x * t, pos.y + 1.25, pos.z + lat.z * t, 0, 0.01, 0);
 				}
 				if (type.equals("porte_arrivee")) {
-					for (int i = 0; i < 8; i++) {
+					if (distanceJoueur < 3) {
+						Secousses.flash(0.22F);
+					}
+					for (int i = 0; i < options.quantite(8); i++) {
 						world.addParticle(LimbesParticles.ECLAT_DE_NACRE, pos.x, pos.y - 0.5, pos.z, (random.nextDouble() - 0.5) * 0.1, 0.05, (random.nextDouble() - 0.5) * 0.1);
 					}
 				}
 			}
 			case "decret_reculez" -> {
+				if (distanceJoueur < 12) {
+					Secousses.secouer(0.5F);
+				}
 				for (int ring = 1; ring <= 3; ring++) {
-					int n = 16 * ring;
+					int n = options.quantite(16 * ring);
 					for (int i = 0; i < n; i++) {
 						double a = i / (double) n * Math.PI * 2;
 						double r = ring * 1.8;
@@ -88,7 +117,10 @@ public final class EffetsClient {
 				}
 			}
 			case "veilleur_frappe" -> {
-				for (int i = 0; i < 20; i++) {
+				if (distanceJoueur < 8) {
+					Secousses.secouer(0.8F);
+				}
+				for (int i = 0; i < options.quantite(20); i++) {
 					double a = random.nextDouble() * Math.PI * 2;
 					double r = random.nextDouble() * 2.5;
 					world.addParticle(ParticleTypes.CLOUD, pos.x + Math.cos(a) * r, pos.y + 0.1, pos.z + Math.sin(a) * r, Math.cos(a) * 0.08, 0.02, Math.sin(a) * 0.08);
@@ -97,7 +129,10 @@ public final class EffetsClient {
 			}
 			case "arrivee_ciel" -> {
 				// Colonne de lumière du sol vers le ciel, anneaux qui se « plissent » en altitude.
-				for (int i = 0; i < 90; i++) {
+				if (distanceJoueur < 120) {
+					Secousses.flash(0.18F);
+				}
+				for (int i = 0; i < options.quantite(90); i++) {
 					world.addParticle(LimbesParticles.ETOILE_ROYALE, pos.x + (random.nextDouble() - 0.5) * 1.5, pos.y + i * 0.9, pos.z + (random.nextDouble() - 0.5) * 1.5, 0, 0.04, 0);
 				}
 				for (int ring = 0; ring < 3; ring++) {
@@ -107,7 +142,7 @@ public final class EffetsClient {
 						world.addParticle(LimbesParticles.LUEUR, pos.x + Math.cos(a) * r, pos.y + 40 + ring * 8, pos.z + Math.sin(a) * r, -Math.cos(a) * 0.03, -0.02, -Math.sin(a) * 0.03);
 					}
 				}
-				for (int i = 0; i < 30; i++) {
+				for (int i = 0; i < options.quantite(30); i++) {
 					world.addParticle(LimbesParticles.ECLAT_DE_NACRE, pos.x + (random.nextDouble() - 0.5) * 6, pos.y + 1 + random.nextDouble() * 3, pos.z + (random.nextDouble() - 0.5) * 6, 0, 0.05, 0);
 				}
 			}

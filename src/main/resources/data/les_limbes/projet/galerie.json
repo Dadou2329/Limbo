@@ -1,6 +1,7 @@
 {
   "titre": "Élever la galerie des merveilles",
   "description": "Huit vitrines pour exposer ce que vous ramenez : chaque objet y raconte d'où il vient.",
+  "indice": "l'aile ouest réparée",
   "ordre": 6,
   "lieu": "manoir",
   "prerequis": [
