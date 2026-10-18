@@ -32,8 +32,26 @@ Le JAR est produit dans `build/libs/les-limbes-<version>.jar`. Il nécessite [Fa
 ```
 ./gradlew test          # tests unitaires (données, logique)
 ./gradlew runGametest   # tests de jeu sur un serveur headless (génération, porte, quêtes)
+./gradlew runAutotest   # serveur dédié réel : génération des Limbes, lieux fixes, personnages (journal AUTOTEST OK/ECHEC)
+./gradlew runCapture    # client avec captures d'écran automatiques (sauvegarde run/client/saves/Limbes)
 ./gradlew runServer     # serveur dédié de développement (run/server)
 ```
+
+## Captures
+
+Images prises par le scénario automatique (`docs/captures/`, client 1.21.1 en rendu logiciel) :
+
+| Arche de retour du Sanctuaire | Dialogue avec Maëlle |
+|---|---|
+| ![Arche](docs/captures/01_sanctuaire_arche.jpg) | ![Dialogue](docs/captures/04_dialogue.jpg) |
+
+| Place de Clairval | Manoir du joueur |
+|---|---|
+| ![Clairval](docs/captures/08_clairval_place.jpg) | ![Manoir](docs/captures/10_manoir.jpg) |
+
+| Relais royal et Veilleur égaré | Nuit sur Clairval |
+|---|---|
+| ![Relais](docs/captures/11_relais.jpg) | ![Nuit](docs/captures/12_nuit_constellations.jpg) |
 
 ## Licence
 

@@ -16,6 +16,7 @@ from __future__ import annotations
 import json
 import os
 import sys
+import zlib
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
@@ -875,7 +876,7 @@ def render_png(c: Canvas, path: str, scale: int = 4) -> None:
         if name == AIR:
             return (0, 0, 0, 0)
         if name not in colors:
-            h = abs(hash(name))
+            h = zlib.crc32(name.encode("utf-8"))
             base = {
                 "les_limbes:pierre_nacree": (233, 227, 218), "les_limbes:pierre_nacree_taillee": (215, 208, 198), "les_limbes:pierre_nacree_polie": (247, 243, 236),
                 "les_limbes:pierre_nacree_sculptee": (227, 201, 126), "les_limbes:planches_d_aube": (227, 201, 175), "les_limbes:buche_d_aube": (185, 157, 143),

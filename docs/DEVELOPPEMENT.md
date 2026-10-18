@@ -6,6 +6,8 @@
 - `./gradlew build` compile et produit `build/libs/les-limbes-<version>.jar`.
 - `./gradlew test` : JUnit (validation des données, logique pure).
 - `./gradlew runGametest` : serveur headless exécutant les GameTests (`fr.leslimbes.gametest`).
+- `./gradlew runAutotest` : serveur dédié réel (`run/autotest`, EULA à accepter) qui génère les Limbes, vérifie les lieux fixes et les personnages, journalise « AUTOTEST OK/ECHEC » puis s'arrête (`AutoTest.java`).
+- `./gradlew runCapture` : client lancé sur la sauvegarde `Limbes` (`run/client/saves/Limbes`) avec le scénario de captures d'écran automatiques (`client/dev/CaptureAutomatique.java`) ; fonctionne sans écran via Xvfb et Mesa logiciel (`DISPLAY=:99 LIBGL_ALWAYS_SOFTWARE=1`). Les images sont écrites dans `run/client/screenshots/`.
 - `./gradlew runServer` : serveur dédié de développement dans `run/server` (acceptez l'EULA dans `run/server/eula.txt`).
 - `./gradlew genSources` : sources décompilées de Minecraft (vérification des signatures d'API).
 
@@ -74,6 +76,17 @@ Ordre recommandé après modification : textures → sons → données → struc
 - **`minecraft:lake` est dépréciée et plante** en bordure de chunk (lecture de biomes à deux chunks pour la glace). `les_limbes:lac` (Java) reste dans un rayon d'un chunk.
 - **Une feature listée deux fois** dans une étape de biome provoque un cycle d'ordre au chargement des registres : utilisez une feature placée distincte.
 - **Serveur de GameTest** : monde plat sans dimensions de datapack ; la génération réelle se vérifie avec `./gradlew runAutotest` (AutoTest.java), qui journalise « AUTOTEST OK/ECHEC » puis s'arrête.
+
+## Rendu client : leçons apprises (vérifiées par captures)
+
+- **Ciel personnalisé (Fabric `DimensionRenderingRegistry`)** : pendant `renderSky`, `WorldRenderContext.matrixStack()` vaut `null` ; utilisez `positionMatrix()` (rotation de la caméra) et dessinez avec `BufferRenderer.drawWithGlobalProgram`. Désactivez l'élimination des faces (`RenderSystem.disableCull()`) pendant le rendu du ciel : un quad construit dans le mauvais sens disparaît sans erreur.
+- **Écrans** : tout ce qui est dessiné dans `render` avant `super.render` est flouté par le fond vanilla de 1.21. Dessinez le panneau et son texte dans `renderBackground` après `super.renderBackground`, ou neutralisez le flou (`DialogueScreen`).
+- **HUD** : la barre d'objets vanilla commence à `largeur/2 − 91` ; tout élément en bas à gauche doit tenir avant cette limite (427 px logiques au minimum, soit 114 px disponibles).
+- **Captures sans écran** : `Xvfb :99 -screen 0 1280x720x24`, `LIBGL_ALWAYS_SOFTWARE=1`, `MESA_GL_VERSION_OVERRIDE=4.5` ; le client tourne à quelques images par seconde mais les ticks restent exacts, ce qui suffit au scénario de `CaptureAutomatique`.
+
+## Mixins
+
+Un seul mixin, volontairement minimal : `DimensionOptionsRegistryHolderMixin` déclare stable toute dimension du mod. Sans lui, Minecraft marque « expérimentale » toute dimension non vanilla et affiche un avertissement bloquant (« Je sais ce que je fais ! ») à chaque ouverture d'un monde en solo. Les listes des fichiers `les_limbes.mixins.json` (commun) et `les_limbes.client.mixins.json` (client) sont les seuls endroits à modifier pour en ajouter.
 
 ## Multijoueur
 

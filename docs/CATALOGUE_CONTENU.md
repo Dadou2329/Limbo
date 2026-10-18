@@ -6,14 +6,14 @@ Légende : **F** fonctionnel · **P** partiel · **—** absent (voir `BACKLOG.m
 
 | Élément | État | Accès / conditions | Vérification |
 |---|---|---|---|
-| Carnet du voyageur (livre français) | F | première connexion | GameTest quêtes, lecture en jeu non vérifiée |
+| Carnet du voyageur (livre français) | F | première connexion | GameTest quêtes ; reçu en main à la première connexion (capture client) |
 | Boussole nacrée (indication en barre d'action) | F | recette boussole + 4 améthystes | JUnit directions |
 | Vestige des Limbes (Overworld, structure composée, cave cachée, journal, porte dormante) | F | random_spread, biomes de prairies/forêts/savanes/taïgas | gabarit chargé et pièce générée (GameTest) ; localisable sur serveur dédié (AutoTest) |
 | Porte des Limbes (dormante → réveil avec 3 éclats, voile connecté ≤ 32 blocs) | F | clic droit avec éclats | GameTest réveil/idempotence |
-| Voyage Overworld ↔ Limbes, retour exact au point de départ | F | marcher dans le voile | non vérifié en jeu (joueur réel) |
-| Dimension des Limbes : terrain suspendu, îles flottantes, brumes, lacs, cristaux | F | — | AutoTest serveur dédié (génération réelle) ; rendu non vérifié |
+| Voyage Overworld ↔ Limbes, retour exact au point de départ | F | marcher dans le voile | traversée Limbes → Overworld observée en capture client (marche dans le voile de l'arche) ; le sens Overworld → Limbes est couvert par le GameTest de la porte |
+| Dimension des Limbes : terrain suspendu, îles flottantes, brumes, lacs, cristaux | F | — | AutoTest serveur dédié (génération réelle) ; terrain, îles et arbres observés en captures client |
 | Biomes : plaines nacrées, vergers suspendus, vallée des lanternes | F | multi-bruit (température/humidité) | — |
-| Ciel nacré, constellations, silhouette du palais, nuages bas | P | client | compilé, non vérifié visuellement |
+| Ciel nacré, constellations, silhouette du palais, nuages bas | F | client | voûte, palais (jour et nuit, halo) et étoiles observés en captures client |
 | Protection des brumes (retour au dernier lieu sûr, chute lente) | F | y < 12 | non vérifié en jeu |
 | Sanctuaire de l'Arrivée (île, esplanade, arche de retour, Maëlle, grand pont) | F | position fixe 0/82/0 | AutoTest : arche active, arrivée libre, Maëlle présente |
 | Clairval (place, fontaine, auberge, forge, 3 maisons, moulin, chemins, jardins) | F | position fixe 0/66/140 | AutoTest : place pavée, Thibault, Brann, Vaëron présents |
@@ -32,8 +32,8 @@ Objets : éclat de nacre, boussole nacrée, fibres nacrées, herbe de l'aube, bo
 |---|---|---|
 | Habitant (9 apparences, rôles) | dialogue au clic droit, retour au domicile, invulnérable si essentiel, réapparition | F |
 | Poisson-lune | vol lent ambiant, lumineux, inoffensif | F (rendu non vérifié) |
-| Cerf-lanterne | paisible, fuite si blessé, bois lumineux au crépuscule avec traînée | P (sentiers vers des secrets : backlog) |
-| Veilleur égaré | hostile, préparation visible 18 ticks puis coup en arc, résistance au recul | F |
+| Cerf-lanterne | paisible, fuite si blessé, bois lumineux au crépuscule avec traînée | P (rendu observé ; sentiers vers des secrets : backlog) |
+| Veilleur égaré | hostile, préparation visible 18 ticks puis coup en arc, résistance au recul | F (rendu et agressivité observés en capture) |
 
 ## Personnages et dialogues (10 dialogues)
 

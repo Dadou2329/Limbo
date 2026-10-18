@@ -12,7 +12,6 @@ import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.VertexFormat;
 import net.minecraft.client.render.VertexFormats;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -66,15 +65,17 @@ public final class LimbesSky {
 
 	private static void rendre(WorldRenderContext context) {
 		ClientWorld world = context.world();
-		MatrixStack matrices = context.matrixStack();
-		if (world == null || matrices == null) {
+		// Pendant le rendu du ciel, le contexte ne fournit pas de MatrixStack : seule la matrice de vue
+		// (rotation de la caméra, sans translation) est disponible.
+		Matrix4f m = context.positionMatrix();
+		if (world == null || m == null) {
 			return;
 		}
 		float tickDelta = context.tickCounter().getTickDelta(false);
 		float angle = world.getSkyAngle(tickDelta);
 		float jour = MathHelper.clamp(MathHelper.cos(angle * ((float) Math.PI * 2)) * 2.0F + 0.5F, 0.0F, 1.0F);
-		Matrix4f m = matrices.peek().getPositionMatrix();
 		RenderSystem.depthMask(false);
+		RenderSystem.disableCull();
 		RenderSystem.enableBlend();
 		RenderSystem.defaultBlendFunc();
 		RenderSystem.setShader(GameRenderer::getPositionColorProgram);
@@ -85,6 +86,7 @@ public final class LimbesSky {
 		dessinerPalais(m, jour);
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 		RenderSystem.depthMask(true);
+		RenderSystem.enableCull();
 		RenderSystem.disableBlend();
 	}
 
@@ -133,10 +135,10 @@ public final class LimbesSky {
 		BufferBuilder b = Tessellator.getInstance().begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_COLOR);
 		for (float[] e : ETOILES) {
 			float scintille = 0.7F + 0.3F * MathHelper.sin(temps * 0.05F + e[3] * 10.0F);
-			float a = luminosite * scintille * e[4];
+			float a = Math.min(1.0F, luminosite * 2.2F) * scintille * e[4];
 			float taille = e[3];
 			float x = e[0], y = e[1], z = e[2];
-			// Quad orienté face au centre : base orthonormée approximative.
+			// Quad orienté face au centre : u tangent horizontal, v = p × u, tous deux normalisés.
 			float ux = -z, uz = x, len = (float) Math.sqrt(ux * ux + uz * uz);
 			if (len < 1.0E-4F) {
 				continue;
@@ -144,6 +146,10 @@ public final class LimbesSky {
 			ux /= len;
 			uz /= len;
 			float vx = y * uz, vy = z * ux - x * uz, vz = -y * ux;
+			float norme = (float) Math.sqrt(vx * vx + vy * vy + vz * vz);
+			vx /= norme;
+			vy /= norme;
+			vz /= norme;
 			float[] c = e[5] > 0.5F ? new float[]{0.97F, 0.90F, 0.70F} : new float[]{0.90F, 0.94F, 1.0F};
 			b.vertex(m, x - ux * taille - vx * taille, y - vy * taille, z - uz * taille - vz * taille).color(c[0], c[1], c[2], a);
 			b.vertex(m, x + ux * taille - vx * taille, y - vy * taille, z + uz * taille - vz * taille).color(c[0], c[1], c[2], a);
@@ -158,15 +164,17 @@ public final class LimbesSky {
 		float r = 98.0F;
 		float dx = (float) Math.sin(CAP_PALAIS), dz = (float) -Math.cos(CAP_PALAIS); // cap mesuré depuis le nord vers l'est
 		float lx = -dz, lz = dx; // vecteur latéral
-		float[] teinte = mix(new float[]{0.16F, 0.18F, 0.36F}, new float[]{0.40F, 0.44F, 0.62F}, jour);
-		float alpha = 0.55F + 0.25F * jour;
+		float[] teinte = mix(new float[]{0.06F, 0.07F, 0.16F}, new float[]{0.36F, 0.40F, 0.60F}, jour);
+		float alpha = 0.75F + 0.15F * jour;
 		BufferBuilder b = Tessellator.getInstance().begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_COLOR);
-		float base = (float) Math.toRadians(1.5);
+		// Le palais flotte au-dessus de la brume de l'horizon (base à 7°) pour rester visible par-dessus les arbres.
+		float base = (float) Math.toRadians(7.0);
 		float yBase = MathHelper.sin(base) * r;
 		// [décalage latéral, demi-largeur, hauteur] en « degrés » de ciel
 		float[][] tours = {{0.0F, 1.2F, 7.5F}, {-2.6F, 0.6F, 4.5F}, {2.6F, 0.6F, 4.5F}, {-4.6F, 0.45F, 3.2F}, {4.6F, 0.45F, 3.2F}, {-1.5F, 3.6F, 2.4F}};
+		float agrandissement = 1.6F;
 		for (float[] t : tours) {
-			float cx = t[0], hw = t[1], h = t[2];
+			float cx = t[0] * agrandissement, hw = t[1] * agrandissement, h = t[2] * agrandissement;
 			float x0 = (float) Math.toRadians(cx - hw) * r, x1 = (float) Math.toRadians(cx + hw) * r;
 			float yTop = MathHelper.sin(base + (float) Math.toRadians(h)) * r;
 			quadHorizon(b, m, dx, dz, lx, lz, r, x0, x1, yBase, yTop, teinte, alpha);
@@ -175,12 +183,28 @@ public final class LimbesSky {
 			float yPic = MathHelper.sin(base + (float) Math.toRadians(h + hw * 1.6F)) * r;
 			quadHorizon(b, m, dx, dz, lx, lz, r, xm - 0.08F, xm + 0.08F, yTop, yPic, teinte, alpha);
 		}
-		// Halo doré derrière le palais
+		// Halo doré derrière le palais : trois bandes dont l'alpha s'éteint vers les bords et vers le haut.
 		float[] halo = {0.98F, 0.88F, 0.55F};
-		float hx0 = (float) Math.toRadians(-6.5) * r, hx1 = (float) Math.toRadians(6.5) * r;
-		float yHalo = MathHelper.sin(base + (float) Math.toRadians(10.5)) * r;
-		quadHorizon(b, m, dx, dz, lx, lz, r + 1.0F, hx0, hx1, yBase - 2.0F, yHalo, halo, 0.10F + 0.12F * (1.0F - jour));
+		float aHalo = 0.14F + 0.16F * (1.0F - jour);
+		float hc = (float) Math.toRadians(5.5) * r, hb = (float) Math.toRadians(13.0) * r;
+		float yHaloBas = yBase - 5.0F;
+		float yHaloHaut = MathHelper.sin(base + (float) Math.toRadians(19.0)) * r;
+		float rh = r + 1.0F;
+		quadDegrade(b, m, dx, dz, lx, lz, rh, -hc, hc, yHaloBas, yHaloHaut, halo, aHalo, aHalo, 0.0F, 0.0F);
+		quadDegrade(b, m, dx, dz, lx, lz, rh, -hb, -hc, yHaloBas, yHaloHaut, halo, 0.0F, aHalo, 0.0F, 0.0F);
+		quadDegrade(b, m, dx, dz, lx, lz, rh, hc, hb, yHaloBas, yHaloHaut, halo, aHalo, 0.0F, 0.0F, 0.0F);
 		BufferRenderer.drawWithGlobalProgram(b.end());
+	}
+
+	/** Quad face au cap avec un alpha différent à chaque coin (bas-gauche, bas-droit, haut-gauche, haut-droit). */
+	private static void quadDegrade(BufferBuilder b, Matrix4f m, float dx, float dz, float lx, float lz, float r,
+									float x0, float x1, float y0, float y1, float[] c, float aBg, float aBd, float aHg, float aHd) {
+		float ax = dx * r + lx * x0, az = dz * r + lz * x0;
+		float bx = dx * r + lx * x1, bz = dz * r + lz * x1;
+		b.vertex(m, ax, y0, az).color(c[0], c[1], c[2], aBg);
+		b.vertex(m, bx, y0, bz).color(c[0], c[1], c[2], aBd);
+		b.vertex(m, bx, y1, bz).color(c[0], c[1], c[2], aHd);
+		b.vertex(m, ax, y1, az).color(c[0], c[1], c[2], aHg);
 	}
 
 	private static void quadHorizon(BufferBuilder b, Matrix4f m, float dx, float dz, float lx, float lz, float r,
@@ -208,8 +232,8 @@ public final class LimbesSky {
 			out[i][0] = (float) (Math.cos(u) * Math.cos(v) * r);
 			out[i][1] = (float) (Math.sin(v) * r);
 			out[i][2] = (float) (Math.sin(u) * Math.cos(v) * r);
-			out[i][3] = 0.15F + random.nextFloat() * 0.25F;
-			out[i][4] = 0.5F + random.nextFloat() * 0.5F;
+			out[i][3] = 0.28F + random.nextFloat() * 0.42F;
+			out[i][4] = 0.65F + random.nextFloat() * 0.35F;
 			out[i][5] = random.nextFloat();
 		}
 		return out;

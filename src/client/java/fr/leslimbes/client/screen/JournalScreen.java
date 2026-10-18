@@ -39,6 +39,13 @@ public class JournalScreen extends Screen {
 		super(Text.translatable("ecran.les_limbes.journal"));
 	}
 
+	/** Journal ouvert directement sur l'onglet des pouvoirs. */
+	public static JournalScreen pouvoirs() {
+		JournalScreen ecran = new JournalScreen();
+		ecran.onglet = Onglet.POUVOIRS;
+		return ecran;
+	}
+
 	@Override
 	protected void init() {
 		largeur = Math.min(420, width - 20);
@@ -100,9 +107,15 @@ public class JournalScreen extends Screen {
 						init();
 					}).dimensions(x0 + largeur - 8 - (PlayerLimbesData.SLOTS - slot) * 34, y, 30, 18).build());
 				}
-				y += 30;
+				y += hauteurEntree(id);
 			}
 		}
+	}
+
+	/** Hauteur d'une entrée de l'onglet Pouvoirs : titre, coût, description repliée, marge. */
+	private int hauteurEntree(String id) {
+		int lignes = textRenderer.wrapLines(Text.translatable("pouvoir.les_limbes." + id + ".description"), largeur - 140).size();
+		return 20 + lignes * 9 + 8;
 	}
 
 	private void basculer(Onglet o) {
@@ -117,8 +130,13 @@ public class JournalScreen extends Screen {
 		return liste;
 	}
 
+	/**
+	 * Le panneau et son contenu sont dessinés ici, après le flou et l'assombrissement vanilla du fond :
+	 * tout ce qui est dessiné avant {@code super.renderBackground} serait flouté avec le monde.
+	 */
 	@Override
-	public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+	public void renderBackground(DrawContext context, int mouseX, int mouseY, float delta) {
+		super.renderBackground(context, mouseX, mouseY, delta);
 		context.fill(x0, y0, x0 + largeur, y0 + hauteur, 0xE0141A33);
 		context.drawBorder(x0, y0, largeur, hauteur, 0xFFB4934A);
 		context.drawBorder(x0 + 1, y0 + 1, largeur - 2, hauteur - 2, 0xFFE3C97E);
@@ -146,8 +164,11 @@ public class JournalScreen extends Screen {
 				} else {
 					Optional<QuestDefinition.Etape> etape = def.etapeCourante(progress);
 					if (etape.isPresent()) {
-						context.drawTextWithShadow(textRenderer, etape.get().resume(), dx, y, 0xFFF4F1EA);
-						y += 12;
+						for (OrderedText l : textRenderer.wrapLines(Text.literal(etape.get().resume()), dw)) {
+							context.drawTextWithShadow(textRenderer, l, dx, y, 0xFFF4F1EA);
+							y += 10;
+						}
+						y += 2;
 						for (QuestDefinition.Objectif o : etape.get().objectifs()) {
 							boolean fait = o.estAtteint(progress);
 							String ligne = (fait ? "✓ " : "• ") + o.texteAffiche(progress).getString();
@@ -183,12 +204,11 @@ public class JournalScreen extends Screen {
 					context.drawTextWithShadow(textRenderer, l, x0 + 12, yy, 0xFFD8D4CC);
 					yy += 9;
 				}
-				y += 30;
+				y += hauteurEntree(id);
 			}
 			String maj = Text.translatable("ecran.les_limbes.journal.majeste", (int) data.majeste, (int) data.majesteMax).getString();
 			context.drawTextWithShadow(textRenderer, maj, x0 + 12, y0 + hauteur - 22, 0xFFE3C97E);
 		}
-		super.render(context, mouseX, mouseY, delta);
 	}
 
 	@Override

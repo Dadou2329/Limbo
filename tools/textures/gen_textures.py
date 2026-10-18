@@ -34,7 +34,8 @@ P = {
     "terre": hex_to_rgba("7F6F76"), "terre_clair": hex_to_rgba("96868C"), "terre_sombre": hex_to_rgba("63555C"),
     "ecorce": hex_to_rgba("B99D8F"), "ecorce_sombre": hex_to_rgba("87695F"), "bois": hex_to_rgba("E3C9AF"),
     "bois_ligne": hex_to_rgba("B8977E"), "bois_coeur": hex_to_rgba("D9B99A"),
-    "feuille": hex_to_rgba("E8CDB8"), "feuille_sombre": hex_to_rgba("CFA287"), "feuille_lueur": hex_to_rgba("FFF3C8"),
+    "feuille": hex_to_rgba("F4D9E3"), "feuille_sombre": hex_to_rgba("B8789C"), "feuille_ombre": hex_to_rgba("8E5A7C"),
+    "feuille_lueur": hex_to_rgba("FFF6E0"),
     "fibre": hex_to_rgba("DFE8EA"), "fibre_sombre": hex_to_rgba("B4C4CA"), "blanc": hex_to_rgba("FFFFFF"),
     "lueur": hex_to_rgba("FFF8E2"), "metal": hex_to_rgba("4A4858"), "metal_clair": hex_to_rgba("6A6880"),
     "cristal": hex_to_rgba("E3F1FF"), "cristal_sombre": hex_to_rgba("B9D3EC"),
@@ -153,8 +154,12 @@ def tex_planches_aube() -> Image.Image:
 
 
 def tex_feuilles_aube() -> Image.Image:
+    """Feuillage rose nacré : grain de feuilles contrasté (ombres, creux transparents, pétales clairs)."""
     img = new()
-    leaves(img, P["feuille"], P["feuille_sombre"], holes=12, seed=71, accent=P["feuille_lueur"], accents=4)
+    leaves(img, P["feuille"], P["feuille_sombre"], holes=14, seed=71, accent=P["feuille_lueur"], accents=5)
+    speckle(img, P["feuille_ombre"], count=26, seed=74)
+    speckle(img, P["feuille_sombre"], count=18, seed=75)
+    speckle(img, P["nacre_clair"], count=10, seed=76)
     return img
 
 

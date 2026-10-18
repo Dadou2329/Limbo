@@ -45,38 +45,65 @@ public final class LimbesHud {
 		});
 	}
 
+	/**
+	 * Colonne en bas à gauche, à gauche de la barre d'objets vanilla (dont le bord gauche est à
+	 * largeur/2 − 91) : emplacements de pouvoirs sur deux lignes, puis réserve de majesté et son compteur.
+	 */
 	private static void dessinerMajeste(DrawContext context, MinecraftClient client, PlayerLimbesData data) {
+		TextRenderer tr = client.textRenderer;
 		int x = 8;
-		int y = context.getScaledWindowHeight() - 26;
-		context.drawTexture(MAJESTE, x, y + 4, 0, 16, 16, 16, 64, 32);
-		int bx = x + 18;
-		context.drawTexture(MAJESTE, bx, y + 8, 0, 0, 62, 8, 64, 32);
-		float ratio = data.majesteMax <= 0 ? 0 : Math.max(0, Math.min(1, data.majeste / data.majesteMax));
-		int largeur = Math.round(60 * ratio);
-		if (largeur > 0) {
-			context.drawTexture(MAJESTE, bx + 1, y + 9, 1, 9, largeur, 6, 64, 32);
-		}
-		String texte = (int) data.majeste + " / " + (int) data.majesteMax;
-		context.drawTextWithShadow(client.textRenderer, texte, bx + 66, y + 8, OR);
-		// Emplacements de pouvoirs
-		int sx = x;
-		int sy = y - 22;
+		int h = context.getScaledWindowHeight();
+		int limite = context.getScaledWindowWidth() / 2 - 91 - 4;
+		int largeurColonne = Math.max(96, Math.min(114, limite - x));
+		int ecart = 2;
+		int largeurSlot = (largeurColonne - ecart * (PlayerLimbesData.SLOTS - 1)) / PlayerLimbesData.SLOTS;
+		int sy = h - 64;
 		for (int i = 0; i < PlayerLimbesData.SLOTS; i++) {
 			String id = data.equipes.get(i);
-			int cx = sx + i * 44;
-			context.fill(cx, sy, cx + 40, sy + 18, FOND);
-			context.drawBorder(cx, sy, 40, 18, id.isEmpty() ? 0xFF4A4858 : OR_SOMBRE);
+			int cx = x + i * (largeurSlot + ecart);
+			context.fill(cx, sy, cx + largeurSlot, sy + 20, FOND);
+			context.drawBorder(cx, sy, largeurSlot, 20, id.isEmpty() ? 0xFF4A4858 : OR_SOMBRE);
 			String touche = LimbesKeys.nomTouche(i);
-			context.drawTextWithShadow(client.textRenderer, touche, cx + 3, sy + 5, OR);
+			texteAjuste(context, tr, touche, cx + 3, sy + 2, largeurSlot - 6, OR);
 			if (!id.isEmpty()) {
 				String nom = Text.translatable("pouvoir.les_limbes." + id + ".court").getString();
-				context.drawTextWithShadow(client.textRenderer, nom, cx + 3 + client.textRenderer.getWidth(touche) + 4, sy + 5, BLANC);
+				texteAjuste(context, tr, nom, cx + 3, sy + 11, largeurSlot - 6, BLANC);
 				var ability = Abilities.get(id);
 				if (ability != null && data.majeste < ability.cout()) {
-					context.fill(cx, sy, cx + 40, sy + 18, 0x60FF4040);
+					context.fill(cx, sy, cx + largeurSlot, sy + 20, 0x60FF4040);
 				}
 			}
 		}
+		int y = h - 40;
+		context.drawTexture(MAJESTE, x, y, 0, 16, 16, 16, 64, 32);
+		int bx = x + 18;
+		context.drawTexture(MAJESTE, bx, y + 4, 0, 0, 62, 8, 64, 32);
+		float ratio = data.majesteMax <= 0 ? 0 : Math.max(0, Math.min(1, data.majeste / data.majesteMax));
+		int largeur = Math.round(60 * ratio);
+		if (largeur > 0) {
+			context.drawTexture(MAJESTE, bx + 1, y + 5, 1, 9, largeur, 6, 64, 32);
+		}
+		String texte = (int) data.majeste + " / " + (int) data.majesteMax;
+		context.drawTextWithShadow(tr, texte, bx, y + 15, OR);
+	}
+
+	/** Texte réduit (jusqu'à 60 %) s'il dépasse la largeur disponible, pour rester lisible dans un emplacement. */
+	static void texteAjuste(DrawContext context, TextRenderer tr, String texte, int x, int y, int largeurMax, int couleur) {
+		int largeur = tr.getWidth(texte);
+		if (largeur <= largeurMax) {
+			context.drawTextWithShadow(tr, texte, x, y, couleur);
+			return;
+		}
+		float echelle = Math.max(0.6F, (float) largeurMax / largeur);
+		String affiche = texte;
+		if (largeur * echelle > largeurMax) {
+			affiche = tr.trimToWidth(texte, Math.round(largeurMax / echelle));
+		}
+		context.getMatrices().push();
+		context.getMatrices().translate(x, y + (1.0F - echelle) * 4.0F, 0);
+		context.getMatrices().scale(echelle, echelle, 1.0F);
+		context.drawTextWithShadow(tr, affiche, 0, 0, couleur);
+		context.getMatrices().pop();
 	}
 
 	private static void dessinerSuiviQuete(DrawContext context, MinecraftClient client, PlayerLimbesData data) {

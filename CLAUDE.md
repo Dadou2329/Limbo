@@ -5,6 +5,9 @@ Mod Minecraft Java 1.21.1 / Fabric, entièrement en français pour le joueur. Ca
 ## Chaîne
 - JDK 21, Gradle 9.8.0 (wrapper), Loom 1.17.21 (Loom ≥ 1.18 exige un JVM 25), Yarn 1.21.1+build.3, Fabric API 0.116.17+1.21.1.
 - `./gradlew build` · `./gradlew test` · `./gradlew runGametest` (serveur headless, EULA déjà acceptée dans `run/gametest/eula.txt`) · `./gradlew runServer`.
+- `./gradlew runAutotest` : serveur dédié réel qui génère les Limbes et vérifie lieux/PNJ (`AutoTest.java`, journal « AUTOTEST OK/ECHEC »), EULA dans `run/autotest/eula.txt`.
+- `./gradlew runCapture` : client sur la sauvegarde `run/client/saves/Limbes` avec captures automatiques (`CaptureAutomatique.java`) ; sans écran : Xvfb + `LIBGL_ALWAYS_SOFTWARE=1`.
+- Mixins (`fr.leslimbes.mixin`, liste dans `les_limbes.mixins.json`) : seulement ceux qui déclarent la dimension stable (sinon avertissement « réglages expérimentaux » à chaque ouverture de monde).
 - Sources décompilées (vérifier une signature d'API) : `./gradlew genSources` puis `.gradle/loom-cache/minecraftMaven/.../*-sources.jar`.
 
 ## Générateurs (source des assets et données ; ne pas éditer les fichiers générés)

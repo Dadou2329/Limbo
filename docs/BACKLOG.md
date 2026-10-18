@@ -7,9 +7,10 @@ Ordre conseillé par le cahier des charges : 1 socle → 2 Prairies/Clairval/man
 ## Prochaines actions exécutables (par priorité)
 
 ### A. Vérification en jeu de la tranche 1 (bloquant avant d'empiler)
-- [ ] Lancer un client (1.21.1 + Fabric) : nouvelle sauvegarde, parcourir « Le Passage » et « L'Étranger » de bout en bout ; corriger ce qui ne se comporte pas comme prévu (rendu des modèles, ciel, HUD, écrans).
-- [ ] Vérifier le rendu de la silhouette du palais et des constellations ; ajuster couleurs/positions.
-- [ ] Vérifier les animations (cerf, poisson, Veilleur) et les échelles ; ajuster les pivots.
+- [x] Rendu vérifié par captures automatiques (`./gradlew runCapture`, client sous Xvfb) : blocs et arbres d'aube, Sanctuaire, Clairval, manoir, relais, Veilleur, cerf-lanterne, HUD, journal (deux onglets), dialogue de Maëlle, traversée de l'arche, ciel nacré. Corrections faites à cette occasion : avertissement « réglages expérimentaux » (mixins), ciel qui ne se dessinait pas, texte du journal flouté, barre de pouvoirs sur les cœurs, feuilles illisibles.
+- [ ] Jouer « Le Passage » et « L'Étranger » de bout en bout avec un vrai joueur (clavier/souris) : enchaînement des dialogues, objectifs, récompenses ; corriger ce qui ne se comporte pas comme prévu.
+- [ ] Vérifier les animations en mouvement (cerf, poisson, Veilleur) et les échelles ; ajuster les pivots. Vérifier le poisson-lune de près (non cadré dans les captures).
+- [ ] Écouter les sons synthétisés en jeu (aucun périphérique audio dans l'environnement de développement) ; ajuster volumes et hauteurs.
 - [ ] Jouer le combat du relais : équilibrer santé/dégâts des Veilleurs, fenêtre d'esquive.
 - [ ] Serveur dédié avec deux joueurs : synchronisation, dialogues simultanés, réapparition des PNJ.
 
@@ -51,7 +52,8 @@ Ordre conseillé par le cahier des charges : 1 socle → 2 Prairies/Clairval/man
 - [ ] Datagen Fabric pour remplacer une partie du script Python (facultatif).
 
 ## Dette connue / limites honnêtes
-- Rendu client, interface et effets : compilés, jamais observés en jeu dans cet environnement (pas d'affichage).
-- Le vestige Overworld n'a pas été observé en génération réelle (le serveur de test est un monde plat) ; sa structure et son placement suivent le modèle vanilla des portails en ruine.
+- Rendu client et interface : observés uniquement par captures fixes (Xvfb, rendu logiciel) ; les animations, les particules en mouvement et les sons n'ont pas été jugés à l'œil ni à l'oreille.
+- Le vestige Overworld est localisé par l'auto-test sur serveur dédié (structure réellement générée), mais son intégration au relief n'a pas été regardée.
+- Textures d'entités : régénérées à l'identique désormais (les générateurs utilisaient `hash()` de Python, aléatoire d'une exécution à l'autre ; remplacé par crc32).
 - Les chemins hors plateaux (vers le manoir et le relais) ne sont pas encore tracés sur le relief ; les marqueurs de quête guident.
 - Textures procédurales : cohérentes mais perfectibles (lisibilité de la pierre sculptée, feuilles d'aube claires).

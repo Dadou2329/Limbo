@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import math
 import random
+import zlib
 from dataclasses import dataclass
 
 import numpy as np
@@ -332,7 +333,7 @@ def paint_box(img: Image.Image, box: Box, color: RGBA, seed: int = 0, variation:
         if fw <= 0 or fh <= 0:
             continue
         if texture is not None:
-            face_img = texture(name, fw, fh, seed + hash(name) % 1000)
+            face_img = texture(name, fw, fh, seed + zlib.crc32(name.encode("utf-8")) % 1000)
             img.alpha_composite(face_img, (fx, fy))
         else:
             face = new(fw, fh)

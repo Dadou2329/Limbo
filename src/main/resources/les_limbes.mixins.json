@@ -3,6 +3,8 @@
 	"package": "fr.leslimbes.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
+		"DimensionOptionsRegistryHolderMixin",
+		"DimensionsConfigMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
