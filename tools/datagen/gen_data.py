@@ -549,7 +549,7 @@ def gen_worldgen() -> None:
     patch("herbes_aube", "herbe_de_l_aube", 20, 5)
     patch("fleurs_rosee", "fleur_de_rosee", 32)
     patch("lanternes_perdues", "lanterne_nacree", 3, 6, {"hanging": "false", "waterlogged": "false"})
-    data("worldgen/configured_feature", "lac", {"type": "minecraft:lake", "config": {"barrier": simple(lb("pierre_nacree_polie")), "fluid": simple("minecraft:water", {"level": "0"})}})
+    data("worldgen/configured_feature", "lac", {"type": lb("lac"), "config": {}})
     data("worldgen/configured_feature", "cristaux", {"type": "minecraft:ore", "config": {"discard_chance_on_air_exposure": 0.0, "size": 4, "targets": [
         {"target": {"predicate_type": "minecraft:block_match", "block": lb("pierre_nacree")}, "state": state(lb("cristal_de_nacre"))}]}})
 

@@ -2,7 +2,7 @@
   "type": "les_limbes:composee",
   "biomes": "#les_limbes:limbes",
   "step": "surface_structures",
-  "terrain_adaptation": "beard_thin",
+  "terrain_adaptation": "none",
   "spawn_overrides": {},
   "ancre": [
     0,

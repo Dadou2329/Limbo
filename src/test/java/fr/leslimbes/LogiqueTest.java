@@ -52,8 +52,9 @@ class LogiqueTest {
 	void aplanissementDuTerrain() {
 		FlattenDensityFunction f = new FlattenDensityFunction(DensityFunctionTypes.constant(0.5),
 				List.of(new FlattenDensityFunction.Site(0, 0, 66, 20, 10)), 0.03125);
-		// Au centre du site : surface exactement à 66 (densité nulle), solide dessous, air dessus.
-		assertEquals(0.0, f.appliquer(0.5, 0, 66, 0), 1.0E-9);
+		// Au centre du site : bloc de surface à 65 (solide), air dès 66, sans ambiguïté de signe.
+		assertTrue(f.appliquer(0.5, 0, 65, 0) > 0.01);
+		assertTrue(f.appliquer(0.5, 0, 66, 0) < -0.01);
 		assertTrue(f.appliquer(0.5, 0, 60, 0) > 0);
 		assertTrue(f.appliquer(0.5, 0, 70, 0) < 0);
 		// Hors de la zone de transition : densité d'origine inchangée.

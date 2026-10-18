@@ -112,8 +112,10 @@ public final class AutoTest {
 		BlockState place = limbes.getBlockState(clairval.down());
 		verifier(place.isOf(LimbesBlocks.PIERRE_NACREE_POLIE) || place.isOf(LimbesBlocks.PIERRE_NACREE_TAILLEE) || place.isOf(LimbesBlocks.PIERRE_NACREE_SCULPTEE),
 				"place de Clairval pavée en " + clairval.down().toShortString() + " (trouvé " + place + ")");
-		verifier(limbes.getBlockState(clairval).getCollisionShape(limbes, clairval).isEmpty(), "air libre au-dessus de la place");
-		for (int[] p : new int[][]{{40, 65, 100}, {-60, 65, 140}, {0, 65, 60}}) {
+		BlockPos libre = LimbesSites.CLAIRVAL_ARRIVEE;
+		verifier(limbes.getBlockState(libre).getCollisionShape(limbes, libre).isEmpty() && limbes.getBlockState(libre.up()).getCollisionShape(limbes, libre.up()).isEmpty(),
+				"dalle de téléportation libre en " + libre.toShortString() + " (trouvé " + limbes.getBlockState(libre) + ")");
+		for (int[] p : new int[][]{{40, 65, 100}, {-60, 65, 140}, {0, 65, 60}, {30, 65, 170}, {-100, 65, 130}, {140, 65, 40}}) {
 			BlockPos sol = new BlockPos(p[0], p[1], p[2]);
 			verifier(!limbes.getBlockState(sol).isAir() && limbes.getBlockState(sol.up()).isAir(), "terrain aplani à 66 en " + sol.toShortString() + " (sol " + limbes.getBlockState(sol) + ", dessus " + limbes.getBlockState(sol.up()) + ")");
 		}

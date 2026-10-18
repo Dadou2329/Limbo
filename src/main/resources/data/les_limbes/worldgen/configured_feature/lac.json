@@ -1,20 +1,4 @@
 {
-  "type": "minecraft:lake",
-  "config": {
-    "barrier": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "les_limbes:pierre_nacree_polie"
-      }
-    },
-    "fluid": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "minecraft:water",
-        "Properties": {
-          "level": "0"
-        }
-      }
-    }
-  }
+  "type": "les_limbes:lac",
+  "config": {}
 }

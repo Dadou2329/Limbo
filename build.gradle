@@ -39,6 +39,14 @@ loom {
 			vmArg "-Dfabric-api.gametest.report-file=${project.layout.buildDirectory.get().asFile}/junit.xml"
 			runDir "run/gametest"
 		}
+		// Captures d'écran automatiques (client, utilisable sous Xvfb) : ./gradlew runCapture
+		capture {
+			client()
+			name "Captures automatiques"
+			vmArg "-Dles_limbes.capture=true"
+			programArgs "--quickPlaySingleplayer", "Limbes"
+			runDir "run/client"
+		}
 		// Auto-test de génération sur un vrai serveur dédié (dimension réelle) : ./gradlew runAutotest
 		autotest {
 			server()

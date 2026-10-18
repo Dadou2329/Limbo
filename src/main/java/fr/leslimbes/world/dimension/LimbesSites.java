@@ -17,15 +17,17 @@ public final class LimbesSites {
 
 	/** Sanctuaire de l'Arrivée : île flottante au-dessus de l'origine. */
 	public static final BlockPos SANCTUAIRE = new BlockPos(0, 82, 0);
-	/** Point d'arrivée des joueurs (devant l'arche de retour), orienté vers le sud. */
-	public static final Vec3d ARRIVEE = new Vec3d(0.5, 83.0, 5.5);
-	/** Arche de retour dans le Sanctuaire (centre du voile). */
-	public static final BlockPos ARCHE_RETOUR = new BlockPos(0, 84, 0);
+	/** Point d'arrivée des joueurs (devant l'arche de retour, côté sud), orientés vers le sud. */
+	public static final Vec3d ARRIVEE = new Vec3d(0.5, 83.0, -2.5);
+	/** Arche de retour dans le Sanctuaire (centre du voile, au nord de l'esplanade). */
+	public static final BlockPos ARCHE_RETOUR = new BlockPos(0, 84, -8);
 	/** Pied du grand pont, sur la terre ferme. */
 	public static final BlockPos PIED_DU_PONT = new BlockPos(0, SOL_PRAIRIES, 56);
 
-	/** Clairval : place centrale du village. */
+	/** Clairval : place centrale du village (fontaine). */
 	public static final BlockPos CLAIRVAL = new BlockPos(0, SOL_PRAIRIES, 140);
+	/** Clairval : dalle libre au nord de la fontaine (téléportations). */
+	public static final BlockPos CLAIRVAL_ARRIVEE = new BlockPos(0, SOL_PRAIRIES, 136);
 	/** Manoir du joueur : entrée principale. */
 	public static final BlockPos MANOIR = new BlockPos(-120, SOL_PRAIRIES, 150);
 	/** Ancien relais royal : lieu du premier sauvetage. */

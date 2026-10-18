@@ -1,5 +1,6 @@
 package fr.leslimbes.client;
 
+import fr.leslimbes.client.dev.CaptureAutomatique;
 import fr.leslimbes.client.hud.LimbesHud;
 import fr.leslimbes.client.hud.MarqueurMonde;
 import fr.leslimbes.client.input.LimbesKeys;
@@ -55,5 +56,6 @@ public final class LesLimbesClient implements ClientModInitializer {
 		LimbesHud.init();
 		MarqueurMonde.init();
 		ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> ClientLimbesData.reinitialiser());
+		CaptureAutomatique.init();
 	}
 }

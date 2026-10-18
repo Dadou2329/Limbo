@@ -951,7 +951,7 @@ def main() -> None:
     write_json(os.path.join(WG, "structure_set", "sanctuaire.json"), set_json("les_limbes:sanctuaire", (0, 0), 1001))
     # Clairval : chunk (0,8), origine (0, 66, 128)
     o = (0, 66, 128)
-    write_json(os.path.join(WG, "structure", "clairval.json"), structure_json(lim, "beard_thin", 66, [
+    write_json(os.path.join(WG, "structure", "clairval.json"), structure_json(lim, "none", 66, [
         piece("les_limbes:clairval/sol", (-40, 65, 50), o),
         piece("les_limbes:clairval/auberge", (5, 65, 117), o),
         piece("les_limbes:clairval/forge", (11, 65, 141), o),
@@ -962,12 +962,12 @@ def main() -> None:
     write_json(os.path.join(WG, "structure_set", "clairval.json"), set_json("les_limbes:clairval", chunk_of(0, 140), 1002))
     # Manoir : chunk (-8,9), origine (-128, 66, 144)
     o = (-128, 66, 144)
-    write_json(os.path.join(WG, "structure", "manoir.json"), structure_json(lim, "beard_thin", 66, [
+    write_json(os.path.join(WG, "structure", "manoir.json"), structure_json(lim, "none", 66, [
         piece("les_limbes:manoir/manoir", (-133, 65, 139), o)]))
     write_json(os.path.join(WG, "structure_set", "manoir.json"), set_json("les_limbes:manoir", chunk_of(-120, 150), 1003))
     # Relais royal : chunk (9,3), origine (144, 66, 48)
     o = (144, 66, 48)
-    write_json(os.path.join(WG, "structure", "relais_royal.json"), structure_json(lim, "beard_thin", 66, [
+    write_json(os.path.join(WG, "structure", "relais_royal.json"), structure_json(lim, "none", 66, [
         piece("les_limbes:relais/relais_royal", (140, 65, 51), o)]))
     write_json(os.path.join(WG, "structure_set", "relais_royal.json"), set_json("les_limbes:relais_royal", chunk_of(150, 60), 1004))
     with open(os.path.join(RAPPORT_DIR, "RAPPORT.md"), "w", encoding="utf-8") as fh:

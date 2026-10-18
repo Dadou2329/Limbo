@@ -6,7 +6,7 @@
     {
       "id": "accueil",
       "resume": "Parler à Maëlle, qui veille sur le Sanctuaire de l'Arrivée.",
-      "lieu": {"nom": "Sanctuaire de l'Arrivée", "pos": [0, 83, 8], "dimension": "les_limbes:limbes"},
+      "lieu": {"nom": "Sanctuaire de l'Arrivée", "pos": [3, 83, -2], "dimension": "les_limbes:limbes"},
       "objectifs": [
         {"id": "maelle", "type": "parler", "cible": "maelle", "texte": "Parler à Maëlle"}
       ]

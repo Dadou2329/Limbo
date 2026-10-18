@@ -69,7 +69,9 @@ public record FlattenDensityFunction(DensityFunction argument, List<Site> sites,
 			if (m <= 0.0) {
 				continue;
 			}
-			double plat = (site.y() - by) * pente;
+			// Le bloc de surface est à site.y - 1 et l'air commence à site.y : le zéro est placé à y - 0,5
+			// pour éviter toute ambiguïté de signe (interpolation, flottants) au niveau exact de la surface.
+			double plat = (site.y() - 0.5 - by) * pente;
 			resultat = MathHelper.lerp(m, resultat, plat);
 		}
 		return resultat;
