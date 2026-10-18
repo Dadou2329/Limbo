@@ -489,7 +489,9 @@ def gen_worldgen() -> None:
                 "argument": add(ycg(32, 96, 1.0, -1.0), mul(noise(lb("collines"), 1.0, 0.0), 0.42))}
     sol_bas = add(ycg(10, 34, -1.0, 1.0), mul(noise(lb("dessous"), 1.0, 1.0), 0.5))
     bande = mul(ycg(104, 118, 0.0, 1.0), ycg(140, 164, 1.0, 0.0))
-    iles = add(mul(bande, add(noise(lb("iles"), 0.8, 1.6), -0.52)), -0.03)
+    # Hors de la bande d'altitude des îles, le terme vaut -0,6 (franchement négatif) : il ne doit jamais
+    # relever la surface du sol par interpolation entre coins de cellule (voir docs/DEVELOPPEMENT.md).
+    iles = add(mul(bande, add(noise(lb("iles"), 0.8, 1.6), -0.52)), mul(add(bande, -1.0), 0.6))
     terrain = dmax(dmin(sol_haut, sol_bas), iles)
     data("worldgen/density_function", "terrain", terrain)
     data("worldgen/density_function", "densite_finale", {"type": "minecraft:squeeze", "argument": mul(0.64, {"type": "minecraft:interpolated", "argument": {"type": "minecraft:blend_density", "argument": lb("terrain")}})})

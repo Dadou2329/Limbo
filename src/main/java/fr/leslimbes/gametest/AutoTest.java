@@ -119,6 +119,19 @@ public final class AutoTest {
 			BlockPos sol = new BlockPos(p[0], p[1], p[2]);
 			verifier(!limbes.getBlockState(sol).isAir() && limbes.getBlockState(sol.up()).isAir(), "terrain aplani à 66 en " + sol.toShortString() + " (sol " + limbes.getBlockState(sol) + ", dessus " + limbes.getBlockState(sol.up()) + ")");
 		}
+		// Diagnostic : densité finale réelle autour de la surface (zéro attendu entre 65 et 66).
+		net.minecraft.world.gen.densityfunction.DensityFunction finale = limbes.getChunkManager().getNoiseConfig().getNoiseRouter().finalDensity();
+		StringBuilder sb = new StringBuilder();
+		for (int y = 62; y <= 69; y++) {
+			double d = finale.sample(new net.minecraft.world.gen.densityfunction.DensityFunction.UnblendedNoisePos(40, y, 100));
+			sb.append(y).append('=').append(String.format("%.4f", d)).append(' ');
+		}
+		LesLimbes.LOGGER.info("AUTOTEST densité finale en (40, y, 100) : {}", sb);
+		sb.setLength(0);
+		for (int y = 62; y <= 69; y++) {
+			sb.append(y).append('=').append(limbes.getBlockState(new BlockPos(40, y, 100)).getBlock().getName().getString()).append(' ');
+		}
+		LesLimbes.LOGGER.info("AUTOTEST blocs en (40, y, 100) : {}", sb);
 		// Manoir et relais : plancher / sol présents.
 		verifier(!limbes.getBlockState(LimbesSites.MANOIR.down()).isAir(), "sol du manoir");
 		verifier(!limbes.getBlockState(LimbesSites.RELAIS_ROYAL.down()).isAir(), "sol du relais");

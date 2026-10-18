@@ -29,8 +29,8 @@ Grand pont descendant de l'île du Sanctuaire vers les Prairies (pente ~0,4, esc
 Sol de Clairval : route depuis le pont, place centrale avec fontaine, chemins, lampadaires, jardins, Vaëron.
 
 - taille : [80, 10, 112]
-- blocs : 1657 ; entités de bloc : 2 ; entités : 0
-- palette : minecraft:dirt_path (489), les_limbes:feuilles_d_aube (348), les_limbes:pierre_nacree_taillee (308), les_limbes:pierre_nacree_polie (121), les_limbes:barriere_d_aube (118), minecraft:gravel (74), les_limbes:terre_des_limbes (53), les_limbes:buche_d_aube (30), les_limbes:fleur_de_rosee (28), les_limbes:herbe_de_l_aube (25), les_limbes:lanterne_nacree (24), les_limbes:dalle_de_pierre_nacree (16)
+- blocs : 3602 ; entités de bloc : 2 ; entités : 0
+- palette : minecraft:air (1945), minecraft:dirt_path (489), les_limbes:feuilles_d_aube (348), les_limbes:pierre_nacree_taillee (308), les_limbes:pierre_nacree_polie (121), les_limbes:barriere_d_aube (118), minecraft:gravel (74), les_limbes:terre_des_limbes (53), les_limbes:buche_d_aube (30), les_limbes:fleur_de_rosee (28), les_limbes:herbe_de_l_aube (25), les_limbes:lanterne_nacree (24)
 
 ## clairval/auberge
 

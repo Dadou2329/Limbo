@@ -66,6 +66,15 @@ Ordre recommandé après modification : textures → sons → données → struc
 
 `tp sanctuaire|clairval|manoir|relais|overworld`, `quete liste|demarrer|etape|reinit`, `pouvoir <id>|tout`, `majeste <valeur>`, `drapeau poser|retirer`, `pnj reapparaitre <role>`, `porte reveiller` (bloc visé), `structure <id> [pos]` (place un gabarit pour inspection), `diag`.
 
+## Génération de monde : leçons apprises (vérifiées sur serveur dédié)
+
+- **Interpolation par cellules** : la densité finale est échantillonnée aux coins de cellules (8 blocs en horizontal, 4 en vertical) puis interpolée. Tout terme qui « plafonne » la densité négative au-dessus du sol (ex. `max(sol, -0,03)`) rapproche le zéro du coin supérieur et relève la surface d'un bloc. Les termes inactifs doivent rester franchement négatifs (les îles valent −0,6 hors de leur bande).
+- **Zéro à y − 0,5** : `les_limbes:aplanir` place le zéro de densité à `y − 0,5` : bloc de surface à `y − 1`, air à `y`, sans ambiguïté de signe.
+- **Pas de `beard_thin` sur les plateaux** : l'adaptation de terrain vanilla retire de la densité au niveau du bas des pièces (elle creuse le sol autour des villages). Les lieux des Limbes utilisent `terrain_adaptation: none` ; le vestige de l'Overworld garde `beard_thin` pour se caler sur un relief irrégulier.
+- **`minecraft:lake` est dépréciée et plante** en bordure de chunk (lecture de biomes à deux chunks pour la glace). `les_limbes:lac` (Java) reste dans un rayon d'un chunk.
+- **Une feature listée deux fois** dans une étape de biome provoque un cycle d'ordre au chargement des registres : utilisez une feature placée distincte.
+- **Serveur de GameTest** : monde plat sans dimensions de datapack ; la génération réelle se vérifie avec `./gradlew runAutotest` (AutoTest.java), qui journalise « AUTOTEST OK/ECHEC » puis s'arrête.
+
 ## Multijoueur
 
 Progression, pouvoirs et quêtes sont par joueur (attachement persistant, conservé à la mort). L'état partagé du monde (`LimbesWorldState`) contient les drapeaux globaux et les ancrages des personnages essentiels. Les quêtes sont idempotentes et rejouables (apparition garantie des Veilleurs à l'entrée de l'étape, objets donnés une seule fois par joueur).

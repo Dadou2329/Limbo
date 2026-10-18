@@ -62,6 +62,7 @@ def ground(c: Canvas, x1: int, z1: int, x2: int, z2: int, y: int, depth: int = 2
 
 def path(c: Canvas, x1: int, z1: int, x2: int, z2: int, y: int, material: str = CHEMIN) -> None:
     c.fill(x1, y, z1, x2, y, z2, material)
+    c.fill(x1, y + 1, z1, x2, y + 2, z2, AIR)
 
 
 def lamppost(c: Canvas, x: int, y: int, z: int, height: int = 3) -> None:

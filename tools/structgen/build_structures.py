@@ -271,6 +271,7 @@ def build_clairval_sol() -> Canvas:
         x, z = L(0, wz)
         path(c, x - 2, z, x + 2, z, 0, CHEMIN)
         c.set(x, 0, z, GRAVIER)
+        c.fill(x - 2, 1, z, x + 2, 2, z, AIR)
         if wz % 8 == 0:
             lamppost(c, x - 3, 1, z, 3)
             lamppost(c, x + 3, 1, z, 3)
@@ -280,6 +281,8 @@ def build_clairval_sol() -> Canvas:
             x, z = L(wx, wz)
             d = max(abs(wx), abs(wz - 140))
             c.set(x, 0, z, PIERRE_P if d % 4 == 0 else PIERRE_T)
+            c.set(x, 1, z, AIR)
+            c.set(x, 2, z, AIR)
     x, z = L(0, 140)
     fountain(c, x, 0, z)
     for wx, wz in [(-8, 132), (8, 132), (-8, 148), (8, 148)]:
