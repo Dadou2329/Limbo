@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "les_limbes:item/epee_du_souverain"
+  }
+}

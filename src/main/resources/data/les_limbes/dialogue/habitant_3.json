@@ -1,0 +1,10 @@
+{
+  "nom": "Habitante de Clairval",
+  "debut": [{"noeud": "jour"}],
+  "noeuds": {
+    "jour": {
+      "texte": ["Les fibres nacrées qui poussent dans les prés font de bonnes cordes. Et de belles lanternes, si vous demandez à Brann."],
+      "choix": [{"texte": "Merci du conseil."}]
+    }
+  }
+}

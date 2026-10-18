@@ -1,0 +1,23 @@
+{
+  "type": "les_limbes:composee",
+  "biomes": "#les_limbes:a_vestiges",
+  "step": "surface_structures",
+  "terrain_adaptation": "beard_thin",
+  "spawn_overrides": {},
+  "ancre": [
+    8,
+    0,
+    8
+  ],
+  "heightmap": "WORLD_SURFACE_WG",
+  "pieces": [
+    {
+      "gabarit": "les_limbes:vestige/vestige",
+      "decalage": [
+        -8,
+        -5,
+        -8
+      ]
+    }
+  ]
+}

@@ -1,0 +1,169 @@
+#!/usr/bin/env python3
+"""Synthétise les sons originaux du mod (WAV via numpy, puis OGG via ffmpeg).
+
+Usage : python3 tools/sounds/gen_sounds.py
+Les sons sont courts, discrets et identifiables : carillons de nacre, souffle de porte, pas royal,
+décret, chocs de pierre. Aucun échantillon externe n'est utilisé.
+"""
+from __future__ import annotations
+
+import math
+import os
+import shutil
+import struct
+import subprocess
+import sys
+import tempfile
+import wave
+
+import numpy as np
+
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+OUT = os.path.join(ROOT, "src", "main", "resources", "assets", "les_limbes", "sounds")
+SR = 44100
+
+
+def env(n: int, attack: float, decay: float, sustain: float = 0.0, release: float = 0.0) -> np.ndarray:
+    t = np.linspace(0, 1, n, endpoint=False)
+    a = int(n * attack)
+    d = int(n * decay)
+    r = int(n * release)
+    e = np.ones(n)
+    if a > 0:
+        e[:a] = np.linspace(0, 1, a)
+    if d > 0:
+        e[a:a + d] = np.linspace(1, sustain if sustain > 0 else 0, d)
+    if sustain > 0:
+        e[a + d:n - r] = sustain
+    if r > 0:
+        e[n - r:] = np.linspace(e[n - r - 1] if n - r - 1 >= 0 else sustain, 0, r)
+    return e
+
+
+def tone(freq: float, dur: float, vol: float = 0.5, harmonics=((1, 1.0), (2, 0.35), (3, 0.15)), vibrato: float = 0.0) -> np.ndarray:
+    n = int(SR * dur)
+    t = np.arange(n) / SR
+    out = np.zeros(n)
+    for mult, amp in harmonics:
+        f = freq * mult
+        if vibrato:
+            f = f * (1 + vibrato * np.sin(2 * math.pi * 5.5 * t))
+        out += amp * np.sin(2 * math.pi * f * t)
+    return vol * out / max(1.0, sum(a for _, a in harmonics))
+
+
+def noise(dur: float, vol: float = 0.3, lowpass: float = 0.0, seed: int = 1) -> np.ndarray:
+    rng = np.random.default_rng(seed)
+    n = int(SR * dur)
+    x = rng.standard_normal(n)
+    if lowpass > 0:
+        k = int(max(1, lowpass))
+        x = np.convolve(x, np.ones(k) / k, mode="same")
+    return vol * x / (np.max(np.abs(x)) + 1e-9)
+
+
+def chime(notes, dur_each: float, gap: float, vol: float = 0.4, shimmer: bool = True) -> np.ndarray:
+    total = int(SR * (dur_each + gap * (len(notes) - 1) + 0.4))
+    out = np.zeros(total)
+    for i, f in enumerate(notes):
+        start = int(SR * gap * i)
+        n = int(SR * dur_each)
+        s = tone(f, dur_each, vol, harmonics=((1, 1.0), (2.76, 0.3), (5.4, 0.12))) * env(n, 0.01, 0.9)
+        if shimmer:
+            s += tone(f * 2, dur_each, vol * 0.3, harmonics=((1, 1.0),)) * env(n, 0.05, 0.95)
+        out[start:start + n] += s
+    return out
+
+
+def mix(*parts) -> np.ndarray:
+    n = max(len(p) for p in parts)
+    out = np.zeros(n)
+    for p in parts:
+        out[:len(p)] += p
+    return out
+
+
+def normalize(x: np.ndarray, peak: float = 0.85) -> np.ndarray:
+    m = np.max(np.abs(x)) + 1e-9
+    return x / m * peak
+
+
+def save(name: str, samples: np.ndarray) -> None:
+    samples = normalize(samples)
+    path = os.path.join(OUT, name + ".ogg")
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as tmp:
+        wav_path = tmp.name
+    with wave.open(wav_path, "wb") as w:
+        w.setnchannels(1)
+        w.setsampwidth(2)
+        w.setframerate(SR)
+        data = (samples * 32767).astype("<i2").tobytes()
+        w.writeframes(data)
+    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", wav_path, "-c:a", "libvorbis", "-q:a", "4", path], check=True)
+    os.unlink(wav_path)
+    print("  ", path.replace(ROOT + "/", ""))
+
+
+def sweep(f0: float, f1: float, dur: float, vol: float = 0.4) -> np.ndarray:
+    n = int(SR * dur)
+    t = np.arange(n) / SR
+    f = f0 + (f1 - f0) * (t / dur)
+    phase = 2 * math.pi * np.cumsum(f) / SR
+    return vol * np.sin(phase)
+
+
+def main() -> None:
+    if shutil.which("ffmpeg") is None:
+        print("ffmpeg introuvable : impossible d'encoder les sons.", file=sys.stderr)
+        sys.exit(1)
+    if os.path.isdir(OUT):
+        shutil.rmtree(OUT)
+    print("Génération des sons :")
+    # Porte : réveil = carillon ascendant + souffle ; passage = souffle + accord ; ambiance = bourdon doux
+    save("bloc/porte_eveil", mix(chime([523.25, 659.25, 783.99, 1046.5, 1318.5], 1.2, 0.18, 0.45),
+                                 noise(1.8, 0.12, 40, 3) * env(int(SR * 1.8), 0.3, 0.6)))
+    save("bloc/porte_passage", mix(sweep(300, 1200, 0.5, 0.3) * env(int(SR * 0.5), 0.05, 0.9),
+                                   noise(0.9, 0.25, 25, 4) * env(int(SR * 0.9), 0.02, 0.9),
+                                   chime([783.99, 1174.66], 0.8, 0.12, 0.3)))
+    n = int(SR * 2.5)
+    t = np.arange(n) / SR
+    bourdon = 0.18 * np.sin(2 * math.pi * 110 * t) * (1 + 0.3 * np.sin(2 * math.pi * 0.7 * t)) + 0.08 * np.sin(2 * math.pi * 220.5 * t)
+    save("bloc/porte_ambiance", bourdon * env(n, 0.3, 0.2, 0.8, 0.4))
+    # Pouvoirs
+    save("pouvoir/epee", mix(sweep(900, 2400, 0.35, 0.35) * env(int(SR * 0.35), 0.02, 0.9),
+                             chime([1318.5, 1760.0], 0.6, 0.08, 0.35),
+                             noise(0.3, 0.15, 6, 5) * env(int(SR * 0.3), 0.01, 0.95)))
+    save("pouvoir/epee_final", mix(sweep(1800, 400, 0.4, 0.45) * env(int(SR * 0.4), 0.01, 0.95),
+                                   noise(0.45, 0.35, 4, 6) * env(int(SR * 0.45), 0.0, 0.9),
+                                   tone(130.8, 0.5, 0.35) * env(int(SR * 0.5), 0.0, 0.9)))
+    save("pouvoir/pas", mix(sweep(1500, 500, 0.25, 0.3) * env(int(SR * 0.25), 0.01, 0.9),
+                            chime([987.77, 1480.0], 0.5, 0.06, 0.3, False),
+                            noise(0.35, 0.2, 30, 7) * env(int(SR * 0.35), 0.02, 0.9)))
+    save("pouvoir/decret", mix(tone(98.0, 0.9, 0.5, harmonics=((1, 1.0), (2, 0.5), (3, 0.3), (4, 0.2))) * env(int(SR * 0.9), 0.01, 0.9),
+                               sweep(400, 120, 0.6, 0.35) * env(int(SR * 0.6), 0.0, 0.9),
+                               chime([392.0, 587.33, 783.99], 0.8, 0.05, 0.3, False)))
+    save("pouvoir/refus", tone(220, 0.25, 0.4, harmonics=((1, 1.0), (1.5, 0.6))) * env(int(SR * 0.25), 0.01, 0.9))
+    # Objets / quêtes
+    save("objet/fragment", chime([1567.98, 2093.0, 2637.0], 0.5, 0.07, 0.35))
+    save("quete/etape", chime([659.25, 987.77], 0.6, 0.14, 0.4))
+    save("quete/terminee", chime([523.25, 659.25, 783.99, 1046.5], 1.0, 0.16, 0.42))
+    save("monde/brumes", mix(noise(2.0, 0.3, 60, 8) * env(int(SR * 2.0), 0.3, 0.6), chime([440.0, 554.37, 659.25], 1.4, 0.3, 0.25)))
+    # Créatures
+    save("creature/cerf_appel", mix(tone(196.0, 0.9, 0.5, harmonics=((1, 1.0), (2, 0.6), (3, 0.4), (4, 0.2)), vibrato=0.02) * env(int(SR * 0.9), 0.08, 0.8),
+                                    sweep(260, 180, 0.9, 0.2) * env(int(SR * 0.9), 0.1, 0.8)))
+    save("creature/poisson_scintille", chime([2093.0, 2637.0, 3135.96], 0.3, 0.05, 0.25))
+    save("creature/veilleur_prepare", mix(sweep(80, 220, 0.8, 0.5) * env(int(SR * 0.8), 0.05, 0.3, 0.8, 0.2),
+                                          noise(0.8, 0.15, 10, 9) * env(int(SR * 0.8), 0.1, 0.5)))
+    save("creature/veilleur_frappe", mix(noise(0.5, 0.6, 3, 10) * env(int(SR * 0.5), 0.0, 0.9),
+                                         tone(55.0, 0.6, 0.6, harmonics=((1, 1.0), (2, 0.4))) * env(int(SR * 0.6), 0.0, 0.9)))
+    save("creature/veilleur_blesse", mix(noise(0.3, 0.5, 2, 11) * env(int(SR * 0.3), 0.0, 0.9), tone(180, 0.3, 0.3) * env(int(SR * 0.3), 0.0, 0.9)))
+    save("creature/veilleur_mort", mix(noise(1.2, 0.6, 3, 12) * env(int(SR * 1.2), 0.0, 0.9),
+                                       sweep(160, 40, 1.2, 0.5) * env(int(SR * 1.2), 0.0, 0.9),
+                                       chime([659.25, 523.25], 0.9, 0.3, 0.2, False)))
+    save("interface/dialogue", chime([880.0, 1108.73], 0.35, 0.08, 0.3, False))
+    print("Terminé.")
+
+
+if __name__ == "__main__":
+    main()

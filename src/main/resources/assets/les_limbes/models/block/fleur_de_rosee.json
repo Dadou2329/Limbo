@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "les_limbes:block/fleur_de_rosee"
+  }
+}

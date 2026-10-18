@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "#/#",
+    "#/#"
+  ],
+  "key": {
+    "#": {
+      "item": "les_limbes:planches_d_aube"
+    },
+    "/": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "id": "les_limbes:barriere_d_aube",
+    "count": 3
+  }
+}

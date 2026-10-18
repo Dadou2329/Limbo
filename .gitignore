@@ -1,0 +1,29 @@
+# Gradle
+.gradle/
+build/
+out/
+classes/
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.settings/
+.project
+.classpath
+bin/
+
+# Exécutions de test Minecraft
+run/
+logs/
+
+# Système
+.DS_Store
+Thumbs.db
+
+# Python (outils)
+__pycache__/
+*.pyc
+tools/.venv/

@@ -1,0 +1,52 @@
+{
+  "nom": "Vaëron",
+  "debut": [
+    {"noeud": "apres", "si": [{"drapeau": "vaeron_rencontre"}]},
+    {"noeud": "rencontre", "si": [{"quete_etape": {"l_etranger": "=7"}}]},
+    {"noeud": "avant"}
+  ],
+  "noeuds": {
+    "avant": {
+      "texte": [
+        "Bonjour. Je passe à Clairval chaque semaine, pour les routes. Si vous cherchez du travail, parlez à Thibault."
+      ],
+      "choix": [
+        {"texte": "Merci."}
+      ]
+    },
+    "rencontre": {
+      "texte": [
+        "On m'a parlé de vous. Le relais, les Veilleurs, et ce fragment au-dessus de votre tête.",
+        "Je m'appelle Vaëron. Je protège plusieurs cités, au nord. Routes sûres, greniers pleins, portes qui ferment : c'est ce que je fais pendant que le trône reste vide.",
+        "Un fragment de couronne qui choisit un étranger... C'est intéressant. Venez me voir dans ma cité, un jour. Nous aurons des choses à nous dire."
+      ],
+      "choix": [
+        {"texte": "Qui étiez-vous, pour l'ancien roi ?", "suivant": "roi"},
+        {"texte": "À bientôt, Vaëron.", "actions": [
+          {"type": "drapeau", "nom": "vaeron_rencontre"},
+          {"type": "objectif", "quete": "l_etranger", "objectif": "vaeron"}
+        ]}
+      ]
+    },
+    "roi": {
+      "texte": [
+        "Son capitaine. J'ai tenu les murs quand il n'est pas revenu. Je les tiens encore.",
+        "Les gens disent que je veux le trône. Ce que je veux, c'est que les routes restent ouvertes. Si le trône sert à ça, alors oui."
+      ],
+      "choix": [
+        {"texte": "À bientôt, Vaëron.", "actions": [
+          {"type": "drapeau", "nom": "vaeron_rencontre"},
+          {"type": "objectif", "quete": "l_etranger", "objectif": "vaeron"}
+        ]}
+      ]
+    },
+    "apres": {
+      "texte": [
+        "Clairval a de la chance de vous avoir. Ne laissez pas ce manoir s'écrouler. Et ne laissez pas ce fragment vous monter à la tête."
+      ],
+      "choix": [
+        {"texte": "Bonne route, Vaëron."}
+      ]
+    }
+  }
+}

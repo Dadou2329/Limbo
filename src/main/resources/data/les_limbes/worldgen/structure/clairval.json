@@ -1,0 +1,71 @@
+{
+  "type": "les_limbes:composee",
+  "biomes": "#les_limbes:limbes",
+  "step": "surface_structures",
+  "terrain_adaptation": "beard_thin",
+  "spawn_overrides": {},
+  "ancre": [
+    0,
+    0,
+    0
+  ],
+  "y": 66,
+  "pieces": [
+    {
+      "gabarit": "les_limbes:clairval/sol",
+      "decalage": [
+        -40,
+        -1,
+        -78
+      ]
+    },
+    {
+      "gabarit": "les_limbes:clairval/auberge",
+      "decalage": [
+        5,
+        -1,
+        -11
+      ]
+    },
+    {
+      "gabarit": "les_limbes:clairval/forge",
+      "decalage": [
+        11,
+        -1,
+        13
+      ]
+    },
+    {
+      "gabarit": "les_limbes:clairval/maison_1",
+      "decalage": [
+        -23,
+        -1,
+        -5
+      ]
+    },
+    {
+      "gabarit": "les_limbes:clairval/maison_2",
+      "decalage": [
+        -21,
+        -1,
+        17
+      ]
+    },
+    {
+      "gabarit": "les_limbes:clairval/maison_3",
+      "decalage": [
+        7,
+        -1,
+        25
+      ]
+    },
+    {
+      "gabarit": "les_limbes:clairval/moulin",
+      "decalage": [
+        -32,
+        -1,
+        -10
+      ]
+    }
+  ]
+}

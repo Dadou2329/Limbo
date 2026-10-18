@@ -1,0 +1,90 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "les_limbes:block/muret_de_pierre_nacree_poteau"
+      },
+      "when": {
+        "up": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "les_limbes:block/muret_de_pierre_nacree_cote",
+        "uvlock": true
+      },
+      "when": {
+        "north": "low"
+      }
+    },
+    {
+      "apply": {
+        "model": "les_limbes:block/muret_de_pierre_nacree_cote",
+        "uvlock": true,
+        "y": 90
+      },
+      "when": {
+        "east": "low"
+      }
+    },
+    {
+      "apply": {
+        "model": "les_limbes:block/muret_de_pierre_nacree_cote",
+        "uvlock": true,
+        "y": 180
+      },
+      "when": {
+        "south": "low"
+      }
+    },
+    {
+      "apply": {
+        "model": "les_limbes:block/muret_de_pierre_nacree_cote",
+        "uvlock": true,
+        "y": 270
+      },
+      "when": {
+        "west": "low"
+      }
+    },
+    {
+      "apply": {
+        "model": "les_limbes:block/muret_de_pierre_nacree_cote_haut",
+        "uvlock": true
+      },
+      "when": {
+        "north": "tall"
+      }
+    },
+    {
+      "apply": {
+        "model": "les_limbes:block/muret_de_pierre_nacree_cote_haut",
+        "uvlock": true,
+        "y": 90
+      },
+      "when": {
+        "east": "tall"
+      }
+    },
+    {
+      "apply": {
+        "model": "les_limbes:block/muret_de_pierre_nacree_cote_haut",
+        "uvlock": true,
+        "y": 180
+      },
+      "when": {
+        "south": "tall"
+      }
+    },
+    {
+      "apply": {
+        "model": "les_limbes:block/muret_de_pierre_nacree_cote_haut",
+        "uvlock": true,
+        "y": 270
+      },
+      "when": {
+        "west": "tall"
+      }
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "nom": "Habitant de Clairval",
+  "debut": [{"noeud": "jour"}],
+  "noeuds": {
+    "jour": {
+      "texte": ["Belle journée, non ? Le moulin ne tourne plus depuis des années, mais le ciel, lui, n'a jamais changé."],
+      "choix": [{"texte": "Bonne journée."}]
+    }
+  }
+}

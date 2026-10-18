@@ -1,0 +1,70 @@
+{
+  "block": [
+    "pierre_nacree",
+    "pierre_nacree_taillee",
+    "pierre_nacree_polie",
+    "pierre_nacree_sculptee",
+    "herbe_argentee_top",
+    "herbe_argentee_side",
+    "terre_des_limbes",
+    "buche_d_aube",
+    "buche_d_aube_top",
+    "planches_d_aube",
+    "feuilles_d_aube",
+    "pousse_d_aube",
+    "fibres_nacrees",
+    "herbe_de_l_aube",
+    "fleur_de_rosee",
+    "lanterne_nacree",
+    "cristal_de_nacre",
+    "porte_des_limbes_dormante",
+    "porte_des_limbes_active",
+    "porte_d_aube_top",
+    "porte_d_aube_bottom"
+  ],
+  "item": [
+    "porte_d_aube",
+    "fragment_de_nacre",
+    "boussole_nacree",
+    "fibres_nacrees",
+    "herbe_de_l_aube",
+    "bouillon_de_l_aube",
+    "fragment_de_couronne",
+    "epee_du_souverain",
+    "cle_du_manoir",
+    "oeuf_poisson_lune",
+    "oeuf_cerf_lanterne",
+    "oeuf_veilleur_egare",
+    "oeuf_habitant"
+  ],
+  "entity": [
+    "poisson_lune",
+    "cerf_lanterne",
+    "veilleur_egare",
+    "fragment_de_couronne"
+  ],
+  "particle": [
+    "etoile_royale",
+    "eclat_de_nacre",
+    "lueur",
+    "brume"
+  ],
+  "gui": [
+    "majeste",
+    "marqueur",
+    "panneau",
+    "journal"
+  ],
+  "misc": [],
+  "entity/habitant": [
+    "maelle",
+    "thibault",
+    "orielle",
+    "brann",
+    "vaeron",
+    "gaspard",
+    "habitant_1",
+    "habitant_2",
+    "habitant_3"
+  ]
+}

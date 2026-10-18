@@ -1,0 +1,26 @@
+{
+  "parent": "les_limbes:les_limbes/racine",
+  "display": {
+    "icon": {
+      "id": "les_limbes:boussole_nacree"
+    },
+    "title": {
+      "translate": "advancements.les_limbes.boussole.title"
+    },
+    "description": {
+      "translate": "advancements.les_limbes.boussole.description"
+    }
+  },
+  "criteria": {
+    "boussole": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "les_limbes:boussole_nacree"
+          }
+        ]
+      }
+    }
+  }
+}

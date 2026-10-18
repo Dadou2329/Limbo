@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "les_limbes:block/pierre_nacree_taillee",
+    "top": "les_limbes:block/pierre_nacree_taillee",
+    "side": "les_limbes:block/pierre_nacree_taillee"
+  }
+}

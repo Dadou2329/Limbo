@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:bowl"
+    },
+    {
+      "item": "les_limbes:herbe_de_l_aube"
+    },
+    {
+      "item": "les_limbes:herbe_de_l_aube"
+    },
+    {
+      "item": "les_limbes:fibres_nacrees"
+    }
+  ],
+  "result": {
+    "id": "les_limbes:bouillon_de_l_aube",
+    "count": 1
+  }
+}

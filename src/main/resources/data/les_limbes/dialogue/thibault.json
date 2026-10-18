@@ -1,0 +1,70 @@
+{
+  "nom": "Thibault",
+  "debut": [
+    {"noeud": "nouvelle", "si": [{"quete_etape": {"l_etranger": "=5"}}]},
+    {"noeud": "apres_manoir", "si": [{"quete_etape": {"l_etranger": ">=6"}}]},
+    {"noeud": "pendant_relais", "si": [{"quete_etape": {"l_etranger": ">=3"}}]},
+    {"noeud": "accueil", "si": [{"quete_etape": {"l_etranger": "=2"}}]},
+    {"noeud": "simple"}
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Maëlle vous envoie ? Alors soyez le bienvenu à Clairval. Asseyez-vous, la soupe est chaude.",
+        "Je ne vais pas vous mentir : on a un problème. L'ancien relais royal, à l'est, est occupé par des Veilleurs. Ce sont de vieux gardiens de pierre. Ils sont perdus depuis que les routes se sont éteintes, et ils frappent tout ce qui bouge.",
+        "Un voyageur s'y est réfugié hier, un certain Gaspard. Il n'est pas revenu. Si vous avez du cœur et une bonne arme, allez voir. Suivez le marqueur vers l'est."
+      ],
+      "choix": [
+        {"texte": "Comment combat-on un Veilleur ?", "suivant": "conseil"},
+        {"texte": "J'y vais tout de suite."}
+      ]
+    },
+    "conseil": {
+      "texte": [
+        "Ils lèvent les bras avant de frapper. C'est le moment de reculer. Dès que le coup est passé, frappez-les vite, trois fois, puis reculez encore.",
+        "Ils sont lents, mais ils ne se fatiguent jamais. Ne restez pas collé à eux."
+      ],
+      "choix": [
+        {"texte": "Compris. J'y vais."}
+      ]
+    },
+    "pendant_relais": {
+      "texte": [
+        "Le relais est à l'est, au bout du chemin. Gaspard compte sur vous. Et reculez quand ils lèvent les bras !"
+      ],
+      "choix": [
+        {"texte": "J'y retourne."}
+      ]
+    },
+    "nouvelle": {
+      "texte": [
+        "Gaspard est sauf ? Et le relais est libre ? Vous êtes plus solide que vous n'en avez l'air.",
+        "Et cette lumière au-dessus de votre tête... C'est un fragment de couronne. Mes aïeux. Personne n'en avait vu depuis le roi.",
+        "Écoutez. Le vieux manoir, à l'ouest du village, est vide depuis des années. Orielle, la régisseuse, en garde les clés. Allez la voir. Vous avez besoin d'un toit, et Clairval a besoin de quelqu'un comme vous."
+      ],
+      "actions": [
+        {"type": "objectif", "quete": "l_etranger", "objectif": "retour"}
+      ],
+      "choix": [
+        {"texte": "J'irai la voir."}
+      ]
+    },
+    "apres_manoir": {
+      "texte": [
+        "Alors, comment trouvez-vous le manoir ? Il a besoin de bras, mais il a de bons os.",
+        "Repassez quand vous voulez. Et si vous avez de l'herbe de l'aube, je vous apprendrai le bouillon."
+      ],
+      "choix": [
+        {"texte": "À bientôt, Thibault."}
+      ]
+    },
+    "simple": {
+      "texte": [
+        "Bonjour. Si vous avez faim, la soupe est chaude. Et si vous cherchez Maëlle, elle est au Sanctuaire, en haut du pont."
+      ],
+      "choix": [
+        {"texte": "Merci."}
+      ]
+    }
+  }
+}

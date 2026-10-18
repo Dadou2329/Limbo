@@ -1,0 +1,116 @@
+{
+  "bloc.porte.eveil": {
+    "subtitle": "subtitles.les_limbes.porte.eveil",
+    "sounds": [
+      "les_limbes:bloc/porte_eveil"
+    ]
+  },
+  "bloc.porte.passage": {
+    "subtitle": "subtitles.les_limbes.porte.passage",
+    "sounds": [
+      "les_limbes:bloc/porte_passage"
+    ]
+  },
+  "bloc.porte.ambiance": {
+    "subtitle": "subtitles.les_limbes.porte.ambiance",
+    "sounds": [
+      "les_limbes:bloc/porte_ambiance"
+    ]
+  },
+  "pouvoir.epee": {
+    "subtitle": "subtitles.les_limbes.pouvoir.epee",
+    "sounds": [
+      "les_limbes:pouvoir/epee"
+    ]
+  },
+  "pouvoir.epee_final": {
+    "subtitle": "subtitles.les_limbes.pouvoir.epee_final",
+    "sounds": [
+      "les_limbes:pouvoir/epee_final"
+    ]
+  },
+  "pouvoir.pas": {
+    "subtitle": "subtitles.les_limbes.pouvoir.pas",
+    "sounds": [
+      "les_limbes:pouvoir/pas"
+    ]
+  },
+  "pouvoir.decret": {
+    "subtitle": "subtitles.les_limbes.pouvoir.decret",
+    "sounds": [
+      "les_limbes:pouvoir/decret"
+    ]
+  },
+  "pouvoir.refus": {
+    "subtitle": "subtitles.les_limbes.pouvoir.refus",
+    "sounds": [
+      "les_limbes:pouvoir/refus"
+    ]
+  },
+  "objet.fragment": {
+    "subtitle": "subtitles.les_limbes.objet.fragment",
+    "sounds": [
+      "les_limbes:objet/fragment"
+    ]
+  },
+  "quete.etape": {
+    "subtitle": "subtitles.les_limbes.quete.etape",
+    "sounds": [
+      "les_limbes:quete/etape"
+    ]
+  },
+  "quete.terminee": {
+    "subtitle": "subtitles.les_limbes.quete.terminee",
+    "sounds": [
+      "les_limbes:quete/terminee"
+    ]
+  },
+  "monde.brumes": {
+    "subtitle": "subtitles.les_limbes.monde.brumes",
+    "sounds": [
+      "les_limbes:monde/brumes"
+    ]
+  },
+  "creature.cerf.appel": {
+    "subtitle": "subtitles.les_limbes.creature.cerf",
+    "sounds": [
+      "les_limbes:creature/cerf_appel"
+    ]
+  },
+  "creature.poisson.scintille": {
+    "subtitle": "subtitles.les_limbes.creature.poisson",
+    "sounds": [
+      "les_limbes:creature/poisson_scintille"
+    ]
+  },
+  "creature.veilleur.prepare": {
+    "subtitle": "subtitles.les_limbes.creature.veilleur.prepare",
+    "sounds": [
+      "les_limbes:creature/veilleur_prepare"
+    ]
+  },
+  "creature.veilleur.frappe": {
+    "subtitle": "subtitles.les_limbes.creature.veilleur.frappe",
+    "sounds": [
+      "les_limbes:creature/veilleur_frappe"
+    ]
+  },
+  "creature.veilleur.blesse": {
+    "subtitle": "subtitles.les_limbes.creature.veilleur.blesse",
+    "sounds": [
+      "les_limbes:creature/veilleur_blesse"
+    ]
+  },
+  "creature.veilleur.mort": {
+    "subtitle": "subtitles.les_limbes.creature.veilleur.mort",
+    "sounds": [
+      "les_limbes:creature/veilleur_mort"
+    ]
+  },
+  "interface.dialogue": {
+    "subtitle": "subtitles.les_limbes.interface.dialogue",
+    "sounds": [
+      "les_limbes:interface/dialogue"
+    ]
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "les_limbes:block/herbe_argentee"
+      },
+      {
+        "model": "les_limbes:block/herbe_argentee",
+        "y": 90
+      },
+      {
+        "model": "les_limbes:block/herbe_argentee",
+        "y": 180
+      },
+      {
+        "model": "les_limbes:block/herbe_argentee",
+        "y": 270
+      }
+    ]
+  }
+}

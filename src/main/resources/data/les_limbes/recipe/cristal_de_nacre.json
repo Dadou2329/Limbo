@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "FF",
+    "FF"
+  ],
+  "key": {
+    "F": {
+      "item": "les_limbes:fragment_de_nacre"
+    }
+  },
+  "result": {
+    "id": "les_limbes:cristal_de_nacre",
+    "count": 1
+  }
+}

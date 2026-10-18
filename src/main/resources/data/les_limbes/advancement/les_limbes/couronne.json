@@ -1,0 +1,27 @@
+{
+  "parent": "les_limbes:les_limbes/arrivee",
+  "display": {
+    "icon": {
+      "id": "les_limbes:fragment_de_couronne"
+    },
+    "title": {
+      "translate": "advancements.les_limbes.couronne.title"
+    },
+    "description": {
+      "translate": "advancements.les_limbes.couronne.description"
+    },
+    "frame": "challenge"
+  },
+  "criteria": {
+    "couronne": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "les_limbes:fragment_de_couronne"
+          }
+        ]
+      }
+    }
+  }
+}

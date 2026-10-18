@@ -1,0 +1,57 @@
+# Backlog persistant
+
+Ordre conseillé par le cahier des charges : 1 socle → 2 Prairies/Clairval/manoir/première quête/premiers pouvoirs → 3 tranche de qualité (mini-aventure, monture, Arrivée, combat) → 4 domaine/journal/passages → 5 régions restantes → 6 prétendants/campagne/couronnement → 7 pouvoirs supérieurs/règne → 8 complétion/optimisation.
+
+État : étapes 1 et 2 réalisées (tranche « Le Passage ») ; étape 3 partiellement (combat représentatif, pas encore de monture ni d'Arrivée).
+
+## Prochaines actions exécutables (par priorité)
+
+### A. Vérification en jeu de la tranche 1 (bloquant avant d'empiler)
+- [ ] Lancer un client (1.21.1 + Fabric) : nouvelle sauvegarde, parcourir « Le Passage » et « L'Étranger » de bout en bout ; corriger ce qui ne se comporte pas comme prévu (rendu des modèles, ciel, HUD, écrans).
+- [ ] Vérifier le rendu de la silhouette du palais et des constellations ; ajuster couleurs/positions.
+- [ ] Vérifier les animations (cerf, poisson, Veilleur) et les échelles ; ajuster les pivots.
+- [ ] Jouer le combat du relais : équilibrer santé/dégâts des Veilleurs, fenêtre d'esquive.
+- [ ] Serveur dédié avec deux joueurs : synchronisation, dialogues simultanés, réapparition des PNJ.
+
+### B. Compléter l'étape 3 (tranche de qualité)
+- [ ] Monture : raie céleste (apprivoisement par nourriture, vol avec inertie, rappel, protection de chute).
+- [ ] Système d'Arrivées : état monde, emplacements réservés vérifiés, limite d'événements simultanés ; première Arrivée scénarisée (maison avec occupant désorienté près de Clairval) déclenchée par l'acte I.
+- [ ] Mini-aventure : « Le moulin immobilisé » (le remettre en marche) ou « Le lac aux passages révélés au crépuscule ».
+- [ ] Fragment de couronne visible pour les autres joueurs (synchronisation d'un état public).
+- [ ] Musiques originales (ou libres documentées) à la place des pistes vanilla.
+
+### C. Domaine (étape 4)
+- [ ] Projets de restauration du manoir : aile ouest, serre, puits, forge royale ; aperçu d'emprise, détection de conflits avec les constructions du joueur, préservation des inventaires.
+- [ ] Recrutement : forgeronne, éleveur, jardinière, cartographe, cuisinière, capitaine (rencontres réelles ; Gaspard boulanger comme premier recrutement).
+- [ ] Salle des passages : réseau de portes entre relais découverts (branche Portes).
+- [ ] Journal : carte, mode indications discrètes, suivi d'une quête à la fois (déjà) + archives.
+
+### D. Régions (étape 5)
+- [ ] Mer suspendue (volumes d'eau stables, Port-Nacre, navigation, plongée), Jardins des Géants (Sylvécime, verticalité), Désert des Heures (Méridiane, mécanismes temporels locaux), Montagnes de Verre (Verréole, forges), Couronne Immobile (quartiers éveillables, cité de Vaëron).
+- [ ] Par région : matériau, cuisine, créatures, déplacement, personnages, aventures, récompenses ; transitions naturelles.
+- [ ] Routes procédurales suivant le relief entre les sites (actuellement : chemins sur les plateaux seulement).
+
+### E. Prétendants, campagne, couronnement (étape 6)
+- [ ] Aélis, Kaël, Orsane, Sahir : rencontres, aventures communes, duels (arènes maîtrisées), reconnaissances alternatives (tournoi, négociation, expédition, duel rituel).
+- [ ] Vaëron : cité fortifiée visitable, collaboration puis rivalité, duel final à plusieurs phases, conclusion.
+- [ ] Actes II–IV, explication de la disparition du roi, couronnement jouable, premier acte royal (fragment attiré, nouveau territoire).
+
+### F. Pouvoirs (étape 7)
+- [ ] Arsenal : lance, arc, bouclier, parade, changement d'arme en combo, armes satellites.
+- [ ] Portes : porte directionnelle, attaque d'angle, sauvetage d'allié, liaisons persistantes.
+- [ ] Décrets : « Déposez les armes », « Tenez bon », « Que le chemin s'ouvre », « Restez », « Élevez-vous » (symboles, animations, sons propres).
+- [ ] Garde astrale, Main des Limbes, Pactes royaux.
+- [ ] Techniques emblématiques : Jugement des constellations, Marche du Palais, Audience du Roi, Avènement.
+- [ ] Sélection radiale facultative, tutoriel progressif, options (densité d'effets, secousses, flashes).
+
+### G. Technique
+- [ ] Budgets explicites (PNJ actifs, invocations, pathfinding) et profils graphiques.
+- [ ] Sauvegarde versionnée des structures de données avec migrations (version 1 posée).
+- [ ] Option de destruction de terrain réversible pour les zones sauvages.
+- [ ] Datagen Fabric pour remplacer une partie du script Python (facultatif).
+
+## Dette connue / limites honnêtes
+- Rendu client, interface et effets : compilés, jamais observés en jeu dans cet environnement (pas d'affichage).
+- Le vestige Overworld n'a pas été observé en génération réelle (le serveur de test est un monde plat) ; sa structure et son placement suivent le modèle vanilla des portails en ruine.
+- Les chemins hors plateaux (vers le manoir et le relais) ne sont pas encore tracés sur le relief ; les marqueurs de quête guident.
+- Textures procédurales : cohérentes mais perfectibles (lisibilité de la pierre sculptée, feuilles d'aube claires).

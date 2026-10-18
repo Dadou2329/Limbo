@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "hanging=false": {
+      "model": "les_limbes:block/lanterne_nacree"
+    },
+    "hanging=true": {
+      "model": "les_limbes:block/lanterne_nacree_suspendue"
+    }
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "nom": "Maëlle",
+  "debut": [
+    {"noeud": "apres", "si": [{"quete_etape": {"l_etranger": ">=1"}}]},
+    {"noeud": "accueil"}
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Vous êtes arrivé par la porte, n'est-ce pas ? Respirez un peu. Vous êtes en sécurité ici.",
+        "Je m'appelle Maëlle. Je veille sur ce sanctuaire et sur ceux qui arrivent. Vous êtes dans les Limbes. Tout ce qui se perd ailleurs finit par venir ici.",
+        "Au sud, le grand pont descend vers Clairval. Thibault, à l'auberge, aide tous les nouveaux venus. Dites-lui que je vous envoie."
+      ],
+      "choix": [
+        {"texte": "Qu'est-ce que cet endroit, exactement ?", "suivant": "limbes"},
+        {"texte": "Comment est-ce que je rentre chez moi ?", "suivant": "retour"},
+        {"texte": "Merci. Je descends à Clairval."}
+      ]
+    },
+    "limbes": {
+      "texte": [
+        "Un navire qui coule, une maison emportée, une bibliothèque oubliée : parfois, le ciel se plisse et ces choses arrivent ici, entières.",
+        "Beaucoup d'entre nous sont nés dans les Limbes et n'ont jamais connu d'autre monde. Nous réparons ce qui arrive et nous construisons avec."
+      ],
+      "choix": [
+        {"texte": "Et le palais, au loin ?", "suivant": "palais"},
+        {"texte": "Comment est-ce que je rentre chez moi ?", "suivant": "retour"},
+        {"texte": "Je vais à Clairval."}
+      ]
+    },
+    "palais": {
+      "texte": [
+        "C'est le palais de la Couronne Immobile. Le roi a disparu il y a très longtemps. Les routes royales qui y menaient se sont éteintes les unes après les autres.",
+        "Personne ne peut plus entrer dans la capitale. Pour l'instant. Vous verrez sa silhouette presque partout : elle ne bouge jamais."
+      ],
+      "choix": [
+        {"texte": "Je comprends. Je vais à Clairval."}
+      ]
+    },
+    "retour": {
+      "texte": [
+        "L'arche derrière moi vous ramène exactement là d'où vous venez. Elle restera ouverte, toujours. Vous pouvez partir et revenir autant que vous voulez."
+      ],
+      "choix": [
+        {"texte": "Bon à savoir. Je vais à Clairval."}
+      ]
+    },
+    "apres": {
+      "texte": [
+        "Clairval est au sud, au bout du pont. Le chemin est balisé. Thibault vous attend à l'auberge du Moulin.",
+        "Si jamais vous tombez, ne craignez rien : les brumes vous ramènent toujours."
+      ],
+      "choix": [
+        {"texte": "Merci, Maëlle."}
+      ]
+    }
+  }
+}

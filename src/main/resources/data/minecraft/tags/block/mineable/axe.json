@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "les_limbes:buche_d_aube",
+    "les_limbes:planches_d_aube",
+    "les_limbes:escalier_d_aube",
+    "les_limbes:dalle_d_aube",
+    "les_limbes:barriere_d_aube",
+    "les_limbes:porte_d_aube"
+  ]
+}

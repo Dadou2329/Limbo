@@ -1,0 +1,71 @@
+# Documentation de développement
+
+## Chaîne d'outils
+
+- Minecraft 1.21.1, Fabric Loader 0.20.0, Fabric API 0.116.17+1.21.1, Yarn 1.21.1+build.3, Loom 1.17.21, Gradle 9.8.0, JDK 21.
+- `./gradlew build` compile et produit `build/libs/les-limbes-<version>.jar`.
+- `./gradlew test` : JUnit (validation des données, logique pure).
+- `./gradlew runGametest` : serveur headless exécutant les GameTests (`fr.leslimbes.gametest`).
+- `./gradlew runServer` : serveur dédié de développement dans `run/server` (acceptez l'EULA dans `run/server/eula.txt`).
+- `./gradlew genSources` : sources décompilées de Minecraft (vérification des signatures d'API).
+
+## Organisation du code (`src/main/java/fr/leslimbes`)
+
+| Paquet | Responsabilité |
+|---|---|
+| `registry` | enregistrement des blocs, objets, entités, particules, sons, attachements, réseau, types de génération |
+| `block` | blocs à comportement (Porte des Limbes, herbe argentée, plantes, cristal) |
+| `item` | objets à comportement (boussole nacrée, Épée du Souverain, fragment de couronne) |
+| `world/dimension` | clés de la dimension, voyage par les portes, protection des brumes, positions des sites |
+| `world/gen` | fonction de densité `les_limbes:aplanir` |
+| `world/structure` | placement fixe `les_limbes:fixed`, structure composée `les_limbes:composee`, pièce avec marqueurs |
+| `world/state` | données du joueur (attachement persistant), état du monde (PersistentState), synchronisation |
+| `npc` | entité Habitant, réapparition des personnages essentiels, dialogues (`npc/dialogue`) |
+| `quest` | définitions, chargeur, progression, gestionnaire, signaux |
+| `power` | techniques royales (registre, arsenal, portes, décrets), majesté, recharges |
+| `entity` | créatures (poisson-lune, cerf-lanterne, Veilleur égaré) |
+| `event` | branchement des événements serveur, première connexion |
+| `command` | `/limbes` (administration et diagnostic) |
+| `network` | paquets (intentions client → serveur ; affichage serveur → client) |
+| `gametest` | tests de jeu |
+
+Client (`src/client/java/fr/leslimbes/client`) : rendu des entités et modèles, particules, ciel et effets de dimension, interface (barre de majesté, suivi de quête, marqueur monde, journal, dialogue), touches, réception des paquets, effets visuels.
+
+Règles : aucune classe cliente n'est chargée sur un serveur dédié (sourcesets séparés par Loom) ; toute décision de jeu est serveur ; les paquets client → serveur sont bornés et validés.
+
+## Données (`src/main/resources`)
+
+- `data/les_limbes/quest/*.json` : quêtes (étapes, objectifs, lieu, actions `debut`/`fin`). Types d'objectifs : `parler`, `atteindre`, `vaincre`, `collecter`, `interagir`, `pouvoir`, `drapeau`. Format documenté dans `QuestDefinition.java`.
+- `data/les_limbes/dialogue/<role>.json` : graphes de dialogue (règles de début conditionnelles, nœuds, choix, actions). Format dans `DialogueGraph.java` ; conditions dans `Conditions.java` ; actions dans `Actions.java`.
+- `data/les_limbes/worldgen/` : dimension, type de dimension, réglages de bruit, fonctions de densité, biomes, features, structures composées et ensembles de structures.
+- `data/les_limbes/structure/**/*.nbt` : gabarits produits par `tools/structgen/build_structures.py`.
+- `assets/les_limbes/lang/fr_fr.json` : toutes les chaînes (copiée en `en_us.json` par le générateur : le jeu est français quelle que soit la langue choisie).
+
+Tout fichier généré est regénéré par les scripts ci-dessous ; ne modifiez pas les fichiers générés à la main.
+
+## Outils (`tools/`)
+
+| Script | Rôle |
+|---|---|
+| `tools/textures/gen_textures.py` | toutes les textures (blocs, objets, skins, créatures, particules, interface, icône), déterministes |
+| `tools/sounds/gen_sounds.py` | sons originaux synthétisés (numpy → WAV → OGG via ffmpeg) |
+| `tools/datagen/gen_data.py` | blockstates, modèles, tags, butin, recettes, progrès, génération de monde, biomes, ensemble de structures des vestiges, copie de langue |
+| `tools/structgen/build_structures.py --rapport` | gabarits NBT des structures, JSON des structures composées à position fixe, rapport d'inspection (statistiques, vues ASCII, rendus PNG dans `tools/structgen/rapport/`) |
+| `tools/structgen/canvas.py`, `builders.py`, `nbt.py` | DSL voxel, aides architecturales, écriture/lecture NBT sans dépendance |
+
+Ordre recommandé après modification : textures → sons → données → structures → `./gradlew build`.
+
+## Ajouter du contenu
+
+- **Une quête** : un fichier JSON dans `quest/` ; référencez-la depuis un dialogue (`demarrer_quete`) ou une autre quête (`fin`). Les tests JUnit vérifient la validité et les références.
+- **Un personnage** : marqueur `pnj:<role>` dans un gabarit (ou commande `/limbes pnj reapparaitre <role>`), texture `textures/entity/habitant/<role>.png` (ajoutez le rôle dans `SKINS` du générateur et dans `HabitantRenderer`), nom `pnj.les_limbes.<role>` dans la langue, dialogue `dialogue/<role>.json`. Ajoutez le rôle à `ROLES_ESSENTIELS` pour l'invulnérabilité et la réapparition.
+- **Un lieu à position fixe** : coordonnées dans `LimbesSites.java`, site aplani dans `gen_data.py` (`SITES`), gabarit et structure composée dans `build_structures.py`. Le test `lesSitesFixesSontCoherentsAvecLaGeneration` garde le tout cohérent.
+- **Un pouvoir** : une `Ability` dans `Abilities.java`, une exécution serveur, un effet client dans `EffetsClient.java`, les clés `pouvoir.les_limbes.<id>`, `.court`, `.description`.
+
+## Commandes d'administration (`/limbes`, niveau 2)
+
+`tp sanctuaire|clairval|manoir|relais|overworld`, `quete liste|demarrer|etape|reinit`, `pouvoir <id>|tout`, `majeste <valeur>`, `drapeau poser|retirer`, `pnj reapparaitre <role>`, `porte reveiller` (bloc visé), `structure <id> [pos]` (place un gabarit pour inspection), `diag`.
+
+## Multijoueur
+
+Progression, pouvoirs et quêtes sont par joueur (attachement persistant, conservé à la mort). L'état partagé du monde (`LimbesWorldState`) contient les drapeaux globaux et les ancrages des personnages essentiels. Les quêtes sont idempotentes et rejouables (apparition garantie des Veilleurs à l'entrée de l'étape, objets donnés une seule fois par joueur).

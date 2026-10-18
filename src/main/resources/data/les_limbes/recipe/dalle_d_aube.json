@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "les_limbes:planches_d_aube"
+    }
+  },
+  "result": {
+    "id": "les_limbes:dalle_d_aube",
+    "count": 6
+  }
+}

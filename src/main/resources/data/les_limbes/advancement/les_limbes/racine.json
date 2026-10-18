@@ -1,0 +1,21 @@
+{
+  "display": {
+    "icon": {
+      "id": "les_limbes:fragment_de_nacre"
+    },
+    "title": {
+      "translate": "advancements.les_limbes.racine.title"
+    },
+    "description": {
+      "translate": "advancements.les_limbes.racine.description"
+    },
+    "background": "les_limbes:textures/block/pierre_nacree.png",
+    "show_toast": false,
+    "announce_to_chat": false
+  },
+  "criteria": {
+    "carnet": {
+      "trigger": "minecraft:tick"
+    }
+  }
+}

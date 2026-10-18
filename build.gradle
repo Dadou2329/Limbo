@@ -1,0 +1,104 @@
+plugins {
+	id 'fabric-loom' version "${loom_version}"
+	id 'maven-publish'
+}
+
+version = project.mod_version
+group = project.maven_group
+
+base {
+	archivesName = project.archives_base_name
+}
+
+repositories {
+	// Loom ajoute automatiquement les dépôts Minecraft et Fabric.
+}
+
+loom {
+	splitEnvironmentSourceSets()
+
+	mods {
+		"les_limbes" {
+			sourceSet sourceSets.main
+			sourceSet sourceSets.client
+		}
+	}
+
+	runs {
+		// Serveur dédié de test : ./gradlew runServer
+		server {
+			server()
+			name "Serveur dédié"
+			runDir "run/server"
+		}
+		// Tests de jeu automatisés (Fabric GameTest) : ./gradlew runGametest
+		gametest {
+			server()
+			name "Tests de jeu (serveur)"
+			vmArg "-Dfabric-api.gametest"
+			vmArg "-Dfabric-api.gametest.report-file=${project.layout.buildDirectory.get().asFile}/junit.xml"
+			runDir "run/gametest"
+		}
+	}
+}
+
+dependencies {
+	minecraft "com.mojang:minecraft:${project.minecraft_version}"
+	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+
+	// Tests unitaires hors-jeu (logique des quêtes, dialogues, validation des données).
+	testImplementation "net.fabricmc:fabric-loader-junit:${project.loader_version}"
+	testImplementation platform("org.junit:junit-bom:5.11.4")
+	testImplementation "org.junit.jupiter:junit-jupiter"
+	testRuntimeOnly "org.junit.platform:junit-platform-launcher"
+}
+
+processResources {
+	def props = [
+		version: project.version,
+		loader_version: project.loader_version,
+		minecraft_version: project.minecraft_version,
+	]
+	inputs.properties props
+
+	filesMatching("fabric.mod.json") {
+		expand props
+	}
+}
+
+tasks.withType(JavaCompile).configureEach {
+	it.options.encoding = "UTF-8"
+	it.options.release = 21
+}
+
+java {
+	withSourcesJar()
+	sourceCompatibility = JavaVersion.VERSION_21
+	targetCompatibility = JavaVersion.VERSION_21
+}
+
+test {
+	useJUnitPlatform()
+	testLogging {
+		events "passed", "skipped", "failed"
+		exceptionFormat "full"
+	}
+}
+
+jar {
+	from("LICENSE") {
+		rename { "${it}_${project.archives_base_name}" }
+	}
+}
+
+publishing {
+	publications {
+		create("mavenJava", MavenPublication) {
+			from components.java
+		}
+	}
+	repositories {
+	}
+}

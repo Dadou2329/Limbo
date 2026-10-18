@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "les_limbes:block/dalle_d_aube"
+    },
+    "type=double": {
+      "model": "les_limbes:block/planches_d_aube"
+    },
+    "type=top": {
+      "model": "les_limbes:block/dalle_d_aube_haut"
+    }
+  }
+}

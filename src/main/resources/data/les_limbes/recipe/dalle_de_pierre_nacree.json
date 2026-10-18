@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "les_limbes:pierre_nacree_taillee"
+    }
+  },
+  "result": {
+    "id": "les_limbes:dalle_de_pierre_nacree",
+    "count": 6
+  }
+}

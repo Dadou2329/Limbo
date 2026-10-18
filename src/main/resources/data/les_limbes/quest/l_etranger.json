@@ -1,0 +1,89 @@
+{
+  "titre": "L'Étranger",
+  "description": "Vous êtes arrivé dans les Limbes. Une personne vous accueille au Sanctuaire ; un village vous attend au bout du pont. Il y a du travail pour quelqu'un qui a du cœur.",
+  "acte": 1,
+  "etapes": [
+    {
+      "id": "accueil",
+      "resume": "Parler à Maëlle, qui veille sur le Sanctuaire de l'Arrivée.",
+      "lieu": {"nom": "Sanctuaire de l'Arrivée", "pos": [0, 83, 8], "dimension": "les_limbes:limbes"},
+      "objectifs": [
+        {"id": "maelle", "type": "parler", "cible": "maelle", "texte": "Parler à Maëlle"}
+      ]
+    },
+    {
+      "id": "pont",
+      "resume": "Descendre le grand pont vers le sud, jusqu'à Clairval.",
+      "lieu": {"nom": "Clairval", "pos": [0, 66, 140], "dimension": "les_limbes:limbes"},
+      "objectifs": [
+        {"id": "clairval", "type": "atteindre", "pos": [0, 66, 140], "rayon": 18, "dimension": "les_limbes:limbes", "texte": "Rejoindre Clairval"}
+      ]
+    },
+    {
+      "id": "auberge",
+      "resume": "Parler à Thibault, l'aubergiste de Clairval.",
+      "lieu": {"nom": "Auberge du Moulin", "pos": [14, 66, 128], "dimension": "les_limbes:limbes"},
+      "objectifs": [
+        {"id": "thibault", "type": "parler", "cible": "thibault", "texte": "Parler à Thibault à l'auberge"}
+      ]
+    },
+    {
+      "id": "relais",
+      "resume": "Chasser les Veilleurs égarés qui occupent l'ancien relais royal, à l'est.",
+      "lieu": {"nom": "Ancien relais royal", "pos": [150, 66, 60], "dimension": "les_limbes:limbes"},
+      "debut": [
+        {"type": "apparition", "entite": "les_limbes:veilleur_egare", "nombre": 3, "pos": [150, 66, 60], "rayon": 9, "dimension": "les_limbes:limbes"}
+      ],
+      "objectifs": [
+        {"id": "veilleurs", "type": "vaincre", "cible": "les_limbes:veilleur_egare", "nombre": 3, "texte": "Vaincre les Veilleurs égarés"}
+      ]
+    },
+    {
+      "id": "survivant",
+      "resume": "Retrouver Gaspard, le voyageur réfugié dans le relais.",
+      "lieu": {"nom": "Ancien relais royal", "pos": [150, 66, 60], "dimension": "les_limbes:limbes"},
+      "objectifs": [
+        {"id": "gaspard", "type": "parler", "cible": "gaspard", "manuel": true, "texte": "Parler à Gaspard"}
+      ],
+      "fin": [
+        {"type": "pouvoir", "id": "epee_du_souverain"},
+        {"type": "pouvoir", "id": "pas_court"},
+        {"type": "majeste_max", "valeur": 40, "une_fois": "majeste_fragment_1"},
+        {"type": "titre", "titre": "Le fragment s'éveille", "sous_titre": "Appuyez sur J pour ouvrir le journal"},
+        {"type": "son", "id": "les_limbes:quete.terminee", "hauteur": 1.2}
+      ]
+    },
+    {
+      "id": "retour",
+      "resume": "Rapporter la nouvelle à Thibault, à l'auberge de Clairval.",
+      "lieu": {"nom": "Auberge du Moulin", "pos": [14, 66, 128], "dimension": "les_limbes:limbes"},
+      "objectifs": [
+        {"id": "retour", "type": "parler", "cible": "thibault", "manuel": true, "texte": "Parler à Thibault"}
+      ]
+    },
+    {
+      "id": "manoir",
+      "resume": "Rencontrer Orielle, la régisseuse du vieux manoir, à l'ouest du village.",
+      "lieu": {"nom": "Manoir de Clairval", "pos": [-120, 66, 150], "dimension": "les_limbes:limbes"},
+      "objectifs": [
+        {"id": "orielle", "type": "parler", "cible": "orielle", "manuel": true, "texte": "Parler à Orielle au manoir"}
+      ]
+    },
+    {
+      "id": "vaeron",
+      "resume": "Un cavalier venu du nord attend sur la place de Clairval. On l'appelle Vaëron.",
+      "lieu": {"nom": "Place de Clairval", "pos": [0, 66, 140], "dimension": "les_limbes:limbes"},
+      "objectifs": [
+        {"id": "vaeron", "type": "parler", "cible": "vaeron", "manuel": true, "texte": "Parler à Vaëron"}
+      ],
+      "fin": [
+        {"type": "pouvoir", "id": "decret_reculez"},
+        {"type": "message", "texte": "Vous avez un toit, des alliés et un fragment de couronne. Le premier acte des Limbes s'achève ici ; la suite (le domaine, les régions, les prétendants) arrive avec les prochaines étapes de développement."}
+      ]
+    }
+  ],
+  "fin": [
+    {"type": "experience", "niveaux": 3},
+    {"type": "drapeau", "nom": "acte_1_termine"}
+  ]
+}

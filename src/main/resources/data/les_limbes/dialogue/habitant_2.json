@@ -1,0 +1,10 @@
+{
+  "nom": "Habitante de Clairval",
+  "debut": [{"noeud": "jour"}],
+  "noeuds": {
+    "jour": {
+      "texte": ["Si vous voyez un cerf-lanterne au crépuscule, suivez-le un moment. Ils connaissent des endroits que nous avons oubliés."],
+      "choix": [{"texte": "Je m'en souviendrai."}]
+    }
+  }
+}

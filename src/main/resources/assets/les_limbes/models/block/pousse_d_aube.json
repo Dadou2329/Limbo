@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "les_limbes:block/pousse_d_aube"
+  }
+}

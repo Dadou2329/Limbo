@@ -1,0 +1,17 @@
+{
+  "variants": {
+    "active=false,axis=x": {
+      "model": "les_limbes:block/porte_des_limbes_dormante"
+    },
+    "active=false,axis=z": {
+      "model": "les_limbes:block/porte_des_limbes_dormante"
+    },
+    "active=true,axis=x": {
+      "model": "les_limbes:block/porte_des_limbes_active"
+    },
+    "active=true,axis=z": {
+      "model": "les_limbes:block/porte_des_limbes_active",
+      "y": 90
+    }
+  }
+}

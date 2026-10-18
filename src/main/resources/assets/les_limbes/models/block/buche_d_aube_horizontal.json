@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column_horizontal",
+  "textures": {
+    "end": "les_limbes:block/buche_d_aube_top",
+    "side": "les_limbes:block/buche_d_aube"
+  }
+}

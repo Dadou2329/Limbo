@@ -1,0 +1,102 @@
+{
+  "type": "les_limbes:limbes",
+  "generator": {
+    "type": "minecraft:noise",
+    "settings": "les_limbes:limbes",
+    "biome_source": {
+      "type": "minecraft:multi_noise",
+      "biomes": [
+        {
+          "biome": "les_limbes:plaines_nacrees",
+          "parameters": {
+            "temperature": [
+              -1.0,
+              0.1
+            ],
+            "humidity": [
+              -1.0,
+              1.0
+            ],
+            "continentalness": [
+              -1.0,
+              1.0
+            ],
+            "erosion": [
+              -1.0,
+              1.0
+            ],
+            "weirdness": [
+              -1.0,
+              1.0
+            ],
+            "depth": [
+              -1.0,
+              1.0
+            ],
+            "offset": 0.0
+          }
+        },
+        {
+          "biome": "les_limbes:vergers_suspendus",
+          "parameters": {
+            "temperature": [
+              0.1,
+              1.0
+            ],
+            "humidity": [
+              -1.0,
+              0.0
+            ],
+            "continentalness": [
+              -1.0,
+              1.0
+            ],
+            "erosion": [
+              -1.0,
+              1.0
+            ],
+            "weirdness": [
+              -1.0,
+              1.0
+            ],
+            "depth": [
+              -1.0,
+              1.0
+            ],
+            "offset": 0.0
+          }
+        },
+        {
+          "biome": "les_limbes:vallee_des_lanternes",
+          "parameters": {
+            "temperature": [
+              0.1,
+              1.0
+            ],
+            "humidity": [
+              0.0,
+              1.0
+            ],
+            "continentalness": [
+              -1.0,
+              1.0
+            ],
+            "erosion": [
+              -1.0,
+              1.0
+            ],
+            "weirdness": [
+              -1.0,
+              1.0
+            ],
+            "depth": [
+              -1.0,
+              1.0
+            ],
+            "offset": 0.0
+          }
+        }
+      ]
+    }
+  }
+}

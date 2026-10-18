@@ -1,0 +1,93 @@
+{
+  "temperature": 0.7,
+  "downfall": 0.4,
+  "has_precipitation": false,
+  "effects": {
+    "sky_color": 10470632,
+    "fog_color": 14541808,
+    "water_color": 7259368,
+    "water_fog_color": 10148080,
+    "grass_color": 11847340,
+    "foliage_color": 13219746,
+    "mood_sound": {
+      "sound": "minecraft:ambient.cave",
+      "tick_delay": 6000,
+      "block_search_extent": 8,
+      "offset": 2.0
+    },
+    "music": {
+      "sound": "minecraft:music.overworld.meadow",
+      "min_delay": 12000,
+      "max_delay": 24000,
+      "replace_current_music": false
+    }
+  },
+  "spawners": {
+    "creature": [
+      {
+        "type": "les_limbes:cerf_lanterne",
+        "weight": 10,
+        "minCount": 2,
+        "maxCount": 4
+      },
+      {
+        "type": "minecraft:sheep",
+        "weight": 4,
+        "minCount": 2,
+        "maxCount": 3
+      },
+      {
+        "type": "minecraft:rabbit",
+        "weight": 3,
+        "minCount": 2,
+        "maxCount": 3
+      }
+    ],
+    "ambient": [
+      {
+        "type": "les_limbes:poisson_lune",
+        "weight": 12,
+        "minCount": 3,
+        "maxCount": 6
+      }
+    ],
+    "monster": [
+      {
+        "type": "les_limbes:veilleur_egare",
+        "weight": 3,
+        "minCount": 1,
+        "maxCount": 1
+      }
+    ],
+    "water_creature": [],
+    "water_ambient": [],
+    "underground_water_creature": [],
+    "axolotls": [],
+    "misc": []
+  },
+  "spawn_costs": {},
+  "carvers": {},
+  "features": [
+    [],
+    [
+      "les_limbes:lacs"
+    ],
+    [],
+    [],
+    [],
+    [],
+    [
+      "les_limbes:cristaux"
+    ],
+    [],
+    [],
+    [
+      "les_limbes:arbres_aube_epars",
+      "les_limbes:grands_arbres_aube",
+      "les_limbes:bosquet_fibres",
+      "les_limbes:herbes_aube",
+      "les_limbes:fleurs_rosee"
+    ],
+    []
+  ]
+}

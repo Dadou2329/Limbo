@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "les_limbes:block/dalle_de_pierre_nacree"
+    },
+    "type=double": {
+      "model": "les_limbes:block/pierre_nacree_taillee"
+    },
+    "type=top": {
+      "model": "les_limbes:block/dalle_de_pierre_nacree_haut"
+    }
+  }
+}

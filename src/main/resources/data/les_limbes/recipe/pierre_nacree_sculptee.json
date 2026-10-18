@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "#",
+    "#"
+  ],
+  "key": {
+    "#": {
+      "item": "les_limbes:dalle_de_pierre_nacree"
+    }
+  },
+  "result": {
+    "id": "les_limbes:pierre_nacree_sculptee",
+    "count": 1
+  }
+}

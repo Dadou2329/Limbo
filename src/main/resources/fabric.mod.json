@@ -1,0 +1,41 @@
+{
+	"schemaVersion": 1,
+	"id": "les_limbes",
+	"version": "${version}",
+	"name": "Les Limbes",
+	"description": "Une dimension d'aventure : explorez des terres merveilleuses venues d'ailleurs, bâtissez votre domaine, maîtrisez la grande magie royale et montez sur le trône des Limbes.",
+	"authors": [
+		"Projet Les Limbes"
+	],
+	"contact": {
+		"sources": "https://github.com/dadou2329/limbo"
+	},
+	"license": "MIT",
+	"icon": "assets/les_limbes/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"fr.leslimbes.LesLimbes"
+		],
+		"client": [
+			"fr.leslimbes.client.LesLimbesClient"
+		],
+		"fabric-datagen": [],
+		"fabric-gametest": [
+			"fr.leslimbes.gametest.LesLimbesGameTests"
+		]
+	},
+	"mixins": [
+		"les_limbes.mixins.json",
+		{
+			"config": "les_limbes.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=${loader_version}",
+		"minecraft": "~1.21.1",
+		"java": ">=21",
+		"fabric-api": "*"
+	}
+}

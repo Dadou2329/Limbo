@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "les_limbes:pierre_nacree"
+  },
+  "result": {
+    "id": "les_limbes:pierre_nacree_taillee",
+    "count": 1
+  }
+}

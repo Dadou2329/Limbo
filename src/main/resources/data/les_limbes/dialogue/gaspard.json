@@ -1,0 +1,50 @@
+{
+  "nom": "Gaspard",
+  "debut": [
+    {"noeud": "apres", "si": [{"drapeau": "gaspard_sauve"}]},
+    {"noeud": "sauvetage", "si": [{"quete_etape": {"l_etranger": "=4"}}]},
+    {"noeud": "perdu"}
+  ],
+  "noeuds": {
+    "perdu": {
+      "texte": [
+        "Chut... Ils sont encore là, dehors. Les grands de pierre. Chassez-les d'abord, je vous en prie."
+      ],
+      "choix": [
+        {"texte": "Restez caché, je m'en occupe."}
+      ]
+    },
+    "sauvetage": {
+      "texte": [
+        "Ils sont partis ? Vous les avez chassés ? Merci. Merci, vraiment.",
+        "Je m'appelle Gaspard. Je suis boulanger. Hier encore, j'étais dans mon fournil, et puis le ciel s'est plissé, et me voilà. Thibault dit que c'est normal, ici.",
+        "Tenez. J'ai trouvé ça dans les décombres, sous le relais. Ça brille quand vous approchez. Je crois que c'est à vous, maintenant."
+      ],
+      "actions": [
+        {"type": "donner", "objet": "les_limbes:fragment_de_couronne", "nombre": 1, "une_fois": "fragment_couronne_recu"},
+        {"type": "drapeau", "nom": "gaspard_sauve"},
+        {"type": "objectif", "quete": "l_etranger", "objectif": "gaspard"}
+      ],
+      "choix": [
+        {"texte": "Vous devriez aller à Clairval. Thibault vous accueillera.", "suivant": "clairval"},
+        {"texte": "Prenez soin de vous, Gaspard."}
+      ]
+    },
+    "clairval": {
+      "texte": [
+        "Oui. Je vais y aller dès que mes jambes voudront bien. Peut-être que l'auberge a besoin d'un boulanger."
+      ],
+      "choix": [
+        {"texte": "Bonne route."}
+      ]
+    },
+    "apres": {
+      "texte": [
+        "Je me remets doucement. Le pain sera prêt demain. Enfin, je l'espère. Il faut d'abord que je trouve de la farine, ici."
+      ],
+      "choix": [
+        {"texte": "À bientôt, Gaspard."}
+      ]
+    }
+  }
+}

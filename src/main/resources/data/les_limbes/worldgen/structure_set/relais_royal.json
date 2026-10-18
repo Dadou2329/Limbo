@@ -1,0 +1,18 @@
+{
+  "placement": {
+    "type": "les_limbes:fixed",
+    "salt": 1004,
+    "chunks": [
+      [
+        9,
+        3
+      ]
+    ]
+  },
+  "structures": [
+    {
+      "structure": "les_limbes:relais_royal",
+      "weight": 1
+    }
+  ]
+}

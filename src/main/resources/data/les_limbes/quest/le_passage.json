@@ -1,0 +1,50 @@
+{
+  "titre": "Le Passage",
+  "description": "Un vieux carnet parle de vestiges oubliés et d'une porte qui attend de la nacre. Il y a un endroit où tout ce qui disparaît finit par arriver.",
+  "acte": 1,
+  "etapes": [
+    {
+      "id": "carnet",
+      "resume": "Lire le carnet du voyageur, puis fabriquer une boussole nacrée (boussole + 4 éclats d'améthyste).",
+      "objectifs": [
+        {"id": "boussole", "type": "collecter", "cible": "les_limbes:boussole_nacree", "nombre": 1, "texte": "Fabriquer une boussole nacrée"}
+      ]
+    },
+    {
+      "id": "vestige",
+      "resume": "Suivre la boussole nacrée jusqu'à un vestige des Limbes.",
+      "cle_lieu": "vestige",
+      "lieu": {"nom": "Vestige des Limbes", "pos": [0, 64, 0], "dimension": "minecraft:overworld"},
+      "debut": [
+        {"type": "lieu_quete", "quete": "le_passage", "cle": "vestige", "localiser": "vestige"}
+      ],
+      "objectifs": [
+        {"id": "atteindre", "type": "atteindre", "cle_lieu": "vestige", "rayon": 18, "dimension": "minecraft:overworld", "texte": "Trouver le vestige"}
+      ]
+    },
+    {
+      "id": "eclats",
+      "resume": "Réunir trois éclats de nacre. Le vestige en cache ; cherchez aussi sous ses dalles.",
+      "objectifs": [
+        {"id": "eclats", "type": "collecter", "cible": "les_limbes:fragment_de_nacre", "nombre": 3, "texte": "Réunir des éclats de nacre"}
+      ]
+    },
+    {
+      "id": "reveil",
+      "resume": "Réveiller la porte : utiliser trois éclats de nacre sur la pierre gravée.",
+      "objectifs": [
+        {"id": "reveil", "type": "drapeau", "cible": "porte_reveillee", "texte": "Réveiller la Porte des Limbes"}
+      ]
+    },
+    {
+      "id": "franchir",
+      "resume": "Franchir le voile lumineux.",
+      "objectifs": [
+        {"id": "arrivee", "type": "drapeau", "cible": "arrivee", "texte": "Franchir le passage"}
+      ]
+    }
+  ],
+  "fin": [
+    {"type": "demarrer_quete", "quete": "l_etranger"}
+  ]
+}

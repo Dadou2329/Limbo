@@ -1,0 +1,23 @@
+{
+  "parent": "les_limbes:les_limbes/boussole",
+  "display": {
+    "icon": {
+      "id": "les_limbes:porte_des_limbes"
+    },
+    "title": {
+      "translate": "advancements.les_limbes.arrivee.title"
+    },
+    "description": {
+      "translate": "advancements.les_limbes.arrivee.description"
+    },
+    "frame": "goal"
+  },
+  "criteria": {
+    "arrivee": {
+      "trigger": "minecraft:changed_dimension",
+      "conditions": {
+        "to": "les_limbes:limbes"
+      }
+    }
+  }
+}

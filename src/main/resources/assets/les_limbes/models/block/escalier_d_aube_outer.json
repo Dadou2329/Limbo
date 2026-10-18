@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "les_limbes:block/planches_d_aube",
+    "top": "les_limbes:block/planches_d_aube",
+    "side": "les_limbes:block/planches_d_aube"
+  }
+}

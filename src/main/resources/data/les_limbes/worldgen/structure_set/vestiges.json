@@ -1,0 +1,14 @@
+{
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 71309,
+    "separation": 8,
+    "spacing": 22
+  },
+  "structures": [
+    {
+      "structure": "les_limbes:vestige",
+      "weight": 1
+    }
+  ]
+}

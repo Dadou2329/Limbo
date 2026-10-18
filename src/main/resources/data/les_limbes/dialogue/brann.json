@@ -1,0 +1,25 @@
+{
+  "nom": "Brann",
+  "debut": [
+    {"noeud": "forge"}
+  ],
+  "noeuds": {
+    "forge": {
+      "texte": [
+        "Je suis Brann. Je forge ce qu'on me demande, quand j'ai le métal. Pour l'instant, je répare surtout des charrues."
+      ],
+      "choix": [
+        {"texte": "Que pouvez-vous forger ?", "suivant": "metal"},
+        {"texte": "Bonne journée."}
+      ]
+    },
+    "metal": {
+      "texte": [
+        "Rien de royal, pas encore. Mais rapportez-moi des éclats de nacre et du cristal, et on verra ce que ce vieux fourneau sait encore faire."
+      ],
+      "choix": [
+        {"texte": "Je m'en souviendrai."}
+      ]
+    }
+  }
+}

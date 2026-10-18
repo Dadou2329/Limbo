@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_top_left",
+  "textures": {
+    "bottom": "les_limbes:block/porte_d_aube_bottom",
+    "top": "les_limbes:block/porte_d_aube_top"
+  }
+}

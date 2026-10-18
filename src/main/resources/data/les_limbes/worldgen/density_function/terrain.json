@@ -1,0 +1,114 @@
+{
+  "type": "minecraft:max",
+  "argument1": {
+    "type": "minecraft:min",
+    "argument1": {
+      "type": "les_limbes:aplanir",
+      "pente": 0.03125,
+      "sites": [
+        {
+          "x": 0,
+          "z": 140,
+          "y": 66,
+          "rayon": 70,
+          "transition": 40
+        },
+        {
+          "x": -120,
+          "z": 150,
+          "y": 66,
+          "rayon": 34,
+          "transition": 30
+        },
+        {
+          "x": 150,
+          "z": 60,
+          "y": 66,
+          "rayon": 34,
+          "transition": 30
+        },
+        {
+          "x": 0,
+          "z": 56,
+          "y": 66,
+          "rayon": 34,
+          "transition": 30
+        }
+      ],
+      "argument": {
+        "type": "minecraft:add",
+        "argument1": {
+          "type": "minecraft:y_clamped_gradient",
+          "from_y": 32,
+          "to_y": 96,
+          "from_value": 1.0,
+          "to_value": -1.0
+        },
+        "argument2": {
+          "type": "minecraft:mul",
+          "argument1": {
+            "type": "minecraft:noise",
+            "noise": "les_limbes:collines",
+            "xz_scale": 1.0,
+            "y_scale": 0.0
+          },
+          "argument2": 0.42
+        }
+      }
+    },
+    "argument2": {
+      "type": "minecraft:add",
+      "argument1": {
+        "type": "minecraft:y_clamped_gradient",
+        "from_y": 10,
+        "to_y": 34,
+        "from_value": -1.0,
+        "to_value": 1.0
+      },
+      "argument2": {
+        "type": "minecraft:mul",
+        "argument1": {
+          "type": "minecraft:noise",
+          "noise": "les_limbes:dessous",
+          "xz_scale": 1.0,
+          "y_scale": 1.0
+        },
+        "argument2": 0.5
+      }
+    }
+  },
+  "argument2": {
+    "type": "minecraft:add",
+    "argument1": {
+      "type": "minecraft:mul",
+      "argument1": {
+        "type": "minecraft:mul",
+        "argument1": {
+          "type": "minecraft:y_clamped_gradient",
+          "from_y": 104,
+          "to_y": 118,
+          "from_value": 0.0,
+          "to_value": 1.0
+        },
+        "argument2": {
+          "type": "minecraft:y_clamped_gradient",
+          "from_y": 140,
+          "to_y": 164,
+          "from_value": 1.0,
+          "to_value": 0.0
+        }
+      },
+      "argument2": {
+        "type": "minecraft:add",
+        "argument1": {
+          "type": "minecraft:noise",
+          "noise": "les_limbes:iles",
+          "xz_scale": 0.8,
+          "y_scale": 1.6
+        },
+        "argument2": -0.52
+      }
+    },
+    "argument2": -0.03
+  }
+}
