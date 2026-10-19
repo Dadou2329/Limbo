@@ -26,7 +26,7 @@ import java.util.Set;
  */
 public final class PlayerLimbesData {
 	public static final int VERSION = 1;
-	public static final int SLOTS = 3;
+	public static final int SLOTS = 4;
 	public static final float MAJESTE_INITIALE = 60.0F;
 
 	public static final Codec<PlayerLimbesData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
@@ -63,7 +63,7 @@ public final class PlayerLimbesData {
 	public final Map<String, String> montures;
 
 	public PlayerLimbesData() {
-		this(VERSION, MAJESTE_INITIALE, MAJESTE_INITIALE, List.of(), List.of("", "", ""), List.of(), List.of(), "",
+		this(VERSION, MAJESTE_INITIALE, MAJESTE_INITIALE, List.of(), List.of("", "", "", ""), List.of(), List.of(), "",
 				Optional.empty(), Optional.empty(), Optional.empty(), false, Map.of(), Map.of());
 	}
 

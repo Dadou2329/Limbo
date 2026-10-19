@@ -1,0 +1,21 @@
+{
+  "titre": "La cité arrivée : Brumeval",
+  "echelle": "majeure",
+  "gabarit": "les_limbes:arrivees/cite_brumeval",
+  "ancre": [
+    16,
+    3,
+    16
+  ],
+  "sites": "royaume",
+  "poids": 1,
+  "unique": true,
+  "duree": 0,
+  "description": "Un quartier entier d'une ville d'ailleurs, Brumeval : sa place, ses maisons de pierre, sa fontaine et ses lanternes éteintes, arrivés d'un bloc par l'appel de la couronne. Hortense, la maire, et ses administrés.",
+  "prerequis": [
+    {
+      "drapeau_monde": "cite_brumeval_appelee"
+    }
+  ],
+  "annonce": "Le ciel se plisse à l'ouest de la capitale : une cité entière traverse les brumes"
+}

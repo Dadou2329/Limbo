@@ -1,0 +1,38 @@
+{
+  "nom": "Josse",
+  "debut": [
+    {
+      "noeud": "acheve",
+      "si": [
+        {
+          "drapeau_monde": "navire_royal_pose"
+        }
+      ]
+    },
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Josse, charpentier. Le capitaine Lio m'a fait dresser cette coque, et puis plus de bois. Vingt-quatre planches d'aube, douze fibres nacrées pour les voiles, trois perles pour la proue : apportez-lui ça et vous verrez un navire."
+      ],
+      "choix": [
+        {
+          "texte": "Je m'en occupe."
+        }
+      ]
+    },
+    "acheve": {
+      "texte": [
+        "Regardez-le. Deux mâts, une cabine, une porte de relais à bord : le premier navire des Limbes qui va où on veut. Je n'en dormirai pas."
+      ],
+      "choix": [
+        {
+          "texte": "Beau travail, Josse."
+        }
+      ]
+    }
+  }
+}

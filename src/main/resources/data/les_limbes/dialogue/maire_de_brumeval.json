@@ -1,0 +1,151 @@
+{
+  "nom": "Hortense",
+  "debut": [
+    {
+      "noeud": "eclairee",
+      "si": [
+        {
+          "drapeau_monde": "brumeval_eclairee"
+        }
+      ]
+    },
+    {
+      "noeud": "lanternes",
+      "si": [
+        {
+          "quete_active": "la_cite_arrivee"
+        },
+        {
+          "quete_etape": {
+            "la_cite_arrivee": "=3"
+          }
+        }
+      ]
+    },
+    {
+      "noeud": "attente",
+      "si": [
+        {
+          "quete_active": "la_cite_arrivee"
+        },
+        {
+          "quete_etape": {
+            "la_cite_arrivee": "=2"
+          }
+        }
+      ]
+    },
+    {
+      "noeud": "arrivee",
+      "si": [
+        {
+          "quete_active": "la_cite_arrivee"
+        }
+      ]
+    },
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Hortense, maire de Brumeval. Nous venons d'arriver, si j'ai bien compris ce qui s'est passé. Le ciel s'est plissé, et nous étions ici."
+      ],
+      "choix": [
+        {
+          "texte": "Bienvenue dans les Limbes."
+        }
+      ]
+    },
+    "arrivee": {
+      "texte": [
+        "Vous êtes celui — celle ? — dont parlent les étoiles ? Le souverain qui nous a appelés ?",
+        "Nous avons traversé d'un bloc : la place, la fontaine, les maisons. Mais nos lanternes sont mortes dans la traversée, et une ville sans lumière n'est pas une ville.",
+        "On dit que la Couronne Immobile forge des lanternes royales qui ne s'éteignent jamais. Quatre suffiraient pour la place."
+      ],
+      "choix": [
+        {
+          "texte": "Je vous rapporterai quatre lanternes royales.",
+          "actions": [
+            {
+              "type": "objectif",
+              "quete": "la_cite_arrivee",
+              "objectif": "maire"
+            }
+          ]
+        }
+      ]
+    },
+    "attente": {
+      "texte": [
+        "Quatre lanternes royales, Majesté. Haute-Garde en garde sur ses murs, et la capitale en a rallumé des dizaines."
+      ],
+      "choix": [
+        {
+          "texte": "J'y vais."
+        }
+      ]
+    },
+    "lanternes": {
+      "texte": [
+        "Les lanternes ! Posez-les, je vous en prie : la place, les quatre coins. Et notre porte… elle s'allume aussi ?"
+      ],
+      "choix": [
+        {
+          "texte": "Voici les quatre lanternes.",
+          "si": [
+            {
+              "objet": {
+                "id": "les_limbes:lanterne_royale",
+                "nombre": 4
+              }
+            }
+          ],
+          "actions": [
+            {
+              "type": "retirer",
+              "objet": "les_limbes:lanterne_royale",
+              "nombre": 4
+            },
+            {
+              "type": "drapeau_monde",
+              "nom": "brumeval_eclairee"
+            },
+            {
+              "type": "decouvrir_relais",
+              "id": "brumeval",
+              "annoncer": true
+            },
+            {
+              "type": "son",
+              "id": "les_limbes:bloc.porte.eveil"
+            },
+            {
+              "type": "message",
+              "texte": "Les lanternes de Brumeval s'allument une à une ; la porte de la place rejoint le réseau des passages."
+            },
+            {
+              "type": "objectif",
+              "quete": "la_cite_arrivee",
+              "objectif": "hortense"
+            }
+          ]
+        },
+        {
+          "texte": "Je n'en ai pas encore quatre."
+        }
+      ]
+    },
+    "eclairee": {
+      "texte": [
+        "Brumeval vit. Les enfants ont déjà trouvé le chemin de la capitale par la porte. Merci, Majesté : on ne nous avait jamais appelés nulle part."
+      ],
+      "choix": [
+        {
+          "texte": "Vous êtes chez vous."
+        }
+      ]
+    }
+  }
+}

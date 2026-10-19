@@ -9221,3 +9221,43 @@ Quartier des résidences : six maisons de pierre de couronne, jardins, lampadair
 - taille : [41, 16, 41]
 - blocs : 5876 ; entités de bloc : 3 ; entités : 0
 - palette : les_limbes:pierre_de_couronne_taillee (2712), minecraft:air (1167), minecraft:quartz_stairs (660), minecraft:quartz_block (300), les_limbes:planches_d_aube (294), les_limbes:herbe_argentee (259), les_limbes:pierre_de_couronne_polie (104), les_limbes:terre_des_limbes (90), les_limbes:fleur_de_rosee (68), minecraft:quartz_slab (66), les_limbes:feuilles_d_aube (58), minecraft:glass_pane (48)
+
+## regne/chantier_naval
+
+Chantier naval au large de Port-Nacre : coque du navire royal en cours de construction, échafaudages, ponton et atelier du charpentier royal. Remplacé par le navire achevé (action poser_structure).
+
+- taille : [19, 30, 41]
+- blocs : 2881 ; entités de bloc : 2 ; entités : 0
+- palette : minecraft:air (1645), les_limbes:buche_d_aube (657), les_limbes:planches_d_aube (484), minecraft:scaffolding (89), les_limbes:lanterne_nacree (2), minecraft:barrel (1), minecraft:crafting_table (1), minecraft:birch_wall_sign (1), minecraft:structure_block (1)
+
+## regne/navire_royal
+
+Navire royal achevé : coque de bois d'aube, pont, cabine arrière (porte de relais « navire_royal », cartes, coffre), deux mâts et voiles blanches et bleues, proue de nacre. Posé par le capitaine Lio une fois les matériaux réunis.
+
+- taille : [19, 30, 41]
+- blocs : 3343 ; entités de bloc : 4 ; entités : 0
+- palette : minecraft:air (1846), les_limbes:buche_d_aube (703), les_limbes:planches_d_aube (600), minecraft:white_wool (66), les_limbes:barriere_d_aube (56), minecraft:blue_wool (44), les_limbes:pierre_nacree_sculptee (5), les_limbes:lanterne_nacree (5), minecraft:light_blue_stained_glass_pane (4), minecraft:blue_banner (3), les_limbes:porte_d_aube_door (2), minecraft:white_carpet (2)
+
+## regne/ile_des_ruines
+
+Île des ruines : îlot de sable de nacre et d'herbe, colonnes royales brisées en cercle, tour de guet, coffre au journal de l'expédition royale ; une baleine des hauteurs tourne au-dessus, deux gardiens des épaves rôdent.
+
+- taille : [41, 26, 41]
+- blocs : 1696 ; entités de bloc : 5 ; entités : 0
+- palette : les_limbes:terre_des_limbes (613), les_limbes:sable_de_nacre (588), les_limbes:pierre_de_couronne_taillee (169), les_limbes:pierre_de_couronne_polie (166), minecraft:air (74), les_limbes:pierre_de_couronne_sculptee (40), les_limbes:herbe_de_l_aube (24), minecraft:ladder (9), les_limbes:corail_de_nacre (5), minecraft:structure_block (3), les_limbes:lanterne_royale_eteinte (2), les_limbes:lanterne_royale (1)
+
+## regne/lisiere_des_brumes
+
+Lisière des brumes : mur de pierre de couronne percé d'une porte, grande tour-lanterne, braseros, tentes de garde ; l'ancien roi tient la lumière. Les vagues des brumes arrivent du nord.
+
+- taille : [41, 22, 41]
+- blocs : 3017 ; entités de bloc : 3 ; entités : 0
+- palette : les_limbes:terre_des_limbes (1356), les_limbes:pierre_de_couronne_taillee (498), les_limbes:pierre_de_couronne (320), les_limbes:herbe_argentee (301), les_limbes:pierre_de_couronne_polie (193), minecraft:air (130), les_limbes:planches_d_aube (46), minecraft:white_wool (41), minecraft:blue_wool (41), les_limbes:barriere_d_aube (33), les_limbes:pierre_de_couronne_sculptee (19), minecraft:ladder (11)
+
+## arrivees/cite_brumeval
+
+Brumeval, cité arrivée : socle de pierre arraché aux brumes, place dallée et fontaine, quatre maisons de pierre, porte de relais, lanternes éteintes ; la maire Hortense et ses administrés. Attirée par le règne.
+
+- taille : [33, 20, 33]
+- blocs : 4002 ; entités de bloc : 6 ; entités : 0
+- palette : les_limbes:pierre_de_couronne (1291), les_limbes:pierre_de_couronne_taillee (1160), minecraft:air (573), minecraft:quartz_stairs (400), les_limbes:pierre_de_couronne_polie (178), minecraft:quartz_block (160), les_limbes:planches_d_aube (144), minecraft:glass_pane (32), les_limbes:pierre_de_couronne_sculptee (24), les_limbes:lanterne_royale_eteinte (9), les_limbes:porte_d_aube_door (8), les_limbes:lanterne_nacree (4)

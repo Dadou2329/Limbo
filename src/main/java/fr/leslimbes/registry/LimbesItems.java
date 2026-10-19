@@ -37,6 +37,9 @@ public final class LimbesItems {
 					.usingConvertsTo(Items.BOWL).build())));
 	public static final Item FRAGMENT_DE_COURONNE = register("fragment_de_couronne", new FragmentDeCouronneItem(new Item.Settings().maxCount(1).rarity(Rarity.EPIC).fireproof()));
 	public static final Item EPEE_DU_SOUVERAIN = register("epee_du_souverain", new EpeeDuSouverainItem(new Item.Settings().maxCount(1).rarity(Rarity.EPIC).fireproof()));
+	public static final Item LANCE_DU_SOUVERAIN = register("lance_du_souverain", new fr.leslimbes.item.LanceDuSouverainItem(new Item.Settings().maxCount(1).rarity(Rarity.EPIC).fireproof()));
+	public static final Item ARC_DU_SOUVERAIN = register("arc_du_souverain", new fr.leslimbes.item.ArcDuSouverainItem(new Item.Settings().maxCount(1).rarity(Rarity.EPIC).fireproof()));
+	public static final Item BOUCLIER_DU_SOUVERAIN = register("bouclier_du_souverain", new fr.leslimbes.item.BouclierDuSouverainItem(new Item.Settings().maxCount(1).rarity(Rarity.EPIC).fireproof()));
 	public static final Item CLE_DU_MANOIR = register("cle_du_manoir", new Item(new Item.Settings().maxCount(1).rarity(Rarity.RARE)));
 	public static final Item SIFFLET_DE_RAIE = register("sifflet_de_raie", new SiffletDeRaieItem(new Item.Settings().maxCount(1).rarity(Rarity.RARE)));
 	public static final Item FARINE = register("farine", new Item(new Item.Settings()));

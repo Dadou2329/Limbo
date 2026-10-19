@@ -275,8 +275,10 @@ public final class DuelManager {
 				}
 			}
 			// Projectiles suspendus et soutiens oubliés dans l'arène.
+			// Nettoyage de sûreté : les éclats peuvent voler loin, les soutiens restent dans l'arène (pas au-delà : un voisin pourrait les posséder).
 			for (Entity e : world.getEntitiesByClass(Entity.class, new Box(duel.definition.centre()).expand(duel.definition.rayon() + 16),
-					x -> x instanceof fr.leslimbes.entity.region.EclatProjectileEntity || x instanceof fr.leslimbes.entity.region.SoutienEntity)) {
+					x -> x instanceof fr.leslimbes.entity.region.EclatProjectileEntity
+							|| x instanceof fr.leslimbes.entity.region.SoutienEntity && x.getBlockPos().isWithinDistance(duel.definition.centre(), duel.definition.rayon() + 1.0))) {
 				e.discard();
 			}
 		}

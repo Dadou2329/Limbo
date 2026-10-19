@@ -1,0 +1,62 @@
+{
+  "titre": "Grand tournoi — La finale : Vaëron",
+  "pretendant": "vaeron",
+  "boss": "les_limbes:vaeron_duel",
+  "arene": {
+    "centre": [
+      230,
+      66,
+      1330
+    ],
+    "rayon": 17,
+    "dimension": "les_limbes:limbes"
+  },
+  "entree": [
+    230,
+    66,
+    1346
+  ],
+  "yaw": 180,
+  "apparition": [
+    230,
+    66,
+    1320
+  ],
+  "amical": true,
+  "phases": [
+    {
+      "seuil": 0.66,
+      "message": "Les légions astrales répondent à Vaëron.",
+      "invocations": [
+        {
+          "entite": "les_limbes:legionnaire_astral",
+          "nombre": 2
+        },
+        {
+          "entite": "les_limbes:banniere_astrale",
+          "nombre": 1
+        }
+      ]
+    },
+    {
+      "seuil": 0.33,
+      "message": "L'épée solaire s'embrase."
+    }
+  ],
+  "victoire": [
+    {
+      "type": "message",
+      "texte": "La finale : Vaëron est remportée. Rachid lève le bras : la cour des heures acclame le souverain."
+    },
+    {
+      "type": "experience",
+      "niveaux": 2
+    }
+  ],
+  "echec": [
+    {
+      "type": "message",
+      "texte": "L'épreuve s'arrête là pour cette fois. Rachid vous attend pour la reprendre."
+    }
+  ]
+}

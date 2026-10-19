@@ -166,6 +166,14 @@
   ],
   "fin": [
     {
+      "type": "pouvoir",
+      "id": "marque_royale"
+    },
+    {
+      "type": "pouvoir",
+      "id": "arc_du_souverain"
+    },
+    {
       "type": "experience",
       "niveaux": 5
     },

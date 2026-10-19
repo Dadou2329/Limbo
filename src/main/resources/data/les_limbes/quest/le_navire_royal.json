@@ -1,0 +1,177 @@
+{
+  "titre": "Le navire royal",
+  "acte": 5,
+  "description": "Le capitaine Lio a dressé un chantier au large de Port-Nacre. Avec du bois d'aube, des fibres nacrées et des perles, son équipage achève le navire royal ; puis cap sur l'île des ruines, où chante la baleine des hauteurs.",
+  "etapes": [
+    {
+      "id": "materiaux",
+      "resume": "Réunir les matériaux du navire : vingt-quatre planches d'aube, douze fibres nacrées et trois perles de nacre.",
+      "lieu": {
+        "nom": "Campement de l'archipel",
+        "pos": [
+          1250,
+          66,
+          -650
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "planches",
+          "type": "collecter",
+          "cible": "les_limbes:planches_d_aube",
+          "nombre": 24,
+          "texte": "Réunir vingt-quatre planches d'aube"
+        },
+        {
+          "id": "fibres",
+          "type": "collecter",
+          "cible": "les_limbes:fibres_nacrees",
+          "nombre": 12,
+          "texte": "Réunir douze fibres nacrées"
+        },
+        {
+          "id": "perles",
+          "type": "collecter",
+          "cible": "les_limbes:perle_de_nacre",
+          "nombre": 3,
+          "texte": "Réunir trois perles de nacre"
+        }
+      ]
+    },
+    {
+      "id": "chantier",
+      "resume": "Apporter les matériaux au capitaine Lio : son équipage achève le navire royal au chantier naval.",
+      "lieu": {
+        "nom": "Campement de l'archipel",
+        "pos": [
+          1250,
+          66,
+          -650
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "lio",
+          "type": "parler",
+          "cible": "capitaine_lio",
+          "manuel": true,
+          "texte": "Apporter les matériaux au capitaine Lio"
+        }
+      ]
+    },
+    {
+      "id": "navire",
+      "resume": "Monter à bord du navire royal, au chantier naval au large de Port-Nacre.",
+      "lieu": {
+        "nom": "Chantier naval",
+        "pos": [
+          1030,
+          64,
+          -800
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "bord",
+          "type": "atteindre",
+          "pos": [
+            1030,
+            64,
+            -800
+          ],
+          "rayon": 16,
+          "dimension": "les_limbes:limbes",
+          "texte": "Monter à bord du navire royal"
+        }
+      ]
+    },
+    {
+      "id": "expedition",
+      "resume": "Cap au nord-est : l'île des ruines, où la baleine des hauteurs tourne au-dessus des colonnes d'autrefois.",
+      "lieu": {
+        "nom": "Île des ruines",
+        "pos": [
+          1300,
+          70,
+          -1000
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "ile",
+          "type": "atteindre",
+          "pos": [
+            1300,
+            70,
+            -1000
+          ],
+          "rayon": 24,
+          "dimension": "les_limbes:limbes",
+          "texte": "Atteindre l'île des ruines"
+        }
+      ]
+    },
+    {
+      "id": "journal",
+      "resume": "Retrouver le journal de l'ancienne expédition royale dans les ruines.",
+      "lieu": {
+        "nom": "Île des ruines",
+        "pos": [
+          1300,
+          70,
+          -1000
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "journal",
+          "type": "collecter",
+          "cible": "les_limbes:journal_de_bord",
+          "nombre": 1,
+          "texte": "Retrouver le journal de l'expédition royale"
+        }
+      ]
+    },
+    {
+      "id": "retour",
+      "resume": "Rapporter le journal au capitaine Lio.",
+      "lieu": {
+        "nom": "Campement de l'archipel",
+        "pos": [
+          1250,
+          66,
+          -650
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "retour",
+          "type": "parler",
+          "cible": "capitaine_lio",
+          "manuel": true,
+          "texte": "Rapporter le journal au capitaine Lio"
+        }
+      ]
+    }
+  ],
+  "fin": [
+    {
+      "type": "experience",
+      "niveaux": 8
+    },
+    {
+      "type": "drapeau",
+      "nom": "navire_royal_termine"
+    },
+    {
+      "type": "message",
+      "texte": "Le navire royal relie désormais l'archipel au réseau des passages. Lio parle déjà d'autres îles."
+    }
+  ]
+}

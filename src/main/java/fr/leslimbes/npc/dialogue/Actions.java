@@ -148,6 +148,7 @@ public final class Actions {
 			case "modifier_bloc" -> modifierBloc(player, a);
 			case "ouvrir_chantier" -> fr.leslimbes.domaine.ProjetManager.ouvrirChantier(player, JsonUtil.string(a, "lieu", "manoir"));
 			case "affuter_epee" -> fr.leslimbes.item.EpeeDuSouverainItem.affuter(player);
+			case "poser_structure" -> poserStructure(player, a);
 			case "decouvrir_lieu" -> {
 				fr.leslimbes.domaine.LieuDefinition lieu = fr.leslimbes.domaine.DomaineLoader.lieu(JsonUtil.requireString(a, "id", type));
 				if (lieu != null) {
@@ -173,6 +174,48 @@ public final class Actions {
 	 * des manquantes). Permet de rejouer un combat scénarisé quel que soit l'ordre d'exploration.
 	 * <pre>{"type": "apparition", "entite": "les_limbes:veilleur_egare", "nombre": 3, "pos": [150, 66, 60], "rayon": 10}</pre>
 	 */
+	/**
+	 * Pose un gabarit une seule fois dans le monde du joueur (ou la dimension donnée) :
+	 * <pre>{"type": "poser_structure", "gabarit": "les_limbes:mer/navire_royal", "pos": [x, y, z], "drapeau_monde": "navire_royal_pose"}</pre>
+	 * Le drapeau du monde empêche toute seconde pose ; les marqueurs du gabarit (personnages, créatures) sont appliqués.
+	 */
+	private static void poserStructure(ServerPlayerEntity player, JsonObject a) {
+		Identifier gabarit = Identifier.of(JsonUtil.requireString(a, "gabarit", "poser_structure"));
+		BlockPos pos = JsonUtil.blockPos(a, "pos").orElse(player.getBlockPos());
+		String drapeau = JsonUtil.string(a, "drapeau_monde", null);
+		LimbesWorldState etat = LimbesWorldState.get(player.server);
+		if (drapeau != null && etat.aDrapeau(drapeau)) {
+			return;
+		}
+		net.minecraft.server.world.ServerWorld world = player.getServerWorld();
+		String dim = JsonUtil.string(a, "dimension", null);
+		if (dim != null) {
+			net.minecraft.server.world.ServerWorld autre = player.server.getWorld(net.minecraft.registry.RegistryKey.of(net.minecraft.registry.RegistryKeys.WORLD, Identifier.of(dim)));
+			if (autre == null) {
+				return;
+			}
+			world = autre;
+		}
+		net.minecraft.structure.StructureTemplate template = player.server.getStructureTemplateManager().getTemplate(gabarit).orElse(null);
+		if (template == null) {
+			LesLimbes.LOGGER.warn("poser_structure : gabarit introuvable {}", gabarit);
+			return;
+		}
+		net.minecraft.structure.StructurePlacementData placement = new net.minecraft.structure.StructurePlacementData().setIgnoreEntities(false)
+				.addProcessor(net.minecraft.structure.processor.BlockIgnoreStructureProcessor.IGNORE_STRUCTURE_BLOCKS);
+		world.getChunk(pos);
+		template.place(world, pos, pos, placement, world.getRandom(), 2);
+		fr.leslimbes.world.structure.MarqueursDeStructure.appliquerTous(world, template, placement, pos, world.getRandom());
+		if (drapeau != null) {
+			etat.poserDrapeau(drapeau);
+		}
+		net.minecraft.util.math.Vec3i taille = template.getSize();
+		net.minecraft.util.math.Vec3d centre = net.minecraft.util.math.Vec3d.of(pos).add(taille.getX() / 2.0, taille.getY() / 2.0, taille.getZ() / 2.0);
+		world.playSound(null, BlockPos.ofFloored(centre), LimbesSounds.ARRIVEE, SoundCategory.PLAYERS, 1.2F, 0.9F);
+		fr.leslimbes.power.Abilities.effet(world, "chantier", centre, net.minecraft.util.math.Vec3d.of(taille), 0);
+		LesLimbes.LOGGER.info("Gabarit {} posé en {} par {}", gabarit, pos.toShortString(), player.getName().getString());
+	}
+
 	private static void apparition(ServerPlayerEntity player, JsonObject a) {
 		Identifier id = Identifier.of(JsonUtil.requireString(a, "entite", "apparition"));
 		int nombre = JsonUtil.integer(a, "nombre", 1);

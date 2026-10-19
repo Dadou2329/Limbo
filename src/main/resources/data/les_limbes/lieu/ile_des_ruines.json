@@ -1,0 +1,11 @@
+{
+  "nom": "Île des ruines",
+  "pos": [
+    1300,
+    70,
+    -1000
+  ],
+  "rayon": 24,
+  "region": "mer",
+  "description": "Colonnes d'autrefois sur un îlot de nacre ; une baleine des hauteurs tourne au-dessus."
+}

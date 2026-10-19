@@ -1,0 +1,20 @@
+{
+  "nom": "Aurèle",
+  "debut": [
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Chez nous, le brouillard mangeait une rue par an. Ici, le ciel est nacré et la pierre tient. Je crois que je vais aimer ça."
+      ],
+      "choix": [
+        {
+          "texte": "Bienvenue."
+        }
+      ]
+    }
+  }
+}

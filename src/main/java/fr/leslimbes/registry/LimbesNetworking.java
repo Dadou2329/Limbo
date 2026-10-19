@@ -14,6 +14,7 @@ public final class LimbesNetworking {
 	public static void init() {
 		PayloadTypeRegistry.playC2S().register(LimbesPayloads.UtiliserPouvoir.ID, LimbesPayloads.UtiliserPouvoir.CODEC);
 		PayloadTypeRegistry.playC2S().register(LimbesPayloads.EquiperPouvoir.ID, LimbesPayloads.EquiperPouvoir.CODEC);
+		PayloadTypeRegistry.playC2S().register(LimbesPayloads.UtiliserPouvoirId.ID, LimbesPayloads.UtiliserPouvoirId.CODEC);
 		PayloadTypeRegistry.playC2S().register(LimbesPayloads.ChoixDialogue.ID, LimbesPayloads.ChoixDialogue.CODEC);
 		PayloadTypeRegistry.playC2S().register(LimbesPayloads.SuivreQuete.ID, LimbesPayloads.SuivreQuete.CODEC);
 		PayloadTypeRegistry.playS2C().register(LimbesPayloads.SyncJoueur.ID, LimbesPayloads.SyncJoueur.CODEC);
@@ -36,6 +37,14 @@ public final class LimbesNetworking {
 				return;
 			}
 			context.server().execute(() -> Abilities.utiliserSlot(player, slot));
+		});
+		ServerPlayNetworking.registerGlobalReceiver(LimbesPayloads.UtiliserPouvoirId.ID, (payload, context) -> {
+			ServerPlayerEntity player = context.player();
+			String pouvoir = payload.pouvoir();
+			if (pouvoir.isEmpty() || pouvoir.length() > 64) {
+				return;
+			}
+			context.server().execute(() -> Abilities.utiliserParId(player, pouvoir));
 		});
 		ServerPlayNetworking.registerGlobalReceiver(LimbesPayloads.EquiperPouvoir.ID, (payload, context) -> {
 			ServerPlayerEntity player = context.player();

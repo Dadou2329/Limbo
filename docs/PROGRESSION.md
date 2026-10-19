@@ -16,7 +16,7 @@ ACTE IV — LA COURONNE          COURONNEMENT JOUABLE                  ACTE V �
  avec Vaëron, épreuve finale    Cérémonie courte, premier acte royal  navire royal, frontières
 ```
 
-**État** : les actes I à IV sont jouables de bout en bout, jusqu'au couronnement et au premier acte royal (quête `le_couronnement`). L'acte V (le règne) est décrit dans `BACKLOG.md`.
+**État** : les cinq actes sont jouables de bout en bout : couronnement, premier acte royal, puis le règne (acte V : la cité arrivée, le grand tournoi, le navire royal, les frontières et l'Avènement).
 
 ## Quêtes de l'acte I
 
@@ -37,15 +37,47 @@ ACTE IV — LA COURONNE          COURONNEMENT JOUABLE                  ACTE V �
 7. Rencontrer Orielle au manoir → **clé du manoir**.
 8. Parler à Vaëron sur la place → décret « Reculez » ; fin de l'acte I (+3 niveaux).
 
-## Pouvoirs
+## Pouvoirs (33 techniques, 7 branches)
 
-| Pouvoir | Branche | Coût | Recharge | Débloqué par |
+Quatre emplacements (touches **R**, **V**, **G**, **B**) et une sélection radiale (**X**, clic = utiliser, Maj + clic = équiper). Le journal (J), onglet Pouvoirs, liste les techniques par branche avec coût et recharge. La Marche du Palais rend les Portes gratuites ; l'Avènement divise par deux coût et recharge de tout le reste.
+
+| Technique | Branche | Coût | Recharge | Débloquée par |
 |---|---|---|---|---|
 | Épée du Souverain | Arsenal | 10 | 1 s | fragment de couronne (Gaspard) |
+| Parade royale | Arsenal | 8 | 3 s | Sabine à la forge royale |
+| Lance du Souverain | Arsenal | 12 | 1 s | Sabine à la forge royale |
+| Charge de lance | Arsenal | 18 | 6 s | Sabine, après un affûtage |
+| Changement d'arme | Arsenal | 5 | 0,5 s | Sabine, après deux affûtages |
+| Arc du Souverain | Arsenal | 12 | 1 s | fin de l'acte II |
+| Marque royale | Arsenal | 10 | 8 s | fin de l'acte II |
+| Bouclier du Souverain | Arsenal | 12 | 1 s | Orsane reconnue |
+| Armes satellites | Arsenal | 30 | 20 s | la salle des miroirs |
 | Pas court | Portes | 15 | 1,5 s | fragment de couronne (Gaspard) |
+| Porte directionnelle | Portes | 15 | 2 s | Aélis reconnue |
+| Attaque d'angle | Portes | 20 | 4 s | fin de l'acte III |
+| Sauvetage | Portes | 20 | 10 s | l'expédition de l'archipel ou le pont du Vent-Debout |
+| Liaison royale | Portes | 25 | 30 s | les routes éteintes |
 | Décret : Reculez | Décrets | 20 | 5 s | rencontre de Vaëron |
+| Décret : Déposez les armes | Décrets | 25 | 15 s | le tournoi des heures |
+| Décret : Tenez bon | Décrets | 20 | 20 s | Kaël reconnu |
+| Décret : Que le chemin s'ouvre | Décrets | 30 | 30 s | Vaëron vaincu |
+| Décret : Restez | Décrets | 20 | 10 s | Sahir reconnu |
+| Décret : Élevez-vous | Décrets | 20 | 10 s | Vaëron vaincu |
+| Chevalier astral | Garde astrale | 25 | 10 s | les murs de Haute-Garde (Aubin) |
+| Archer astral | Garde astrale | 25 | 10 s | fin de l'acte III |
+| Protecteur astral | Garde astrale | 30 | 15 s | fin de l'acte III |
+| Ordre de garde | Garde astrale | 5 | 1 s | fin de l'acte III |
+| Main des Limbes : saisir | Main des Limbes | 15 | 3 s | la danse des racines |
+| Main des Limbes : passage | Main des Limbes | 20 | 5 s | couronnement |
+| Main couronnée | Main des Limbes | 35 | 15 s | le sceau du roi (fin du couronnement) |
+| Appel de monture | Pactes royaux | 10 | 5 s | couronnement |
+| Pacte de combat | Pactes royaux | 20 | 15 s | couronnement |
+| Jugement des constellations | Emblématique | 50 | 60 s | le sceau du roi |
+| Marche du Palais | Emblématique | 40 | 45 s | le sceau du roi |
+| Audience du Roi | Emblématique | 45 | 60 s | couronnement |
+| Avènement | Emblématique | 80 | 300 s | les frontières (acte V) |
 
-Majesté : 60 au départ, +40 avec le fragment ; régénération 0,4/tick (8/s).
+Majesté : 60 au départ, +40 avec le fragment, +60 au couronnement ; régénération 0,4/tick (8/s), quadruplée pendant l'Avènement. Les armes royales (épée, lance, arc, bouclier) sont invoquées : lâchées, elles se dissipent ; l'affûtage de Sabine s'applique à l'épée et à la lance. La garde astrale compte trois gardes au plus pendant une minute chacune ; les alliés (joueurs, habitants, gardes, montures liées) ne sont jamais touchés par les techniques de zone.
 
 ## Domaine (acte II, début)
 
@@ -70,6 +102,17 @@ Réseau des passages : touchez les portes de relais (Sanctuaire, place de Clairv
 | Le couronnement | IV | Tiphaine ouvre la cérémonie (délégations présentes, lanternes rallumées, ponts reformés, couronne assemblée, +60 de majesté) ; premier acte royal : attirer le fragment du belvédère et y retrouver le sceau du roi. |
 
 Les duels sont des épreuves amicales (à bout de forces, retour à l'entrée) sauf le duel final, où la défaite ramène aussi à l'entrée : tout duel peut être repris. Chaque boss annonce ses coups ; les phases sont annoncées en clair.
+
+## Le règne (acte V, étape 7)
+
+| Quête | Ce qu'il faut faire |
+|---|---|
+| La cité arrivée | Aldric appelle Brumeval (Arrivée majeure sur le site de l'ouest, −1060/−700) ; Hortense, la maire, demande quatre lanternes royales ; la place s'éclaire et sa porte rejoint le réseau des passages. |
+| Le grand tournoi | Rachid ouvre cinq épreuves amicales dans la cour des heures : Aélis, Kaël, Orsane, Sahir, puis Vaëron ; titre de champion des Limbes. |
+| Le navire royal | Le capitaine Lio (campement de l'archipel) demande 24 planches d'aube, 12 fibres nacrées et 3 perles ; son équipage achève le navire au chantier naval (1030/−800, porte de relais à bord) ; cap sur l'île des ruines (1300/−1000), où chante la baleine des hauteurs, pour retrouver le journal de l'expédition royale. |
+| Les frontières | Bertrand envoie à la lisière des brumes (−900/−1380) : l'ancien roi tient la lumière ; tenir avec lui contre quatre Veilleurs et deux sentinelles, puis décider de son sort (rentrer ou garder la frontière). Récompense : l'**Avènement**. |
+
+Lisbeth, à l'observatoire, permet ensuite de préparer une Arrivée (la caisse tombée) à la demande du souverain.
 
 ## Six régions (étape 5)
 
@@ -116,5 +159,8 @@ Montures : approcher la bête avec son appât en main, la nourrir trois fois ; c
 | Quartier des portes | −900 / 78 / −720 |
 | Place des cérémonies (capitale) | −900 / 86 / −900 ; palais au nord (grande porte −900 / 88 / −941) ; marché −955 / −880 ; ambassades −845 / −880 ; archives −955 / −945 ; ateliers −900 / −840 ; résidences −838 / −945 |
 | Arènes | jardin de l'épreuve 1150 / 72 / 300 ; Vent-Debout 1000 / 90 / −850 ; salle des miroirs −1230 / 96 / 500 ; cour des heures 230 / 66 / 1330 ; campement de l'archipel 1250 / 66 / −650 |
-| Sites d'Arrivée du royaume | −700 / 86 / −1060 ; −1060 / 86 / −700 |
+| Sites d'Arrivée du royaume | −700 / 86 / −1060 (belvédère) ; −1060 / 86 / −700 (Brumeval, porte de relais −1060 / 87 / −692) |
+| Chantier naval et navire royal | 1030 / 64 / −800 (pont) ; porte de relais à bord 1030 / 65 / −786 |
+| Île des ruines | 1300 / 70 / −1000 |
+| Lisière des brumes | −900 / 86 / −1380 (lanterne au sommet de la tour, −900 / 100 / −1380) |
 | Palais (silhouette céleste) | cap nord-ouest, non chargé |

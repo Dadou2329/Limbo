@@ -61,6 +61,21 @@ public final class BlocsTemporaires {
 		}
 	}
 
+	/** Retire (et restaure) les blocs temporaires à moins de {@code rayon} blocs d'un point. @return nombre retiré. */
+	public int retirerAutour(ServerWorld world, BlockPos centre, int rayon) {
+		int n = 0;
+		Iterator<Map.Entry<BlockPos, Entree>> it = poses.entrySet().iterator();
+		while (it.hasNext()) {
+			Map.Entry<BlockPos, Entree> e = it.next();
+			if (e.getKey().isWithinDistance(centre, rayon)) {
+				restaurer(world, e.getKey(), e.getValue());
+				it.remove();
+				n++;
+			}
+		}
+		return n;
+	}
+
 	public int nombre() {
 		return poses.size();
 	}

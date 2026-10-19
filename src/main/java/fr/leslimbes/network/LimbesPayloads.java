@@ -24,6 +24,17 @@ public final class LimbesPayloads {
 		}
 	}
 
+	/** C2S : utiliser un pouvoir par identifiant (sélection radiale) ; le serveur vérifie qu'il est débloqué. */
+	public record UtiliserPouvoirId(String pouvoir) implements CustomPayload {
+		public static final Id<UtiliserPouvoirId> ID = new Id<>(LesLimbes.id("utiliser_pouvoir_id"));
+		public static final PacketCodec<RegistryByteBuf, UtiliserPouvoirId> CODEC = PacketCodec.tuple(PacketCodecs.STRING, UtiliserPouvoirId::pouvoir, UtiliserPouvoirId::new);
+
+		@Override
+		public Id<? extends CustomPayload> getId() {
+			return ID;
+		}
+	}
+
 	/** C2S : équiper un pouvoir débloqué dans un emplacement (chaîne vide = retirer). */
 	public record EquiperPouvoir(int slot, String pouvoir) implements CustomPayload {
 		public static final Id<EquiperPouvoir> ID = new Id<>(LesLimbes.id("equiper_pouvoir"));

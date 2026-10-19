@@ -1,0 +1,130 @@
+{
+  "titre": "Les frontières",
+  "acte": 5,
+  "description": "Bertrand l'a dit : le roi disparu tient la lumière à la lisière des brumes, au nord de la Couronne. Il faut aller le voir, tenir la lumière avec lui contre ce qui tombe des brumes, puis décider de son sort.",
+  "etapes": [
+    {
+      "id": "lisiere",
+      "resume": "Gagner la lisière des brumes, loin au nord de la capitale.",
+      "lieu": {
+        "nom": "Lisière des brumes",
+        "pos": [
+          -900,
+          86,
+          -1380
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "lisiere",
+          "type": "atteindre",
+          "pos": [
+            -900,
+            86,
+            -1380
+          ],
+          "rayon": 24,
+          "dimension": "les_limbes:limbes",
+          "texte": "Atteindre la lisière des brumes"
+        }
+      ]
+    },
+    {
+      "id": "roi",
+      "resume": "Parler à l'ancien roi, près de la grande lanterne.",
+      "lieu": {
+        "nom": "Lisière des brumes",
+        "pos": [
+          -900,
+          86,
+          -1380
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "roi",
+          "type": "parler",
+          "cible": "ancien_roi",
+          "manuel": true,
+          "texte": "Parler à l'ancien roi"
+        }
+      ]
+    },
+    {
+      "id": "vagues",
+      "resume": "Tenir la lumière : ce qui tombe des brumes se jette sur la lanterne.",
+      "lieu": {
+        "nom": "Lisière des brumes",
+        "pos": [
+          -900,
+          86,
+          -1380
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "veilleurs",
+          "type": "vaincre",
+          "cible": "les_limbes:veilleur_egare",
+          "nombre": 4,
+          "texte": "Repousser quatre Veilleurs égarés"
+        },
+        {
+          "id": "sentinelles",
+          "type": "vaincre",
+          "cible": "les_limbes:sentinelle_de_la_couronne",
+          "nombre": 2,
+          "texte": "Abattre deux sentinelles de la Couronne"
+        }
+      ]
+    },
+    {
+      "id": "choix",
+      "resume": "Reparler à l'ancien roi : rentrera-t-il à la capitale, ou gardera-t-il la frontière ?",
+      "lieu": {
+        "nom": "Lisière des brumes",
+        "pos": [
+          -900,
+          86,
+          -1380
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "choix",
+          "type": "parler",
+          "cible": "ancien_roi",
+          "manuel": true,
+          "texte": "Décider du sort de l'ancien roi"
+        }
+      ]
+    }
+  ],
+  "fin": [
+    {
+      "type": "experience",
+      "niveaux": 12
+    },
+    {
+      "type": "pouvoir",
+      "id": "avenement"
+    },
+    {
+      "type": "drapeau",
+      "nom": "frontieres_tenues"
+    },
+    {
+      "type": "titre",
+      "titre": "Avènement",
+      "sous_titre": "La royauté se révèle pleinement"
+    },
+    {
+      "type": "message",
+      "texte": "La lumière des frontières tient. L'Avènement est à vous : la royauté peut se révéler pleinement quand vous l'appelez."
+    }
+  ]
+}

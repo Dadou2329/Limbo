@@ -1,0 +1,56 @@
+{
+  "titre": "Grand tournoi — L'épreuve d'Aélis",
+  "pretendant": "aelis",
+  "boss": "les_limbes:aelis_duel",
+  "arene": {
+    "centre": [
+      230,
+      66,
+      1330
+    ],
+    "rayon": 17,
+    "dimension": "les_limbes:limbes"
+  },
+  "entree": [
+    230,
+    66,
+    1346
+  ],
+  "yaw": 180,
+  "apparition": [
+    230,
+    66,
+    1320
+  ],
+  "amical": true,
+  "phases": [
+    {
+      "seuil": 0.6,
+      "message": "Aélis danse avec les racines : évitez les piliers, abattez les fleurs de vie.",
+      "invocations": [
+        {
+          "entite": "les_limbes:fleur_de_vie",
+          "nombre": 2
+        }
+      ],
+      "blocs": "racines",
+      "duree_blocs": 400
+    }
+  ],
+  "victoire": [
+    {
+      "type": "message",
+      "texte": "L'épreuve d'Aélis est remportée. Rachid lève le bras : la cour des heures acclame le souverain."
+    },
+    {
+      "type": "experience",
+      "niveaux": 2
+    }
+  ],
+  "echec": [
+    {
+      "type": "message",
+      "texte": "L'épreuve s'arrête là pour cette fois. Rachid vous attend pour la reprendre."
+    }
+  ]
+}

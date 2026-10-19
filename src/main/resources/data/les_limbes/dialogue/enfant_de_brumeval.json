@@ -1,0 +1,20 @@
+{
+  "nom": "Tilio",
+  "debut": [
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "C'est vous le roi ? Vous avez une couronne qui flotte ! Est-ce qu'on peut monter sur les baleines, ici ?"
+      ],
+      "choix": [
+        {
+          "texte": "On verra ça."
+        }
+      ]
+    }
+  }
+}

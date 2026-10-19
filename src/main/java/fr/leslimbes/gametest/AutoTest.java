@@ -41,7 +41,8 @@ public final class AutoTest {
 			// Villes et lieux des régions dont l'auto-test vérifie les personnages ou les créatures (rayon de deux chunks : les toiles font jusqu'à 71 blocs).
 			LimbesSites.PORT_NACRE, LimbesSites.MARCHE_FLOTTANT, LimbesSites.SYLVECIME, LimbesSites.SERRE_ANCIENNE, LimbesSites.CLAIRIERE_DU_GEANT,
 			LimbesSites.MERIDIANE, LimbesSites.JARDIN_FERTILE, LimbesSites.VERREOLE, LimbesSites.HAUTE_GARDE, LimbesSites.QUARTIER_DES_PORTES,
-			LimbesSites.PLACE_DES_CEREMONIES, LimbesSites.PALAIS, LimbesSites.ARENE_AELIS, LimbesSites.ARENE_KAEL, LimbesSites.ARENE_ORSANE, LimbesSites.ARENE_SAHIR, LimbesSites.CAMPEMENT_DE_L_ARCHIPEL);
+			LimbesSites.PLACE_DES_CEREMONIES, LimbesSites.PALAIS, LimbesSites.ARENE_AELIS, LimbesSites.ARENE_KAEL, LimbesSites.ARENE_ORSANE, LimbesSites.ARENE_SAHIR, LimbesSites.CAMPEMENT_DE_L_ARCHIPEL,
+			LimbesSites.CHANTIER_NAVAL, LimbesSites.ILE_DES_RUINES, LimbesSites.LISIERE_DES_BRUMES, LimbesSites.BRUMEVAL);
 	private static int phase;
 	private static long tickDepart;
 	private static long debutGeneration;
@@ -164,7 +165,8 @@ public final class AutoTest {
 				{"kael", "950", "66", "-750"}, {"aelis", "1050", "72", "350"}, {"sahir", "150", "66", "1250"}, {"orsane", "-1150", "96", "500"}, {"intendant_garde", "-610", "82", "-610"},
 				{"oriane", "900", "72", "520"}, {"ismael", "380", "66", "1130"}, {"nerine", "800", "63", "-600"}, {"elouan", "-900", "78", "-720"},
 				{"chambellan", "-900", "86", "-900"}, {"heraut", "-900", "86", "-900"}, {"conseiller_royal", "-900", "86", "-960"}, {"archiviste_royale", "-955", "86", "-945"},
-				{"maitre_des_jeux", "230", "66", "1330"}, {"capitaine_lio", "1250", "66", "-650"}}) {
+				{"maitre_des_jeux", "230", "66", "1330"}, {"capitaine_lio", "1250", "66", "-650"},
+				{"ancien_roi", "-900", "86", "-1380"}, {"charpentier_royal", "1030", "65", "-800"}}) {
 			BlockPos centre = new BlockPos(Integer.parseInt(r[1]), Integer.parseInt(r[2]), Integer.parseInt(r[3]));
 			// Grande hauteur : Aélis siège au sommet de Sylvécime (y 110), Kaël à la capitainerie, Orsane au palais.
 			List<HabitantEntity> l = limbes.getEntitiesByClass(HabitantEntity.class, new Box(centre).expand(32, 64, 32), h -> h.getRole().equals(r[0]));
@@ -305,6 +307,27 @@ public final class AutoTest {
 		BlockPos garde = LimbesSites.HAUTE_GARDE;
 		int yGarde = limbes.getTopY(net.minecraft.world.Heightmap.Type.WORLD_SURFACE, garde.getX(), garde.getZ()) - 1;
 		verifier(yGarde >= garde.getY() - 1 && yGarde <= garde.getY() + 8, "plateau de Haute-Garde bâti vers " + garde.getY() + " (surface à " + yGarde + ", " + limbes.getBlockState(new BlockPos(garde.getX(), yGarde, garde.getZ())) + ")");
+		if (yGarde > garde.getY() + 8) {
+			StringBuilder colonne = new StringBuilder();
+			for (int y = garde.getY() - 2; y <= yGarde + 1; y++) {
+				BlockState b = limbes.getBlockState(new BlockPos(garde.getX(), y, garde.getZ()));
+				if (!b.isAir()) {
+					colonne.append(y).append('=').append(b.getBlock().getName().getString()).append(' ');
+				}
+			}
+			LesLimbes.LOGGER.info("AUTOTEST colonne de Haute-Garde en -610/-610 : {}", colonne);
+			int minX = Integer.MAX_VALUE, maxX = Integer.MIN_VALUE, minZ = Integer.MAX_VALUE, maxZ = Integer.MIN_VALUE, minY = Integer.MAX_VALUE, maxY = Integer.MIN_VALUE, n = 0;
+			for (int x = garde.getX() - 40; x <= garde.getX() + 40; x++) {
+				for (int z = garde.getZ() - 40; z <= garde.getZ() + 40; z++) {
+					for (int y = garde.getY() + 30; y <= garde.getY() + 70; y++) {
+						if (!limbes.getBlockState(new BlockPos(x, y, z)).isAir()) {
+							minX = Math.min(minX, x); maxX = Math.max(maxX, x); minZ = Math.min(minZ, z); maxZ = Math.max(maxZ, z); minY = Math.min(minY, y); maxY = Math.max(maxY, y); n++;
+						}
+					}
+				}
+			}
+			LesLimbes.LOGGER.info("AUTOTEST blocs hauts autour de Haute-Garde (y {}..{}) : {} blocs, boîte x {}..{}, y {}..{}, z {}..{}", garde.getY() + 30, garde.getY() + 70, n, minX, maxX, minY, maxY, minZ, maxZ);
+		}
 		// Créatures régionales : chaque espèce se crée et vit sur le serveur dédié, les biomes des régions les font
 		// apparaître, et le géant dort dans sa clairière (marqueur de structure).
 		int especes = 0;
@@ -353,6 +376,68 @@ public final class AutoTest {
 			verifier(fr.leslimbes.duel.DuelManager.duelDe("epreuve_d_aelis") == null, "le duel se termine à la mort du boss");
 			fr.leslimbes.world.state.PlayerLimbesData dj = fr.leslimbes.world.state.PlayerLimbesData.of(joueur);
 			verifier(dj.aDrapeau("duel_epreuve_d_aelis_gagne") && dj.aDrapeau("aelis_reconnue"), "la victoire pose les drapeaux (duel gagné, Aélis reconnue)");
+		}
+		// --- Étape 7 : pouvoirs supérieurs et règne ---
+		verifier(fr.leslimbes.power.Abilities.tous().size() >= 33 && fr.leslimbes.power.Abilities.BRANCHES.size() == 7, "trente-trois techniques dans sept branches (" + fr.leslimbes.power.Abilities.tous().size() + ")");
+		fr.leslimbes.power.Abilities.tous().keySet().forEach(donnees::debloquerPouvoir);
+		donnees.augmenterMajesteMax(300.0F);
+		joueur.refreshPositionAndAngles(LimbesSites.CLAIRVAL_ARRIVEE.getX() + 0.5, LimbesSites.CLAIRVAL_ARRIVEE.getY(), LimbesSites.CLAIRVAL_ARRIVEE.getZ() + 0.5, 0, 0);
+		boolean chevalier = fr.leslimbes.power.Abilities.utiliser(joueur, "chevalier_astral");
+		List<fr.leslimbes.entity.region.GardeAstraleEntity> gardes = fr.leslimbes.power.GardeAstrale.gardesDe(joueur, 16.0);
+		verifier(chevalier && gardes.size() == 1 && joueur.getUuid().equals(gardes.get(0).getProprietaire()), "un chevalier astral répond au joueur factice sur le serveur dédié (" + gardes.size() + ")");
+		gardes.forEach(fr.leslimbes.entity.region.GardeAstraleEntity::dissiper);
+		joueur.getInventory().clear();
+		verifier(fr.leslimbes.power.Abilities.utiliser(joueur, "lance_du_souverain") && joueur.getMainHandStack().isOf(fr.leslimbes.registry.LimbesItems.LANCE_DU_SOUVERAIN), "la Lance du Souverain s'invoque en main");
+		joueur.refreshPositionAndAngles(LimbesSites.CLAIRVAL_ARRIVEE.getX() + 0.5, LimbesSites.CLAIRVAL_ARRIVEE.getY() + 3, LimbesSites.CLAIRVAL_ARRIVEE.getZ() + 0.5, 0, 0);
+		boolean chemin = fr.leslimbes.power.Abilities.utiliser(joueur, "decret_que_le_chemin_s_ouvre");
+		BlockPos pont = BlockPos.ofFloored(joueur.getX() - 0.5, joueur.getY() - 1, joueur.getZ() + 2);
+		verifier(chemin && limbes.getBlockState(pont).isOf(LimbesBlocks.PONT_DE_LUMIERE) && limbes.getBlockTickScheduler().isQueued(pont, LimbesBlocks.PONT_DE_LUMIERE),
+				"« Que le chemin s'ouvre » pose un pont de lumière à disparition planifiée (" + limbes.getBlockState(pont) + ")");
+		for (int d = 1; d <= 14; d++) {
+			for (double cote : new double[]{-0.5, 0.5}) {
+				BlockPos pp = BlockPos.ofFloored(joueur.getX() + cote, joueur.getY() - 1, joueur.getZ() + d);
+				if (limbes.getBlockState(pp).isOf(LimbesBlocks.PONT_DE_LUMIERE)) {
+					limbes.removeBlock(pp, false);
+				}
+			}
+		}
+		donnees.poserDrapeau("couronne");
+		verifier(fr.leslimbes.power.Abilities.utiliser(joueur, "avenement") && fr.leslimbes.power.EtatPouvoirs.avenementActif(joueur), "l'Avènement se révèle pour le souverain couronné");
+		verifier(fr.leslimbes.quest.QuestLoader.get("la_cite_arrivee") != null && fr.leslimbes.quest.QuestLoader.get("le_grand_tournoi") != null
+				&& fr.leslimbes.quest.QuestLoader.get("le_navire_royal") != null && fr.leslimbes.quest.QuestLoader.get("les_frontieres") != null, "les quatre quêtes de l'acte V sont chargées");
+		verifier(fr.leslimbes.duel.DuelLoader.tous().size() >= 13, "les cinq épreuves du grand tournoi sont chargées (" + fr.leslimbes.duel.DuelLoader.tous().size() + " duels)");
+		// Chantier naval : coque dans la Mer, charpentier ; puis le navire royal est posé par l'action de dialogue.
+		verifier(limbes.getBlockState(new BlockPos(1030, 64, -800)).isOf(LimbesBlocks.PLANCHES_D_AUBE), "pont de la coque du chantier naval en 1030/64/-800 (" + limbes.getBlockState(new BlockPos(1030, 64, -800)) + ")");
+		verifier(limbes.getBlockState(new BlockPos(1042, 60, -800)).isOf(net.minecraft.block.Blocks.WATER), "la Mer entoure le chantier naval (" + limbes.getBlockState(new BlockPos(1042, 60, -800)) + ")");
+		com.google.gson.JsonObject poser = com.google.gson.JsonParser.parseString("{\"type\": \"poser_structure\", \"gabarit\": \"les_limbes:regne/navire_royal\", \"pos\": [1021, 55, -820], \"dimension\": \"les_limbes:limbes\", \"drapeau_monde\": \"navire_royal_pose\"}").getAsJsonObject();
+		fr.leslimbes.npc.dialogue.Actions.executer(joueur, poser);
+		BlockPos porteNavire = new BlockPos(1030, 66, -786);
+		String relaisNavire = limbes.getBlockEntity(porteNavire) instanceof fr.leslimbes.block.PorteDeRelaisBlock.PorteDeRelaisBlockEntity be ? be.getRelais() : "(aucun)";
+		verifier(fr.leslimbes.world.state.LimbesWorldState.get(server).aDrapeau("navire_royal_pose") && limbes.getBlockState(porteNavire).isOf(LimbesBlocks.PORTE_DE_RELAIS) && relaisNavire.equals("navire_royal"),
+				"le navire royal est posé par l'action de dialogue, porte de relais « navire_royal » en " + porteNavire.toShortString() + " (" + limbes.getBlockState(porteNavire) + ", " + relaisNavire + ")");
+		verifier(limbes.getBlockState(new BlockPos(1030, 70, -806)).isOf(LimbesBlocks.BUCHE_D_AUBE), "le grand mât du navire royal se dresse (" + limbes.getBlockState(new BlockPos(1030, 70, -806)) + ")");
+		// Île des ruines : coffre au journal, baleine des hauteurs.
+		verifier(limbes.getBlockState(new BlockPos(1300, 72, -1000)).isOf(net.minecraft.block.Blocks.CHEST), "coffre des ruines en 1300/72/-1000 (" + limbes.getBlockState(new BlockPos(1300, 72, -1000)) + ")");
+		List<fr.leslimbes.entity.region.CreatureVolanteEntity> baleines = limbes.getEntitiesByClass(fr.leslimbes.entity.region.CreatureVolanteEntity.class, new Box(LimbesSites.ILE_DES_RUINES).expand(32, 40, 32),
+				b -> b.espece().id.equals("baleine_des_hauteurs"));
+		verifier(!baleines.isEmpty(), "une baleine des hauteurs tourne au-dessus de l'île des ruines (" + baleines.size() + ")");
+		// Lisière des brumes : grande lanterne allumée au sommet de la tour.
+		verifier(limbes.getBlockState(new BlockPos(-900, 100, -1380)).isOf(LimbesBlocks.LANTERNE_ROYALE), "lanterne de la lisière des brumes en -900/100/-1380 (" + limbes.getBlockState(new BlockPos(-900, 100, -1380)) + ")");
+		// Brumeval : l'Arrivée majeure se pose sur le site du royaume, avec sa maire et sa porte de relais.
+		fr.leslimbes.world.state.LimbesWorldState.get(server).poserDrapeau("cite_brumeval_appelee");
+		fr.leslimbes.arrivee.ArriveeDefinition brumeval = fr.leslimbes.arrivee.ArriveeLoader.get("cite_brumeval");
+		verifier(brumeval != null, "définition d'Arrivée « cite_brumeval » chargée");
+		if (brumeval != null) {
+			Optional<fr.leslimbes.arrivee.ArriveeEvenement> e = fr.leslimbes.arrivee.ArriveeManager.declencher(server, brumeval, "royaume_2");
+			String raison = e.isPresent() ? "" : " (zone : " + fr.leslimbes.arrivee.ArriveeManager.raisonOccupation(limbes, LimbesSites.BRUMEVAL.add(-16, -3, -16), new net.minecraft.util.math.Vec3i(33, 20, 33)) + ")";
+			verifier(e.isPresent(), "Arrivée « Brumeval » déclenchée sur le site royaume_2" + raison);
+			if (e.isPresent()) {
+				BlockPos porteBrumeval = new BlockPos(-1060, 87, -692);
+				String relaisBrumeval = limbes.getBlockEntity(porteBrumeval) instanceof fr.leslimbes.block.PorteDeRelaisBlock.PorteDeRelaisBlockEntity be ? be.getRelais() : "(aucun)";
+				verifier(limbes.getBlockState(porteBrumeval).isOf(LimbesBlocks.PORTE_DE_RELAIS) && relaisBrumeval.equals("brumeval"), "porte de relais « brumeval » en " + porteBrumeval.toShortString() + " (" + limbes.getBlockState(porteBrumeval) + ", " + relaisBrumeval + ")");
+				List<HabitantEntity> maire = limbes.getEntitiesByClass(HabitantEntity.class, new Box(LimbesSites.BRUMEVAL).expand(24, 16, 24), h -> h.getRole().equals("maire_de_brumeval"));
+				verifier(!maire.isEmpty(), "Hortense, maire de Brumeval, est présente");
+			}
 		}
 		int routes = 0;
 		for (int x = -8; x <= 8; x++) {

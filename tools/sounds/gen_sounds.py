@@ -144,6 +144,24 @@ def main() -> None:
                                sweep(400, 120, 0.6, 0.35) * env(int(SR * 0.6), 0.0, 0.9),
                                chime([392.0, 587.33, 783.99], 0.8, 0.05, 0.3, False)))
     save("pouvoir/refus", tone(220, 0.25, 0.4, harmonics=((1, 1.0), (1.5, 0.6))) * env(int(SR * 0.25), 0.01, 0.9))
+    # Pouvoirs supérieurs (étape 7)
+    save("pouvoir/parade", mix(sweep(2200, 3200, 0.18, 0.4) * env(int(SR * 0.18), 0.0, 0.9), chime([2093.0, 2637.0], 0.35, 0.05, 0.3, False),
+                               noise(0.2, 0.2, 5, 31) * env(int(SR * 0.2), 0.0, 0.9)))
+    save("pouvoir/lance", mix(sweep(600, 1900, 0.4, 0.4) * env(int(SR * 0.4), 0.02, 0.9), noise(0.5, 0.25, 12, 32) * env(int(SR * 0.5), 0.05, 0.8),
+                              tone(196.0, 0.4, 0.25) * env(int(SR * 0.4), 0.0, 0.9)))
+    save("pouvoir/arc", mix(sweep(1600, 900, 0.22, 0.35) * env(int(SR * 0.22), 0.0, 0.9), noise(0.3, 0.3, 20, 33) * env(int(SR * 0.3), 0.0, 0.85),
+                            chime([1318.5], 0.3, 0.05, 0.25, False)))
+    save("pouvoir/garde", mix(chime([659.25, 987.77, 1318.5, 1975.5], 0.9, 0.12, 0.35), tone(164.8, 1.0, 0.3, harmonics=((1, 1.0), (2, 0.4), (3, 0.2))) * env(int(SR * 1.0), 0.1, 0.8),
+                              noise(0.8, 0.1, 30, 34) * env(int(SR * 0.8), 0.2, 0.7)))
+    save("pouvoir/main", mix(tone(73.4, 0.7, 0.5, harmonics=((1, 1.0), (2, 0.5), (3, 0.25))) * env(int(SR * 0.7), 0.02, 0.9), sweep(500, 160, 0.5, 0.35) * env(int(SR * 0.5), 0.0, 0.9),
+                             noise(0.5, 0.3, 6, 35) * env(int(SR * 0.5), 0.0, 0.9)))
+    save("pouvoir/constellation", mix(chime([1046.5, 1318.5, 1567.98, 2093.0, 2637.0, 3135.96, 3951.07], 1.4, 0.11, 0.35),
+                                      sweep(3000, 1200, 1.2, 0.2) * env(int(SR * 1.2), 0.05, 0.8), noise(1.0, 0.08, 50, 36) * env(int(SR * 1.0), 0.2, 0.7)))
+    save("pouvoir/avenement", mix(chime([261.63, 329.63, 392.0, 523.25, 659.25, 783.99, 1046.5], 2.2, 0.2, 0.4),
+                                  tone(130.8, 2.4, 0.4, harmonics=((1, 1.0), (2, 0.6), (3, 0.3), (4, 0.15))) * env(int(SR * 2.4), 0.3, 0.6, 0.7, 0.3),
+                                  noise(2.0, 0.12, 35, 37) * env(int(SR * 2.0), 0.4, 0.6)))
+    save("creature/baleine_chant", mix(tone(110.0, 2.0, 0.45, harmonics=((1, 1.0), (2, 0.5), (3, 0.2)), vibrato=0.04) * env(int(SR * 2.0), 0.3, 0.6, 0.7, 0.4),
+                                       sweep(160, 95, 1.8, 0.3) * env(int(SR * 1.8), 0.2, 0.7), noise(1.6, 0.06, 80, 38) * env(int(SR * 1.6), 0.3, 0.6)))
     # Objets / quêtes
     save("objet/fragment", chime([1567.98, 2093.0, 2637.0], 0.5, 0.07, 0.35))
     save("quete/etape", chime([659.25, 987.77], 0.6, 0.14, 0.4))

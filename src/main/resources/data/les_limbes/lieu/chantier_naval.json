@@ -1,0 +1,11 @@
+{
+  "nom": "Chantier naval",
+  "pos": [
+    1030,
+    64,
+    -800
+  ],
+  "rayon": 20,
+  "region": "mer",
+  "description": "Au large de Port-Nacre, la coque du navire royal attend son gréement."
+}

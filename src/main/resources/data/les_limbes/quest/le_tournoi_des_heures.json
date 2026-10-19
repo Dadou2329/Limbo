@@ -61,6 +61,10 @@
   ],
   "fin": [
     {
+      "type": "pouvoir",
+      "id": "decret_deposez_les_armes"
+    },
+    {
       "type": "experience",
       "niveaux": 3
     }

@@ -2,6 +2,95 @@
   "nom": "Rachid",
   "debut": [
     {
+      "noeud": "tournoi_fini",
+      "si": [
+        {
+          "drapeau": "grand_tournoi_gagne"
+        }
+      ]
+    },
+    {
+      "noeud": "tournoi_royal_5",
+      "si": [
+        {
+          "quete_active": "le_grand_tournoi"
+        },
+        {
+          "drapeau": "duel_tournoi_royal_4_gagne"
+        },
+        {
+          "sans_drapeau": "duel_tournoi_royal_5_gagne"
+        }
+      ]
+    },
+    {
+      "noeud": "tournoi_royal_4",
+      "si": [
+        {
+          "quete_active": "le_grand_tournoi"
+        },
+        {
+          "drapeau": "duel_tournoi_royal_3_gagne"
+        },
+        {
+          "sans_drapeau": "duel_tournoi_royal_4_gagne"
+        }
+      ]
+    },
+    {
+      "noeud": "tournoi_royal_3",
+      "si": [
+        {
+          "quete_active": "le_grand_tournoi"
+        },
+        {
+          "drapeau": "duel_tournoi_royal_2_gagne"
+        },
+        {
+          "sans_drapeau": "duel_tournoi_royal_3_gagne"
+        }
+      ]
+    },
+    {
+      "noeud": "tournoi_royal_2",
+      "si": [
+        {
+          "quete_active": "le_grand_tournoi"
+        },
+        {
+          "drapeau": "duel_tournoi_royal_1_gagne"
+        },
+        {
+          "sans_drapeau": "duel_tournoi_royal_2_gagne"
+        }
+      ]
+    },
+    {
+      "noeud": "tournoi_royal_1",
+      "si": [
+        {
+          "quete_active": "le_grand_tournoi"
+        },
+        {
+          "sans_drapeau": "duel_tournoi_royal_1_gagne"
+        }
+      ]
+    },
+    {
+      "noeud": "grand_tournoi",
+      "si": [
+        {
+          "drapeau": "regne_commence"
+        },
+        {
+          "drapeau": "sahir_reconnu"
+        },
+        {
+          "quete_inconnue": "le_grand_tournoi"
+        }
+      ]
+    },
+    {
       "noeud": "champion",
       "si": [
         {
@@ -154,6 +243,144 @@
             {
               "type": "duel",
               "id": "tournoi_des_heures_3"
+            }
+          ]
+        },
+        {
+          "texte": "Une autre fois."
+        }
+      ]
+    },
+    "grand_tournoi": {
+      "texte": [
+        "Majesté ! Un souverain, cinq prétendants, une cour des heures : je n'ai pas dormi depuis le couronnement. Le grand tournoi du règne, épreuves amicales, les quatre prétendants puis Vaëron lui-même.",
+        "Ils ont tous dit oui. Même Orsane. Surtout Orsane."
+      ],
+      "choix": [
+        {
+          "texte": "Ouvrez le grand tournoi.",
+          "actions": [
+            {
+              "type": "demarrer_quete",
+              "quete": "le_grand_tournoi"
+            },
+            {
+              "type": "duel",
+              "id": "tournoi_royal_1"
+            }
+          ]
+        },
+        {
+          "texte": "Plus tard, Rachid."
+        }
+      ]
+    },
+    "tournoi_royal_1": {
+      "texte": [
+        "Épreuve 1 sur 5 : Aélis vous attend dans la cour des heures. Prêt ?"
+      ],
+      "choix": [
+        {
+          "texte": "Que l'épreuve commence.",
+          "actions": [
+            {
+              "type": "duel",
+              "id": "tournoi_royal_1"
+            }
+          ]
+        },
+        {
+          "texte": "Un instant."
+        }
+      ]
+    },
+    "tournoi_royal_2": {
+      "texte": [
+        "Épreuve 2 sur 5 : Kaël vous attend dans la cour des heures. Prêt ?"
+      ],
+      "choix": [
+        {
+          "texte": "Que l'épreuve commence.",
+          "actions": [
+            {
+              "type": "duel",
+              "id": "tournoi_royal_2"
+            }
+          ]
+        },
+        {
+          "texte": "Un instant."
+        }
+      ]
+    },
+    "tournoi_royal_3": {
+      "texte": [
+        "Épreuve 3 sur 5 : Orsane vous attend dans la cour des heures. Prêt ?"
+      ],
+      "choix": [
+        {
+          "texte": "Que l'épreuve commence.",
+          "actions": [
+            {
+              "type": "duel",
+              "id": "tournoi_royal_3"
+            }
+          ]
+        },
+        {
+          "texte": "Un instant."
+        }
+      ]
+    },
+    "tournoi_royal_4": {
+      "texte": [
+        "Épreuve 4 sur 5 : Sahir vous attend dans la cour des heures. Prêt ?"
+      ],
+      "choix": [
+        {
+          "texte": "Que l'épreuve commence.",
+          "actions": [
+            {
+              "type": "duel",
+              "id": "tournoi_royal_4"
+            }
+          ]
+        },
+        {
+          "texte": "Un instant."
+        }
+      ]
+    },
+    "tournoi_royal_5": {
+      "texte": [
+        "Épreuve 5 sur 5 : Vaëron vous attend dans la cour des heures. Prêt ?"
+      ],
+      "choix": [
+        {
+          "texte": "Que l'épreuve commence.",
+          "actions": [
+            {
+              "type": "duel",
+              "id": "tournoi_royal_5"
+            }
+          ]
+        },
+        {
+          "texte": "Un instant."
+        }
+      ]
+    },
+    "tournoi_fini": {
+      "texte": [
+        "Champion des Limbes ! Cinq épreuves, cinq révérences. Je vais faire graver ça sur le cadran. Vous voulez remettre le titre en jeu ? Vaëron en redemande."
+      ],
+      "choix": [
+        {
+          "texte": "Encore Vaëron.",
+          "actions": [
+            {
+              "type": "duel",
+              "id": "tournoi_royal_5"
             }
           ]
         },

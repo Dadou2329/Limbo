@@ -1,0 +1,64 @@
+{
+  "titre": "Grand tournoi — L'épreuve d'Orsane",
+  "pretendant": "orsane",
+  "boss": "les_limbes:orsane_duel",
+  "arene": {
+    "centre": [
+      230,
+      66,
+      1330
+    ],
+    "rayon": 17,
+    "dimension": "les_limbes:limbes"
+  },
+  "entree": [
+    230,
+    66,
+    1346
+  ],
+  "yaw": 180,
+  "apparition": [
+    230,
+    66,
+    1320
+  ],
+  "amical": true,
+  "phases": [
+    {
+      "seuil": 0.6,
+      "message": "Orsane se multiplie : la vraie laisse une traînée. Puis brisez les points de rupture.",
+      "invocations": [
+        {
+          "entite": "les_limbes:reflet_de_verre",
+          "nombre": 3
+        }
+      ]
+    },
+    {
+      "seuil": 0.3,
+      "message": "L'armure se dresse : brisez ses points de rupture.",
+      "invocations": [
+        {
+          "entite": "les_limbes:point_de_rupture",
+          "nombre": 2
+        }
+      ]
+    }
+  ],
+  "victoire": [
+    {
+      "type": "message",
+      "texte": "L'épreuve d'Orsane est remportée. Rachid lève le bras : la cour des heures acclame le souverain."
+    },
+    {
+      "type": "experience",
+      "niveaux": 2
+    }
+  ],
+  "echec": [
+    {
+      "type": "message",
+      "texte": "L'épreuve s'arrête là pour cette fois. Rachid vous attend pour la reprendre."
+    }
+  ]
+}

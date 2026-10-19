@@ -40,6 +40,14 @@ public final class LimbesSounds {
 	public static final SoundEvent MONTURE_APPEL = register("creature.monture.appel");
 	public static final SoundEvent TIREUR_TIR = register("creature.tireur.tir");
 	public static final SoundEvent PETIT_CRI = register("creature.petit.cri");
+	public static final SoundEvent POUVOIR_PARADE = register("pouvoir.parade");
+	public static final SoundEvent POUVOIR_LANCE = register("pouvoir.lance");
+	public static final SoundEvent POUVOIR_ARC = register("pouvoir.arc");
+	public static final SoundEvent POUVOIR_GARDE = register("pouvoir.garde");
+	public static final SoundEvent POUVOIR_MAIN = register("pouvoir.main");
+	public static final SoundEvent POUVOIR_CONSTELLATION = register("pouvoir.constellation");
+	public static final SoundEvent POUVOIR_AVENEMENT = register("pouvoir.avenement");
+	public static final SoundEvent BALEINE_CHANT = register("creature.baleine.chant");
 
 	private static SoundEvent register(String path) {
 		Identifier id = LesLimbes.id(path);

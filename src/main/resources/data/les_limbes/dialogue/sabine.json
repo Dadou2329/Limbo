@@ -111,7 +111,8 @@
     },
     "domaine": {
       "texte": [
-        "Bienvenue dans votre forge. Posez votre Épée du Souverain sur l'enclume, en pensée : je peux affûter son tranchant. Trois cristaux de nacre par affûtage, trois affûtages au plus."
+        "Bienvenue dans votre forge. Posez votre Épée du Souverain sur l'enclume, en pensée : je peux affûter son tranchant. Trois cristaux de nacre par affûtage, trois affûtages au plus.",
+        "Et puis l'Arsenal ne s'arrête pas à l'épée. Une parade, une lance : je vous montre, c'est dans le même métal."
       ],
       "choix": [
         {
@@ -141,7 +142,69 @@
           ]
         },
         {
+          "texte": "La charge de lance, montrez-moi.",
+          "si": [
+            {
+              "compteur": {
+                "nom": "epee_affutage",
+                "min": 1
+              }
+            },
+            {
+              "non": {
+                "pouvoir": "charge_de_lance"
+              }
+            }
+          ],
+          "actions": [
+            {
+              "type": "pouvoir",
+              "id": "charge_de_lance"
+            },
+            {
+              "type": "message",
+              "texte": "Sabine : « Lance en main, vous courez droit et tout ce qui est devant tombe. Ne visez pas un mur. »"
+            }
+          ]
+        },
+        {
+          "texte": "Changer d'arme sans rompre l'élan ?",
+          "si": [
+            {
+              "compteur": {
+                "nom": "epee_affutage",
+                "min": 2
+              }
+            },
+            {
+              "non": {
+                "pouvoir": "changement_d_arme"
+              }
+            }
+          ],
+          "actions": [
+            {
+              "type": "pouvoir",
+              "id": "changement_d_arme"
+            },
+            {
+              "type": "message",
+              "texte": "Sabine : « Épée, lance, arc, bouclier : la main qui change frappe plus fort au coup suivant. »"
+            }
+          ]
+        },
+        {
           "texte": "Juste bonjour."
+        }
+      ],
+      "actions": [
+        {
+          "type": "pouvoir",
+          "id": "parade_royale"
+        },
+        {
+          "type": "pouvoir",
+          "id": "lance_du_souverain"
         }
       ]
     }

@@ -40,6 +40,8 @@ public class JournalScreen extends Screen {
 			{"marguerite", "marguerite_recrutee"}, {"ysolde", "ysolde_recrutee"}, {"emile", "emile_a_clairval"}};
 
 	private Onglet onglet = Onglet.QUETES;
+	private int defilement;
+	private int hauteurContenu;
 	private String selection = "";
 	private int x0;
 	private int y0;
@@ -119,23 +121,60 @@ public class JournalScreen extends Screen {
 	}
 
 	private void initPouvoirs(PlayerLimbesData data) {
-		int y = y0 + 32;
-		List<String> pouvoirs = new ArrayList<>(data.pouvoirs);
-		pouvoirs.sort(Comparator.naturalOrder());
-		for (String id : pouvoirs) {
-			final String pid = id;
-			for (int slot = 0; slot < PlayerLimbesData.SLOTS; slot++) {
-				final int s = slot;
-				boolean deja = data.equipes.get(slot).equals(id);
-				addDrawableChild(ButtonWidget.builder(Text.literal((deja ? "■ " : "") + LimbesKeys.nomTouche(slot)), b -> {
-					ClientPlayNetworking.send(new LimbesPayloads.EquiperPouvoir(s, deja ? "" : pid));
-					data.equiper(s, deja ? "" : pid);
-					clearChildren();
-					init();
-				}).dimensions(x0 + largeur - 8 - (PlayerLimbesData.SLOTS - slot) * 34, y, 30, 18).build());
+		int y = y0 + 32 - defilement;
+		int bas = y0 + hauteur - 26;
+		for (String branche : Abilities.BRANCHES) {
+			List<String> pouvoirs = pouvoirsDe(data, branche);
+			if (pouvoirs.isEmpty()) {
+				continue;
 			}
-			y += hauteurEntree(id);
+			y += 12;
+			for (String id : pouvoirs) {
+				final String pid = id;
+				if (y >= y0 + 30 && y + 18 <= bas) {
+					for (int slot = 0; slot < PlayerLimbesData.SLOTS; slot++) {
+						final int s = slot;
+						boolean deja = data.equipes.get(slot).equals(id);
+						addDrawableChild(ButtonWidget.builder(Text.literal((deja ? "■ " : "") + LimbesKeys.nomTouche(slot)), b -> {
+							ClientPlayNetworking.send(new LimbesPayloads.EquiperPouvoir(s, deja ? "" : pid));
+							data.equiper(s, deja ? "" : pid);
+							clearChildren();
+							init();
+						}).dimensions(x0 + largeur - 8 - (PlayerLimbesData.SLOTS - slot) * 32, y, 30, 18).build());
+					}
+				}
+				y += hauteurEntree(id);
+			}
+			y += 4;
 		}
+		hauteurContenu = y + defilement - (y0 + 32);
+	}
+
+	/** Pouvoirs débloqués d'une branche, dans l'ordre du registre (ordre d'apprentissage naturel). */
+	private static List<String> pouvoirsDe(PlayerLimbesData data, String branche) {
+		List<String> liste = new ArrayList<>();
+		for (String id : Abilities.tous().keySet()) {
+			Ability a = Abilities.get(id);
+			if (a != null && a.branche().equals(branche) && data.pouvoirs.contains(id)) {
+				liste.add(id);
+			}
+		}
+		return liste;
+	}
+
+	@Override
+	public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
+		if (onglet == Onglet.POUVOIRS) {
+			int max = Math.max(0, hauteurContenu - (hauteur - 60));
+			int nouveau = (int) Math.max(0, Math.min(max, defilement - verticalAmount * 24));
+			if (nouveau != defilement) {
+				defilement = nouveau;
+				clearChildren();
+				init();
+			}
+			return true;
+		}
+		return super.mouseScrolled(mouseX, mouseY, horizontalAmount, verticalAmount);
 	}
 
 	private void initOptions() {
@@ -185,12 +224,13 @@ public class JournalScreen extends Screen {
 
 	/** Hauteur d'une entrée de l'onglet Pouvoirs : titre, coût, description repliée, marge. */
 	private int hauteurEntree(String id) {
-		int lignes = textRenderer.wrapLines(Text.translatable("pouvoir.les_limbes." + id + ".description"), largeur - 140).size();
+		int lignes = textRenderer.wrapLines(Text.translatable("pouvoir.les_limbes." + id + ".description"), largeur - 24 - PlayerLimbesData.SLOTS * 32).size();
 		return 20 + lignes * 9 + 8;
 	}
 
 	private void basculer(Onglet o) {
 		onglet = o;
+		defilement = 0;
 		clearChildren();
 		init();
 	}
@@ -270,27 +310,50 @@ public class JournalScreen extends Screen {
 	}
 
 	private void dessinerPouvoirs(DrawContext context, PlayerLimbesData data) {
-		int y = y0 + 34;
 		if (data.pouvoirs.isEmpty()) {
-			context.drawTextWithShadow(textRenderer, Text.translatable("ecran.les_limbes.journal.aucun_pouvoir"), x0 + 12, y, 0xFFB8B4B0);
+			context.drawTextWithShadow(textRenderer, Text.translatable("ecran.les_limbes.journal.aucun_pouvoir"), x0 + 12, y0 + 34, 0xFFB8B4B0);
+			return;
 		}
-		List<String> pouvoirs = new ArrayList<>(data.pouvoirs);
-		pouvoirs.sort(Comparator.naturalOrder());
-		for (String id : pouvoirs) {
-			Ability a = Abilities.get(id);
-			context.drawTextWithShadow(textRenderer, Text.translatable("pouvoir.les_limbes." + id), x0 + 12, y, 0xFFE3C97E);
-			String info = a == null ? "" : Text.translatable("ecran.les_limbes.journal.cout", (int) a.cout(), a.recharge() / 20.0).getString();
-			context.drawTextWithShadow(textRenderer, info, x0 + 12, y + 10, 0xFFB8B4B0);
-			List<OrderedText> desc = textRenderer.wrapLines(Text.translatable("pouvoir.les_limbes." + id + ".description"), largeur - 140);
-			int yy = y + 20;
-			for (OrderedText l : desc) {
-				context.drawTextWithShadow(textRenderer, l, x0 + 12, yy, 0xFFD8D4CC);
-				yy += 9;
+		int haut = y0 + 30;
+		int bas = y0 + hauteur - 26;
+		context.enableScissor(x0 + 2, haut, x0 + largeur - 2, bas);
+		int y = y0 + 32 - defilement;
+		int largeurTexte = largeur - 24 - PlayerLimbesData.SLOTS * 32;
+		for (String branche : Abilities.BRANCHES) {
+			List<String> pouvoirs = pouvoirsDe(data, branche);
+			if (pouvoirs.isEmpty()) {
+				continue;
 			}
-			y += hauteurEntree(id);
+			context.drawTextWithShadow(textRenderer, Text.translatable("branche.les_limbes." + branche).formatted(net.minecraft.util.Formatting.BOLD), x0 + 12, y, 0xFFB4934A);
+			y += 12;
+			for (String id : pouvoirs) {
+				Ability a = Abilities.get(id);
+				context.drawTextWithShadow(textRenderer, Text.translatable("pouvoir.les_limbes." + id), x0 + 12, y, 0xFFE3C97E);
+				String info = a == null ? "" : Text.translatable("ecran.les_limbes.journal.cout", (int) a.cout(), a.recharge() / 20.0).getString();
+				context.drawTextWithShadow(textRenderer, info, x0 + 12, y + 10, 0xFFB8B4B0);
+				List<OrderedText> desc = textRenderer.wrapLines(Text.translatable("pouvoir.les_limbes." + id + ".description"), largeurTexte);
+				int yy = y + 20;
+				for (OrderedText l : desc) {
+					context.drawTextWithShadow(textRenderer, l, x0 + 12, yy, 0xFFD8D4CC);
+					yy += 9;
+				}
+				y += hauteurEntree(id);
+			}
+			y += 4;
+		}
+		context.disableScissor();
+		int max = Math.max(0, hauteurContenu - (hauteur - 60));
+		if (max > 0) {
+			int piste = bas - haut;
+			int curseur = Math.max(12, piste * (hauteur - 60) / Math.max(1, hauteurContenu));
+			int yc = haut + (piste - curseur) * defilement / max;
+			context.fill(x0 + largeur - 5, haut, x0 + largeur - 3, bas, 0x40000000);
+			context.fill(x0 + largeur - 5, yc, x0 + largeur - 3, yc + curseur, 0xFFB4934A);
 		}
 		String maj = Text.translatable("ecran.les_limbes.journal.majeste", (int) data.majeste, (int) data.majesteMax).getString();
-		context.drawTextWithShadow(textRenderer, maj, x0 + 12, y0 + hauteur - 22, 0xFFE3C97E);
+		context.drawTextWithShadow(textRenderer, maj, x0 + 12, y0 + hauteur - 20, 0xFFE3C97E);
+		context.drawTextWithShadow(textRenderer, Text.translatable("ecran.les_limbes.journal.radial_aide", LimbesKeys.RADIAL.getBoundKeyLocalizedText().getString()),
+				x0 + 140, y0 + hauteur - 20, 0xFF8A8A9A);
 	}
 
 	private void dessinerDomaine(DrawContext context, PlayerLimbesData data) {

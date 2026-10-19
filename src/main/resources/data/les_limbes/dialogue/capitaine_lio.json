@@ -2,6 +2,67 @@
   "nom": "Lio",
   "debut": [
     {
+      "noeud": "navire_retour",
+      "si": [
+        {
+          "quete_active": "le_navire_royal"
+        },
+        {
+          "quete_etape": {
+            "le_navire_royal": "=5"
+          }
+        }
+      ]
+    },
+    {
+      "noeud": "navire_mer",
+      "si": [
+        {
+          "quete_active": "le_navire_royal"
+        },
+        {
+          "quete_etape": {
+            "le_navire_royal": ">=2"
+          }
+        }
+      ]
+    },
+    {
+      "noeud": "navire_chantier",
+      "si": [
+        {
+          "quete_active": "le_navire_royal"
+        },
+        {
+          "quete_etape": {
+            "le_navire_royal": "<=1"
+          }
+        }
+      ]
+    },
+    {
+      "noeud": "navire_fini",
+      "si": [
+        {
+          "drapeau": "navire_royal_termine"
+        }
+      ]
+    },
+    {
+      "noeud": "navire",
+      "si": [
+        {
+          "drapeau": "regne_commence"
+        },
+        {
+          "drapeau": "expedition_sauvee"
+        },
+        {
+          "quete_inconnue": "le_navire_royal"
+        }
+      ]
+    },
+    {
       "noeud": "sauve",
       "si": [
         {
@@ -62,6 +123,169 @@
       "choix": [
         {
           "texte": "Bon vent, capitaine."
+        }
+      ]
+    },
+    "navire": {
+      "texte": [
+        "Majesté ! Kaël rouvre les routes du ciel ; moi, je veux les routes de l'eau. J'ai fait dresser une coque au large de Port-Nacre, mais Josse manque de tout.",
+        "Vingt-quatre planches d'aube, douze fibres nacrées, trois perles de nacre : apportez-les-moi et vous aurez le premier navire royal des Limbes."
+      ],
+      "choix": [
+        {
+          "texte": "Je réunis les matériaux.",
+          "actions": [
+            {
+              "type": "demarrer_quete",
+              "quete": "le_navire_royal"
+            }
+          ]
+        },
+        {
+          "texte": "Une autre fois."
+        }
+      ]
+    },
+    "navire_chantier": {
+      "texte": [
+        "Les matériaux ? Vingt-quatre planches d'aube, douze fibres nacrées, trois perles. Josse n'attend que ça."
+      ],
+      "choix": [
+        {
+          "texte": "Voici tout ce qu'il faut.",
+          "si": [
+            {
+              "objet": {
+                "id": "les_limbes:planches_d_aube",
+                "nombre": 24
+              }
+            },
+            {
+              "objet": {
+                "id": "les_limbes:fibres_nacrees",
+                "nombre": 12
+              }
+            },
+            {
+              "objet": {
+                "id": "les_limbes:perle_de_nacre",
+                "nombre": 3
+              }
+            }
+          ],
+          "actions": [
+            {
+              "type": "retirer",
+              "objet": "les_limbes:planches_d_aube",
+              "nombre": 24
+            },
+            {
+              "type": "retirer",
+              "objet": "les_limbes:fibres_nacrees",
+              "nombre": 12
+            },
+            {
+              "type": "retirer",
+              "objet": "les_limbes:perle_de_nacre",
+              "nombre": 3
+            },
+            {
+              "type": "poser_structure",
+              "gabarit": "les_limbes:regne/navire_royal",
+              "pos": [
+                1021,
+                55,
+                -820
+              ],
+              "dimension": "les_limbes:limbes",
+              "drapeau_monde": "navire_royal_pose"
+            },
+            {
+              "type": "decouvrir_relais",
+              "id": "navire_royal",
+              "annoncer": true
+            },
+            {
+              "type": "objectif",
+              "quete": "le_navire_royal",
+              "objectif": "planches"
+            },
+            {
+              "type": "objectif",
+              "quete": "le_navire_royal",
+              "objectif": "fibres"
+            },
+            {
+              "type": "objectif",
+              "quete": "le_navire_royal",
+              "objectif": "perles"
+            },
+            {
+              "type": "objectif",
+              "quete": "le_navire_royal",
+              "objectif": "lio"
+            },
+            {
+              "type": "message",
+              "texte": "L'équipage de Lio travaille toute une nuit : au large de Port-Nacre, le navire royal se dresse, mâts et voiles. Sa porte de relais rejoint le réseau."
+            }
+          ]
+        },
+        {
+          "texte": "Pas encore tout."
+        }
+      ]
+    },
+    "navire_mer": {
+      "texte": [
+        "Le navire est à vous : montez à bord par le ponton, et cap au nord-est, l'île des ruines. Mina dit qu'une expédition du roi y a laissé son journal. Et méfiez-vous des gardiens des épaves, pas de la baleine : elle chante, c'est tout."
+      ],
+      "choix": [
+        {
+          "texte": "Cap au nord-est."
+        }
+      ]
+    },
+    "navire_retour": {
+      "texte": [
+        "Le journal de l'expédition royale ! Mina va pouvoir finir ses cartes. Les routes de l'eau sont à nous, Majesté."
+      ],
+      "choix": [
+        {
+          "texte": "Voici le journal.",
+          "si": [
+            {
+              "objet": {
+                "id": "les_limbes:journal_de_bord",
+                "nombre": 1
+              }
+            }
+          ],
+          "actions": [
+            {
+              "type": "retirer",
+              "objet": "les_limbes:journal_de_bord",
+              "nombre": 1
+            },
+            {
+              "type": "objectif",
+              "quete": "le_navire_royal",
+              "objectif": "retour"
+            }
+          ]
+        },
+        {
+          "texte": "Je ne l'ai pas sur moi."
+        }
+      ]
+    },
+    "navire_fini": {
+      "texte": [
+        "Le navire royal tient la mer, la porte à bord vous y mène quand vous voulez. On parle d'autres îles, plus loin. Un jour."
+      ],
+      "choix": [
+        {
+          "texte": "Un jour, capitaine."
         }
       ]
     }

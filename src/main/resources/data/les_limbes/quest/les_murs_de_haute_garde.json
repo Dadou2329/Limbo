@@ -28,6 +28,10 @@
   ],
   "fin": [
     {
+      "type": "pouvoir",
+      "id": "chevalier_astral"
+    },
+    {
       "type": "experience",
       "niveaux": 3
     },

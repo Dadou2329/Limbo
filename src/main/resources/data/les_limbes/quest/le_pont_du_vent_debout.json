@@ -49,6 +49,10 @@
   ],
   "fin": [
     {
+      "type": "pouvoir",
+      "id": "sauvetage"
+    },
+    {
       "type": "experience",
       "niveaux": 2
     }

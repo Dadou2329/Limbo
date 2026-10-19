@@ -1,0 +1,131 @@
+{
+  "titre": "Le grand tournoi",
+  "acte": 5,
+  "description": "Rachid, maître des jeux, organise le grand tournoi du règne dans la cour des heures : les quatre prétendants, puis Vaëron lui-même, affrontent le souverain en épreuves amicales.",
+  "etapes": [
+    {
+      "id": "aelis",
+      "resume": "Première épreuve : Aélis et sa danse des racines, dans la cour des heures.",
+      "lieu": {
+        "nom": "Cour des heures",
+        "pos": [
+          230,
+          66,
+          1330
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "aelis",
+          "type": "drapeau",
+          "cible": "duel_tournoi_royal_1_gagne",
+          "texte": "Remporter l'épreuve d'Aélis"
+        }
+      ]
+    },
+    {
+      "id": "kael",
+      "resume": "Deuxième épreuve : Kaël et ses portes dans le dos.",
+      "lieu": {
+        "nom": "Cour des heures",
+        "pos": [
+          230,
+          66,
+          1330
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "kael",
+          "type": "drapeau",
+          "cible": "duel_tournoi_royal_2_gagne",
+          "texte": "Remporter l'épreuve de Kaël"
+        }
+      ]
+    },
+    {
+      "id": "orsane",
+      "resume": "Troisième épreuve : Orsane, ses reflets et son armure.",
+      "lieu": {
+        "nom": "Cour des heures",
+        "pos": [
+          230,
+          66,
+          1330
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "orsane",
+          "type": "drapeau",
+          "cible": "duel_tournoi_royal_3_gagne",
+          "texte": "Remporter l'épreuve d'Orsane"
+        }
+      ]
+    },
+    {
+      "id": "sahir",
+      "resume": "Quatrième épreuve : Sahir et ses salves suspendues.",
+      "lieu": {
+        "nom": "Cour des heures",
+        "pos": [
+          230,
+          66,
+          1330
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "sahir",
+          "type": "drapeau",
+          "cible": "duel_tournoi_royal_4_gagne",
+          "texte": "Remporter l'épreuve de Sahir"
+        }
+      ]
+    },
+    {
+      "id": "vaeron",
+      "resume": "Finale : Vaëron, capitaine des routes, en épreuve amicale.",
+      "lieu": {
+        "nom": "Cour des heures",
+        "pos": [
+          230,
+          66,
+          1330
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "vaeron",
+          "type": "drapeau",
+          "cible": "duel_tournoi_royal_5_gagne",
+          "texte": "Remporter la finale contre Vaëron"
+        }
+      ]
+    }
+  ],
+  "fin": [
+    {
+      "type": "experience",
+      "niveaux": 10
+    },
+    {
+      "type": "drapeau",
+      "nom": "grand_tournoi_gagne"
+    },
+    {
+      "type": "titre",
+      "titre": "Champion des Limbes",
+      "sous_titre": "Le grand tournoi est remporté"
+    },
+    {
+      "type": "message",
+      "texte": "Les cinq prétendants s'inclinent ensemble. Rachid proclame le souverain champion des Limbes."
+    }
+  ]
+}

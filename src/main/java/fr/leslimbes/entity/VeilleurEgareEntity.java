@@ -103,6 +103,14 @@ public class VeilleurEgareEntity extends HostileEntity {
 		}
 	}
 
+	/** Interrompt un coup en préparation (parade, décret « Déposez les armes »). */
+	public void interrompre() {
+		if (getPreparation() > 0) {
+			this.dataTracker.set(PREPARATION, 0);
+			this.recuperation = RECUPERATION_TICKS;
+		}
+	}
+
 	private void commencerPreparation() {
 		this.dataTracker.set(PREPARATION, PREPARATION_TICKS);
 		this.getWorld().playSound(null, this.getBlockPos(), LimbesSounds.VEILLEUR_PREPARE, SoundCategory.HOSTILE, 1.0F, 1.0F);

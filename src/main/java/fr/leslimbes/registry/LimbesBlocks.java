@@ -176,6 +176,9 @@ public final class LimbesBlocks {
 			AbstractBlock.Settings.create().mapColor(MapColor.GOLD).strength(-1.0F, 3600000.0F).dropsNothing().nonOpaque().sounds(BlockSoundGroup.AMETHYST_BLOCK)
 					.luminance(state -> state.get(fr.leslimbes.block.PaveHoraireBlock.VISIBLE) ? 9 : 2).suffocates(LimbesBlocks::never).blockVision(LimbesBlocks::never)
 					.pistonBehavior(PistonBehavior.BLOCK)));
+	public static final Block PONT_DE_LUMIERE = register("pont_de_lumiere", new fr.leslimbes.block.PontDeLumiereBlock(
+			AbstractBlock.Settings.create().mapColor(MapColor.GOLD).strength(-1.0F, 3600000.0F).dropsNothing().nonOpaque().noBlockBreakParticles().sounds(BlockSoundGroup.GLASS)
+					.luminance(state -> 13).suffocates(LimbesBlocks::never).blockVision(LimbesBlocks::never).pistonBehavior(PistonBehavior.BLOCK)));
 
 	// --- Montagnes de Verre ----------------------------------------------------------------------
 	public static final Block PIERRE_DE_VERRE = register("pierre_de_verre", new Block(

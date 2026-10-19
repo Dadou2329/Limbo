@@ -19,7 +19,8 @@ Vous venez de créer une partie de survie avec Les Limbes. Voici de quoi commenc
 ## Combat
 
 - Les ennemis de cette région **annoncent leurs attaques** (ils lèvent les bras). Reculez à ce moment-là, puis frappez.
-- Vos pouvoirs royaux s'activent avec **R**, **V** et **G** (reconfigurables). Ils consomment de la **majesté**, une réserve qui se régénère vite : la barre en bas à gauche.
+- Vos pouvoirs royaux s'activent avec **R**, **V**, **G** et **B** (reconfigurables). Ils consomment de la **majesté**, une réserve qui se régénère vite : la barre en bas à gauche. La touche **X** ouvre une sélection rapide par branche (clic : utiliser ; Maj + clic : équiper).
+- Les techniques se gagnent au fil de l'histoire : la forge de Sabine (parade, lance), les prétendants reconnus, la fin de chaque acte, le couronnement, le sceau du roi, les frontières. Les armes royales (épée, lance, arc, bouclier) sont invoquées : si vous les lâchez, elles se dissipent, rappelez-les.
 - Ouvrez le journal (J), onglet **Pouvoirs**, pour équiper un pouvoir dans un emplacement.
 
 ## Votre domaine
@@ -44,6 +45,12 @@ Vous venez de créer une partie de survie avec Les Limbes. Voici de quoi commenc
 - Chaque prétendant a sa manière de vous reconnaître : une conversation, une expédition, un duel rituel ou un tournoi. Les **duels** sont annoncés comme tels, amicaux : à bout de forces, vous êtes ramené à l'entrée, et vous pouvez recommencer quand vous voulez. Chaque phase est annoncée en clair à l'écran.
 - La **capitale** (nord-ouest, au bout de la route de la Couronne) dort : ses portes royales s'ouvrent au fil de la campagne. Parlez à Elouan, puis au chambellan.
 - Les duels contre les prétendants et Vaëron restent disponibles après votre victoire, pour l'entraînement.
+
+## Le règne (acte V)
+
+- Après le couronnement, parlez au chambellan (Brumeval, la cité arrivée), à Rachid dans la cour des heures (le grand tournoi), au capitaine Lio au campement de l'archipel (le navire royal) et à Bertrand au palais (les frontières).
+- La **garde astrale** vous suit : un ordre (suivre, tenir, attaquer) vaut pour toute la garde. Les décrets et les techniques de zone n'atteignent jamais vos alliés.
+- L'**Avènement**, gagné aux frontières, révèle la royauté pendant trente secondes : couronne et manteau visibles de tous, majesté quadruplée, techniques deux fois plus rapides.
 
 ## Conseils
 

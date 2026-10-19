@@ -129,6 +129,14 @@ public class EnnemiAnnonceEntity extends HostileEntity implements EntiteAnimee {
 		commencerPreparation();
 	}
 
+	/** Interrompt un coup en préparation (parade, décret « Déposez les armes ») : l'ennemi récupère sans frapper. */
+	public void interrompre() {
+		if (getPreparation() > 0) {
+			this.dataTracker.set(PREPARATION, 0);
+			this.recuperation = espece().recuperation;
+		}
+	}
+
 	private void commencerPreparation() {
 		this.dataTracker.set(PREPARATION, espece().preparation);
 		this.getWorld().playSound(null, this.getBlockPos(), LimbesSounds.VEILLEUR_PREPARE, SoundCategory.HOSTILE, 1.0F, espece().vie >= 50 ? 0.7F : 1.1F);

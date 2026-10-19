@@ -142,7 +142,8 @@
     },
     "reconnue": {
       "texte": [
-        "Verréole vous suit. Les miroirs restent ouverts si vous voulez vous y mesurer encore : on ne reste pas exigeant sans entraînement."
+        "Verréole vous suit. Les miroirs restent ouverts si vous voulez vous y mesurer encore : on ne reste pas exigeant sans entraînement.",
+        "Orsane : « Le verre protège quand il réfléchit. Le Bouclier du Souverain rend chaque coup à qui le donne. »"
       ],
       "choix": [
         {
@@ -156,6 +157,12 @@
         },
         {
           "texte": "Majesté."
+        }
+      ],
+      "actions": [
+        {
+          "type": "pouvoir",
+          "id": "bouclier_du_souverain"
         }
       ]
     }

@@ -156,6 +156,22 @@
               "type": "objectif",
               "quete": "le_couronnement",
               "objectif": "tiphaine"
+            },
+            {
+              "type": "pouvoir",
+              "id": "audience_du_roi"
+            },
+            {
+              "type": "pouvoir",
+              "id": "appel_de_monture"
+            },
+            {
+              "type": "pouvoir",
+              "id": "pacte_de_combat"
+            },
+            {
+              "type": "pouvoir",
+              "id": "main_passage"
             }
           ],
           "suivant": "annonce"

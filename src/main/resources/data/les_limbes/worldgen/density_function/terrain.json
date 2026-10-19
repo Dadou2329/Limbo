@@ -264,6 +264,27 @@
           "y": 86,
           "rayon": 20,
           "transition": 16
+        },
+        {
+          "x": 1030,
+          "z": -800,
+          "y": 56,
+          "rayon": 24,
+          "transition": 14
+        },
+        {
+          "x": 1300,
+          "z": -1000,
+          "y": 70,
+          "rayon": 26,
+          "transition": 18
+        },
+        {
+          "x": -900,
+          "z": -1380,
+          "y": 86,
+          "rayon": 30,
+          "transition": 24
         }
       ],
       "argument": {

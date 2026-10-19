@@ -65,6 +65,14 @@
       "nom": "vaeron_vaincu"
     },
     {
+      "type": "pouvoir",
+      "id": "decret_elevez_vous"
+    },
+    {
+      "type": "pouvoir",
+      "id": "decret_que_le_chemin_s_ouvre"
+    },
+    {
       "type": "experience",
       "niveaux": 10
     },

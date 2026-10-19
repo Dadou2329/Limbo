@@ -395,9 +395,11 @@ public final class LesLimbesGameTests implements FabricGameTest {
 			context.assertTrue(e != null, "création de l'espèce " + entree.getKey());
 			// Une grille serrée mais espacée : plus de 24 entités au même point déclenchent les dégâts d'entassement de
 			// vanilla, et trop loin de la structure l'entité sort des chunks forcés du test (déchargée).
-			e.refreshPositionAndAngles(pos.getX() + 0.5 + (i % 5) * 2, pos.getY() + 0.5, pos.getZ() + 0.5 + (i / 5) * 2, 0, 0);
+			// Sept colonnes, pas de 1,6 bloc : la grille tient dans la parcelle du test (les parcelles voisines sont à treize blocs).
+			e.refreshPositionAndAngles(pos.getX() - 4.3 + (i % 7) * 1.6, pos.getY() + 0.5, pos.getZ() + 0.5 + (i / 7) * 1.6, 0, 0);
 			i++;
 			e.setPersistent(); // le monde de test n'a pas de joueur à moins de 128 blocs : sans cela, vanilla retire la créature
+			e.setAiDisabled(true); // la grille mélange alliés, soutiens et hostiles : sans IA, personne ne frappe personne
 			world.spawnEntity(e);
 			crees.add(e);
 		}
@@ -419,7 +421,8 @@ public final class LesLimbesGameTests implements FabricGameTest {
 			List<fr.leslimbes.entity.region.EclatProjectileEntity> eclats = world.getEntitiesByClass(fr.leslimbes.entity.region.EclatProjectileEntity.class, new Box(pos).expand(32), e -> true);
 			context.assertTrue(!eclats.isEmpty() || cible.getHealth() < cible.getMaxHealth(), "un éclat a été lancé après la préparation");
 			for (net.minecraft.entity.mob.MobEntity e : crees) {
-				context.assertTrue(e.isAlive(), "espèce encore vivante après quelques ticks : " + e.getType().getUntranslatedName());
+				context.assertTrue(e.isAlive(), "espèce encore vivante après quelques ticks : " + e.getType().getUntranslatedName() + " (vie " + e.getHealth() + ", dernière source "
+						+ (e.getRecentDamageSource() == null ? "aucune" : e.getRecentDamageSource().getName() + " par " + e.getRecentDamageSource().getAttacker()) + ", pos " + e.getPos() + ")");
 			}
 			crees.forEach(Entity::discard);
 			eclats.forEach(Entity::discard);
@@ -460,7 +463,7 @@ public final class LesLimbesGameTests implements FabricGameTest {
 		tortue.discard();
 		fr.leslimbes.entity.region.MontureEntity.rappelerActive(player);
 		context.runAtTick(5, () -> {
-			List<fr.leslimbes.entity.region.MontureEntity> montures = world.getEntitiesByClass(fr.leslimbes.entity.region.MontureEntity.class, new Box(pos).expand(12), m -> m.isAlive());
+			List<fr.leslimbes.entity.region.MontureEntity> montures = world.getEntitiesByClass(fr.leslimbes.entity.region.MontureEntity.class, new Box(pos).expand(12), m -> m.isAlive() && m.isTamed());
 			context.assertTrue(montures.size() == 1 && montures.get(0).isTamed() && montures.get(0).espece().id.equals("tortue_des_lagons"), "la tortue disparue est recréée par le sifflet (trouvé " + montures.size() + ")");
 			context.assertTrue(montures.get(0).getUuidAsString().equals(data.montures.get("tortue_des_lagons")), "le lien pointe vers la nouvelle tortue");
 			montures.forEach(Entity::discard);
@@ -505,7 +508,7 @@ public final class LesLimbesGameTests implements FabricGameTest {
 		PlayerLimbesData data = PlayerLimbesData.of(player);
 		// Un duel défini pour l'arène de test (en plus de ceux du jeu) : boss Aélis, une phase avec renfort et racines.
 		String json = "{\"titre\": \"Duel de test\", \"pretendant\": \"aelis\", \"boss\": \"les_limbes:aelis_duel\", \"amical\": true,"
-				+ "\"arene\": {\"centre\": [" + pos.getX() + "," + pos.getY() + "," + pos.getZ() + "], \"rayon\": 12, \"dimension\": \"" + world.getRegistryKey().getValue() + "\"},"
+				+ "\"arene\": {\"centre\": [" + pos.getX() + "," + pos.getY() + "," + pos.getZ() + "], \"rayon\": 6, \"dimension\": \"" + world.getRegistryKey().getValue() + "\"},"
 				+ "\"entree\": [" + pos.getX() + "," + pos.getY() + "," + (pos.getZ() + 4) + "], \"apparition\": [" + pos.getX() + "," + pos.getY() + "," + (pos.getZ() - 3) + "],"
 				+ "\"phases\": [{\"seuil\": 0.6, \"message\": \"phase\", \"invocations\": [{\"entite\": \"les_limbes:fleur_de_vie\", \"nombre\": 1}], \"blocs\": \"racines\", \"duree_blocs\": 0}],"
 				+ "\"victoire\": [{\"type\": \"drapeau\", \"nom\": \"test_duel_victoire\"}], \"echec\": []}";
@@ -535,6 +538,199 @@ public final class LesLimbesGameTests implements FabricGameTest {
 			context.assertTrue(restes.isEmpty(), "les renforts sont retirés (" + restes.size() + ")");
 			world.getServer().getPlayerManager().remove(player);
 			context.complete();
+		});
+	}
+
+	// ------------------------------------------------------------------ Étape 7 : pouvoirs supérieurs
+
+	private static net.minecraft.server.network.ServerPlayerEntity souverainDeTest(TestContext context, BlockPos pos, String... pouvoirs) {
+		net.minecraft.server.network.ServerPlayerEntity player = context.createMockCreativeServerPlayerInWorld();
+		player.refreshPositionAndAngles(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, 0, 0);
+		PlayerLimbesData data = PlayerLimbesData.of(player);
+		for (String p : pouvoirs) {
+			data.debloquerPouvoir(p);
+		}
+		data.augmenterMajesteMax(200.0F);
+		player.getInventory().clear(); // le carnet de la première connexion occupe sinon la main
+		return player;
+	}
+
+	private static fr.leslimbes.entity.region.EnnemiAnnonceEntity scorpionDeTest(ServerWorld world, double x, double y, double z) {
+		fr.leslimbes.entity.region.EnnemiAnnonceEntity scorpion = (fr.leslimbes.entity.region.EnnemiAnnonceEntity) fr.leslimbes.registry.LimbesEspeces.type("scorpion_des_heures").create(world);
+		scorpion.refreshPositionAndAngles(x, y, z, 0, 0);
+		scorpion.setPersistent();
+		scorpion.setAiDisabled(true);
+		world.spawnEntity(scorpion);
+		return scorpion;
+	}
+
+	@GameTest(templateName = EMPTY_STRUCTURE, tickLimit = 200)
+	public void laParadeRenvoieUnCoupEtLaLanceCharge(TestContext context) {
+		ServerWorld world = context.getWorld();
+		BlockPos pos = context.getAbsolutePos(new BlockPos(2, 0, 2));
+		net.minecraft.server.network.ServerPlayerEntity player = souverainDeTest(context, pos, "epee_du_souverain", "parade_royale", "lance_du_souverain", "charge_de_lance", "arc_du_souverain", "changement_d_arme", "marque_royale");
+		PlayerLimbesData data = PlayerLimbesData.of(player);
+		fr.leslimbes.entity.region.EnnemiAnnonceEntity scorpion = scorpionDeTest(world, pos.getX() + 0.5, pos.getY(), pos.getZ() + 1.6);
+		fr.leslimbes.power.EtatPouvoirs etat = fr.leslimbes.power.EtatPouvoirs.de(player);
+		// Un joueur fraîchement connecté est invulnérable soixante ticks : la parade se teste après.
+		context.runAtTick(70, () -> {
+			context.assertTrue(fr.leslimbes.power.Abilities.utiliser(player, "parade_royale"), "la parade royale s'exécute");
+			context.assertTrue(etat.paradeActive(world.getTime()), "la fenêtre de parade est ouverte");
+			player.changeGameMode(net.minecraft.world.GameMode.SURVIVAL);
+			float vie = player.getHealth();
+			boolean touche = player.damage(world.getDamageSources().mobAttack(scorpion), 4.0F);
+			context.assertTrue(!touche && player.getHealth() == vie, "le coup paré ne blesse pas (" + player.getHealth() + " / " + vie + ")");
+			context.assertTrue(scorpion.hasStatusEffect(net.minecraft.entity.effect.StatusEffects.SLOWNESS), "l'assaillant paré est ralenti");
+			context.assertTrue(data.compteur("parades_reussies") == 1, "la parade réussie est comptée");
+			player.changeGameMode(net.minecraft.world.GameMode.CREATIVE);
+		});
+		// Lance : invoquée en main, puis la charge blesse ce qui est traversé.
+		context.assertTrue(fr.leslimbes.power.Abilities.utiliser(player, "lance_du_souverain"), "la lance s'invoque");
+		StringBuilder inv = new StringBuilder();
+		for (int k = 0; k < player.getInventory().size(); k++) {
+			if (!player.getInventory().getStack(k).isEmpty()) {
+				inv.append(k).append('=').append(player.getInventory().getStack(k)).append(' ');
+			}
+		}
+		context.assertTrue(player.getMainHandStack().isOf(fr.leslimbes.registry.LimbesItems.LANCE_DU_SOUVERAIN), "la Lance du Souverain est en main (main=" + player.getMainHandStack()
+				+ ", slot=" + player.getInventory().selectedSlot + ", inventaire=" + inv + ")");
+		float vieScorpion = scorpion.getHealth();
+		context.assertTrue(fr.leslimbes.power.Abilities.utiliser(player, "charge_de_lance"), "la charge s'exécute lance en main");
+		context.runAtTick(76, () -> {
+			context.assertTrue(scorpion.getHealth() < vieScorpion, "la charge a blessé le scorpion (" + scorpion.getHealth() + " < " + vieScorpion + ")");
+			// Changement d'arme : la lance laisse place à l'arc (ordre épée, lance, arc, bouclier parmi les armes connues).
+			context.assertTrue(fr.leslimbes.power.Abilities.utiliser(player, "changement_d_arme"), "le changement d'arme s'exécute");
+			context.assertTrue(player.getMainHandStack().isOf(fr.leslimbes.registry.LimbesItems.ARC_DU_SOUVERAIN), "l'arc remplace la lance en main (" + player.getMainHandStack() + ")");
+			context.assertTrue(player.getInventory().count(fr.leslimbes.registry.LimbesItems.LANCE_DU_SOUVERAIN) == 0, "la lance s'est dissipée");
+			// Marque royale : la cible visée brille et porte la marque.
+			player.lookAt(net.minecraft.command.argument.EntityAnchorArgumentType.EntityAnchor.EYES, scorpion.getPos().add(0, 0.3, 0));
+			context.assertTrue(fr.leslimbes.power.Abilities.utiliser(player, "marque_royale"), "la marque royale s'exécute sur la cible visée");
+			context.assertTrue(scorpion.getUuid().equals(etat.marque) && scorpion.hasStatusEffect(net.minecraft.entity.effect.StatusEffects.GLOWING), "le scorpion porte la marque");
+			scorpion.discard();
+			world.getServer().getPlayerManager().remove(player);
+			context.complete();
+		});
+	}
+
+	@GameTest(templateName = EMPTY_STRUCTURE, tickLimit = 300)
+	public void laGardeAstraleRepondAuSouverain(TestContext context) {
+		ServerWorld world = context.getWorld();
+		BlockPos pos = context.getAbsolutePos(new BlockPos(2, 0, 2));
+		net.minecraft.server.network.ServerPlayerEntity player = souverainDeTest(context, pos, "chevalier_astral", "archer_astral", "protecteur_astral", "ordre_de_garde");
+		PlayerLimbesData dg = PlayerLimbesData.of(player);
+		for (String id : new String[]{"chevalier_astral", "archer_astral", "protecteur_astral"}) {
+			boolean ok = fr.leslimbes.power.Abilities.utiliser(player, id);
+			context.assertTrue(ok, "la garde « " + id + " » s'invoque (ability=" + (fr.leslimbes.power.Abilities.get(id) != null) + ", possede=" + dg.possedePouvoir(id)
+					+ ", vivant=" + player.isAlive() + ", recharge=" + fr.leslimbes.power.Abilities.rechargeRestante(player, id) + ", majeste=" + dg.majeste + "/" + dg.majesteMax
+					+ ", creatif=" + player.isCreative() + ", pos=" + player.getPos() + ", monde=" + player.getServerWorld().getRegistryKey().getValue() + ")");
+		}
+		// Une quatrième invocation (sans attendre la recharge) dissipe la plus ancienne : le budget tient.
+		context.assertTrue(fr.leslimbes.power.GardeAstrale.invoquer(player, "archer_astral"), "une quatrième garde s'invoque");
+		List<fr.leslimbes.entity.region.GardeAstraleEntity> gardes = fr.leslimbes.power.GardeAstrale.gardesDe(player, 16.0);
+		context.assertTrue(gardes.size() == fr.leslimbes.power.GardeAstrale.BUDGET, "le budget de garde est tenu (" + gardes.size() + " / " + fr.leslimbes.power.GardeAstrale.BUDGET + ")");
+		context.assertTrue(gardes.stream().allMatch(g -> player.getUuid().equals(g.getProprietaire())), "chaque garde connaît son souverain");
+		context.assertTrue(gardes.stream().noneMatch(g -> g.espece().garde == 0) && gardes.stream().anyMatch(g -> g.espece().garde == 2), "le chevalier, plus ancien, s'est dissipé ; le protecteur est présent");
+		fr.leslimbes.power.Abilities.utiliser(player, "ordre_de_garde");
+		context.assertTrue(gardes.stream().filter(g -> g.isAlive()).allMatch(g -> g.getOrdre() == fr.leslimbes.entity.region.GardeAstraleEntity.ORDRE_TENIR), "l'ordre « tenir » est transmis à toute la garde");
+		// Un ennemi hostile apparaît : la garde le prend pour cible et le frappe ; le souverain ne peut pas blesser sa garde.
+		fr.leslimbes.entity.region.EnnemiAnnonceEntity scorpion = scorpionDeTest(world, pos.getX() + 0.5, pos.getY(), pos.getZ() - 2.5);
+		fr.leslimbes.entity.region.GardeAstraleEntity premiere = gardes.stream().filter(g -> g.isAlive()).findFirst().orElseThrow();
+		float vieGarde = premiere.getHealth();
+		premiere.damage(world.getDamageSources().playerAttack(player), 5.0F);
+		context.assertTrue(premiere.getHealth() == vieGarde, "le souverain ne blesse pas sa propre garde");
+		float vieScorpion = scorpion.getHealth();
+		context.runAtTick(120, () -> {
+			context.assertTrue(!scorpion.isAlive() || scorpion.getHealth() < vieScorpion, "la garde a frappé l'ennemi (" + scorpion.getHealth() + " / " + vieScorpion + ")");
+			premiere.dissiper();
+			context.assertTrue(!premiere.isAlive(), "une garde dissipée disparaît sans mourir");
+			fr.leslimbes.power.GardeAstrale.gardesDe(player, 32.0).forEach(fr.leslimbes.entity.region.GardeAstraleEntity::dissiper);
+			scorpion.discard();
+			world.getServer().getPlayerManager().remove(player);
+			context.complete();
+		});
+	}
+
+	@GameTest(templateName = EMPTY_STRUCTURE, tickLimit = 200)
+	public void lesDecretsImmobilisentDesarmentEtOuvrentLeChemin(TestContext context) {
+		ServerWorld world = context.getWorld();
+		BlockPos sol = context.getAbsolutePos(new BlockPos(2, 0, 2));
+		BlockPos pos = sol.up(2);
+		net.minecraft.server.network.ServerPlayerEntity player = souverainDeTest(context, pos, "decret_restez", "decret_deposez_les_armes", "decret_que_le_chemin_s_ouvre", "decret_elevez_vous", "decret_tenez_bon");
+		fr.leslimbes.entity.region.EnnemiAnnonceEntity scorpion = scorpionDeTest(world, sol.getX() + 2.5, sol.getY(), sol.getZ() + 0.5);
+		scorpion.setTarget(player);
+		context.assertTrue(fr.leslimbes.power.Abilities.utiliser(player, "decret_restez"), "« Restez » s'exécute");
+		net.minecraft.entity.effect.StatusEffectInstance lenteur = scorpion.getStatusEffect(net.minecraft.entity.effect.StatusEffects.SLOWNESS);
+		context.assertTrue(lenteur != null && lenteur.getAmplifier() == 6, "le scorpion est cloué sur place (lenteur " + (lenteur == null ? "absente" : lenteur.getAmplifier()) + ")");
+		context.assertTrue(fr.leslimbes.power.Abilities.utiliser(player, "decret_deposez_les_armes"), "« Déposez les armes » s'exécute");
+		context.assertTrue(scorpion.getTarget() == null && scorpion.hasStatusEffect(net.minecraft.entity.effect.StatusEffects.WEAKNESS), "le scorpion lâche sa cible et faiblit");
+		// Le chemin s'ouvre : un pont de lumière devant le souverain, qui s'effacera de lui-même.
+		context.assertTrue(fr.leslimbes.power.Abilities.utiliser(player, "decret_que_le_chemin_s_ouvre"), "« Que le chemin s'ouvre » s'exécute");
+		BlockPos premier = BlockPos.ofFloored(player.getX(), player.getY() - 1, player.getZ() + 2);
+		int poses = 0;
+		for (int d = 1; d <= 3; d++) {
+			BlockPos p = BlockPos.ofFloored(player.getX() - 0.5, player.getY() - 1, player.getZ() + d);
+			if (world.getBlockState(p).isOf(fr.leslimbes.registry.LimbesBlocks.PONT_DE_LUMIERE)) {
+				poses++;
+			}
+		}
+		context.assertTrue(poses >= 2, "un pont de lumière est posé devant le souverain (" + poses + " blocs sur les trois premiers, " + world.getBlockState(premier) + ")");
+		BlockPos unPont = BlockPos.ofFloored(player.getX() - 0.5, player.getY() - 1, player.getZ() + 1);
+		context.assertTrue(world.getBlockTickScheduler().isQueued(unPont, fr.leslimbes.registry.LimbesBlocks.PONT_DE_LUMIERE), "la disparition du pont est planifiée");
+		context.assertTrue(fr.leslimbes.power.Abilities.utiliser(player, "decret_elevez_vous"), "« Élevez-vous » s'exécute");
+		context.assertTrue(player.hasStatusEffect(net.minecraft.entity.effect.StatusEffects.SLOW_FALLING), "le souverain est porté par une chute lente");
+		context.assertTrue(fr.leslimbes.power.Abilities.utiliser(player, "decret_tenez_bon"), "« Tenez bon » s'exécute");
+		context.assertTrue(player.hasStatusEffect(net.minecraft.entity.effect.StatusEffects.RESISTANCE) && player.hasStatusEffect(net.minecraft.entity.effect.StatusEffects.ABSORPTION), "le souverain tient bon");
+		for (int d = 1; d <= 14; d++) {
+			for (double cote : new double[]{-0.5, 0.5}) {
+				BlockPos p = BlockPos.ofFloored(player.getX() + cote, player.getY() - 1, player.getZ() + d);
+				if (world.getBlockState(p).isOf(fr.leslimbes.registry.LimbesBlocks.PONT_DE_LUMIERE)) {
+					world.removeBlock(p, false);
+				}
+			}
+		}
+		scorpion.discard();
+		world.getServer().getPlayerManager().remove(player);
+		context.complete();
+	}
+
+	@GameTest(templateName = EMPTY_STRUCTURE, tickLimit = 300)
+	public void leJugementTombeEtLAvenementSeRevele(TestContext context) {
+		ServerWorld world = context.getWorld();
+		BlockPos pos = context.getAbsolutePos(new BlockPos(2, 0, 2));
+		net.minecraft.server.network.ServerPlayerEntity player = souverainDeTest(context, pos, "pas_court", "decret_reculez", "jugement_des_constellations", "marche_du_palais", "avenement", "audience_du_roi");
+		PlayerLimbesData data = PlayerLimbesData.of(player);
+		fr.leslimbes.entity.region.EnnemiAnnonceEntity a = scorpionDeTest(world, pos.getX() + 3.5, pos.getY(), pos.getZ() + 0.5);
+		fr.leslimbes.entity.region.EnnemiAnnonceEntity b = scorpionDeTest(world, pos.getX() - 2.5, pos.getY(), pos.getZ() + 2.5);
+		float vieA = a.getHealth();
+		float vieB = b.getHealth();
+		context.assertTrue(fr.leslimbes.power.Abilities.utiliser(player, "jugement_des_constellations"), "le Jugement des constellations s'exécute");
+		fr.leslimbes.power.EtatPouvoirs etat = fr.leslimbes.power.EtatPouvoirs.de(player);
+		context.assertTrue(etat.etoiles.size() == fr.leslimbes.power.Emblematiques.ETOILES, "sept étoiles sont en route (" + etat.etoiles.size() + ")");
+		// Sans couronne, l'Avènement est refusé ; la Marche du Palais rend les Portes gratuites.
+		context.assertTrue(!fr.leslimbes.power.Abilities.utiliser(player, "avenement"), "l'Avènement exige la couronne");
+		context.assertTrue(fr.leslimbes.power.Abilities.utiliser(player, "marche_du_palais"), "la Marche du Palais s'exécute");
+		context.assertTrue(fr.leslimbes.power.Abilities.coutReel(player, fr.leslimbes.power.Abilities.PAS_COURT) == 0.0F
+				&& fr.leslimbes.power.Abilities.rechargeReelle(player, fr.leslimbes.power.Abilities.PAS_COURT) == 0, "pendant la Marche, le Pas court ne coûte rien");
+		context.runAtTick(90, () -> {
+			context.assertTrue(!a.isAlive() || a.getHealth() < vieA, "une étoile a frappé le premier scorpion (" + a.getHealth() + " / " + vieA + ")");
+			context.assertTrue(!b.isAlive() || b.getHealth() < vieB, "une étoile a frappé le second scorpion (" + b.getHealth() + " / " + vieB + ")");
+			context.assertTrue(etat.etoiles.isEmpty(), "toutes les étoiles sont tombées");
+			data.poserDrapeau("couronne");
+			data.poserDrapeau("couronne_assemblee");
+			context.assertTrue(fr.leslimbes.power.Abilities.utiliser(player, "avenement"), "l'Avènement se révèle avec la couronne");
+			context.assertTrue(fr.leslimbes.power.EtatPouvoirs.avenementActif(player), "l'Avènement est en cours");
+			context.assertTrue(fr.leslimbes.registry.LimbesAttachments.niveauCouronne(player) == 3, "l'état public passe au niveau 3 (couronne et manteau), trouvé " + fr.leslimbes.registry.LimbesAttachments.niveauCouronne(player));
+			context.assertTrue(fr.leslimbes.power.Abilities.coutReel(player, fr.leslimbes.power.Abilities.DECRET_RECULEZ) == 10.0F
+					&& fr.leslimbes.power.Abilities.rechargeReelle(player, fr.leslimbes.power.Abilities.DECRET_RECULEZ) == 50, "pendant l'Avènement, coût et recharge sont divisés par deux");
+			context.assertTrue(etat.satellitesActifs(world.getTime()), "les lames satellites accompagnent l'Avènement");
+			etat.avenementJusqua = world.getTime() + 1;
+			context.runAtTick(96, () -> {
+				context.assertTrue(fr.leslimbes.registry.LimbesAttachments.niveauCouronne(player) == 2, "l'Avènement terminé, la couronne assemblée reste (niveau " + fr.leslimbes.registry.LimbesAttachments.niveauCouronne(player) + ")");
+				a.discard();
+				b.discard();
+				world.getServer().getPlayerManager().remove(player);
+				context.complete();
+			});
 		});
 	}
 }

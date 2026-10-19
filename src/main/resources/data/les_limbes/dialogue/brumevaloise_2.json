@@ -1,0 +1,38 @@
+{
+  "nom": "Clémence",
+  "debut": [
+    {
+      "noeud": "eclairee",
+      "si": [
+        {
+          "drapeau_monde": "brumeval_eclairee"
+        }
+      ]
+    },
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Ma fenêtre donnait sur la mer. Maintenant elle donne sur un palais. Je ne me plains pas, mais il faudra m'expliquer où acheter du pain."
+      ],
+      "choix": [
+        {
+          "texte": "Au marché royal, derrière la place."
+        }
+      ]
+    },
+    "eclairee": {
+      "texte": [
+        "Les lanternes ! On voit la fontaine la nuit, maintenant. Dites, elles ne s'éteignent vraiment jamais ?"
+      ],
+      "choix": [
+        {
+          "texte": "Jamais."
+        }
+      ]
+    }
+  }
+}

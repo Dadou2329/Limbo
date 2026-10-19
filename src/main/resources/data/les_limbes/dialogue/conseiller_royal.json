@@ -2,6 +2,17 @@
   "nom": "Bertrand",
   "debut": [
     {
+      "noeud": "frontieres",
+      "si": [
+        {
+          "drapeau": "regne_commence"
+        },
+        {
+          "quete_inconnue": "les_frontieres"
+        }
+      ]
+    },
+    {
       "noeud": "verite",
       "si": [
         {
@@ -71,6 +82,26 @@
       "choix": [
         {
           "texte": "Je m'en souviendrai."
+        }
+      ]
+    },
+    "frontieres": {
+      "texte": [
+        "Majesté. Il y a une chose que je n'ai dite qu'à moitié : le roi tient la lumière à la lisière des brumes, loin au nord de la capitale. Il est vivant, ou quelque chose comme ça.",
+        "Allez le voir. Tenez la lumière avec lui, une fois. Puis décidez de son sort : c'est à vous, maintenant."
+      ],
+      "choix": [
+        {
+          "texte": "J'irai à la lisière.",
+          "actions": [
+            {
+              "type": "demarrer_quete",
+              "quete": "les_frontieres"
+            }
+          ]
+        },
+        {
+          "texte": "Pas encore."
         }
       ]
     }

@@ -84,6 +84,11 @@ public final class LimbesSites {
 	public static final BlockPos ARENE_SAHIR = new BlockPos(230, 66, 1330);
 	/** Campement de l'expédition coincée dans l'archipel (épreuve de Kaël). */
 	public static final BlockPos CAMPEMENT_DE_L_ARCHIPEL = new BlockPos(1250, 66, -650);
+	/** Étape 7, le règne : chantier naval au large de Port-Nacre (pont du navire royal), île des ruines, lisière des brumes, site de Brumeval. */
+	public static final BlockPos CHANTIER_NAVAL = new BlockPos(1030, 64, -800);
+	public static final BlockPos ILE_DES_RUINES = new BlockPos(1300, 70, -1000);
+	public static final BlockPos LISIERE_DES_BRUMES = new BlockPos(-900, 86, -1380);
+	public static final BlockPos BRUMEVAL = new BlockPos(-1060, 86, -700);
 
 	/** Rayon (blocs) des zones aplanies ; cohérent avec les fichiers de densité. */
 	public static final int RAYON_APLANI_VILLAGE = 70;

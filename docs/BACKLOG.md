@@ -2,7 +2,7 @@
 
 Ordre conseillé par le cahier des charges : 1 socle → 2 Prairies/Clairval/manoir/première quête/premiers pouvoirs → 3 tranche de qualité (mini-aventure, monture, Arrivée, combat) → 4 domaine/journal/passages → 5 régions restantes → 6 prétendants/campagne/couronnement → 7 pouvoirs supérieurs/règne → 8 complétion/optimisation.
 
-État : étapes 1 à 6 réalisées (tranche « Le Passage » ; monture, Arrivées, mini-aventures ; domaine ; six régions ; prétendants, campagne des actes II à IV, duels, capitale, couronnement et premier acte royal) ; étape 7 (pouvoirs supérieurs et règne) à suivre.
+État : étapes 1 à 7 réalisées (tranche « Le Passage » ; monture, Arrivées, mini-aventures ; domaine ; six régions ; prétendants, campagne des actes II à IV, duels, capitale, couronnement et premier acte royal ; trente-trois techniques royales en sept branches et le règne de l'acte V) ; étape 8 (complétion, optimisation, validation finale) à suivre.
 
 ## Prochaines actions exécutables (par priorité)
 
@@ -47,13 +47,16 @@ Ordre conseillé par le cahier des charges : 1 socle → 2 Prairies/Clairval/man
 - [ ] Vérifier en captures client le rendu des boss, des arènes, de la capitale et de la cérémonie (fin de projet).
 - [ ] Scènes de vie des délégations et dialogues de félicitations plus nombreux (étape 8).
 
-### F. Pouvoirs (étape 7)
-- [ ] Arsenal : lance, arc, bouclier, parade, changement d'arme en combo, armes satellites.
-- [ ] Portes : porte directionnelle, attaque d'angle, sauvetage d'allié, liaisons persistantes.
-- [ ] Décrets : « Déposez les armes », « Tenez bon », « Que le chemin s'ouvre », « Restez », « Élevez-vous » (symboles, animations, sons propres).
-- [ ] Garde astrale, Main des Limbes, Pactes royaux.
-- [ ] Techniques emblématiques : Jugement des constellations, Marche du Palais, Audience du Roi, Avènement.
-- [ ] Sélection radiale facultative, tutoriel progressif, options (densité d'effets, secousses, flashes).
+### F. Pouvoirs et règne (étape 7) — réalisée
+- [x] Arsenal : parade royale, lance (allonge) et charge, arc sans flèches (éclats de lumière, tension), marque royale, bouclier (rempart), changement d'arme en combo, armes satellites.
+- [x] Portes : porte directionnelle (franchit murs et dénivelés), attaque d'angle (dans le dos, arme l'arc de l'épée), sauvetage d'un allié, liaison royale persistante (accroupi : fixer ; debout : revenir).
+- [x] Décrets : « Déposez les armes » (cibles perdues, coups interrompus, éclats dissipés), « Tenez bon », « Que le chemin s'ouvre » (pont de lumière à disparition planifiée), « Restez », « Élevez-vous » ; sons et effets propres.
+- [x] Garde astrale (chevalier, archer, protecteur ; budget de trois, une minute, ordres suivre / tenir / attaquer, aucun tir ami), Main des Limbes (saisir, passage, main couronnée qui brise les blocs d'arène), Pactes royaux (appel de monture, pacte de combat).
+- [x] Emblématiques : Jugement des constellations (sept étoiles), Marche du Palais (Portes libres), Audience du Roi (tout ce qui menace traîné devant le souverain), Avènement (trente secondes : couronne et manteau visibles de tous, majesté quadruplée, recharges divisées par deux, lames satellites ; état public niveau 3).
+- [x] Quatre emplacements (R, V, G, B), sélection radiale (X) par branches, onglet Pouvoirs du journal par branche avec défilement ; déblocages progressifs par la campagne (forge de Sabine, reconnaissances, actes, couronnement, sceau, frontières).
+- [x] Acte V : la cité arrivée (Brumeval, Arrivée majeure avec maire et habitants, porte de relais), le grand tournoi (cinq épreuves), le navire royal (chantier naval, structure posée par dialogue, porte de relais à bord, île des ruines et baleine des hauteurs), les frontières (lisière des brumes, l'ancien roi, vagues, choix) ; Lisbeth prépare une Arrivée.
+- [ ] Vérifier en captures client le rendu des armes royales, de la garde, des effets des décrets et de l'Avènement (couronne, manteau), de la sélection radiale (fin de projet).
+- [ ] Tutoriel progressif plus guidé (une indication par nouvelle technique) : étape 8.
 
 ### G. Technique
 - [ ] Budgets explicites (PNJ actifs, invocations, pathfinding) et profils graphiques.

@@ -1,0 +1,11 @@
+{
+  "nom": "Navire royal",
+  "description": "Dans la cabine du navire royal, au chantier naval au large de Port-Nacre.",
+  "pos": [
+    1030,
+    66,
+    -788
+  ],
+  "dimension": "les_limbes:limbes",
+  "ordre": 11
+}

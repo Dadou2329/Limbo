@@ -121,6 +121,18 @@
   ],
   "fin": [
     {
+      "type": "pouvoir",
+      "id": "main_couronnee"
+    },
+    {
+      "type": "pouvoir",
+      "id": "marche_du_palais"
+    },
+    {
+      "type": "pouvoir",
+      "id": "jugement_des_constellations"
+    },
+    {
       "type": "experience",
       "niveaux": 10
     },

@@ -17,7 +17,7 @@
 |---|---|
 | `registry` | enregistrement des blocs, objets, entités, particules, sons, attachements, réseau, types de génération |
 | `block` | blocs à comportement (Porte des Limbes, herbe argentée, plantes, cristal) |
-| `item` | objets à comportement (boussole nacrée, Épée du Souverain, fragment de couronne) |
+| `item` | objets à comportement (boussole nacrée, Épée, Lance, Arc et Bouclier du Souverain, fragment de couronne, sifflet) |
 | `world/dimension` | clés de la dimension, voyage par les portes, protection des brumes, positions des sites |
 | `world/gen` | fonctions de densité `les_limbes:aplanir` et `les_limbes:regions`, features Java (lacs, mer, routes) |
 | `world/biome` | source de biomes régionale `les_limbes:regions` (Voronoï pondéré, transitions, sous-biomes) ; `LimbesRegions` porte les formules de relief |
@@ -25,8 +25,8 @@
 | `world/state` | données du joueur (attachement persistant), état du monde (PersistentState), synchronisation |
 | `npc` | entité Habitant, réapparition des personnages essentiels, dialogues (`npc/dialogue`) |
 | `quest` | définitions, chargeur, progression, gestionnaire, signaux |
-| `power` | techniques royales (registre, arsenal, portes, décrets), majesté, recharges |
-| `entity` | créatures des Prairies ; `entity/region` : archétypes des espèces régionales (paisible, volant, aquatique, ennemi annoncé, ennemi tireur, monture, soutien) et projectile « éclat » ; `entity/duel` : boss des prétendants (`PretendantEntity`, `StyleDuel`) |
+| `power` | techniques royales : registre `Abilities` (33, sept branches), classes par branche (`ArsenalDuSouverain`, `PortesDuPalais`, `DecretsRoyaux`, `GardeAstrale`, `MainDesLimbes`, `PactesRoyaux`, `Emblematiques`), état transitoire `EtatPouvoirs`, règles d'alliance `Allies`, majesté, recharges |
+| `entity` | créatures des Prairies ; `entity/region` : archétypes des espèces régionales (paisible, volant, aquatique, ennemi annoncé, ennemi tireur, monture, soutien, garde astrale) et projectile « éclat » ; `entity/duel` : boss des prétendants (`PretendantEntity`, `StyleDuel`) |
 | `duel` | définitions de duels (JSON), gestionnaire (phases, participants, barre de boss, échec et reprise), blocs temporaires |
 | `capitale` | éveil de la capitale par niveaux, couronnement et délégations |
 | `event` | branchement des événements serveur, première connexion |
@@ -68,14 +68,15 @@ Ordre recommandé après modification : textures → sons → données → struc
 - **Une quête** : un fichier JSON dans `quest/` ; référencez-la depuis un dialogue (`demarrer_quete`) ou une autre quête (`fin`). Les tests JUnit vérifient la validité et les références.
 - **Un personnage** : marqueur `pnj:<role>` dans un gabarit (ou commande `/limbes pnj reapparaitre <role>`), texture `textures/entity/habitant/<role>.png` (ajoutez le rôle dans `SKINS` du générateur et dans `HabitantRenderer`), nom `pnj.les_limbes.<role>` dans la langue, dialogue `dialogue/<role>.json`. Ajoutez le rôle à `ROLES_ESSENTIELS` pour l'invulnérabilité et la réapparition.
 - **Un lieu à position fixe** : coordonnées dans `LimbesSites.java`, site aplani dans `gen_data.py` (`SITES`), gabarit et structure composée dans `build_structures.py`. Le test `lesSitesFixesSontCoherentsAvecLaGeneration` garde le tout cohérent.
-- **Un pouvoir** : une `Ability` dans `Abilities.java`, une exécution serveur, un effet client dans `EffetsClient.java`, les clés `pouvoir.les_limbes.<id>`, `.court`, `.description`.
+- **Un pouvoir** : une `Ability` dans `Abilities.java` (branche parmi `BRANCHES`), une exécution serveur dans la classe de la branche (ciblage par `ArsenalDuSouverain.viser`, positions sûres par `PortesDuPalais.positionSure`, alliés par `Allies`), un effet client dans `EffetsClient.java`, les clés `pouvoir.les_limbes.<id>`, `.court`, `.description` (le test JUnit lit la source pour les exiger), un déblocage par l'action `{"type": "pouvoir", "id": ...}` dans une quête ou un dialogue. Un état continu (fenêtre, durée) va dans `EtatPouvoirs` et se tique dans `Abilities.tick`.
 - **Un projet de domaine** : un fichier `projet/<id>.json` (titre, description, `indice` lisible pour les prérequis, `ordre`, `prerequis` = conditions de dialogue, `cout`, `gabarit`, `origine`, éventuellement `avant`/`origine_avant` = gabarit d'origine dont les blocs ne comptent pas comme constructions du joueur, `drapeau_monde`, `apres` = actions). Le gabarit vient de `build_structures.py` ; `ProjetManager` fait le reste (aperçu, conflits, ressources, pose, inventaires rendus, drapeau, actions). Les origines doivent rester sur le plateau aplani du manoir (rayon 40), ce que vérifie `lesProjetsLieuxEtRelaisSontCoherents`.
 - **Un lieu d'intérêt** : `lieu/<id>.json` (nom, pos, rayon, région, dimension, éventuellement `relais`) ; découverte automatique (drapeau `lieu:<id>`), carte du journal. Un relais : `relais/<id>.json` (nom, pos = point d'arrivée devant la porte) **et** une porte de relais dans un gabarit (`les_limbes:porte_de_relais` avec `{"relais": "<id>"}` dans le bloc-entité).
 - **Une créature régionale** : une fiche dans `LimbesEspeces` (archétype, taille, statistiques, sons, appât, combat, couleurs d'œuf), un modèle du même identifiant dans `tools/models/modeles_regions.py` (gabarits `quadrupede`, `bipede`, `insecte`, `oiseau`, `poisson` ou os libres), une texture d'œuf dans `gen_textures.py`, l'identifiant dans `ESPECES_REGIONALES` et une table de butin dans `BUTINS_ENTITES` (`gen_data.py`), des apparitions dans `SPAWNS_REGIONAUX` (le groupe doit correspondre au `SpawnGroup` de l'archétype : paisibles et montures `creature`, volants `ambient`, ennemis `monster`, aquatiques `water_creature`), les clés `entity.les_limbes.<id>` et `item.les_limbes.oeuf_<id>`. Le rendu client est automatique (`RenduDonneesRenderer` sous le même identifiant). La fiche est lue depuis le type d'entité (`LimbesEspeces.especeDe`) parce que le constructeur parent appelle `initGoals()` avant l'affectation des champs.
 - **Une région ou un sous-biome** : relief dans `LimbesRegions` (hauteur, pente, règle de sous-biome), biome dans `BIOMES_PAR_REGION` et appel `biome(...)` de `gen_data.py` (règles de surface par biome, végétation triée selon `ORDRE_VEGETAL`), sites aplanis dans `SITES`, gabarits dans `regions_<region>.py` et appels `site(...)` de `build_structures.py`, lieux `lieu/*.json`, relais `relais/*.json` (la porte posée par `relais(c, ...)` dans le gabarit), dialogues et noms des personnages.
 - **Un duel** : un fichier `duel/<id>.json` ; le boss est un type de `LimbesPretendants` (fiche + `StyleDuel`, modèle du même identifiant dans `modeles_regions.py`) ou une espèce ordinaire (épreuves de tournoi) ; l'arène est une structure à position fixe (voir `arenes.py`), l'entrée et l'apparition sont dans l'arène ; un dialogue lance le duel par `{"type": "duel", "id": "<id>"}` ; la victoire pose `duel_<id>_gagne` et exécute les actions `victoire` (drapeaux de reconnaissance...). Les motifs de blocs temporaires des phases sont `racines`, `forteresse`, `miroirs`, `sables` ; ils ne remplacent que de l'air et sont toujours retirés.
 - **Un quartier de la capitale** : une toile dans `capitale.py` avec lanternes `lanterne_royale_eteinte`, portes `porte_royale[niveau=n]` et ponts `pont_royal`, un `site()` sur le plateau (−900/−900, rayon 90), un lieu `lieu/*.json`, des personnages (apparence, nom, dialogue).
-- **Une action ou condition de dialogue** : `Actions.java` / `Conditions.java` ; toute action accepte `"si": [conditions]` et `"une_fois": "<drapeau>"`.
+- **Une action ou condition de dialogue** : `Actions.java` / `Conditions.java` ; toute action accepte `"si": [conditions]` et `"une_fois": "<drapeau>"`. Actions notables : `pouvoir`, `duel`, `capitale`, `couronner`, `delegation`, `arrivee_declencher`, `poser_structure`, `apparition`, `deplacer_pnj`, `modifier_bloc`.
+- **Une structure de l'acte V** : une toile dans `tools/structgen/regne.py`, un `site()` dans `build_structures.py`, un site aplani dans `SITES` et une constante dans `LimbesSites` ; les personnages et créatures par marqueurs `pnj:` / `entite:`.
 
 ## Commandes d'administration (`/limbes`, niveau 2)
 
@@ -110,6 +111,17 @@ Ordre recommandé après modification : textures → sons → données → struc
 - **Blocs de la capitale** : les gabarits ne déclenchent pas `onBlockAdded`, donc les portes, lanternes et ponts lisent le niveau d'éveil à leurs ticks aléatoires (`ticksRandomly`) ; `CapitaleManager.eveiller` applique en plus le niveau tout de suite dans les chunks chargés.
 - **Délégations** : des exemplaires temporaires d'`HabitantEntity` (`setDelegation`), ignorés par la réapparition des essentiels, qui repartent d'eux-mêmes.
 - **Apparences** : le rendu choisit la texture `textures/entity/habitant/<role>.png` si elle existe, sinon l'apparence commune (plus de liste figée côté client).
+
+## Pouvoirs supérieurs et règne : leçons apprises (étape 7)
+
+- **Dégâts bonus** (marque, changement d'arme, Avènement) : dans l'événement « après dégâts », rappeler `damage(source, base + bonus)` applique exactement l'excédent pendant la fenêtre d'invulnérabilité (règle vanilla) ; une garde statique évite la récursion de l'événement.
+- **Parade** : l'événement « dégâts autorisés » annule le coup ; les projectiles en vol sont retirés ; un joueur fraîchement connecté est invulnérable soixante ticks (`joinInvulnerabilityTicks`), ce qui décale les tests.
+- **Déplacements du joueur** : un joueur sans client (factice, test) ne simule pas sa vitesse ; la charge de lance blesse ce qui est déjà au contact, les autres effets de déplacement s'observent avec un vrai client.
+- **Pont de lumière** : bloc à tick planifié (survit aux sauvegardes) plutôt qu'une liste en mémoire ; `onBlockAdded` planifie aussi les poses par commande ou gabarit.
+- **Garde astrale** : propriétaire en donnée suivie (`OPTIONAL_UUID`), ordres suivre / tenir / attaquer, cible = hostiles, prétendants, soutiens et toute créature qui vise un allié ; téléportée près du souverain au-delà de quarante blocs ; dissipée sans mort ni butin.
+- **Avènement** : l'état public (couronne niveau 3) est recalculé par `LimbesAttachments.publier` depuis `EtatPouvoirs`, pas depuis un drapeau ; la fin de l'effet republie le niveau 2.
+- **Structure posée par dialogue** : `poser_structure` charge le chunk, place le gabarit avec ses marqueurs et pose un drapeau de monde ; le gabarit du navire contient de l'air explicite aux anciens emplacements des échafaudages (les cases non définies d'une toile ne sont pas écrites).
+- **Arrivée appelée** : une Arrivée déclenchée seulement par dialogue garde un poids strictement positif et un prérequis de drapeau de monde posé juste avant l'appel (le tirage au sort pondéré ne tolère pas un total nul).
 
 ## Rendu client : leçons apprises (vérifiées par captures)
 

@@ -207,7 +207,8 @@
     },
     "reconnu": {
       "texte": [
-        "Les routes sont à vous, et le Vent-Debout aussi quand vous voulez. Une passe d'armes sur le pont, pour garder la main ?"
+        "Les routes sont à vous, et le Vent-Debout aussi quand vous voulez. Une passe d'armes sur le pont, pour garder la main ?",
+        "Kaël : « Sur un pont qui bouge, on tient ensemble. Ce décret, c'est ma façon de tenir. »"
       ],
       "choix": [
         {
@@ -221,6 +222,12 @@
         },
         {
           "texte": "À bientôt, Kaël."
+        }
+      ],
+      "actions": [
+        {
+          "type": "pouvoir",
+          "id": "decret_tenez_bon"
         }
       ]
     }

@@ -134,11 +134,25 @@ class DonneesTest {
 		}
 		for (Path p : fichiers(ASSETS.resolve("models/item"), ".json")) {
 			String id = p.getFileName().toString().replace(".json", "");
+			if (id.matches(".*_pulling_\\d")) {
+				continue; // états de tension de l'arc : modèles intermédiaires sans objet propre
+			}
 			if (!lang.containsKey("item.les_limbes." + id) && !lang.containsKey("block.les_limbes." + id)) {
 				manquantes.add("item.les_limbes." + id);
 			}
 		}
-		for (String pouvoir : List.of("epee_du_souverain", "pas_court", "decret_reculez")) {
+		// Toutes les techniques déclarées dans Abilities.java (sans initialiser les registres du jeu) ont leurs trois clés.
+		String sourceAbilities = Files.readString(Path.of("src/main/java/fr/leslimbes/power/Abilities.java"), StandardCharsets.UTF_8);
+		List<String> pouvoirs = new ArrayList<>();
+		java.util.regex.Matcher m = java.util.regex.Pattern.compile("new Ability\\(\"([a-z_]+)\"").matcher(sourceAbilities);
+		while (m.find()) {
+			pouvoirs.add(m.group(1));
+		}
+		assertTrue(pouvoirs.size() >= 33, "au moins trente-trois techniques royales (trouvé " + pouvoirs.size() + ")");
+		for (String branche : List.of("arsenal", "portes", "decrets", "garde", "main", "pactes", "emblematiques")) {
+			assertTrue(lang.containsKey("branche.les_limbes." + branche), "nom de branche manquant : " + branche);
+		}
+		for (String pouvoir : pouvoirs) {
 			for (String suffixe : List.of("", ".court", ".description")) {
 				if (!lang.containsKey("pouvoir.les_limbes." + pouvoir + suffixe)) {
 					manquantes.add("pouvoir.les_limbes." + pouvoir + suffixe);
@@ -253,9 +267,9 @@ class DonneesTest {
 		fr.leslimbes.domaine.DomaineLoader.chargerDepuisJson(projets, lieux, relais);
 		assertTrue(fr.leslimbes.domaine.DomaineLoader.projets().size() >= 10, "au moins dix projets de domaine");
 		assertTrue(fr.leslimbes.domaine.DomaineLoader.lieux().size() >= 10, "au moins dix lieux d'intérêt");
-		assertEquals(9, fr.leslimbes.domaine.DomaineLoader.relais().size());
+		assertEquals(11, fr.leslimbes.domaine.DomaineLoader.relais().size());
 		Set<String> prerequisConnus = Set.of("drapeau", "drapeau_monde", "sans_drapeau", "sans_drapeau_monde", "pouvoir", "quete_terminee", "quete_active", "objet", "tout", "un_de", "non");
-		Set<String> actionsConnues = Set.of("message", "drapeau", "drapeau_monde", "deplacer_pnj", "donner", "pouvoir", "decouvrir_relais", "decouvrir_lieu", "titre", "son",
+		Set<String> actionsConnues = Set.of("message", "drapeau", "drapeau_monde", "deplacer_pnj", "donner", "pouvoir", "decouvrir_relais", "decouvrir_lieu", "titre", "son", "poser_structure",
 				"experience", "compteur", "modifier_bloc", "demarrer_quete", "objectif", "majeste_max", "apparition");
 		List<String> erreurs = new ArrayList<>();
 		for (fr.leslimbes.domaine.ProjetDefinition def : fr.leslimbes.domaine.DomaineLoader.projets().values()) {
@@ -336,7 +350,7 @@ class DonneesTest {
 		assertFalse(fichiers.isEmpty(), "aucun duel trouvé");
 		fr.leslimbes.duel.DuelLoader.chargerDepuisJson(fichiers);
 		assertTrue(fr.leslimbes.duel.DuelLoader.tous().size() >= 8, "au moins huit duels et épreuves");
-		Set<String> actionsConnues = Set.of("message", "drapeau", "drapeau_monde", "deplacer_pnj", "donner", "pouvoir", "decouvrir_relais", "decouvrir_lieu", "titre", "son",
+		Set<String> actionsConnues = Set.of("message", "drapeau", "drapeau_monde", "deplacer_pnj", "donner", "pouvoir", "decouvrir_relais", "decouvrir_lieu", "titre", "son", "poser_structure",
 				"experience", "compteur", "modifier_bloc", "demarrer_quete", "objectif", "majeste_max", "apparition", "retirer", "duel", "capitale", "couronner", "delegation");
 		List<String> erreurs = new ArrayList<>();
 		for (fr.leslimbes.duel.DuelDefinition d : fr.leslimbes.duel.DuelLoader.tous().values()) {

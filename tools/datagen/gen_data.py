@@ -309,6 +309,10 @@ def gen_blocks() -> None:
     asset("models/block", "pont_royal_trame", {"textures": {"particle": lb("block/pont_royal_trame"), "r": lb("block/pont_royal_trame")},
                                                "elements": [{"from": [0, 0, 0], "to": [16, 1, 16], "faces": {f: {"texture": "#r"} for f in ["north", "south", "east", "west", "up", "down"]}}]})
     asset("models/item", "pont_royal", {"parent": lb("block/pont_royal")})
+    # Pont de lumière (décret « Que le chemin s'ouvre ») : cube translucide.
+    asset("blockstates", "pont_de_lumiere", {"variants": {"": {"model": lb("block/pont_de_lumiere")}}})
+    asset("models/block", "pont_de_lumiere", {"parent": mc("block/cube_all"), "textures": {"all": lb("block/pont_de_lumiere")}})
+    asset("models/item", "pont_de_lumiere", {"parent": lb("block/pont_de_lumiere")})
 
 
 # ----------------------------------------------------------------------------- objets
@@ -322,13 +326,23 @@ ITEMS_GENERATED = ["fragment_de_nacre", "boussole_nacree", "fibres_nacrees", "he
 ESPECES_REGIONALES = ["crabe_de_nacre", "meduse_celeste", "poisson_lanterne", "gardien_des_epaves", "tortue_des_lagons", "geant_des_jardins", "libellule_de_rosee", "escargot_des_racines", "rodeur_des_racines", "scarabee_de_seve", "fennec_des_dunes", "scorpion_des_heures", "lezard_cadran", "sentinelle_de_sable", "gazelle_d_opale", "bouquetin_de_verre", "papillon_de_cristal", "colosse_de_cristal", "echo_resonnant", "griffon_de_verre", "colombe_astrale", "chat_de_palais", "sentinelle_de_la_couronne", "spectre_de_la_cour", "cerf_royal"]
 # Renforts et soutiens des duels (étape 6)
 ESPECES_REGIONALES += ["chevalier_de_bois_blanc", "reflet_de_verre", "double_des_heures", "legionnaire_astral", "champion_des_heures", "fleur_de_vie", "point_de_rupture", "banniere_astrale"]
-ITEMS_GENERATED += ["oeuf_" + e for e in ESPECES_REGIONALES] + ["sceau_royal"]
+# Garde astrale et règne (étape 7)
+ESPECES_REGIONALES += ["chevalier_astral", "archer_astral", "protecteur_astral", "baleine_des_hauteurs"]
+ITEMS_GENERATED += ["oeuf_" + e for e in ESPECES_REGIONALES] + ["sceau_royal", "bouclier_du_souverain"]
 
 
 def gen_items() -> None:
     for it in ITEMS_GENERATED:
         asset("models/item", it, {"parent": mc("item/generated"), "textures": {"layer0": lb("item/" + it)}})
     asset("models/item", "epee_du_souverain", {"parent": mc("item/handheld"), "textures": {"layer0": lb("item/epee_du_souverain")}})
+    asset("models/item", "lance_du_souverain", {"parent": mc("item/handheld"), "textures": {"layer0": lb("item/lance_du_souverain")}})
+    # Arc du Souverain : mêmes transformations et prédicats que l'arc vanilla (pull / pulling, enregistrés côté client).
+    asset("models/item", "arc_du_souverain", {"parent": mc("item/bow"), "textures": {"layer0": lb("item/arc_du_souverain")}, "overrides": [
+        {"predicate": {"pulling": 1}, "model": lb("item/arc_du_souverain_pulling_0")},
+        {"predicate": {"pulling": 1, "pull": 0.65}, "model": lb("item/arc_du_souverain_pulling_1")},
+        {"predicate": {"pulling": 1, "pull": 0.9}, "model": lb("item/arc_du_souverain_pulling_2")}]})
+    for n in range(3):
+        asset("models/item", f"arc_du_souverain_pulling_{n}", {"parent": lb("item/arc_du_souverain"), "textures": {"layer0": lb(f"item/arc_du_souverain_pulling_{n}")}})
 
 
 # ----------------------------------------------------------------------------- particules & sons
@@ -341,6 +355,14 @@ SOUNDS = {
     "pouvoir.pas": ("pouvoir/pas", "subtitles.les_limbes.pouvoir.pas"),
     "pouvoir.decret": ("pouvoir/decret", "subtitles.les_limbes.pouvoir.decret"),
     "pouvoir.refus": ("pouvoir/refus", "subtitles.les_limbes.pouvoir.refus"),
+    "pouvoir.parade": ("pouvoir/parade", "subtitles.les_limbes.pouvoir.parade"),
+    "pouvoir.lance": ("pouvoir/lance", "subtitles.les_limbes.pouvoir.lance"),
+    "pouvoir.arc": ("pouvoir/arc", "subtitles.les_limbes.pouvoir.arc"),
+    "pouvoir.garde": ("pouvoir/garde", "subtitles.les_limbes.pouvoir.garde"),
+    "pouvoir.main": ("pouvoir/main", "subtitles.les_limbes.pouvoir.main"),
+    "pouvoir.constellation": ("pouvoir/constellation", "subtitles.les_limbes.pouvoir.constellation"),
+    "pouvoir.avenement": ("pouvoir/avenement", "subtitles.les_limbes.pouvoir.avenement"),
+    "creature.baleine.chant": ("creature/baleine_chant", "subtitles.les_limbes.creature.baleine.chant"),
     "objet.fragment": ("objet/fragment", "subtitles.les_limbes.objet.fragment"),
     "quete.etape": ("quete/etape", "subtitles.les_limbes.quete.etape"),
     "quete.terminee": ("quete/terminee", "subtitles.les_limbes.quete.terminee"),
@@ -499,6 +521,7 @@ BUTINS_ENTITES = {
     "tortue_des_lagons": [], "scarabee_de_seve": [], "gazelle_d_opale": [], "griffon_de_verre": [], "cerf_royal": [],
     "chevalier_de_bois_blanc": [], "reflet_de_verre": [(lb("eclat_resonnant"), 0, 1, 1.0)], "double_des_heures": [], "legionnaire_astral": [(lb("pierre_de_couronne"), 0, 1, 1.0)],
     "champion_des_heures": [(lb("dattes_des_heures"), 1, 3, 1.0)], "fleur_de_vie": [], "point_de_rupture": [], "banniere_astrale": [],
+    "chevalier_astral": [], "archer_astral": [], "protecteur_astral": [], "baleine_des_hauteurs": [(lb("perle_de_nacre"), 1, 3, 1.0), ("minecraft:leather", 2, 5, 1.0)],
 }
 
 
@@ -514,7 +537,7 @@ def gen_loot() -> None:
               "pierre_de_verre", "pierre_de_verre_taillee", "verre_de_montagne", "courant_cristallin",
               "pierre_de_couronne", "pierre_de_couronne_taillee", "pierre_de_couronne_polie", "pierre_de_couronne_sculptee", "lanterne_royale"]:
         data("loot_table/blocks", b, self_drop(b))
-    for b in ["pave_horaire", "pont_de_verre", "porte_royale", "pont_royal"]:
+    for b in ["pave_horaire", "pont_de_verre", "porte_royale", "pont_royal", "pont_de_lumiere"]:
         data("loot_table/blocks", b, {"type": "minecraft:block", "pools": []})
     data("loot_table/blocks", "lanterne_royale_eteinte", self_drop("lanterne_royale_eteinte"))
     data("loot_table/blocks", "feuilles_de_geant", {"type": "minecraft:block", "pools": [{"rolls": 1, "entries": [{"type": "minecraft:item", "name": lb("fruit_de_geant"),
@@ -585,6 +608,9 @@ def gen_loot() -> None:
     coffre("meridiane", [(lb("dattes_des_heures"), 4, 2, 5), ("minecraft:clock", 1, 0, 0), (lb("gres_des_heures_taille"), 2, 4, 8), ("minecraft:gold_nugget", 3, 2, 6), ("minecraft:lantern", 1, 1, 2)])
     coffre("verreole", [(lb("eclat_resonnant"), 4, 1, 3), (lb("the_des_cimes"), 3, 1, 2), ("minecraft:iron_ingot", 3, 1, 3), (lb("cristal_resonnant"), 1, 0, 0), ("minecraft:glass", 2, 3, 6)])
     coffre("belvedere", [("minecraft:gold_ingot", 3, 2, 4), (lb("pierre_de_couronne_sculptee"), 2, 2, 4), (lb("lanterne_royale"), 2, 1, 2), ("minecraft:emerald", 2, 1, 3)], rolls=(2, 3), garanti=[lb("sceau_royal")])
+    # Étape 7 : l'île des ruines garantit le journal de l'expédition royale ; la cabine du navire royal est garnie.
+    coffre("ruines", [("minecraft:gold_ingot", 2, 1, 3), (lb("perle_de_nacre"), 3, 1, 2), (lb("pierre_de_couronne_sculptee"), 2, 1, 3), ("minecraft:emerald", 1, 1, 2)], rolls=(2, 3), garanti=[lb("journal_de_bord")])
+    coffre("navire_royal", [(lb("poisson_lanterne"), 3, 2, 5), ("minecraft:bread", 3, 2, 4), (lb("perle_de_nacre"), 2, 1, 2), ("minecraft:spyglass", 1, 1, 1), (lb("fibres_nacrees"), 2, 2, 4)], rolls=(2, 4))
     coffre("haute_garde", [(lb("pain_de_la_cour"), 4, 1, 3), ("minecraft:iron_ingot", 3, 2, 4), (lb("pierre_de_couronne_taillee"), 2, 4, 8), ("minecraft:shield", 1, 0, 0), (lb("lanterne_royale"), 1, 1, 2)])
     data("loot_table/chests", "manoir", {"type": "minecraft:chest", "pools": [
         {"rolls": {"type": "minecraft:uniform", "min": 2, "max": 4}, "entries": [
@@ -788,6 +814,10 @@ SITES = [
     {"x": 1250, "z": -650, "y": 66, "rayon": 14, "transition": 12},   # Campement de l'archipel (expédition de Kaël)
     {"x": -700, "z": -1060, "y": 86, "rayon": 20, "transition": 16},  # Site d'Arrivée du royaume 1 (belvédère)
     {"x": -1060, "z": -700, "y": 86, "rayon": 20, "transition": 16},  # Site d'Arrivée du royaume 2
+    # --- Étape 7 : le règne ---
+    {"x": 1030, "z": -800, "y": 56, "rayon": 24, "transition": 14},   # Chantier naval (fond plat sous la Mer, le navire royal y est bâti)
+    {"x": 1300, "z": -1000, "y": 70, "rayon": 26, "transition": 18},  # Île des ruines (expédition du navire royal)
+    {"x": -900, "z": -1380, "y": 86, "rayon": 30, "transition": 24},  # Lisière des brumes (frontière du nord, l'ancien roi)
 ]
 
 

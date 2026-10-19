@@ -26,7 +26,9 @@ public final class Espece {
 		/** Monture : pacte par l'appât, rappel au sifflet, saut (sol) ou vol. */
 		MONTURE,
 		/** Soutien de duel, immobile : soigne un prétendant, tient une armure ou protège une légion. */
-		SOUTIEN
+		SOUTIEN,
+		/** Garde astrale invoquée par le souverain (chevalier, archer, protecteur) : alliée, temporaire. */
+		GARDE
 	}
 
 	public final String id;
@@ -64,6 +66,8 @@ public final class Espece {
 	public boolean rupture = false;
 	public boolean protegeParBanniere = false;
 	public float soin = 0.0F;
+	/** Variante de garde astrale : 0 chevalier, 1 archer, 2 protecteur (-1 : pas une garde). */
+	public int garde = -1;
 	@Nullable
 	public SoundEvent ambiant;
 	@Nullable
@@ -211,6 +215,12 @@ public final class Espece {
 
 	public Espece protegeParBanniere() {
 		this.protegeParBanniere = true;
+		return this;
+	}
+
+	public Espece garde(int variante) {
+		this.garde = variante;
+		this.fuit = false;
 		return this;
 	}
 

@@ -47,6 +47,54 @@
       "les_limbes:pouvoir/refus"
     ]
   },
+  "pouvoir.parade": {
+    "subtitle": "subtitles.les_limbes.pouvoir.parade",
+    "sounds": [
+      "les_limbes:pouvoir/parade"
+    ]
+  },
+  "pouvoir.lance": {
+    "subtitle": "subtitles.les_limbes.pouvoir.lance",
+    "sounds": [
+      "les_limbes:pouvoir/lance"
+    ]
+  },
+  "pouvoir.arc": {
+    "subtitle": "subtitles.les_limbes.pouvoir.arc",
+    "sounds": [
+      "les_limbes:pouvoir/arc"
+    ]
+  },
+  "pouvoir.garde": {
+    "subtitle": "subtitles.les_limbes.pouvoir.garde",
+    "sounds": [
+      "les_limbes:pouvoir/garde"
+    ]
+  },
+  "pouvoir.main": {
+    "subtitle": "subtitles.les_limbes.pouvoir.main",
+    "sounds": [
+      "les_limbes:pouvoir/main"
+    ]
+  },
+  "pouvoir.constellation": {
+    "subtitle": "subtitles.les_limbes.pouvoir.constellation",
+    "sounds": [
+      "les_limbes:pouvoir/constellation"
+    ]
+  },
+  "pouvoir.avenement": {
+    "subtitle": "subtitles.les_limbes.pouvoir.avenement",
+    "sounds": [
+      "les_limbes:pouvoir/avenement"
+    ]
+  },
+  "creature.baleine.chant": {
+    "subtitle": "subtitles.les_limbes.creature.baleine.chant",
+    "sounds": [
+      "les_limbes:creature/baleine_chant"
+    ]
+  },
   "objet.fragment": {
     "subtitle": "subtitles.les_limbes.objet.fragment",
     "sounds": [

@@ -1,0 +1,114 @@
+{
+  "titre": "La cité arrivée",
+  "acte": 5,
+  "description": "Premier grand acte du règne : la couronne appelle une cité entière perdue dans les brumes, Brumeval, sur le site réservé à l'ouest de la capitale. Il faut l'accueillir, rallumer ses lanternes et la relier au réseau des passages.",
+  "etapes": [
+    {
+      "id": "atteindre",
+      "resume": "Le chambellan a appelé Brumeval : rejoindre le site d'Arrivée à l'ouest de la capitale.",
+      "lieu": {
+        "nom": "Brumeval",
+        "pos": [
+          -1060,
+          86,
+          -700
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "site",
+          "type": "atteindre",
+          "pos": [
+            -1060,
+            86,
+            -700
+          ],
+          "rayon": 20,
+          "dimension": "les_limbes:limbes",
+          "texte": "Rejoindre la cité arrivée de Brumeval"
+        }
+      ]
+    },
+    {
+      "id": "maire",
+      "resume": "Parler à Hortense, la maire de Brumeval : la cité a traversé les brumes en un seul morceau, mais ses lanternes sont éteintes.",
+      "lieu": {
+        "nom": "Brumeval",
+        "pos": [
+          -1060,
+          86,
+          -700
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "maire",
+          "type": "parler",
+          "cible": "maire_de_brumeval",
+          "manuel": true,
+          "texte": "Parler à la maire de Brumeval"
+        }
+      ]
+    },
+    {
+      "id": "lanternes",
+      "resume": "Réunir quatre lanternes royales (Haute-Garde, capitale) pour rallumer la place de Brumeval.",
+      "lieu": {
+        "nom": "Haute-Garde",
+        "pos": [
+          -610,
+          82,
+          -610
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "lanternes",
+          "type": "collecter",
+          "cible": "les_limbes:lanterne_royale",
+          "nombre": 4,
+          "texte": "Réunir quatre lanternes royales"
+        }
+      ]
+    },
+    {
+      "id": "rallumer",
+      "resume": "Rapporter les lanternes à Hortense : Brumeval s'éclaire et sa porte rejoint le réseau des passages.",
+      "lieu": {
+        "nom": "Brumeval",
+        "pos": [
+          -1060,
+          86,
+          -700
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "hortense",
+          "type": "parler",
+          "cible": "maire_de_brumeval",
+          "manuel": true,
+          "texte": "Rapporter les lanternes à la maire"
+        }
+      ]
+    }
+  ],
+  "fin": [
+    {
+      "type": "experience",
+      "niveaux": 6
+    },
+    {
+      "type": "drapeau",
+      "nom": "cite_arrivee_terminee"
+    },
+    {
+      "type": "message",
+      "texte": "Brumeval est une ville des Limbes. Ses habitants parlent déjà de la couronne qui les a appelés."
+    }
+  ]
+}

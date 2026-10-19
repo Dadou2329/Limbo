@@ -27,7 +27,7 @@ public final class LimbesAttachments {
 	/** Recalcule et publie l'état public d'un joueur à partir de sa progression (serveur). */
 	public static void publier(net.minecraft.server.network.ServerPlayerEntity player) {
 		PlayerLimbesData data = PlayerLimbesData.of(player);
-		int niveau = data.aDrapeau("avenement") ? 3 : data.aDrapeau("couronne_assemblee") ? 2 : data.pouvoirs.isEmpty() ? 0 : 1;
+		int niveau = fr.leslimbes.power.EtatPouvoirs.avenementActif(player) ? 3 : data.aDrapeau("couronne_assemblee") ? 2 : data.pouvoirs.isEmpty() ? 0 : 1;
 		if (niveauCouronne(player) != niveau) {
 			player.setAttached(ETAT_PUBLIC, niveau);
 		}

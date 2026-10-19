@@ -84,6 +84,8 @@ public final class LimbesServerEvents {
 			return ActionResult.PASS;
 		});
 		ServerEntityEvents.ENTITY_LOAD.register((entity, world) -> ArsenalDuSouverain.dissiperSiInvoquee(entity));
+		net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents.ALLOW_DAMAGE.register(ArsenalDuSouverain::permettreDegats);
+		net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents.AFTER_DAMAGE.register(ArsenalDuSouverain::apresDegats);
 	}
 
 	private LimbesServerEvents() {

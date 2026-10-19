@@ -1,0 +1,176 @@
+{
+  "nom": "L'ancien roi",
+  "debut": [
+    {
+      "noeud": "apres",
+      "si": [
+        {
+          "drapeau": "frontieres_tenues"
+        }
+      ]
+    },
+    {
+      "noeud": "choix",
+      "si": [
+        {
+          "quete_active": "les_frontieres"
+        },
+        {
+          "quete_etape": {
+            "les_frontieres": "=3"
+          }
+        }
+      ]
+    },
+    {
+      "noeud": "vagues",
+      "si": [
+        {
+          "quete_active": "les_frontieres"
+        },
+        {
+          "quete_etape": {
+            "les_frontieres": "=2"
+          }
+        }
+      ]
+    },
+    {
+      "noeud": "rencontre",
+      "si": [
+        {
+          "quete_active": "les_frontieres"
+        }
+      ]
+    },
+    {
+      "noeud": "silence"
+    }
+  ],
+  "noeuds": {
+    "silence": {
+      "texte": [
+        "Un homme très âgé, en manteau bleu nuit, les yeux levés vers la grande lanterne. Il ne vous regarde pas.",
+        "« Pas maintenant. La lumière baisse. »"
+      ],
+      "choix": [
+        {
+          "texte": "Je reviendrai."
+        }
+      ]
+    },
+    "rencontre": {
+      "texte": [
+        "Ainsi la couronne a trouvé quelqu'un. Je le savais : le sceau est parti d'ici il y a longtemps, vers un belvédère qui n'existait plus.",
+        "Je tiens cette lanterne depuis que j'ai compris ce qu'est ce trône : il recueille ce qui se perd ailleurs. Et ce qui se perd ne tombe pas toujours doucement. Des Veilleurs, des sentinelles que les brumes ont rendus fous.",
+        "Ils viennent quand la lumière faiblit. Elle faiblit. Tenez-la avec moi."
+      ],
+      "choix": [
+        {
+          "texte": "Je tiendrai la lumière.",
+          "actions": [
+            {
+              "type": "apparition",
+              "entite": "les_limbes:veilleur_egare",
+              "nombre": 4,
+              "pos": [
+                -900,
+                86,
+                -1392
+              ],
+              "rayon": 10
+            },
+            {
+              "type": "apparition",
+              "entite": "les_limbes:sentinelle_de_la_couronne",
+              "nombre": 2,
+              "pos": [
+                -900,
+                86,
+                -1394
+              ],
+              "rayon": 8
+            },
+            {
+              "type": "message",
+              "texte": "Les brumes du nord se déchirent : ce qui tombe se jette sur la lanterne."
+            },
+            {
+              "type": "son",
+              "id": "les_limbes:monde.brumes"
+            },
+            {
+              "type": "objectif",
+              "quete": "les_frontieres",
+              "objectif": "roi"
+            }
+          ]
+        }
+      ]
+    },
+    "vagues": {
+      "texte": [
+        "Tenez ! Ne les laissez pas atteindre la tour !"
+      ],
+      "choix": [
+        {
+          "texte": "Je tiens."
+        }
+      ]
+    },
+    "choix": {
+      "texte": [
+        "La lumière tient. Elle tiendra mieux avec vous sur le trône : les Arrivées répondront à la couronne, et moins de choses tomberont de travers.",
+        "Maintenant dites-moi ce que vous voulez de moi. Je peux rentrer à la capitale et finir mes jours sous un toit. Ou rester ici : quelqu'un doit regarder le nord."
+      ],
+      "choix": [
+        {
+          "texte": "Rentrez à la capitale, vous avez assez veillé.",
+          "actions": [
+            {
+              "type": "drapeau",
+              "nom": "roi_rappele"
+            },
+            {
+              "type": "message",
+              "texte": "L'ancien roi incline la tête : il rentrera. La lisière sera gardée par vos sentinelles et votre lumière."
+            },
+            {
+              "type": "objectif",
+              "quete": "les_frontieres",
+              "objectif": "choix"
+            }
+          ]
+        },
+        {
+          "texte": "Restez, et je reviendrai souvent.",
+          "actions": [
+            {
+              "type": "drapeau",
+              "nom": "roi_gardien"
+            },
+            {
+              "type": "message",
+              "texte": "L'ancien roi sourit pour la première fois : il garde la frontière. « Revenez quand la lumière baisse. »"
+            },
+            {
+              "type": "objectif",
+              "quete": "les_frontieres",
+              "objectif": "choix"
+            }
+          ]
+        }
+      ]
+    },
+    "apres": {
+      "texte": [
+        "La royauté se révèle en vous quand vous l'appelez : c'est l'Avènement. Je ne l'ai eu qu'une fois, le jour où j'ai compris. Vous l'aurez chaque fois qu'il le faudra."
+      ],
+      "choix": [
+        {
+          "texte": "Merci."
+        }
+      ]
+    }
+  }
+}

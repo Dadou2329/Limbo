@@ -153,6 +153,22 @@
   ],
   "fin": [
     {
+      "type": "pouvoir",
+      "id": "attaque_d_angle"
+    },
+    {
+      "type": "pouvoir",
+      "id": "ordre_de_garde"
+    },
+    {
+      "type": "pouvoir",
+      "id": "protecteur_astral"
+    },
+    {
+      "type": "pouvoir",
+      "id": "archer_astral"
+    },
+    {
       "type": "experience",
       "niveaux": 6
     },

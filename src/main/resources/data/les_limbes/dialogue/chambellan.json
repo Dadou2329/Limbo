@@ -229,9 +229,37 @@
     },
     "regne": {
       "texte": [
-        "Majesté, le palais est à vos ordres. Les ambassadeurs attendent audience quand vous le voudrez."
+        "Majesté, le palais est à vos ordres. Rachid parle d'un grand tournoi, le capitaine Lio d'un navire, Bertrand des frontières du nord.",
+        "Et puis il y a ce que seul un roi peut faire : appeler. Une cité entière, Brumeval, se perd dans les brumes depuis des années ; le site de l'ouest lui est réservé."
       ],
       "choix": [
+        {
+          "texte": "Que Brumeval revienne.",
+          "si": [
+            {
+              "quete_inconnue": "la_cite_arrivee"
+            }
+          ],
+          "actions": [
+            {
+              "type": "drapeau_monde",
+              "nom": "cite_brumeval_appelee"
+            },
+            {
+              "type": "arrivee_declencher",
+              "id": "cite_brumeval",
+              "site": "royaume_2"
+            },
+            {
+              "type": "demarrer_quete",
+              "quete": "la_cite_arrivee"
+            },
+            {
+              "type": "message",
+              "texte": "Aldric lève le sceau vers le ciel : à l'ouest de la capitale, les brumes se plissent."
+            }
+          ]
+        },
         {
           "texte": "Plus tard, Aldric."
         }

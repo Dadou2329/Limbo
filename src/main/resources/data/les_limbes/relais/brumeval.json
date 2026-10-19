@@ -1,0 +1,11 @@
+{
+  "nom": "Place de Brumeval",
+  "description": "Sur la place de la cité arrivée, devant la fontaine.",
+  "pos": [
+    -1060,
+    87,
+    -694
+  ],
+  "dimension": "les_limbes:limbes",
+  "ordre": 10
+}

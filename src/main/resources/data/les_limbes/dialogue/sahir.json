@@ -143,7 +143,8 @@
     },
     "reconnu": {
       "texte": [
-        "Champion des heures. Les gardiens du passé vous reconnaissent, et moi aussi. Les heures suspendues restent à votre disposition si vous voulez vous y mesurer."
+        "Champion des heures. Les gardiens du passé vous reconnaissent, et moi aussi. Les heures suspendues restent à votre disposition si vous voulez vous y mesurer.",
+        "Sahir : « Le temps peut s'arrêter pour les autres. Dites “Restez”, et ils resteront. »"
       ],
       "choix": [
         {
@@ -157,6 +158,12 @@
         },
         {
           "texte": "Merci, Sahir."
+        }
+      ],
+      "actions": [
+        {
+          "type": "pouvoir",
+          "id": "decret_restez"
         }
       ]
     }

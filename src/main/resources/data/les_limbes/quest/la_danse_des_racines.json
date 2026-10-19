@@ -49,6 +49,10 @@
   ],
   "fin": [
     {
+      "type": "pouvoir",
+      "id": "main_saisir"
+    },
+    {
       "type": "experience",
       "niveaux": 2
     }

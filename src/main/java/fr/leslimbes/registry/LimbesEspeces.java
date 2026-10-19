@@ -9,6 +9,7 @@ import fr.leslimbes.entity.region.EnnemiAnnonceEntity;
 import fr.leslimbes.entity.region.EnnemiTireurEntity;
 import fr.leslimbes.entity.region.Espece;
 import fr.leslimbes.entity.region.MontureEntity;
+import fr.leslimbes.entity.region.GardeAstraleEntity;
 import fr.leslimbes.entity.region.SoutienEntity;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.entity.EntityType;
@@ -91,6 +92,11 @@ public final class LimbesEspeces {
 		soutien("fleur_de_vie").taille(0.8F, 0.9F).vie(10).soin(3.0F).xp(2).oeuf(0xF2A5C8, 0xDFFFB0);
 		soutien("point_de_rupture").taille(0.5F, 0.5F).vie(6).rupture().xp(2).oeuf(0xAEE6F8, 0x6B7A8A);
 		soutien("banniere_astrale").taille(0.6F, 2.0F).vie(20).banniere().xp(3).oeuf(0x2E3A6E, 0xFFF3C8);
+		// --- Garde astrale et règne (étape 7) ---
+		garde("chevalier_astral").taille(0.6F, 1.95F).yeux(1.7F).vie(40).vitesse(0.32).combat(6, 4, 0.5).garde(0).xp(0).oeuf(0xF2F4FA, 0xC9A227);
+		garde("archer_astral").taille(0.6F, 1.9F).yeux(1.65F).vie(30).vitesse(0.3).combat(2, 2, 0.3).tir(10, 40, 16, 4, 0.2).garde(1).xp(0).oeuf(0xF2F4FA, 0x7FE6FF);
+		garde("protecteur_astral").taille(0.8F, 2.1F).yeux(1.85F).vie(70).vitesse(0.28).combat(4, 10, 1.0).garde(2).xp(0).oeuf(0xF2F4FA, 0x2E3A6E);
+		volant("baleine_des_hauteurs").taille(4.0F, 2.4F).yeux(1.5F).vie(120).vitesse(0.18).vitesseVol(0.22).geant().sons(LimbesSounds.BALEINE_CHANT, null, null).xp(12).oeuf(0x6F8FB8, 0xDDE8F0);
 	}
 
 	private static Espece declarer(Espece e) {
@@ -124,6 +130,10 @@ public final class LimbesEspeces {
 
 	private static Espece soutien(String id) {
 		return declarer(new Espece(id, Espece.Archetype.SOUTIEN));
+	}
+
+	private static Espece garde(String id) {
+		return declarer(new Espece(id, Espece.Archetype.GARDE));
 	}
 
 	public static void init() {
@@ -181,6 +191,8 @@ public final class LimbesEspeces {
 					EnnemiTireurEntity.creerAttributs(e), SpawnLocationTypes.ON_GROUND, HostileEntity::canSpawnIgnoreLightLevel);
 			case SOUTIEN -> enregistrer(e, SpawnGroup.MISC, (EntityType<SoutienEntity> type, net.minecraft.world.World world) -> new SoutienEntity(type, world, e),
 					SoutienEntity.creerAttributs(e), null, null);
+			case GARDE -> enregistrer(e, SpawnGroup.MISC, (EntityType<GardeAstraleEntity> type, net.minecraft.world.World world) -> new GardeAstraleEntity(type, world, e),
+					GardeAstraleEntity.creerAttributs(e), null, null);
 			case MONTURE -> {
 				if (e.vol) {
 					enregistrer(e, SpawnGroup.CREATURE, (EntityType<MontureEntity> type, net.minecraft.world.World world) -> new MontureEntity(type, world, e),

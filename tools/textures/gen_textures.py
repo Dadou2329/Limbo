@@ -689,6 +689,7 @@ def gen_blocks_regions() -> None:
     save(tex_porte_royale(), out_path("block", "porte_royale"))
     save(tex_pont_royal(False), out_path("block", "pont_royal"))
     save(tex_pont_royal(True), out_path("block", "pont_royal_trame"))
+    save(tex_pont_de_lumiere(), out_path("block", "pont_de_lumiere"))
     save(tex_item_sceau_royal(), out_path("item", "sceau_royal"))
 
 
@@ -854,6 +855,105 @@ def tex_item_epee_du_souverain() -> Image.Image:
     # éclat d'étoile
     put(img, 10, 3, P["or_clair"]); put(img, 11, 2, P["blanc"]); put(img, 11, 4, P["or_clair"]); put(img, 12, 3, P["or_clair"])
     item_outline(img, P["bleu_nuit"])
+    return img
+
+
+def tex_item_lance_du_souverain() -> Image.Image:
+    """Lance invoquée : longue hampe d'or pâle en diagonale, fer de verre lumineux, ruban bleu."""
+    img = new()
+    for k in range(13):
+        x, y = 2 + k, 13 - k
+        put(img, x, y, P["or"] if k < 8 else P["verre"])
+        if k < 8:
+            put(img, x, y + 1, P["or_sombre"])
+        else:
+            put(img, x - 1, y, P["blanc"] if k % 2 else P["verre_sombre"])
+    put(img, 15, 0, P["blanc"]); put(img, 14, 0, P["verre"]); put(img, 15, 1, P["verre"])
+    for k in range(3):
+        put(img, 7 + k, 7 - k, P["bleu"]); put(img, 8 + k, 7 - k, P["bleu_clair"])
+    put(img, 5, 11, P["bleu_clair"]); put(img, 4, 12, P["bleu"])
+    item_outline(img, P["bleu_nuit"])
+    return img
+
+
+def tex_item_arc_du_souverain(tension: int) -> Image.Image:
+    """Arc invoqué : branche d'or courbe, corde de lumière ; la tension (0-3) ramène la corde vers la poignée."""
+    img = new()
+    branche = [(3, 1), (2, 2), (2, 3), (2, 4), (3, 5), (3, 6), (3, 7), (3, 8), (3, 9), (3, 10), (2, 11), (2, 12), (2, 13), (3, 14)]
+    for i, (x, y) in enumerate(branche):
+        put(img, x, y, P["or"] if 4 <= i <= 9 else P["or_clair"])
+        put(img, x + 1, y, P["or_sombre"])
+    put(img, 3, 7, P["bleu"]); put(img, 3, 8, P["bleu"]); put(img, 4, 7, P["bleu_clair"]); put(img, 4, 8, P["bleu_clair"])
+    xc = 11 - tension * 2
+    for y in range(1, 15):
+        t = abs(y - 7.5) / 6.5
+        x = int(round(xc + (4 + tension) * t * t)) if tension > 0 else 5 + int(round(6 * (1 - t)))
+        x = max(4, min(14, x))
+        put(img, x, y, P["blanc"] if y % 2 else P["verre"])
+    if tension > 0:
+        for k in range(9 - tension):
+            put(img, 5 + k, 7, P["verre"])
+            put(img, 5 + k, 8, P["verre_sombre"])
+        put(img, 14 - tension, 7, P["blanc"])
+    item_outline(img, P["bleu_nuit"])
+    return img
+
+
+def tex_item_bouclier_du_souverain() -> Image.Image:
+    """Bouclier invoqué : écu de verre bleu bordé d'or, étoile royale au centre."""
+    img = new()
+    for y in range(1, 15):
+        demi = 6 if y < 9 else 6 - (y - 8)
+        for x in range(8 - demi, 8 + demi):
+            bord = x in (8 - demi, 7 + demi) or y == 1 or y == 14
+            put(img, x, y, P["or"] if bord else (P["verre"] if (x + y) % 3 else P["verre_sombre"]))
+    for (x, y) in [(7, 5), (8, 5), (7, 6), (8, 6), (7, 3), (8, 8), (5, 5), (10, 6), (6, 4), (9, 4), (6, 7), (9, 7)]:
+        put(img, x, y, P["or_clair"])
+    put(img, 7, 10, P["blanc"]); put(img, 8, 10, P["blanc"])
+    item_outline(img, P["bleu_nuit"])
+    return img
+
+
+def tex_pont_de_lumiere() -> Image.Image:
+    """Pont de lumière : dalle translucide d'or pâle striée, bords lumineux."""
+    img = new()
+    for y in range(16):
+        for x in range(16):
+            bord = x in (0, 15) or y in (0, 15)
+            raie = (x + y) % 6 == 0
+            c = P["or_clair"] if bord else (P["blanc"] if raie else P["or"])
+            put(img, x, y, (c[0], c[1], c[2], 235 if bord else (150 if raie else 110)))
+    return img
+
+
+def tex_couronne() -> Image.Image:
+    """Couronne assemblée (pan d'anneau 16x16) : bandeau d'or, pointes, gemmes bleues ; fond transparent."""
+    img = new()
+    g, gc, gs = P["or"], P["or_clair"], P["or_sombre"]
+    for x in range(16):
+        put(img, x, 12, g); put(img, x, 13, gs); put(img, x, 11, gc)
+    for x, h in [(1, 4), (5, 7), (8, 9), (11, 7), (14, 4)]:
+        for y in range(11 - h, 11):
+            put(img, x, y, g)
+        put(img, x, 11 - h, gc)
+        if h >= 7:
+            put(img, x, 8, P["bleu_clair"])
+    put(img, 3, 12, P["verre_sombre"]); put(img, 8, 12, P["bleu_clair"]); put(img, 12, 12, P["verre_sombre"])
+    return img
+
+
+def tex_manteau_royal() -> Image.Image:
+    """Manteau de lumière de l'Avènement : dégradé bleu nuit → or, semé d'étoiles ; partiellement transparent."""
+    img = new()
+    for y in range(16):
+        for x in range(16):
+            t = y / 15.0
+            c = mix(P["bleu_nuit"], P["or"], t * 0.7)
+            put(img, x, y, (c[0], c[1], c[2], 200 - int(70 * t)))
+    for (x, y) in [(2, 2), (9, 1), (13, 4), (5, 6), (11, 8), (3, 10), (8, 12), (14, 13), (6, 14)]:
+        put(img, x, y, P["blanc"])
+    for x in range(16):
+        put(img, x, 15, P["or_clair"])
     return img
 
 
@@ -1050,6 +1150,11 @@ def gen_items() -> None:
     save(tex_item_bouillon_de_laube(), out_path("item", "bouillon_de_l_aube"))
     save(tex_item_fragment_de_couronne(), out_path("item", "fragment_de_couronne"))
     save(tex_item_epee_du_souverain(), out_path("item", "epee_du_souverain"))
+    save(tex_item_lance_du_souverain(), out_path("item", "lance_du_souverain"))
+    save(tex_item_arc_du_souverain(0), out_path("item", "arc_du_souverain"))
+    for n in range(3):
+        save(tex_item_arc_du_souverain(n + 1), out_path("item", f"arc_du_souverain_pulling_{n}"))
+    save(tex_item_bouclier_du_souverain(), out_path("item", "bouclier_du_souverain"))
     save(tex_item_cle_du_manoir(), out_path("item", "cle_du_manoir"))
     save(tex_item_oeuf(P["lueur"], P["bleu_clair"]), out_path("item", "oeuf_poisson_lune"))
     save(tex_item_oeuf(P["ecorce"], P["or"]), out_path("item", "oeuf_cerf_lanterne"))
@@ -1085,6 +1190,7 @@ def gen_items() -> None:
         "chevalier_de_bois_blanc": ("EDE6D6", "5F9A4E"), "reflet_de_verre": ("C8F0FF", "FFFFFF"), "double_des_heures": ("D9C08C", "3A2A1A"),
         "legionnaire_astral": ("2E3A6E", "C9A227"), "champion_des_heures": ("C98B3C", "FFE08A"), "fleur_de_vie": ("F2A5C8", "DFFFB0"),
         "point_de_rupture": ("AEE6F8", "6B7A8A"), "banniere_astrale": ("2E3A6E", "FFF3C8"),
+        "chevalier_astral": ("F2F4FA", "C9A227"), "archer_astral": ("F2F4FA", "7FE6FF"), "protecteur_astral": ("F2F4FA", "2E3A6E"), "baleine_des_hauteurs": ("6F8FB8", "DDE8F0"),
     }.items():
         save(tex_item_oeuf(hex_to_rgba(fond), hex_to_rgba(points)), out_path("item", "oeuf_" + nom_oeuf))
 
@@ -1245,6 +1351,13 @@ SKINS = {
     "marchand_1": {"seed": 37, "peau": "E8C4A8", "cheveux": "4A3326", "haut": "D9B99A", "bas": "6B5A4A", "accent": "A33E3E"},
     "marchand_2": {"seed": 38, "peau": "C58F6A", "cheveux": "1E1A18", "haut": "CDE9DF", "bas": "35455E", "accent": "E3C97E", "cheveux_longs": True, "longueur_cheveux": 2},
     # --- Personnages des régions (étape 5) ---
+    # --- Le règne (étape 7) ---
+    "maire_de_brumeval": {'seed': 121, 'peau': 'E0B898', 'cheveux': 'B8B4B0', 'haut': '4A4668', 'bas': '2E2A40', 'accent': 'E3C97E', 'longueur_cheveux': 3, 'cheveux_longs': True, 'manteau': '6E2E3A', 'col': 'E9E3DA', 'broderie': True},
+    "brumevalois_1": {'seed': 122, 'peau': 'C58F6A', 'cheveux': '4A3326', 'haut': '8A6A4E', 'bas': '35455E', 'accent': 'C9B7A2', 'longueur_cheveux': 2, 'tablier': 'D9CBB4'},
+    "brumevaloise_2": {'seed': 123, 'peau': 'F2D6C2', 'cheveux': 'D9A066', 'haut': '5E8A6E', 'bas': '6A5A4A', 'accent': 'F0CBD8', 'longueur_cheveux': 4, 'cheveux_longs': True, 'col': 'E9E3DA'},
+    "enfant_de_brumeval": {'seed': 124, 'peau': 'E8C4A8', 'cheveux': '8E5A2E', 'haut': 'A33E3E', 'bas': '4F4A3E', 'accent': 'E3C97E', 'longueur_cheveux': 2},
+    "charpentier_royal": {'seed': 125, 'peau': 'B5805C', 'cheveux': '2B1E12', 'haut': '3C7FA8', 'bas': '4F3B2E', 'accent': 'FFF8E2', 'longueur_cheveux': 1, 'barbe': '2B1E12', 'tablier': '7A5A42', 'manches': 'E9DCC8'},
+    "ancien_roi": {'seed': 126, 'peau': 'E6C7A8', 'cheveux': 'F2F4FA', 'haut': '22305E', 'bas': '151E3D', 'accent': 'E3C97E', 'longueur_cheveux': 3, 'barbe': 'F2F4FA', 'manteau': '2E3A6E', 'col': 'FFE08A', 'broderie': True, 'epaulettes': 'C9A227', 'ceinture': 'B4934A'},
     # --- Capitale et épreuves (étape 6) ---
     "chambellan": {'seed': 101, 'peau': 'E6C7A8', 'cheveux': 'C9C9C9', 'haut': '2E3A6E', 'bas': '1C2447', 'accent': 'C9A227', 'longueur_cheveux': 2, 'manteau': '3A4A8A', 'col': 'FFE08A', 'broderie': True, 'epaulettes': 'C9A227'},
     "heraut": {'seed': 102, 'peau': 'D9A77C', 'cheveux': '5A3A26', 'haut': 'B23A48', 'bas': '2E3A6E', 'accent': 'FFE08A', 'longueur_cheveux': 1, 'col': 'FFE08A', 'ceinture': 'C9A227'},
@@ -1467,6 +1580,8 @@ def gen_entities() -> None:
         put(crown, x, 11 - h, gc)
     put(crown, 8, 11, P["bleu_clair"]); put(crown, 5, 11, P["verre_sombre"]); put(crown, 11, 11, P["verre_sombre"])
     save(crown, out_path("entity", "fragment_de_couronne"))
+    save(tex_couronne(), out_path("entity", "couronne"))
+    save(tex_manteau_royal(), out_path("entity", "manteau_royal"))
 
 
 # ----------------------------------------------------------------------------- particules

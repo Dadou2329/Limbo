@@ -1,0 +1,6 @@
+{
+  "parent": "les_limbes:item/arc_du_souverain",
+  "textures": {
+    "layer0": "les_limbes:item/arc_du_souverain_pulling_0"
+  }
+}

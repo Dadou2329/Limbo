@@ -100,6 +100,29 @@
           ]
         },
         {
+          "texte": "Préparons une Arrivée : la caisse qui tombe.",
+          "si": [
+            {
+              "drapeau": "regne_commence"
+            },
+            {
+              "non": {
+                "arrivee_active": "caisse_tombee"
+              }
+            }
+          ],
+          "actions": [
+            {
+              "type": "arrivee_declencher",
+              "id": "caisse_tombee"
+            },
+            {
+              "type": "message",
+              "texte": "Lisbeth règle sa lunette : « Le ciel se plisse. Quelque chose tombe là où vous l'avez voulu. »"
+            }
+          ]
+        },
+        {
           "texte": "Merci, Lisbeth."
         }
       ]

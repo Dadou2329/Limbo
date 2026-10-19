@@ -33,6 +33,7 @@ from regions_montagnes import MONTAGNES  # noqa: E402
 from regions_couronne import COURONNE  # noqa: E402
 from arenes import ARENES  # noqa: E402
 from capitale import CAPITALE  # noqa: E402
+from regne import REGNE  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 DATA = os.path.join(ROOT, "src", "main", "resources", "data", "les_limbes")
@@ -1492,7 +1493,7 @@ def main() -> None:
         "rencontres/cabane_loic": build_cabane_loic(),
         "rencontres/jardin_hanna": build_jardin_hanna(),
         }
-    for module in (MER, JARDINS, DESERT, MONTAGNES, COURONNE, ARENES, CAPITALE):
+    for module in (MER, JARDINS, DESERT, MONTAGNES, COURONNE, ARENES, CAPITALE, REGNE):
         for cle, fabrique in module.items():
             canvases[cle] = fabrique()
     lignes = ["# Rapport des structures\n"]
@@ -1584,6 +1585,10 @@ def main() -> None:
     site("capitale_archives", (-955, -945), 86, [("les_limbes:capitale/archives", (-970, 85, -960))], 1035)
     site("capitale_ateliers", (-900, -840), 86, [("les_limbes:capitale/ateliers", (-920, 85, -860))], 1036)
     site("capitale_residences", (-838, -945), 86, [("les_limbes:capitale/residences", (-858, 85, -965))], 1037)
+    # --- Étape 7 : le règne ---
+    site("chantier_naval", (1030, -800), 56, [("les_limbes:regne/chantier_naval", (1021, 55, -820))], 1038)
+    site("ile_des_ruines", (1300, -1000), 70, [("les_limbes:regne/ile_des_ruines", (1280, 69, -1020))], 1039)
+    site("lisiere_des_brumes", (-900, -1380), 86, [("les_limbes:regne/lisiere_des_brumes", (-920, 85, -1400))], 1040)
     with open(os.path.join(RAPPORT_DIR, "RAPPORT.md"), "w", encoding="utf-8") as fh:
         fh.write("\n".join(lignes))
     print(f"{len(canvases)} gabarits écrits ; rapport : {os.path.relpath(RAPPORT_DIR, ROOT)}/RAPPORT.md")

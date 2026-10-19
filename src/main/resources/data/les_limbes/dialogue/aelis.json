@@ -158,7 +158,8 @@
     },
     "reconnue": {
       "texte": [
-        "Les Jardins vous suivent. Si vous voulez danser encore avec les racines, pour le plaisir de la danse, le jardin est à vous."
+        "Les Jardins vous suivent. Si vous voulez danser encore avec les racines, pour le plaisir de la danse, le jardin est à vous.",
+        "Aélis : « Les racines m'ont appris à franchir. Prenez la porte longue : elle passe les murs comme on passe une haie. »"
       ],
       "choix": [
         {
@@ -172,6 +173,12 @@
         },
         {
           "texte": "À bientôt, Aélis."
+        }
+      ],
+      "actions": [
+        {
+          "type": "pouvoir",
+          "id": "porte_directionnelle"
         }
       ]
     }

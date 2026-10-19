@@ -783,6 +783,71 @@ def banniere_astrale():
     return m.build()
 
 
+# ----------------------------------------------------------------------------- Garde astrale et règne (étape 7)
+
+def _garde(peau_armure, peau_casque, lueur="7FE6FF"):
+    m = Modele(64, 1.0, 0.6)
+    bipede(m, (8, 12, 4), (7, 7, 7), (3, 12), (4, 12), peau="armure", peau_tete="casque", peau_bras="armure", peau_jambes="armure")
+    m.os("cimier", (0, -7, 0), [m.cube((-0.5, -4, -3), (1, 4, 6), "plume")], parent="tete")
+    m.peint("armure", peau_armure[0], sombre=peau_armure[1], clair=peau_armure[2], motif="pierre", variation=0.04, lueur=True)
+    m.peint("casque", peau_casque[0], sombre=peau_casque[1], clair=peau_casque[2], variation=0.04, yeux={"face": "front", "positions": [[1, 3], [5, 3]], "couleur": lueur})
+    m.peint("plume", "FFF3C8", clair="FFFFFF", variation=0.04, lueur=True)
+    return m
+
+
+def chevalier_astral():
+    m = _garde(("F2F4FA", "BFC6D8", "FFFFFF"), ("C9A227", "8E7119", "FFE08A"))
+    _arme(m, "epee", "or", 12, pointe=None)
+    m.os("ecu", (-2, 6, 0), [m.cube((-1, -3, -2), (1, 6, 4), "ecu")], parent="bras_g")
+    m.peint("or", "FFE08A", sombre="C9A227", clair="FFFFFF", variation=0.04, lueur=True)
+    m.peint("ecu", "2E3A6E", sombre="1C2447", clair="C9A227", variation=0.05)
+    return m.build()
+
+
+def archer_astral():
+    m = _garde(("E6EEF8", "AEB8CC", "FFFFFF"), ("7FE6FF", "3C9FC0", "DFF6FF"))
+    m.os("arc", (0, 10, -1), [m.cube((-0.5, -7, -1), (1, 14, 1), "or"), m.cube((-0.5, -7, -0.5), (1, 14, 0.5), "corde")], parent="bras_d")
+    m.os("carquois", (0, 0, 3), [m.cube((-1.5, -6, 0), (3, 10, 2), "ecu")], parent="corps")
+    m.peint("or", "FFE08A", sombre="C9A227", clair="FFFFFF", variation=0.04, lueur=True)
+    m.peint("corde", "FFFFFF", clair="FFFFFF", variation=0.0, lueur=True)
+    m.peint("ecu", "2E3A6E", sombre="1C2447", clair="7FE6FF", variation=0.05)
+    return m.build()
+
+
+def protecteur_astral():
+    m = Modele(64, 1.0, 0.7)
+    bipede(m, (10, 13, 6), (8, 8, 8), (4, 13), (5, 12), peau="armure", peau_tete="casque", peau_bras="armure", peau_jambes="armure", amplitude=0.5)
+    m.os("cimier", (0, -8, 0), [m.cube((-0.5, -4, -4), (1, 4, 8), "plume")], parent="tete")
+    m.os("pavois", (-3, 6, 0), [m.cube((-1, -6, -5), (1, 13, 10), "ecu")], parent="bras_g")
+    m.os("epauliere_g", (-5, -6, 0), [m.cube((-2, -1, -3), (3, 3, 6), "casque")], parent="corps")
+    m.os("epauliere_d", (5, -6, 0), [m.cube((-1, -1, -3), (3, 3, 6), "casque")], parent="corps")
+    m.peint("armure", "DDE4F2", sombre="A9B5CF", clair="FFFFFF", motif="pierre", variation=0.04, lueur=True)
+    m.peint("casque", "2E3A6E", sombre="1C2447", clair="C9A227", variation=0.05, yeux={"face": "front", "positions": [[2, 3], [5, 3]], "couleur": "FFE08A"})
+    m.peint("plume", "FFF3C8", clair="FFFFFF", variation=0.04, lueur=True)
+    m.peint("ecu", "2E3A6E", sombre="1C2447", clair="C9A227", variation=0.05)
+    return m.build()
+
+
+def baleine_des_hauteurs():
+    m = Modele(256, 1.0, 1.4)
+    m.os("corps", (0, 12, 0), [m.cube((-14, -10, -24), (28, 20, 48), "peau")])
+    m.os("tete", (0, 2, -24), [m.cube((-12, -10, -18), (24, 18, 18), "peau_tete")], parent="corps")
+    m.os("queue", (0, 0, 24), [m.cube((-6, -5, 0), (12, 10, 20), "peau")], parent="corps")
+    m.os("nageoire_q", (0, 0, 20), [m.cube((-16, -1, 0), (32, 2, 12), "nageoire")], parent="queue")
+    m.os("nageoire_g", (-14, 4, -8), [m.cube((-18, -1, -4), (18, 2, 10), "nageoire")], parent="corps")
+    m.os("nageoire_d", (14, 4, -8), [m.cube((0, -1, -4), (18, 2, 10), "nageoire")], parent="corps")
+    m.os("dorsale", (0, -10, 4), [m.cube((-1, -6, -4), (2, 6, 10), "nageoire")], parent="corps")
+    m.anim("queue", "ry", "temps", 0.25, 0.06)
+    m.anim("nageoire_q", "rx", "temps", 0.2, 0.06, 1)
+    m.anim("nageoire_g", "rz", "temps", 0.35, 0.05)
+    m.anim("nageoire_d", "rz", "temps", -0.35, 0.05)
+    m.anim("corps", "y", "temps", 1.5, 0.03)
+    m.peint("peau", "6F8FB8", sombre="4A6A94", clair="9FB8D8", motif="pierre", variation=0.05)
+    m.peint("peau_tete", "7A9AC2", sombre="4A6A94", clair="DDE8F0", variation=0.05, yeux={"face": "left", "positions": [[3, 9]], "couleur": "1F2A4D"})
+    m.peint("nageoire", "DDE8F0", sombre="9FB8D8", clair="FFFFFF", variation=0.05, lueur=True)
+    return m.build()
+
+
 MODELES_REGIONS = {
     "crabe_de_nacre": crabe_de_nacre(),
     "meduse_celeste": meduse_celeste(),
@@ -824,4 +889,8 @@ MODELES_REGIONS = {
     "fleur_de_vie": fleur_de_vie(),
     "point_de_rupture": point_de_rupture(),
     "banniere_astrale": banniere_astrale(),
+    "chevalier_astral": chevalier_astral(),
+    "archer_astral": archer_astral(),
+    "protecteur_astral": protecteur_astral(),
+    "baleine_des_hauteurs": baleine_des_hauteurs(),
 }
