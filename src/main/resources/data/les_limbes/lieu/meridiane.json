@@ -1,0 +1,12 @@
+{
+  "nom": "Méridiane",
+  "pos": [
+    150,
+    66,
+    1250
+  ],
+  "rayon": 40,
+  "region": "desert",
+  "description": "La ville des heures de Sahir : archives, horloge et quartier figé.",
+  "relais": "meridiane"
+}

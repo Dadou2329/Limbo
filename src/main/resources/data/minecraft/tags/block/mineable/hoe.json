@@ -1,6 +1,9 @@
 {
   "replace": false,
   "values": [
-    "les_limbes:feuilles_d_aube"
+    "les_limbes:feuilles_d_aube",
+    "les_limbes:feuilles_de_geant",
+    "les_limbes:petale_rose",
+    "les_limbes:petale_bleu"
   ]
 }

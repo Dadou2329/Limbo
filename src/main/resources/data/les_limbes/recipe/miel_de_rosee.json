@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:honey_bottle"
+    },
+    {
+      "item": "les_limbes:fleur_de_rosee"
+    },
+    {
+      "item": "les_limbes:petale_rose"
+    }
+  ],
+  "result": {
+    "id": "les_limbes:miel_de_rosee",
+    "count": 1
+  }
+}

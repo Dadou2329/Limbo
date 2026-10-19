@@ -1,0 +1,20 @@
+{
+  "nom": "Luthière",
+  "debut": [
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Chaque cristal résonnant a sa note, selon l'endroit où il a poussé. Je les assemble en orgues. Marchez sur les cristaux de l'atelier de Tobie : vous entendrez."
+      ],
+      "choix": [
+        {
+          "texte": "Merci."
+        }
+      ]
+    }
+  }
+}

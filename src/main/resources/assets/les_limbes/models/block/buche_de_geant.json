@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "les_limbes:block/buche_de_geant_top",
+    "side": "les_limbes:block/buche_de_geant"
+  }
+}

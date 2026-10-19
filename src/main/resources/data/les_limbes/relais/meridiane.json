@@ -1,0 +1,11 @@
+{
+  "nom": "Horloge de Méridiane",
+  "description": "Sous l'horloge, à l'entrée des archives.",
+  "pos": [
+    150,
+    66,
+    1236
+  ],
+  "dimension": "les_limbes:limbes",
+  "ordre": 6
+}

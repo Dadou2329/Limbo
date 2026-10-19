@@ -1,0 +1,29 @@
+{
+  "nom": "Anselme",
+  "debut": [
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Je garde le phare du Dessous. Descendez dans la galerie : on y voit la mer par en dessous, et les bancs qui passent. Quand le ciel se plisse, le feu change de couleur ; je le note pour Lisbeth, à Clairval."
+      ],
+      "choix": [
+        {
+          "texte": "Le relais du phare est-il relié ?",
+          "actions": [
+            {
+              "type": "decouvrir_lieu",
+              "id": "phare_du_dessous"
+            }
+          ]
+        },
+        {
+          "texte": "Merci."
+        }
+      ]
+    }
+  }
+}

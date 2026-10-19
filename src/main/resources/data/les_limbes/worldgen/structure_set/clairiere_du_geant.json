@@ -1,0 +1,18 @@
+{
+  "placement": {
+    "type": "les_limbes:fixed",
+    "salt": 1016,
+    "chunks": [
+      [
+        80,
+        30
+      ]
+    ]
+  },
+  "structures": [
+    {
+      "structure": "les_limbes:clairiere_du_geant",
+      "weight": 1
+    }
+  ]
+}

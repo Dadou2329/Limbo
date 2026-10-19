@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "les_limbes:gres_des_heures"
+    }
+  },
+  "result": {
+    "id": "les_limbes:gres_des_heures_taille",
+    "count": 4
+  }
+}

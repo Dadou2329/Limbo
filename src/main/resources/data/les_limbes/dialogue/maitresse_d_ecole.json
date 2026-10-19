@@ -1,0 +1,20 @@
+{
+  "nom": "Maîtresse d'école",
+  "debut": [
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Trente enfants, deux salles. Vaëron a fait bâtir l'école avant sa propre maison. Les enfants apprennent à lire sur les registres des routes."
+      ],
+      "choix": [
+        {
+          "texte": "Merci."
+        }
+      ]
+    }
+  }
+}

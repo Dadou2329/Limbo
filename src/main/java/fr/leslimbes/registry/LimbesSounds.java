@@ -31,7 +31,15 @@ public final class LimbesSounds {
 	public static final SoundEvent RAIE_PACTE = register("creature.raie.pacte");
 	public static final SoundEvent ARRIVEE = register("monde.arrivee");
 	public static final SoundEvent MOULIN_GRINCE = register("bloc.moulin.grince");
+	public static final SoundEvent CRISTAL_RESONNE = register("bloc.cristal.resonne");
 	public static final SoundEvent DALLE_EMERGE = register("bloc.dalle.emerge");
+	public static final SoundEvent CRABE_CLIC = register("creature.crabe.clic");
+	public static final SoundEvent INSECTE_BOURDON = register("creature.insecte.bourdon");
+	public static final SoundEvent OISEAU_CHANT = register("creature.oiseau.chant");
+	public static final SoundEvent GEANT_PAS = register("creature.geant.pas");
+	public static final SoundEvent MONTURE_APPEL = register("creature.monture.appel");
+	public static final SoundEvent TIREUR_TIR = register("creature.tireur.tir");
+	public static final SoundEvent PETIT_CRI = register("creature.petit.cri");
 
 	private static SoundEvent register(String path) {
 		Identifier id = LesLimbes.id(path);

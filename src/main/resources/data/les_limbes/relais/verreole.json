@@ -1,0 +1,11 @@
+{
+  "nom": "Palais des miroirs",
+  "description": "Devant le palais des miroirs de Verréole.",
+  "pos": [
+    -1150,
+    96,
+    489
+  ],
+  "dimension": "les_limbes:limbes",
+  "ordre": 7
+}

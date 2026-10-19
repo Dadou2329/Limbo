@@ -1,0 +1,23 @@
+{
+  "type": "les_limbes:composee",
+  "biomes": "#les_limbes:limbes",
+  "step": "surface_structures",
+  "terrain_adaptation": "none",
+  "spawn_overrides": {},
+  "ancre": [
+    0,
+    0,
+    0
+  ],
+  "y": 82,
+  "pieces": [
+    {
+      "gabarit": "les_limbes:couronne/haute_garde",
+      "decalage": [
+        -20,
+        -1,
+        -20
+      ]
+    }
+  ]
+}

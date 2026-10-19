@@ -65,7 +65,9 @@
     [
       "les_limbes:lacs"
     ],
-    [],
+    [
+      "les_limbes:routes"
+    ],
     [],
     [],
     [],

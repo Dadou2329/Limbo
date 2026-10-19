@@ -408,7 +408,227 @@ def tex_porte_de_relais_voile_eteint() -> Image.Image:
     return img
 
 
+# ----------------------------------------------------------------------------- blocs des régions (étape 5)
+def tex_sable(base: str, sombre: str, clair: str, seed: int) -> Image.Image:
+    img = new()
+    fill_noise(img, hex_to_rgba(base), palette=[hex_to_rgba(sombre), hex_to_rgba(base), hex_to_rgba(base), hex_to_rgba(clair)], scale=2, seed=seed)
+    speckle(img, hex_to_rgba(clair), 3, seed + 1)
+    return img
+
+
+def tex_corail(base: str, sombre: str, clair: str, seed: int) -> Image.Image:
+    img = new()
+    fill_noise(img, hex_to_rgba(base), palette=[hex_to_rgba(sombre), hex_to_rgba(base), hex_to_rgba(clair)], scale=3, seed=seed)
+    rng = Rng(seed + 7)
+    for _ in range(9):
+        x, y = int(rng.f() * 14) + 1, int(rng.f() * 14) + 1
+        put(img, x, y, hex_to_rgba(clair)); put(img, x, y - 1, hex_to_rgba(sombre)); put(img, x + 1, y, hex_to_rgba(sombre))
+    return img
+
+
+def tex_pierre_regionale(base: str, sombre: str, clair: str, mortier: str, seed: int, taillee: bool = False, polie: bool = False, sculptee: bool = False) -> Image.Image:
+    img = new()
+    if taillee:
+        bricks(img, hex_to_rgba(base), hex_to_rgba(mortier), bw=8, bh=4, seed=seed, variation=0.05)
+    elif polie:
+        fill_noise(img, hex_to_rgba(clair), variation=0.03, scale=8, seed=seed)
+        outline(img, (0, 0, 16, 16), hex_to_rgba(sombre))
+    elif sculptee:
+        fill_noise(img, hex_to_rgba(base), variation=0.03, scale=8, seed=seed)
+        outline(img, (0, 0, 16, 16), hex_to_rgba(sombre))
+        for d in range(2, 14):
+            put(img, d, 7, hex_to_rgba(mortier)); put(img, d, 8, hex_to_rgba(mortier)); put(img, 7, d, hex_to_rgba(mortier)); put(img, 8, d, hex_to_rgba(mortier))
+        rect(img, (6, 6, 10, 10), hex_to_rgba(clair))
+        put(img, 7, 7, hex_to_rgba(sombre)); put(img, 8, 8, hex_to_rgba(sombre))
+    else:
+        fill_noise(img, hex_to_rgba(base), palette=[hex_to_rgba(sombre), hex_to_rgba(base), hex_to_rgba(base), hex_to_rgba(clair)], scale=4, seed=seed)
+        speckle(img, hex_to_rgba(clair), 2, seed + 3)
+    return img
+
+
+def tex_verre_de_montagne() -> Image.Image:
+    img = new()
+    for y in range(16):
+        for x in range(16):
+            put(img, x, y, hex_to_rgba("C9E8F6", 110))
+    for d in range(16):
+        put(img, d, 15 - d, hex_to_rgba("FFFFFF", 160))
+        if d < 12:
+            put(img, d + 4, 15 - d, hex_to_rgba("FFFFFF", 90))
+    outline(img, (0, 0, 16, 16), hex_to_rgba("A9D2EC", 200))
+    return img
+
+
+def tex_cristal_resonnant() -> Image.Image:
+    img = new()
+    fill_noise(img, hex_to_rgba("7FD6D6"), palette=[hex_to_rgba("3C9AA8"), hex_to_rgba("7FD6D6"), hex_to_rgba("BDF2F2")], scale=4, seed=131)
+    for i in range(16):
+        put(img, i, (i * 3) % 16, hex_to_rgba("FFFFFF"))
+        put(img, (i + 5) % 16, (15 - i) % 16, hex_to_rgba("3C9AA8"))
+    return img
+
+
+def tex_colonne(base: str, clair: str, alpha: int, seed: int) -> Image.Image:
+    img = new()
+    rng = Rng(seed)
+    for y in range(16):
+        for x in range(16):
+            put(img, x, y, hex_to_rgba(base, alpha))
+    for _ in range(14):
+        x, y = int(rng.f() * 16), int(rng.f() * 16)
+        put(img, x, y, hex_to_rgba(clair, min(255, alpha + 80)))
+        put(img, x, (y + 1) % 16, hex_to_rgba(clair, min(255, alpha + 40)))
+    return img
+
+
+def tex_cadran(h: int) -> Image.Image:
+    img = new()
+    fill_noise(img, hex_to_rgba("E6D2A6"), variation=0.03, scale=8, seed=140 + h)
+    outline(img, (0, 0, 16, 16), hex_to_rgba("B4934A"))
+    for a in range(0, 360, 30):
+        x = int(round(7.5 + 6 * math.cos(math.radians(a)))); y = int(round(7.5 + 6 * math.sin(math.radians(a))))
+        put(img, x, y, hex_to_rgba("B4934A"))
+    angle = {0: -90, 1: 0, 2: 90, 3: 180}[h]
+    for r in range(1, 6):
+        x = int(round(7.5 + r * math.cos(math.radians(angle - 90)))); y = int(round(7.5 + r * math.sin(math.radians(angle - 90))))
+        put(img, x, y, hex_to_rgba("22305E"))
+    put(img, 7, 7, hex_to_rgba("E3C97E")); put(img, 8, 8, hex_to_rgba("E3C97E"))
+    return img
+
+
+def tex_pave_horaire(reflet: bool) -> Image.Image:
+    img = new()
+    if reflet:
+        for y in range(16):
+            for x in range(16):
+                put(img, x, y, hex_to_rgba("F8EBB6", 60 if (x + y) % 2 else 90))
+        return img
+    fill_noise(img, hex_to_rgba("F0DCA8"), palette=[hex_to_rgba("D9BE86"), hex_to_rgba("F0DCA8"), hex_to_rgba("FFF3C8")], scale=3, seed=150)
+    outline(img, (0, 0, 16, 16), hex_to_rgba("B4934A"))
+    for x, y in [(4, 4), (11, 5), (7, 11), (12, 12)]:
+        put(img, x, y, hex_to_rgba("FFF8E2"))
+    return img
+
+
+def tex_pont_de_verre(trame: bool) -> Image.Image:
+    img = new()
+    if trame:
+        for y in range(16):
+            for x in range(16):
+                put(img, x, y, hex_to_rgba("A9D2EC", 50 if (x % 4 and y % 4) else 110))
+        return img
+    for y in range(16):
+        for x in range(16):
+            put(img, x, y, hex_to_rgba("BDE3F5", 150))
+    for d in range(16):
+        put(img, d, 15 - d, hex_to_rgba("FFFFFF", 200))
+    outline(img, (0, 0, 16, 16), hex_to_rgba("7FB8DC", 230))
+    return img
+
+
+def tex_lanterne_royale() -> Image.Image:
+    img = tex_lanterne_nacree()
+    for y in range(16):
+        for x in range(16):
+            px = img.getpixel((x, y))
+            if px[:3] == P["metal"][:3]:
+                put(img, x, y, P["or_sombre"])
+            elif px[:3] == P["metal_clair"][:3]:
+                put(img, x, y, P["or"])
+    return img
+
+
+def tex_petale(base: str, sombre: str, clair: str, seed: int) -> Image.Image:
+    img = new()
+    fill_noise(img, hex_to_rgba(base), palette=[hex_to_rgba(sombre), hex_to_rgba(base), hex_to_rgba(base), hex_to_rgba(clair)], scale=4, seed=seed)
+    for i in range(16):
+        put(img, i, int(7.5 + 4 * math.sin(i / 2.5)), hex_to_rgba(clair))
+        put(img, i, int(7.5 + 4 * math.sin(i / 2.5 + 1.5)), hex_to_rgba(sombre))
+    return img
+
+
+def tex_herbe_geants_top() -> Image.Image:
+    img = new()
+    fill_noise(img, hex_to_rgba("6FA85A"), palette=[hex_to_rgba("4E7F3E"), hex_to_rgba("6FA85A"), hex_to_rgba("6FA85A"), hex_to_rgba("9CCB7E")], scale=3, seed=160)
+    speckle(img, hex_to_rgba("F0CBD8"), 2, 161)
+    return img
+
+
+def tex_herbe_geants_side() -> Image.Image:
+    img = tex_terre_des_limbes()
+    top = tex_herbe_geants_top()
+    rng = Rng(162)
+    for x in range(16):
+        h = 2 + (1 if rng.f() > 0.5 else 0) + (1 if rng.f() > 0.7 else 0)
+        for y in range(h):
+            put(img, x, y, top.getpixel((x, y)))
+    return img
+
+
+def tex_buche_geant_side() -> Image.Image:
+    img = new()
+    log_side(img, hex_to_rgba("6B4A32"), hex_to_rgba("4A3222"), seed=170)
+    return img
+
+
+def tex_buche_geant_top() -> Image.Image:
+    img = new()
+    log_top(img, hex_to_rgba("6B4A32"), hex_to_rgba("4A3222"), hex_to_rgba("B88A5E"), seed=171)
+    return img
+
+
+def tex_planches_geant() -> Image.Image:
+    img = new()
+    planks(img, hex_to_rgba("A87C56"), hex_to_rgba("7A5638"), seed=172)
+    return img
+
+
+def tex_feuilles_geant() -> Image.Image:
+    img = new()
+    fill_noise(img, hex_to_rgba("4E8F3E"), palette=[hex_to_rgba("2F6B2A"), hex_to_rgba("4E8F3E"), hex_to_rgba("4E8F3E"), hex_to_rgba("7FBF5E")], scale=2, seed=173)
+    rng = Rng(174)
+    for _ in range(10):
+        put(img, int(rng.f() * 16), int(rng.f() * 16), (0, 0, 0, 0))
+    return img
+
+
+def gen_blocks_regions() -> None:
+    save(tex_sable("EDE4D0", "D6CBB2", "FFFBEE", 201), out_path("block", "sable_de_nacre"))
+    save(tex_corail("F0A3B8", "C86F86", "FFD6E0", 202), out_path("block", "corail_de_nacre"))
+    save(tex_corail("7FC8E8", "4A92B8", "C6ECFA", 203), out_path("block", "corail_azur"))
+    save(tex_buche_geant_side(), out_path("block", "buche_de_geant"))
+    save(tex_buche_geant_top(), out_path("block", "buche_de_geant_top"))
+    save(tex_planches_geant(), out_path("block", "planches_de_geant"))
+    save(tex_feuilles_geant(), out_path("block", "feuilles_de_geant"))
+    save(tex_herbe_geants_top(), out_path("block", "herbe_des_geants_top"))
+    save(tex_herbe_geants_side(), out_path("block", "herbe_des_geants_side"))
+    save(tex_petale("F0A3C8", "C66F9A", "FFD6EC", 204), out_path("block", "petale_rose"))
+    save(tex_petale("8FB5E8", "5C7FB8", "C9DCF6", 205), out_path("block", "petale_bleu"))
+    save(tex_colonne("B8E986", "F4FFD6", 120, 206), out_path("block", "seve_ascendante"))
+    save(tex_sable("F2E8D8", "DDD0B8", "FFFFFF", 207), out_path("block", "sable_d_opale"))
+    save(tex_pierre_regionale("E6D2A6", "C9B07E", "F4E6C2", "B8A070", 208), out_path("block", "gres_des_heures"))
+    save(tex_pierre_regionale("E6D2A6", "C9B07E", "F4E6C2", "B8A070", 209, taillee=True), out_path("block", "gres_des_heures_taille"))
+    save(tex_pierre_regionale("C98A5E", "9A6240", "E0B088", "8A5A3C", 210), out_path("block", "pierre_des_heures"))
+    for h in range(4):
+        save(tex_cadran(h), out_path("block", f"cadran_des_heures_{h}"))
+    save(tex_pave_horaire(False), out_path("block", "pave_horaire"))
+    save(tex_pave_horaire(True), out_path("block", "pave_horaire_reflet"))
+    save(tex_pierre_regionale("B9C8D4", "8FA3B4", "DCE6EE", "7F94A6", 211), out_path("block", "pierre_de_verre"))
+    save(tex_pierre_regionale("B9C8D4", "8FA3B4", "DCE6EE", "7F94A6", 212, taillee=True), out_path("block", "pierre_de_verre_taillee"))
+    save(tex_verre_de_montagne(), out_path("block", "verre_de_montagne"))
+    save(tex_cristal_resonnant(), out_path("block", "cristal_resonnant"))
+    save(tex_pont_de_verre(False), out_path("block", "pont_de_verre"))
+    save(tex_pont_de_verre(True), out_path("block", "pont_de_verre_trame"))
+    save(tex_colonne("A9E4F0", "FFFFFF", 110, 213), out_path("block", "courant_cristallin"))
+    save(tex_pierre_regionale("EFE6D8", "CFC2AE", "FBF6EC", "D6C79C", 214), out_path("block", "pierre_de_couronne"))
+    save(tex_pierre_regionale("EFE6D8", "CFC2AE", "FBF6EC", "D6C79C", 215, taillee=True), out_path("block", "pierre_de_couronne_taillee"))
+    save(tex_pierre_regionale("EFE6D8", "CFC2AE", "FBF6EC", "D6C79C", 216, polie=True), out_path("block", "pierre_de_couronne_polie"))
+    save(tex_pierre_regionale("EFE6D8", "CFC2AE", "FBF6EC", "E3C97E", 217, sculptee=True), out_path("block", "pierre_de_couronne_sculptee"))
+    save(tex_lanterne_royale(), out_path("block", "lanterne_royale"))
+
+
 def gen_blocks() -> None:
+    gen_blocks_regions()
     save(tex_vitrine(), out_path("block", "vitrine"))
     save(tex_vitrine_socle(), out_path("block", "vitrine_socle"))
     save(tex_porte_de_relais(), out_path("block", "porte_de_relais"))
@@ -686,7 +906,71 @@ def tex_item_ragout_du_domaine() -> Image.Image:
     return img
 
 
+def tex_item_simple(forme: str, base: str, sombre: str, clair: str, seed: int) -> Image.Image:
+    """Icône 16x16 : forme ("rond", "goutte", "fruit", "poisson", "sablier", "eclat", "pain", "fiole", "perle") en palette donnée."""
+    img = new()
+    b, s, c = hex_to_rgba(base), hex_to_rgba(sombre), hex_to_rgba(clair)
+    if forme == "poisson":
+        for x in range(3, 12):
+            h = 2 + int(2.5 * math.sin((x - 3) / 8 * math.pi))
+            for y in range(8 - h, 8 + h):
+                put(img, x, y, b)
+        for y in range(5, 11):
+            put(img, 12, y, s); put(img, 13, y if y % 2 else 8, s)
+        put(img, 5, 7, hex_to_rgba("1F2A4D")); put(img, 4, 8, c)
+    elif forme == "perle":
+        for y in range(16):
+            for x in range(16):
+                if (x - 7.5) ** 2 + (y - 7.5) ** 2 <= 20:
+                    put(img, x, y, b)
+        put(img, 6, 6, c); put(img, 5, 7, c); put(img, 9, 9, s)
+    elif forme == "fruit":
+        for y in range(16):
+            for x in range(16):
+                if (x - 7.5) ** 2 / 30 + (y - 8.5) ** 2 / 36 <= 1:
+                    put(img, x, y, b if (x + y) % 5 else s)
+        put(img, 7, 3, hex_to_rgba("4E7F3E")); put(img, 7, 2, hex_to_rgba("4E7F3E")); put(img, 8, 2, hex_to_rgba("7FBF5E")); put(img, 5, 6, c)
+    elif forme == "fiole":
+        rect(img, (6, 2, 10, 4), s); rect(img, (4, 4, 12, 14), c); rect(img, (5, 7, 11, 13), b)
+        outline(img, (4, 4, 12, 14), s)
+    elif forme == "sablier":
+        for y in range(2, 14):
+            w = abs(y - 8) // 2 + 1
+            for x in range(8 - w, 8 + w):
+                put(img, x, y, c if y > 8 else b)
+        rect(img, (4, 1, 12, 2), s); rect(img, (4, 14, 12, 15), s)
+    elif forme == "eclat":
+        for d in range(12):
+            put(img, 2 + d, 13 - d, b); put(img, 3 + d, 13 - d, c); put(img, 2 + d, 14 - d, s)
+    elif forme == "pain":
+        for x in range(2, 14):
+            h = 3 + int(2 * math.sin((x - 2) / 11 * math.pi))
+            for y in range(10 - h, 11):
+                put(img, x, y, b if y > 10 - h + 1 else c)
+        for x in (5, 8, 11):
+            put(img, x, 7, s)
+    elif forme == "dattes":
+        for cx, cy in [(5, 8), (9, 6), (10, 10)]:
+            for y in range(cy - 3, cy + 3):
+                for x in range(cx - 1, cx + 2):
+                    put(img, x, y, b if (x + y) % 3 else s)
+            put(img, cx, cy - 2, c)
+    elif forme == "miel":
+        rect(img, (5, 3, 11, 5), s); rect(img, (4, 5, 12, 13), b); rect(img, (5, 6, 11, 12), c); rect(img, (6, 8, 10, 11), b)
+    item_outline(img, hex_to_rgba("1A1822"))
+    return img
+
+
 def gen_items() -> None:
+    save(tex_item_simple("poisson", "8FD6E8", "4A92B8", "FFF8E2", 301), out_path("item", "poisson_lanterne"))
+    save(tex_item_simple("perle", "F4EFE6", "C9B7A2", "FFFFFF", 302), out_path("item", "perle_de_nacre"))
+    save(tex_item_simple("fruit", "F0A3C8", "C66F9A", "FFD6EC", 303), out_path("item", "fruit_de_geant"))
+    save(tex_item_simple("miel", "F2C14E", "B4934A", "FFE9A8", 304), out_path("item", "miel_de_rosee"))
+    save(tex_item_simple("dattes", "8A5A3C", "5A3A26", "C98A5E", 305), out_path("item", "dattes_des_heures"))
+    save(tex_item_simple("sablier", "E3C97E", "B4934A", "FFF3C8", 306), out_path("item", "sablier_d_opale"))
+    save(tex_item_simple("fiole", "7FD6D6", "3C9AA8", "DDF3FF", 307), out_path("item", "the_des_cimes"))
+    save(tex_item_simple("eclat", "7FD6D6", "3C9AA8", "FFFFFF", 308), out_path("item", "eclat_resonnant"))
+    save(tex_item_simple("pain", "E0B088", "9A6240", "F4E6C2", 309), out_path("item", "pain_de_la_cour"))
     save(tex_item_sifflet_de_raie(), out_path("item", "sifflet_de_raie"))
     save(tex_item_journal_de_bord(), out_path("item", "journal_de_bord"))
     save(tex_item_ragout_du_domaine(), out_path("item", "ragout_du_domaine"))
@@ -706,6 +990,35 @@ def gen_items() -> None:
     save(tex_item_oeuf(P["ecorce"], P["or"]), out_path("item", "oeuf_cerf_lanterne"))
     save(tex_item_oeuf(P["metal"], P["verre_sombre"]), out_path("item", "oeuf_veilleur_egare"))
     save(tex_item_oeuf(P["bois"], P["bleu"]), out_path("item", "oeuf_habitant"))
+    # Œufs des espèces régionales (étape 5) : couleurs identiques à celles déclarées dans LimbesEspeces.
+    for nom_oeuf, (fond, points) in {
+        "crabe_de_nacre": ("E8D6E4", "B98FB4"),
+        "meduse_celeste": ("9FD3F0", "FFF1B8"),
+        "poisson_lanterne": ("4F7FB8", "FFF3B0"),
+        "gardien_des_epaves": ("5B4A3A", "7FE6FF"),
+        "tortue_des_lagons": ("3F6F7F", "7FB58A"),
+        "geant_des_jardins": ("6B5540", "5F9A4E"),
+        "libellule_de_rosee": ("4FB8A8", "DFFFB0"),
+        "escargot_des_racines": ("7A5A3C", "A48B6E"),
+        "rodeur_des_racines": ("4A3B2C", "FF8A3C"),
+        "scarabee_de_seve": ("4E8A3A", "DFF7A0"),
+        "fennec_des_dunes": ("E9CFA3", "2B1E12"),
+        "scorpion_des_heures": ("C98B3C", "3A2A1A"),
+        "lezard_cadran": ("C9B07E", "E07A3C"),
+        "sentinelle_de_sable": ("D9C08C", "1F2A4D"),
+        "gazelle_d_opale": ("E3CDA6", "DDE8F0"),
+        "bouquetin_de_verre": ("C9D3DE", "BFE6F2"),
+        "papillon_de_cristal": ("C8F0FF", "6F7A86"),
+        "colosse_de_cristal": ("6B7A8A", "AEE6F8"),
+        "echo_resonnant": ("B8E8F6", "DFF6FF"),
+        "griffon_de_verre": ("D9C7A8", "E6F2F8"),
+        "colombe_astrale": ("F2F4FA", "FFF3C8"),
+        "chat_de_palais": ("8E8FA6", "C9A227"),
+        "sentinelle_de_la_couronne": ("D8DDE6", "C9A227"),
+        "spectre_de_la_cour": ("C9D0E8", "7FE6FF"),
+        "cerf_royal": ("F2EBDD", "E6C76A"),
+    }.items():
+        save(tex_item_oeuf(hex_to_rgba(fond), hex_to_rgba(points)), out_path("item", "oeuf_" + nom_oeuf))
 
 
 # ----------------------------------------------------------------------------- entités : skins humains (64x64)
@@ -863,6 +1176,70 @@ SKINS = {
     "ysolde": {"seed": 36, "peau": "D4A07A", "cheveux": "6B3A1E", "haut": "22305E", "bas": "151E3D", "accent": "E3C97E", "col": "B4934A", "chapeau": "151E3D"},
     "marchand_1": {"seed": 37, "peau": "E8C4A8", "cheveux": "4A3326", "haut": "D9B99A", "bas": "6B5A4A", "accent": "A33E3E"},
     "marchand_2": {"seed": 38, "peau": "C58F6A", "cheveux": "1E1A18", "haut": "CDE9DF", "bas": "35455E", "accent": "E3C97E", "cheveux_longs": True, "longueur_cheveux": 2},
+    # --- Personnages des régions (étape 5) ---
+    "kael": {'seed': 41, 'peau': 'D9A77C', 'cheveux': '5A3A26', 'haut': '3C7FA8', 'bas': '2A3A4E', 'accent': 'FFF8E2', 'longueur_cheveux': 1, 'manteau': '2E5F8A', 'col': 'FFF8E2', 'epaulettes': 'E3C97E', 'ceinture': 'B4934A', 'broderie': True},
+    "second_de_kael": {'seed': 42, 'peau': 'E9C4A8', 'cheveux': '8A5A3C', 'haut': '4A92B8', 'bas': '3A4668', 'accent': 'FFF8E2', 'longueur_cheveux': 3, 'cheveux_longs': True},
+    "poissonniere": {'seed': 43, 'peau': 'B5805C', 'cheveux': 'D9A066', 'haut': '2E5F8A', 'bas': '5A5A5A', 'accent': 'FFF8E2', 'longueur_cheveux': 3},
+    "fumeur": {'seed': 44, 'peau': 'F0D3BF', 'cheveux': '4A3326', 'haut': '6EA8C8', 'bas': '2A3A4E', 'accent': 'FFF8E2', 'longueur_cheveux': 3, 'cheveux_longs': True},
+    "pecheur_1": {'seed': 45, 'peau': 'D9A77C', 'cheveux': '5A3A26', 'haut': 'DDF3FF', 'bas': '3A4668', 'accent': 'FFF8E2', 'longueur_cheveux': 2},
+    "pecheur_2": {'seed': 46, 'peau': 'E9C4A8', 'cheveux': '8A5A3C', 'haut': '3C7FA8', 'bas': '5A5A5A', 'accent': 'FFF8E2', 'longueur_cheveux': 3, 'cheveux_longs': True},
+    "plongeuse": {'seed': 47, 'peau': 'B5805C', 'cheveux': 'D9A066', 'haut': '4A92B8', 'bas': '2A3A4E', 'accent': 'FFF8E2', 'longueur_cheveux': 1},
+    "aubergiste_port": {'seed': 48, 'peau': 'F0D3BF', 'cheveux': '4A3326', 'haut': '2E5F8A', 'bas': '3A4668', 'accent': 'FFF8E2', 'longueur_cheveux': 3, 'cheveux_longs': True},
+    "nerine": {'seed': 49, 'peau': 'D9A77C', 'cheveux': '5A3A26', 'haut': '6EA8C8', 'bas': '5A5A5A', 'accent': 'FFF8E2', 'longueur_cheveux': 4, 'cheveux_longs': True, 'col': 'FFF8E2'},
+    "marchand_flottant": {'seed': 50, 'peau': 'E9C4A8', 'cheveux': '8A5A3C', 'haut': 'DDF3FF', 'bas': '2A3A4E', 'accent': 'FFF8E2', 'longueur_cheveux': 3, 'cheveux_longs': True},
+    "anselme": {'seed': 51, 'peau': 'B5805C', 'cheveux': 'D9A066', 'haut': '3C7FA8', 'bas': '3A4668', 'accent': 'FFF8E2', 'longueur_cheveux': 2, 'barbe': 'C9B7A2', 'chapeau': '2A3A4E', 'manteau': '3C7FA8'},
+    "bastien": {'seed': 52, 'peau': 'F0D3BF', 'cheveux': '4A3326', 'haut': '4A92B8', 'bas': '5A5A5A', 'accent': 'FFF8E2', 'longueur_cheveux': 3, 'cheveux_longs': True},
+    "aelis": {'seed': 53, 'peau': 'E0B898', 'cheveux': 'D9A066', 'haut': '4E7F3E', 'bas': '4A3222', 'accent': 'FFD6EC', 'longueur_cheveux': 4, 'cheveux_longs': True, 'manteau': '4E7F3E', 'col': 'FFD6EC', 'broderie': True, 'chapeau': 'F0A3C8'},
+    "intendante_sylve": {'seed': 54, 'peau': 'C58F6A', 'cheveux': '4A3326', 'haut': '6FA85A', 'bas': '6B4A32', 'accent': 'FFD6EC', 'longueur_cheveux': 3, 'cheveux_longs': True},
+    "boulangere_sylve": {'seed': 55, 'peau': 'F2D6C2', 'cheveux': '5A3A26', 'haut': '8FBF6E', 'bas': '3F4F2E', 'accent': 'FFD6EC', 'longueur_cheveux': 3},
+    "tisserande": {'seed': 56, 'peau': 'D8B094', 'cheveux': '8A5A3C', 'haut': 'A87C56', 'bas': '4A3222', 'accent': 'FFD6EC', 'longueur_cheveux': 3, 'cheveux_longs': True},
+    "herboriste": {'seed': 57, 'peau': 'E0B898', 'cheveux': 'D9A066', 'haut': 'F0A3C8', 'bas': '6B4A32', 'accent': 'FFD6EC', 'longueur_cheveux': 2},
+    "guetteur_sylve": {'seed': 58, 'peau': 'C58F6A', 'cheveux': '4A3326', 'haut': '4E7F3E', 'bas': '3F4F2E', 'accent': 'FFD6EC', 'longueur_cheveux': 3, 'cheveux_longs': True},
+    "pepinieriste": {'seed': 59, 'peau': 'F2D6C2', 'cheveux': '5A3A26', 'haut': '6FA85A', 'bas': '4A3222', 'accent': 'FFD6EC', 'longueur_cheveux': 1},
+    "oriane": {'seed': 60, 'peau': 'D8B094', 'cheveux': '8A5A3C', 'haut': '8FBF6E', 'bas': '6B4A32', 'accent': 'FFD6EC', 'longueur_cheveux': 3, 'cheveux_longs': True},
+    "lioran": {'seed': 61, 'peau': 'E0B898', 'cheveux': 'D9A066', 'haut': 'A87C56', 'bas': '3F4F2E', 'accent': 'FFD6EC', 'longueur_cheveux': 3},
+    "baruch": {'seed': 62, 'peau': 'C58F6A', 'cheveux': '4A3326', 'haut': 'F0A3C8', 'bas': '4A3222', 'accent': 'FFD6EC', 'longueur_cheveux': 3, 'cheveux_longs': True},
+    "sahir": {'seed': 63, 'peau': 'B5805C', 'cheveux': '4A3326', 'haut': 'E6D2A6', 'bas': '8A5A3C', 'accent': '22305E', 'longueur_cheveux': 1, 'barbe': 'B8B4B0', 'manteau': 'E6D2A6', 'col': '22305E', 'broderie': True, 'chapeau': 'E6D2A6'},
+    "horloger": {'seed': 64, 'peau': 'C58F6A', 'cheveux': '5A3A26', 'haut': 'C98A5E', 'bas': '5A3A26', 'accent': '22305E', 'longueur_cheveux': 3, 'cheveux_longs': True},
+    "caravanier": {'seed': 65, 'peau': '9A6240', 'cheveux': '8A5A3C', 'haut': 'F4E6C2', 'bas': 'B4934A', 'accent': '22305E', 'longueur_cheveux': 3},
+    "chamelier": {'seed': 66, 'peau': 'D9A77C', 'cheveux': 'D9A066', 'haut': 'A33E3E', 'bas': '8A5A3C', 'accent': '22305E', 'longueur_cheveux': 3, 'cheveux_longs': True},
+    "marchande_d_ailleurs": {'seed': 67, 'peau': 'B5805C', 'cheveux': '4A3326', 'haut': 'E3C97E', 'bas': '5A3A26', 'accent': '22305E', 'longueur_cheveux': 2},
+    "archiviste": {'seed': 68, 'peau': 'C58F6A', 'cheveux': '5A3A26', 'haut': 'E6D2A6', 'bas': 'B4934A', 'accent': '22305E', 'longueur_cheveux': 3, 'cheveux_longs': True},
+    "fige_1": {'seed': 69, 'peau': '9A6240', 'cheveux': '8A5A3C', 'haut': 'C98A5E', 'bas': '8A5A3C', 'accent': '22305E', 'longueur_cheveux': 1},
+    "fige_2": {'seed': 70, 'peau': 'D9A77C', 'cheveux': 'D9A066', 'haut': 'F4E6C2', 'bas': '5A3A26', 'accent': '22305E', 'longueur_cheveux': 3, 'cheveux_longs': True},
+    "fige_3": {'seed': 71, 'peau': 'B5805C', 'cheveux': '4A3326', 'haut': 'A33E3E', 'bas': 'B4934A', 'accent': '22305E', 'longueur_cheveux': 3},
+    "fige_4": {'seed': 72, 'peau': 'C58F6A', 'cheveux': '5A3A26', 'haut': 'E3C97E', 'bas': '8A5A3C', 'accent': '22305E', 'longueur_cheveux': 3, 'cheveux_longs': True},
+    "fige_5": {'seed': 73, 'peau': '9A6240', 'cheveux': '8A5A3C', 'haut': 'E6D2A6', 'bas': '5A3A26', 'accent': '22305E', 'longueur_cheveux': 2},
+    "potiere": {'seed': 74, 'peau': 'D9A77C', 'cheveux': 'D9A066', 'haut': 'C98A5E', 'bas': 'B4934A', 'accent': '22305E', 'longueur_cheveux': 3, 'cheveux_longs': True},
+    "guide_des_dunes": {'seed': 75, 'peau': 'B5805C', 'cheveux': '4A3326', 'haut': 'F4E6C2', 'bas': '8A5A3C', 'accent': '22305E', 'longueur_cheveux': 1},
+    "aubergiste_meridiane": {'seed': 76, 'peau': 'C58F6A', 'cheveux': '5A3A26', 'haut': 'A33E3E', 'bas': '5A3A26', 'accent': '22305E', 'longueur_cheveux': 3, 'cheveux_longs': True},
+    "habitant_dunes": {'seed': 77, 'peau': '9A6240', 'cheveux': '8A5A3C', 'haut': 'E3C97E', 'bas': 'B4934A', 'accent': '22305E', 'longueur_cheveux': 3},
+    "yelena": {'seed': 78, 'peau': 'D9A77C', 'cheveux': 'D9A066', 'haut': 'E6D2A6', 'bas': '8A5A3C', 'accent': '22305E', 'longueur_cheveux': 3, 'cheveux_longs': True, 'manteau': '22305E', 'col': 'E3C97E'},
+    "ismael": {'seed': 79, 'peau': 'B5805C', 'cheveux': '4A3326', 'haut': 'C98A5E', 'bas': '5A3A26', 'accent': '22305E', 'longueur_cheveux': 2},
+    "orsane": {'seed': 80, 'peau': 'F0D3BF', 'cheveux': '2E2A33', 'haut': 'B9C8D4', 'bas': '4A4858', 'accent': 'BDF2F2', 'longueur_cheveux': 3, 'cheveux_longs': True, 'manteau': 'DCE6EE', 'col': '7FD6D6', 'epaulettes': 'BDF2F2', 'broderie': True},
+    "maitre_forgeron": {'seed': 81, 'peau': 'E9C4A8', 'cheveux': 'C9B7A2', 'haut': '7FD6D6', 'bas': '35455E', 'accent': 'BDF2F2', 'longueur_cheveux': 2, 'barbe': '4A3326', 'tablier': '4A4858', 'manches': 'B9C8D4'},
+    "apprentie_verriere": {'seed': 82, 'peau': 'D8B094', 'cheveux': '1E1A18', 'haut': 'DCE6EE', 'bas': '6A6880', 'accent': 'BDF2F2', 'longueur_cheveux': 3},
+    "garde_de_verre": {'seed': 83, 'peau': 'F2D6C2', 'cheveux': 'B8B4B0', 'haut': '4A4858', 'bas': '4A4858', 'accent': 'BDF2F2', 'longueur_cheveux': 1, 'epaulettes': 'BDF2F2', 'manteau': 'DCE6EE'},
+    "garde_de_verre_2": {'seed': 84, 'peau': 'F0D3BF', 'cheveux': '2E2A33', 'haut': '3C9AA8', 'bas': '35455E', 'accent': 'BDF2F2', 'longueur_cheveux': 2, 'epaulettes': 'BDF2F2', 'manteau': 'DCE6EE'},
+    "baigneur": {'seed': 85, 'peau': 'E9C4A8', 'cheveux': 'C9B7A2', 'haut': 'B9C8D4', 'bas': '6A6880', 'accent': 'BDF2F2', 'longueur_cheveux': 3, 'cheveux_longs': True},
+    "luthiere": {'seed': 86, 'peau': 'D8B094', 'cheveux': '1E1A18', 'haut': '7FD6D6', 'bas': '4A4858', 'accent': 'BDF2F2', 'longueur_cheveux': 1},
+    "verrier_1": {'seed': 87, 'peau': 'F2D6C2', 'cheveux': 'B8B4B0', 'haut': 'DCE6EE', 'bas': '35455E', 'accent': 'BDF2F2', 'longueur_cheveux': 3, 'cheveux_longs': True},
+    "verrier_2": {'seed': 88, 'peau': 'F0D3BF', 'cheveux': '2E2A33', 'haut': '4A4858', 'bas': '6A6880', 'accent': 'BDF2F2', 'longueur_cheveux': 3},
+    "aubergiste_verreole": {'seed': 89, 'peau': 'E9C4A8', 'cheveux': 'C9B7A2', 'haut': '3C9AA8', 'bas': '4A4858', 'accent': 'BDF2F2', 'longueur_cheveux': 3, 'cheveux_longs': True},
+    "nell": {'seed': 90, 'peau': 'D8B094', 'cheveux': '1E1A18', 'haut': 'B9C8D4', 'bas': '35455E', 'accent': 'BDF2F2', 'longueur_cheveux': 2},
+    "tobie": {'seed': 91, 'peau': 'F2D6C2', 'cheveux': 'B8B4B0', 'haut': '7FD6D6', 'bas': '6A6880', 'accent': 'BDF2F2', 'longueur_cheveux': 3, 'cheveux_longs': True},
+    "intendant_garde": {'seed': 92, 'peau': 'D8B094', 'cheveux': '1E1A18', 'haut': '22305E', 'bas': '151E3D', 'accent': 'E3C97E', 'longueur_cheveux': 1},
+    "garde_1": {'seed': 93, 'peau': 'E0B898', 'cheveux': 'B8B4B0', 'haut': 'E9E3DA', 'bas': '1F2444', 'accent': 'E3C97E', 'longueur_cheveux': 2, 'epaulettes': 'B4934A', 'manteau': '22305E'},
+    "garde_2": {'seed': 94, 'peau': 'C58F6A', 'cheveux': '2E2A33', 'haut': '3C57A0', 'bas': '3A3A3A', 'accent': 'E3C97E', 'longueur_cheveux': 3, 'epaulettes': 'B4934A', 'manteau': '22305E'},
+    "sergent": {'seed': 95, 'peau': 'F0D3BF', 'cheveux': 'C9B7A2', 'haut': 'B4934A', 'bas': '151E3D', 'accent': 'E3C97E', 'longueur_cheveux': 1, 'epaulettes': 'B4934A', 'ceinture': 'B4934A', 'manteau': '22305E'},
+    "maitresse_d_ecole": {'seed': 96, 'peau': 'D8B094', 'cheveux': '1E1A18', 'haut': 'F4EFE6', 'bas': '1F2444', 'accent': 'E3C97E', 'longueur_cheveux': 2},
+    "hersent": {'seed': 97, 'peau': 'E0B898', 'cheveux': 'B8B4B0', 'haut': '22305E', 'bas': '3A3A3A', 'accent': 'E3C97E', 'longueur_cheveux': 3, 'cheveux_longs': True, 'tablier': 'F4EFE6', 'col': 'E9E3DA'},
+    "famille_1": {'seed': 98, 'peau': 'C58F6A', 'cheveux': '2E2A33', 'haut': 'E9E3DA', 'bas': '151E3D', 'accent': 'E3C97E', 'longueur_cheveux': 1},
+    "famille_2": {'seed': 99, 'peau': 'F0D3BF', 'cheveux': 'C9B7A2', 'haut': '3C57A0', 'bas': '1F2444', 'accent': 'E3C97E', 'longueur_cheveux': 3, 'cheveux_longs': True},
+    "famille_3": {'seed': 100, 'peau': 'D8B094', 'cheveux': '1E1A18', 'haut': 'B4934A', 'bas': '3A3A3A', 'accent': 'E3C97E', 'longueur_cheveux': 3},
+    "boulanger_garde": {'seed': 101, 'peau': 'E0B898', 'cheveux': 'B8B4B0', 'haut': 'F4EFE6', 'bas': '151E3D', 'accent': 'E3C97E', 'longueur_cheveux': 3, 'cheveux_longs': True},
+    "marchand_garde": {'seed': 102, 'peau': 'C58F6A', 'cheveux': '2E2A33', 'haut': '22305E', 'bas': '1F2444', 'accent': 'E3C97E', 'longueur_cheveux': 2},
+    "elouan": {'seed': 103, 'peau': 'F0D3BF', 'cheveux': 'C9B7A2', 'haut': 'E9E3DA', 'bas': '3A3A3A', 'accent': 'E3C97E', 'longueur_cheveux': 3, 'barbe': 'B8B4B0', 'manteau': '22305E', 'col': 'E3C97E'},
 }
 
 

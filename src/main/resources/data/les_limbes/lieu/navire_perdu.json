@@ -1,0 +1,11 @@
+{
+  "nom": "Le navire perdu",
+  "pos": [
+    1150,
+    44,
+    -950
+  ],
+  "rayon": 24,
+  "region": "mer",
+  "description": "Un grand navire d'un autre monde, couché sur les récifs, la cale pleine."
+}

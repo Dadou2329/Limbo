@@ -1,0 +1,11 @@
+{
+  "nom": "Sanctuaire des bancs",
+  "pos": [
+    1050,
+    44,
+    -560
+  ],
+  "rayon": 14,
+  "region": "mer",
+  "description": "Un sanctuaire englouti où tournent les poissons-lunes."
+}

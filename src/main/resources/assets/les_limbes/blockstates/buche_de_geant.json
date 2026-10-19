@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "les_limbes:block/buche_de_geant_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "les_limbes:block/buche_de_geant"
+    },
+    "axis=z": {
+      "model": "les_limbes:block/buche_de_geant_horizontal",
+      "x": 90
+    }
+  }
+}

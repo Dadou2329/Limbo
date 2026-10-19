@@ -1,0 +1,20 @@
+{
+  "nom": "Marchand",
+  "debut": [
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Tout ce que vous voyez est tombé du ciel un jour ou l'autre. Les prix aussi, parfois."
+      ],
+      "choix": [
+        {
+          "texte": "Merci."
+        }
+      ]
+    }
+  }
+}

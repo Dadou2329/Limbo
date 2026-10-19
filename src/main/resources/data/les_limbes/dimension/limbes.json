@@ -4,99 +4,39 @@
     "type": "minecraft:noise",
     "settings": "les_limbes:limbes",
     "biome_source": {
-      "type": "minecraft:multi_noise",
-      "biomes": [
-        {
-          "biome": "les_limbes:plaines_nacrees",
-          "parameters": {
-            "temperature": [
-              -1.0,
-              0.1
-            ],
-            "humidity": [
-              -1.0,
-              1.0
-            ],
-            "continentalness": [
-              -1.0,
-              1.0
-            ],
-            "erosion": [
-              -1.0,
-              1.0
-            ],
-            "weirdness": [
-              -1.0,
-              1.0
-            ],
-            "depth": [
-              -1.0,
-              1.0
-            ],
-            "offset": 0.0
-          }
-        },
-        {
-          "biome": "les_limbes:vergers_suspendus",
-          "parameters": {
-            "temperature": [
-              0.1,
-              1.0
-            ],
-            "humidity": [
-              -1.0,
-              0.0
-            ],
-            "continentalness": [
-              -1.0,
-              1.0
-            ],
-            "erosion": [
-              -1.0,
-              1.0
-            ],
-            "weirdness": [
-              -1.0,
-              1.0
-            ],
-            "depth": [
-              -1.0,
-              1.0
-            ],
-            "offset": 0.0
-          }
-        },
-        {
-          "biome": "les_limbes:vallee_des_lanternes",
-          "parameters": {
-            "temperature": [
-              0.1,
-              1.0
-            ],
-            "humidity": [
-              0.0,
-              1.0
-            ],
-            "continentalness": [
-              -1.0,
-              1.0
-            ],
-            "erosion": [
-              -1.0,
-              1.0
-            ],
-            "weirdness": [
-              -1.0,
-              1.0
-            ],
-            "depth": [
-              -1.0,
-              1.0
-            ],
-            "offset": 0.0
-          }
-        }
-      ]
+      "type": "les_limbes:regions",
+      "biomes": {
+        "prairies": [
+          "les_limbes:plaines_nacrees",
+          "les_limbes:vergers_suspendus",
+          "les_limbes:vallee_des_lanternes"
+        ],
+        "mer": [
+          "les_limbes:lagons_inverses",
+          "les_limbes:recifs_celestes",
+          "les_limbes:archipel_des_epaves"
+        ],
+        "jardins": [
+          "les_limbes:canopee_habitee",
+          "les_limbes:jardins_de_rosee",
+          "les_limbes:racines_profondes"
+        ],
+        "desert": [
+          "les_limbes:dunes_d_opale",
+          "les_limbes:oasis_des_cadrans",
+          "les_limbes:terrasses_anciennes"
+        ],
+        "montagnes": [
+          "les_limbes:aiguilles_de_verre",
+          "les_limbes:vallees_resonnantes",
+          "les_limbes:cavernes_de_cristal"
+        ],
+        "couronne": [
+          "les_limbes:capitale_endormie",
+          "les_limbes:anneaux_suspendus",
+          "les_limbes:confins_de_la_couronne"
+        ]
+      }
     }
   }
 }

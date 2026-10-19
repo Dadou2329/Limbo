@@ -1,0 +1,47 @@
+{
+  "type": "minecraft:tree",
+  "config": {
+    "trunk_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "les_limbes:buche_de_geant",
+        "Properties": {
+          "axis": "y"
+        }
+      }
+    },
+    "foliage_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "les_limbes:petale_rose"
+      }
+    },
+    "dirt_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "les_limbes:terre_des_limbes"
+      }
+    },
+    "trunk_placer": {
+      "type": "minecraft:straight_trunk_placer",
+      "base_height": 6,
+      "height_rand_a": 3,
+      "height_rand_b": 0
+    },
+    "foliage_placer": {
+      "type": "minecraft:blob_foliage_placer",
+      "radius": 2,
+      "offset": 0,
+      "height": 2
+    },
+    "minimum_size": {
+      "type": "minecraft:two_layers_feature_size",
+      "limit": 1,
+      "lower_size": 0,
+      "upper_size": 1
+    },
+    "force_dirt": false,
+    "ignore_vines": true,
+    "decorators": []
+  }
+}

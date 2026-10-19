@@ -1,0 +1,20 @@
+{
+  "nom": "Archiviste",
+  "debut": [
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Chaque Arrivée du désert est consignée ici depuis trois cents ans. Sahir relit tout. Il dit que l'histoire des Limbes, c'est l'histoire de ce qui a été perdu ailleurs."
+      ],
+      "choix": [
+        {
+          "texte": "Merci."
+        }
+      ]
+    }
+  }
+}

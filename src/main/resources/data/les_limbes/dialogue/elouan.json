@@ -1,0 +1,28 @@
+{
+  "nom": "Elouan",
+  "debut": [
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Je garde une porte qui ne s'ouvre pas. La capitale dort : lanternes éteintes, bassins secs, jardins sans feuilles.",
+        "On dit qu'un fragment de couronne suffit à réveiller un quartier, avec de l'eau, de la lumière et de la patience. Vous en portez un. Quand vous serez prêt, revenez : on commencera par les lanternes."
+      ],
+      "actions": [
+        {
+          "type": "decouvrir_lieu",
+          "id": "quartier_des_portes",
+          "annoncer": false
+        }
+      ],
+      "choix": [
+        {
+          "texte": "Je reviendrai."
+        }
+      ]
+    }
+  }
+}

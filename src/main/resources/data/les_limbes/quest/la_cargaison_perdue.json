@@ -1,0 +1,65 @@
+{
+  "titre": "La cargaison perdue",
+  "description": "Kaël, le prince des routes, veut le journal de bord du grand navire couché sur les récifs de l'archipel. Sa cale est pleine ; son histoire aussi.",
+  "acte": 3,
+  "etapes": [
+    {
+      "id": "journal",
+      "resume": "Plonger jusqu'au navire perdu, au nord-est de Port-Nacre, et remonter son journal de bord.",
+      "lieu": {
+        "nom": "Le navire perdu",
+        "pos": [
+          1150,
+          44,
+          -950
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "journal",
+          "type": "collecter",
+          "cible": "les_limbes:journal_de_bord",
+          "nombre": 1,
+          "texte": "Remonter le journal de bord du navire perdu"
+        }
+      ]
+    },
+    {
+      "id": "rapporter",
+      "resume": "Rapporter le journal à Kaël, à la capitainerie de Port-Nacre.",
+      "lieu": {
+        "nom": "Capitainerie de Port-Nacre",
+        "pos": [
+          950,
+          66,
+          -750
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "rapporter",
+          "type": "parler",
+          "cible": "kael",
+          "manuel": true,
+          "texte": "Rapporter le journal de bord à Kaël"
+        }
+      ]
+    }
+  ],
+  "fin": [
+    {
+      "type": "experience",
+      "niveaux": 3
+    },
+    {
+      "type": "drapeau",
+      "nom": "kael_allie"
+    },
+    {
+      "type": "message",
+      "texte": "Kaël vous ouvre ses routes : la capitainerie de Port-Nacre vous accueille désormais."
+    }
+  ]
+}

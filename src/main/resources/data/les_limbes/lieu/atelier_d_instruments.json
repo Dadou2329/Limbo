@@ -1,0 +1,11 @@
+{
+  "nom": "Atelier d'instruments",
+  "pos": [
+    -1320,
+    100,
+    620
+  ],
+  "rayon": 12,
+  "region": "montagnes",
+  "description": "On y taille les cristaux résonnants en instruments."
+}

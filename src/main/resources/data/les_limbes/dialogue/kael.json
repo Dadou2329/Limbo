@@ -1,0 +1,109 @@
+{
+  "nom": "Kaël",
+  "debut": [
+    {
+      "noeud": "revu",
+      "si": [
+        {
+          "drapeau": "kael_rencontre"
+        }
+      ]
+    },
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Un visage que je ne connais pas, à Port-Nacre ! Je suis Kaël. On m'appelle le prince des routes, ce qui est beaucoup dire pour quelqu'un qui passe sa vie sur un pont de bateau.",
+        "Mon idée est simple : relier tous les territoires des Limbes. Des routes, des ports, des portes. Un royaume, ça se tient par ce qui le traverse.",
+        "Vous portez un fragment de couronne. Alors on se reverra, c'est sûr. En attendant, le navire perdu de l'archipel a une cargaison qui n'attend que des bras courageux."
+      ],
+      "actions": [
+        {
+          "type": "drapeau",
+          "nom": "kael_rencontre"
+        },
+        {
+          "type": "decouvrir_relais",
+          "id": "port_nacre",
+          "annoncer": false
+        }
+      ],
+      "choix": [
+        {
+          "texte": "Parlez-moi de cette cargaison.",
+          "actions": [
+            {
+              "type": "demarrer_quete",
+              "quete": "la_cargaison_perdue"
+            }
+          ],
+          "suivant": "cargaison"
+        },
+        {
+          "texte": "Enchanté, Kaël."
+        }
+      ]
+    },
+    "cargaison": {
+      "texte": [
+        "Un grand navire d'un autre monde repose sur les récifs, au nord-est. Sa cale est pleine et son journal raconte comment il est arrivé.",
+        "Plongez, remontez-moi le journal du bord, et je vous ouvre les routes de Kaël : des cartes, des passages, des amis dans chaque port."
+      ],
+      "choix": [
+        {
+          "texte": "J'y vais."
+        }
+      ]
+    },
+    "revu": {
+      "texte": [
+        "Alors, les routes ? Chaque fois que je relie deux lieux, j'ai l'impression que les Limbes respirent mieux. Vaëron dit que je réveille des choses qu'il vaudrait mieux laisser dormir. Il n'a pas toujours tort."
+      ],
+      "choix": [
+        {
+          "texte": "Voici le journal du bord.",
+          "si": [
+            {
+              "objet": {
+                "id": "les_limbes:journal_de_bord",
+                "nombre": 1
+              }
+            },
+            {
+              "quete_active": "la_cargaison_perdue"
+            }
+          ],
+          "actions": [
+            {
+              "type": "retirer",
+              "objet": "les_limbes:journal_de_bord",
+              "nombre": 1
+            },
+            {
+              "type": "objectif",
+              "quete": "la_cargaison_perdue",
+              "objectif": "rapporter"
+            }
+          ],
+          "suivant": "merci"
+        },
+        {
+          "texte": "À plus tard."
+        }
+      ]
+    },
+    "merci": {
+      "texte": [
+        "« Tout reste, ici. » Il avait compris, ce capitaine. Vous avez ma confiance et mes routes : la capitainerie vous est ouverte, et je vous présenterai aux autres quand il sera temps de parler du trône."
+      ],
+      "choix": [
+        {
+          "texte": "Merci, Kaël."
+        }
+      ]
+    }
+  }
+}

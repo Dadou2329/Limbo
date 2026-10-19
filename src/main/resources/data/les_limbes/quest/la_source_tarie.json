@@ -1,0 +1,65 @@
+{
+  "titre": "La source tarie",
+  "description": "La serre ancienne qui nourrissait Sylvécime n'a plus d'eau. Aélis veut savoir ce que vous ferez de la source, si elle revient.",
+  "acte": 3,
+  "etapes": [
+    {
+      "id": "cristal",
+      "resume": "Trouver un cristal de nacre et le poser dans le bassin de la serre ancienne, avec Oriane.",
+      "lieu": {
+        "nom": "Serre ancienne",
+        "pos": [
+          900,
+          72,
+          520
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "cristal",
+          "type": "parler",
+          "cible": "oriane",
+          "manuel": true,
+          "texte": "Poser un cristal de nacre dans le bassin de la serre (parler à Oriane)"
+        }
+      ]
+    },
+    {
+      "id": "rapporter",
+      "resume": "Annoncer à Aélis, à Sylvécime, que la source coule de nouveau.",
+      "lieu": {
+        "nom": "Sylvécime",
+        "pos": [
+          1050,
+          72,
+          350
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "rapporter",
+          "type": "parler",
+          "cible": "aelis",
+          "manuel": true,
+          "texte": "Prévenir Aélis à Sylvécime"
+        }
+      ]
+    }
+  ],
+  "fin": [
+    {
+      "type": "experience",
+      "niveaux": 3
+    },
+    {
+      "type": "drapeau",
+      "nom": "aelis_alliee"
+    },
+    {
+      "type": "message",
+      "texte": "Sylvécime vous est ouverte. Aélis se souviendra de votre choix pour l'eau."
+    }
+  ]
+}

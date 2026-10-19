@@ -1,0 +1,119 @@
+{
+  "temperature": 0.85,
+  "downfall": 0.4,
+  "has_precipitation": false,
+  "effects": {
+    "sky_color": 11853008,
+    "fog_color": 14873320,
+    "water_color": 5942984,
+    "water_fog_color": 4163232,
+    "grass_color": 9420654,
+    "foliage_color": 8372062,
+    "mood_sound": {
+      "sound": "minecraft:ambient.cave",
+      "tick_delay": 6000,
+      "block_search_extent": 8,
+      "offset": 2.0
+    },
+    "music": {
+      "sound": "minecraft:music.overworld.flower_forest",
+      "min_delay": 12000,
+      "max_delay": 24000,
+      "replace_current_music": false
+    }
+  },
+  "spawners": {
+    "creature": [
+      {
+        "type": "les_limbes:cerf_lanterne",
+        "weight": 10,
+        "minCount": 2,
+        "maxCount": 4
+      },
+      {
+        "type": "minecraft:sheep",
+        "weight": 4,
+        "minCount": 2,
+        "maxCount": 3
+      },
+      {
+        "type": "minecraft:rabbit",
+        "weight": 3,
+        "minCount": 2,
+        "maxCount": 3
+      },
+      {
+        "type": "minecraft:bee",
+        "weight": 4,
+        "minCount": 1,
+        "maxCount": 3
+      },
+      {
+        "type": "les_limbes:escargot_des_racines",
+        "weight": 5,
+        "minCount": 1,
+        "maxCount": 3
+      },
+      {
+        "type": "les_limbes:scarabee_de_seve",
+        "weight": 2,
+        "minCount": 1,
+        "maxCount": 1
+      },
+      {
+        "type": "les_limbes:geant_des_jardins",
+        "weight": 1,
+        "minCount": 1,
+        "maxCount": 1
+      }
+    ],
+    "ambient": [
+      {
+        "type": "les_limbes:poisson_lune",
+        "weight": 12,
+        "minCount": 3,
+        "maxCount": 6
+      },
+      {
+        "type": "les_limbes:libellule_de_rosee",
+        "weight": 10,
+        "minCount": 2,
+        "maxCount": 5
+      }
+    ],
+    "monster": [],
+    "water_creature": [],
+    "water_ambient": [],
+    "underground_water_creature": [],
+    "axolotls": [],
+    "misc": []
+  },
+  "spawn_costs": {},
+  "carvers": {},
+  "features": [
+    [],
+    [
+      "les_limbes:lacs"
+    ],
+    [
+      "les_limbes:routes"
+    ],
+    [],
+    [],
+    [],
+    [
+      "les_limbes:cristaux"
+    ],
+    [],
+    [],
+    [
+      "les_limbes:arbres_geants_epars",
+      "les_limbes:fleurs_geantes_rose",
+      "les_limbes:fleurs_geantes_bleu",
+      "les_limbes:bosquet_fibres",
+      "les_limbes:herbes_aube_denses",
+      "les_limbes:fleurs_rosee"
+    ],
+    []
+  ]
+}

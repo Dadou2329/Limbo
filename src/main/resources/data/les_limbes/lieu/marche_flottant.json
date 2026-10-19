@@ -1,0 +1,11 @@
+{
+  "nom": "Marché flottant",
+  "pos": [
+    800,
+    63,
+    -600
+  ],
+  "rayon": 16,
+  "region": "mer",
+  "description": "Des barques amarrées où l'on troque ce que la mer rapporte d'ailleurs."
+}

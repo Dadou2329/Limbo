@@ -171,7 +171,23 @@ def main() -> None:
     save("monde/arrivee", mix(pli, sweep(200, 1600, 2.2, 0.2) * env(int(SR * 2.2), 0.3, 0.6), chime([880.0, 1318.5, 1760.0, 2637.0], 1.6, 0.35, 0.35)))
     save("bloc/moulin_grince", mix(sweep(140, 90, 1.4, 0.35) * env(int(SR * 1.4), 0.1, 0.8), noise(1.4, 0.18, 50, 13) * env(int(SR * 1.4), 0.2, 0.7),
                                    tone(70, 1.4, 0.25, harmonics=((1, 1.0), (3, 0.3))) * env(int(SR * 1.4), 0.05, 0.9)))
+    save("bloc/cristal_resonne", mix(chime([1046.5, 1318.5, 1568.0], 0.5, 0.06, 0.4), tone(2093.0, 0.4, 0.08)))
     save("bloc/dalle_emerge", mix(chime([659.25, 880.0, 1174.66], 0.7, 0.1, 0.35), noise(0.5, 0.15, 30, 14) * env(int(SR * 0.5), 0.05, 0.9)))
+    # Créatures régionales (étape 5)
+    save("creature/crabe_clic", mix(noise(0.12, 0.5, 2, 21) * env(int(SR * 0.12), 0.0, 0.9), tone(1800, 0.08, 0.2) * env(int(SR * 0.08), 0.0, 0.9),
+                                    noise(0.1, 0.4, 2, 22) * env(int(SR * 0.1), 0.0, 0.9)))
+    n = int(SR * 1.2)
+    t = np.arange(n) / SR
+    bourdon = 0.3 * np.sin(2 * math.pi * (240 + 12 * np.sin(2 * math.pi * 9 * t)) * t) * (0.7 + 0.3 * np.sin(2 * math.pi * 25 * t))
+    save("creature/insecte_bourdon", bourdon * env(n, 0.1, 0.3, 0.7, 0.3))
+    save("creature/oiseau_chant", mix(chime([1760.0, 2093.0, 1975.5, 2349.3], 0.18, 0.05, 0.3, False), sweep(1500, 2400, 0.25, 0.2) * env(int(SR * 0.25), 0.02, 0.9)))
+    save("creature/geant_pas", mix(noise(0.6, 0.6, 3, 23) * env(int(SR * 0.6), 0.0, 0.9), tone(45.0, 0.8, 0.7, harmonics=((1, 1.0), (2, 0.5))) * env(int(SR * 0.8), 0.0, 0.9),
+                                   sweep(120, 40, 0.5, 0.3) * env(int(SR * 0.5), 0.0, 0.9)))
+    save("creature/monture_appel", mix(tone(330.0, 0.8, 0.45, harmonics=((1, 1.0), (2, 0.4), (3, 0.15)), vibrato=0.02) * env(int(SR * 0.8), 0.1, 0.7),
+                                       sweep(300, 420, 0.8, 0.15) * env(int(SR * 0.8), 0.1, 0.7)))
+    save("creature/tireur_tir", mix(sweep(1400, 500, 0.3, 0.4) * env(int(SR * 0.3), 0.0, 0.9), noise(0.25, 0.3, 8, 24) * env(int(SR * 0.25), 0.0, 0.9),
+                                    chime([1046.5], 0.25, 0.05, 0.2, False)))
+    save("creature/petit_cri", mix(sweep(900, 1500, 0.18, 0.35) * env(int(SR * 0.18), 0.02, 0.8), tone(1200, 0.15, 0.2, vibrato=0.05) * env(int(SR * 0.15), 0.02, 0.8)))
     print("Terminé.")
 
 

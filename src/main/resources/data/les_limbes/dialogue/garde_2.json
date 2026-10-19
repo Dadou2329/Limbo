@@ -1,0 +1,20 @@
+{
+  "nom": "Garde",
+  "debut": [
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Vaëron a sauvé ma famille d'un Veilleur égaré, il y a cinq ans. Je n'oublie pas."
+      ],
+      "choix": [
+        {
+          "texte": "Merci."
+        }
+      ]
+    }
+  }
+}

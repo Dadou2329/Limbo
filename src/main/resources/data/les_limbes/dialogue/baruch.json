@@ -1,0 +1,20 @@
+{
+  "nom": "Baruch",
+  "debut": [
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Montez par la sève, lisez la mémoire de l'arbre, redescendez accroupi. Et si vous cherchez Aélis, elle est là où l'eau manque : c'est sa manière de gouverner."
+      ],
+      "choix": [
+        {
+          "texte": "Merci."
+        }
+      ]
+    }
+  }
+}

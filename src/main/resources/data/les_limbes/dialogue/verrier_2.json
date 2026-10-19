@@ -1,0 +1,20 @@
+{
+  "nom": "Verrière",
+  "debut": [
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Le pont qui chante a arrêté de chanter l'an dernier. Depuis, plus personne ne traverse. Dommage, la vue était belle."
+      ],
+      "choix": [
+        {
+          "texte": "Merci."
+        }
+      ]
+    }
+  }
+}

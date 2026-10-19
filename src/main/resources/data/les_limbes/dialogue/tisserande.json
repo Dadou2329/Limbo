@@ -1,0 +1,20 @@
+{
+  "nom": "Aude",
+  "debut": [
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Les fibres nacrées des Prairies et les pétales des géants font le plus beau tissu des Limbes. Il brille la nuit. Apportez-m'en et je vous ferai une tenture."
+      ],
+      "choix": [
+        {
+          "texte": "Merci."
+        }
+      ]
+    }
+  }
+}

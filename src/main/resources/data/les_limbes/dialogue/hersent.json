@@ -1,0 +1,20 @@
+{
+  "nom": "Dame Hersent",
+  "debut": [
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Infirmerie de Haute-Garde. Trois lits, des remèdes, et du pain de la cour pour les convalescents : il redonne des forces. Si vous êtes blessé, asseyez-vous."
+      ],
+      "choix": [
+        {
+          "texte": "Merci."
+        }
+      ]
+    }
+  }
+}

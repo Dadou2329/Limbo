@@ -11,6 +11,7 @@ import fr.leslimbes.world.state.PlayerLimbesData;
 import net.fabricmc.fabric.api.entity.FakePlayer;
 import net.fabricmc.fabric.api.gametest.v1.FabricGameTest;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
@@ -378,6 +379,119 @@ public final class LesLimbesGameTests implements FabricGameTest {
 			context.assertTrue(emile.size() == 1, "Émile apparaît avec sa maison");
 			context.assertTrue(world.getBlockState(origine.add(3, 1, 2)).isOf(net.minecraft.block.Blocks.SMOKER), "le four à pain est en place");
 			emile.forEach(h -> h.discard());
+			context.complete();
+		});
+	}
+
+	@GameTest(templateName = EMPTY_STRUCTURE, tickLimit = 200)
+	public void lesEspecesRegionalesViventEtLeTireurLanceUnEclat(TestContext context) {
+		ServerWorld world = context.getWorld();
+		BlockPos pos = context.getAbsolutePos(new BlockPos(2, 0, 2));
+		List<net.minecraft.entity.mob.MobEntity> crees = new java.util.ArrayList<>();
+		int i = 0;
+		for (var entree : fr.leslimbes.registry.LimbesEspeces.types().entrySet()) {
+			net.minecraft.entity.mob.MobEntity e = entree.getValue().create(world);
+			context.assertTrue(e != null, "création de l'espèce " + entree.getKey());
+			// Une grille serrée mais espacée : plus de 24 entités au même point déclenchent les dégâts d'entassement de
+			// vanilla, et trop loin de la structure l'entité sort des chunks forcés du test (déchargée).
+			e.refreshPositionAndAngles(pos.getX() + 0.5 + (i % 5) * 2, pos.getY() + 0.5, pos.getZ() + 0.5 + (i / 5) * 2, 0, 0);
+			i++;
+			e.setPersistent(); // le monde de test n'a pas de joueur à moins de 128 blocs : sans cela, vanilla retire la créature
+			world.spawnEntity(e);
+			crees.add(e);
+		}
+		context.assertTrue(crees.size() >= 24, "au moins 24 espèces régionales (trouvé " + crees.size() + ")");
+		// Tireur : il annonce son tir (état 1) puis lance un éclat vers sa cible.
+		fr.leslimbes.entity.region.EnnemiTireurEntity tireur = (fr.leslimbes.entity.region.EnnemiTireurEntity) fr.leslimbes.registry.LimbesEspeces.type("sentinelle_de_sable").create(world);
+		tireur.refreshPositionAndAngles(pos.getX() - 1.5, pos.getY(), pos.getZ() - 1.5, 0, 0);
+		tireur.setPersistent();
+		world.spawnEntity(tireur);
+		net.minecraft.entity.passive.SheepEntity cible = net.minecraft.entity.EntityType.SHEEP.create(world);
+		cible.refreshPositionAndAngles(pos.getX() - 1.5, pos.getY(), pos.getZ() + 6.5, 0, 0);
+		cible.setAiDisabled(true);
+		cible.setPersistent();
+		world.spawnEntity(cible);
+		tireur.shootAt(cible, 1.0F);
+		int preparation = tireur.getPreparation();
+		context.assertTrue(preparation > 0 && tireur.etatAnimation() == 1, "le tireur annonce son tir");
+		context.runAtTick(preparation + 3, () -> {
+			List<fr.leslimbes.entity.region.EclatProjectileEntity> eclats = world.getEntitiesByClass(fr.leslimbes.entity.region.EclatProjectileEntity.class, new Box(pos).expand(32), e -> true);
+			context.assertTrue(!eclats.isEmpty() || cible.getHealth() < cible.getMaxHealth(), "un éclat a été lancé après la préparation");
+			for (net.minecraft.entity.mob.MobEntity e : crees) {
+				context.assertTrue(e.isAlive(), "espèce encore vivante après quelques ticks : " + e.getType().getUntranslatedName());
+			}
+			crees.forEach(Entity::discard);
+			eclats.forEach(Entity::discard);
+			tireur.discard();
+			cible.discard();
+			context.complete();
+		});
+	}
+
+	@GameTest(templateName = EMPTY_STRUCTURE)
+	public void uneMontureTerrestreConclutUnPacteSeMonteEtRevientAuSifflet(TestContext context) {
+		ServerWorld world = context.getWorld();
+		net.minecraft.server.network.ServerPlayerEntity player = context.createMockCreativeServerPlayerInWorld();
+		BlockPos pos = context.getAbsolutePos(new BlockPos(2, 3, 2));
+		player.refreshPositionAndAngles(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, 0, 0);
+		PlayerLimbesData data = PlayerLimbesData.of(player);
+		data.montures.clear();
+		player.getInventory().clear();
+		fr.leslimbes.entity.region.MontureEntity tortue = (fr.leslimbes.entity.region.MontureEntity) fr.leslimbes.registry.LimbesEspeces.type("tortue_des_lagons").create(world);
+		tortue.refreshPositionAndAngles(pos.getX() + 2.5, pos.getY(), pos.getZ() + 0.5, 0, 0);
+		tortue.setPersistent();
+		world.spawnEntity(tortue);
+		player.setStackInHand(net.minecraft.util.Hand.MAIN_HAND, ItemStack.EMPTY);
+		context.assertTrue(tortue.interactMob(player, net.minecraft.util.Hand.MAIN_HAND) == net.minecraft.util.ActionResult.PASS && !tortue.hasPassengers(), "une tortue sauvage ne se laisse pas monter");
+		for (int i = 0; i < 3; i++) {
+			player.setStackInHand(net.minecraft.util.Hand.MAIN_HAND, new ItemStack(LimbesItems.POISSON_LANTERNE, 1));
+			tortue.interactMob(player, net.minecraft.util.Hand.MAIN_HAND);
+		}
+		context.assertTrue(tortue.isTamed() && player.getUuid().equals(tortue.getOwnerUuid()), "pacte conclu avec trois poissons-lanternes");
+		context.assertTrue(tortue.getUuidAsString().equals(data.montures.get("tortue_des_lagons")) && "tortue_des_lagons".equals(fr.leslimbes.entity.region.MontureEntity.cleActive(data)),
+				"la tortue est liée et devient la monture active");
+		context.assertTrue(player.getInventory().count(LimbesItems.SIFFLET_DE_RAIE) == 1, "le sifflet des montures a été donné");
+		player.setStackInHand(net.minecraft.util.Hand.MAIN_HAND, ItemStack.EMPTY);
+		net.minecraft.util.ActionResult monte = tortue.interactMob(player, net.minecraft.util.Hand.MAIN_HAND);
+		context.assertTrue(monte == net.minecraft.util.ActionResult.CONSUME && tortue.getControllingPassenger() == player && tortue.estMontee(), "le propriétaire monte la tortue (résultat=" + monte + ")");
+		context.assertTrue(tortue.canJump() == tortue.isOnGround(), "la tortue saute depuis le sol");
+		player.stopRiding();
+		tortue.discard();
+		fr.leslimbes.entity.region.MontureEntity.rappelerActive(player);
+		context.runAtTick(5, () -> {
+			List<fr.leslimbes.entity.region.MontureEntity> montures = world.getEntitiesByClass(fr.leslimbes.entity.region.MontureEntity.class, new Box(pos).expand(12), m -> m.isAlive());
+			context.assertTrue(montures.size() == 1 && montures.get(0).isTamed() && montures.get(0).espece().id.equals("tortue_des_lagons"), "la tortue disparue est recréée par le sifflet (trouvé " + montures.size() + ")");
+			context.assertTrue(montures.get(0).getUuidAsString().equals(data.montures.get("tortue_des_lagons")), "le lien pointe vers la nouvelle tortue");
+			montures.forEach(Entity::discard);
+			world.getServer().getPlayerManager().remove(player);
+			context.complete();
+		});
+	}
+
+	@GameTest(templateName = EMPTY_STRUCTURE, tickLimit = 200)
+	public void unEnnemiAnnonceFrappeEtEmpoisonneApresPreparation(TestContext context) {
+		ServerWorld world = context.getWorld();
+		BlockPos pos = context.getAbsolutePos(new BlockPos(2, 0, 2));
+		fr.leslimbes.entity.region.EnnemiAnnonceEntity scorpion = (fr.leslimbes.entity.region.EnnemiAnnonceEntity) fr.leslimbes.registry.LimbesEspeces.type("scorpion_des_heures").create(world);
+		scorpion.refreshPositionAndAngles(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, 0, 0);
+		scorpion.setPersistent();
+		world.spawnEntity(scorpion);
+		net.minecraft.entity.passive.SheepEntity mouton = net.minecraft.entity.EntityType.SHEEP.create(world);
+		mouton.refreshPositionAndAngles(pos.getX() + 0.5, pos.getY(), pos.getZ() + 2.0, 0, 0);
+		mouton.setAiDisabled(true);
+		mouton.setPersistent();
+		world.spawnEntity(mouton);
+		float vie = mouton.getHealth();
+		scorpion.preparer(mouton);
+		context.assertTrue(scorpion.enPreparation() && scorpion.etatAnimation() == 1, "le scorpion annonce son coup");
+		context.assertTrue(mouton.getHealth() == vie, "aucun dégât pendant l'annonce");
+		context.runAtTick(scorpion.espece().preparation + 2, () -> {
+			context.assertTrue(mouton.getHealth() < vie, "le coup annoncé a touché (" + mouton.getHealth() + " < " + vie + " ; préparation restante " + scorpion.getPreparation()
+					+ ", coups " + scorpion.coupsPortes + ", touches " + scorpion.dernieresTouches + ", scorpion " + scorpion.getPos() + " vivant=" + scorpion.isAlive() + ", mouton " + mouton.getPos() + ")");
+			context.assertTrue(mouton.hasStatusEffect(net.minecraft.entity.effect.StatusEffects.POISON), "le venin du scorpion empoisonne");
+			context.assertTrue(scorpion.etatAnimation() == 2, "le scorpion récupère après le coup");
+			scorpion.discard();
+			mouton.discard();
 			context.complete();
 		});
 	}

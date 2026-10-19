@@ -1,0 +1,283 @@
+{
+  "type": "les_limbes:routes",
+  "config": {
+    "routes": [
+      {
+        "largeur": 3,
+        "lampadaires": 24,
+        "nom": "route_du_relais",
+        "materiau": "minecraft:dirt_path",
+        "points": [
+          [
+            0,
+            140
+          ],
+          [
+            150,
+            60
+          ]
+        ]
+      },
+      {
+        "largeur": 3,
+        "lampadaires": 24,
+        "nom": "route_du_manoir",
+        "materiau": "minecraft:dirt_path",
+        "points": [
+          [
+            -10,
+            140
+          ],
+          [
+            -110,
+            150
+          ]
+        ]
+      },
+      {
+        "largeur": 3,
+        "lampadaires": 24,
+        "nom": "route_de_la_mer",
+        "materiau": "les_limbes:pierre_nacree_taillee",
+        "points": [
+          [
+            150,
+            60
+          ],
+          [
+            400,
+            -150
+          ],
+          [
+            560,
+            -360
+          ]
+        ]
+      },
+      {
+        "largeur": 3,
+        "lampadaires": 24,
+        "nom": "route_des_jardins",
+        "materiau": "les_limbes:planches_de_geant",
+        "points": [
+          [
+            10,
+            140
+          ],
+          [
+            300,
+            200
+          ],
+          [
+            600,
+            260
+          ],
+          [
+            850,
+            320
+          ],
+          [
+            1050,
+            350
+          ]
+        ]
+      },
+      {
+        "largeur": 3,
+        "lampadaires": 24,
+        "nom": "route_des_heures",
+        "materiau": "les_limbes:gres_des_heures_taille",
+        "points": [
+          [
+            0,
+            150
+          ],
+          [
+            80,
+            420
+          ],
+          [
+            120,
+            800
+          ],
+          [
+            150,
+            1100
+          ],
+          [
+            150,
+            1250
+          ]
+        ]
+      },
+      {
+        "largeur": 3,
+        "lampadaires": 24,
+        "nom": "route_de_verre",
+        "materiau": "les_limbes:pierre_de_verre_taillee",
+        "points": [
+          [
+            -120,
+            150
+          ],
+          [
+            -400,
+            250
+          ],
+          [
+            -750,
+            380
+          ],
+          [
+            -1050,
+            470
+          ],
+          [
+            -1150,
+            500
+          ]
+        ]
+      },
+      {
+        "largeur": 3,
+        "lampadaires": 24,
+        "nom": "route_de_la_couronne",
+        "materiau": "les_limbes:pierre_de_couronne_taillee",
+        "points": [
+          [
+            0,
+            56
+          ],
+          [
+            -250,
+            -200
+          ],
+          [
+            -450,
+            -450
+          ],
+          [
+            -610,
+            -610
+          ]
+        ]
+      },
+      {
+        "largeur": 3,
+        "lampadaires": 24,
+        "nom": "route_des_portes",
+        "materiau": "les_limbes:pierre_de_couronne_taillee",
+        "points": [
+          [
+            -610,
+            -610
+          ],
+          [
+            -760,
+            -700
+          ],
+          [
+            -900,
+            -720
+          ]
+        ]
+      },
+      {
+        "largeur": 3,
+        "lampadaires": 0,
+        "nom": "sentiers_de_sylvecime",
+        "materiau": "les_limbes:planches_de_geant",
+        "points": [
+          [
+            900,
+            520
+          ],
+          [
+            1050,
+            350
+          ],
+          [
+            1220,
+            230
+          ]
+        ]
+      },
+      {
+        "largeur": 3,
+        "lampadaires": 0,
+        "nom": "sentier_de_l_arbre_creux",
+        "materiau": "les_limbes:planches_de_geant",
+        "points": [
+          [
+            1050,
+            350
+          ],
+          [
+            1050,
+            620
+          ],
+          [
+            1280,
+            480
+          ]
+        ]
+      },
+      {
+        "largeur": 3,
+        "lampadaires": 0,
+        "nom": "pistes_de_meridiane",
+        "materiau": "les_limbes:gres_des_heures_taille",
+        "points": [
+          [
+            0,
+            1420
+          ],
+          [
+            150,
+            1250
+          ],
+          [
+            380,
+            1130
+          ]
+        ]
+      },
+      {
+        "largeur": 3,
+        "lampadaires": 0,
+        "nom": "sentiers_de_verreole",
+        "materiau": "les_limbes:pierre_de_verre_taillee",
+        "points": [
+          [
+            -1000,
+            380
+          ],
+          [
+            -1150,
+            500
+          ],
+          [
+            -1320,
+            620
+          ]
+        ]
+      },
+      {
+        "largeur": 3,
+        "lampadaires": 0,
+        "nom": "sentier_du_pont",
+        "materiau": "les_limbes:pierre_de_verre_taillee",
+        "points": [
+          [
+            -1150,
+            500
+          ],
+          [
+            -1150,
+            655
+          ]
+        ]
+      }
+    ]
+  }
+}

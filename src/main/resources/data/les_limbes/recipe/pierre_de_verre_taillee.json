@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "les_limbes:pierre_de_verre"
+    }
+  },
+  "result": {
+    "id": "les_limbes:pierre_de_verre_taillee",
+    "count": 4
+  }
+}

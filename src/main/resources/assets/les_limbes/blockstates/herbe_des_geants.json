@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "les_limbes:block/herbe_des_geants"
+      },
+      {
+        "model": "les_limbes:block/herbe_des_geants",
+        "y": 90
+      },
+      {
+        "model": "les_limbes:block/herbe_des_geants",
+        "y": 180
+      },
+      {
+        "model": "les_limbes:block/herbe_des_geants",
+        "y": 270
+      }
+    ]
+  }
+}

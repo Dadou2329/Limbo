@@ -1,0 +1,20 @@
+{
+  "nom": "Habitant",
+  "debut": [
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Le marché a du pain tous les jours. Vous savez combien de villes peuvent dire ça ?"
+      ],
+      "choix": [
+        {
+          "texte": "Merci."
+        }
+      ]
+    }
+  }
+}

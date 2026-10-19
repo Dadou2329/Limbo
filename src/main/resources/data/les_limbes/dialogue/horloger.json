@@ -1,0 +1,20 @@
+{
+  "nom": "Horloger",
+  "debut": [
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "L'horloge garde quatre quarts : aube, midi, soir, nuit. Les routes de pavés horaires n'existent qu'à leur quart. Celle de midi traverse la place ; celle de nuit passe à l'observatoire."
+      ],
+      "choix": [
+        {
+          "texte": "Merci."
+        }
+      ]
+    }
+  }
+}

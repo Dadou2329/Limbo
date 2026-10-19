@@ -1,0 +1,11 @@
+{
+  "nom": "Clairière du géant",
+  "pos": [
+    1280,
+    72,
+    480
+  ],
+  "rayon": 20,
+  "region": "jardins",
+  "description": "Un géant des jardins y dort au milieu des fleurs monumentales."
+}

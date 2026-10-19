@@ -1,0 +1,106 @@
+{
+  "nom": "Ismaël",
+  "debut": [
+    {
+      "noeud": "fertile",
+      "si": [
+        {
+          "drapeau": "jardin_fertile"
+        }
+      ]
+    },
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Ce jardin était le plus vert du désert. Puis on a volé le sablier d'opale qui réglait ses canaux, et tout s'est tari en une saison.",
+        "Si vous retrouvez le sablier, posez-le ici, sur la pierre d'or. Je ferai le reste."
+      ],
+      "choix": [
+        {
+          "texte": "Voici le sablier d'opale.",
+          "si": [
+            {
+              "objet": {
+                "id": "les_limbes:sablier_d_opale",
+                "nombre": 1
+              }
+            },
+            {
+              "quete_active": "le_jardin_des_heures"
+            }
+          ],
+          "actions": [
+            {
+              "type": "retirer",
+              "objet": "les_limbes:sablier_d_opale",
+              "nombre": 1
+            },
+            {
+              "type": "drapeau",
+              "nom": "jardin_fertile"
+            },
+            {
+              "type": "objectif",
+              "quete": "le_jardin_des_heures",
+              "objectif": "sablier"
+            },
+            {
+              "type": "modifier_bloc",
+              "pos": [
+                380,
+                65,
+                1130
+              ],
+              "bloc": "les_limbes:gres_des_heures",
+              "proprietes": {}
+            },
+            {
+              "type": "son",
+              "id": "les_limbes:bloc.dalle.emerge"
+            },
+            {
+              "type": "experience",
+              "niveaux": 1
+            }
+          ],
+          "suivant": "merci"
+        },
+        {
+          "texte": "Je le chercherai."
+        }
+      ]
+    },
+    "merci": {
+      "texte": [
+        "L'eau revient dans les canaux… Écoutez : elle chante. Demain, les parterres seront verts. Sahir voudra le savoir."
+      ],
+      "choix": [
+        {
+          "texte": "Je lui dirai."
+        }
+      ]
+    },
+    "fertile": {
+      "texte": [
+        "Les dattes reviennent. Prenez-en : les premières sont pour vous."
+      ],
+      "choix": [
+        {
+          "texte": "Merci.",
+          "actions": [
+            {
+              "type": "donner",
+              "objet": "les_limbes:dattes_des_heures",
+              "nombre": 3,
+              "une_fois": "dattes_ismael"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

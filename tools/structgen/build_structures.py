@@ -26,6 +26,11 @@ from builders import (BARRIERE, BUCHE, CHEMIN, COBBLE, CRISTAL, DALLE_BOIS, DALL
                       fence_rect, fill_void_with, fountain, garden_bed, ground, hanging_lantern, lamppost, log, path, slab, stair, table,
                       tree, window)
 from canvas import AIR, VOID, Canvas
+from regions_mer import MER  # noqa: E402
+from regions_jardins import JARDINS  # noqa: E402
+from regions_desert import DESERT  # noqa: E402
+from regions_montagnes import MONTAGNES  # noqa: E402
+from regions_couronne import COURONNE  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 DATA = os.path.join(ROOT, "src", "main", "resources", "data", "les_limbes")
@@ -1484,7 +1489,10 @@ def main() -> None:
         "manoir/marche": build_marche(),
         "rencontres/cabane_loic": build_cabane_loic(),
         "rencontres/jardin_hanna": build_jardin_hanna(),
-    }
+        }
+    for module in (MER, JARDINS, DESERT, MONTAGNES, COURONNE):
+        for cle, fabrique in module.items():
+            canvases[cle] = fabrique()
     lignes = ["# Rapport des structures\n"]
     for rel, c in canvases.items():
         out_dir = os.path.join(STRUCT_DIR, os.path.dirname(rel))
@@ -1535,6 +1543,32 @@ def main() -> None:
         piece("les_limbes:lac/lac_crepuscule", (-82, 61, -2), o),
         piece("les_limbes:rencontres/cabane_loic", (-41, 65, 29), o)]))
     write_json(os.path.join(WG, "structure_set", "lac_crepuscule.json"), set_json("les_limbes:lac_crepuscule", chunk_of(-60, 20), 1005))
+    # --- Régions (étape 5) : une structure composée par site, origine = coin du chunk du site, altitude fixe ---
+    def site(nom, centre, y, pieces, salt):
+        o = (chunk_of(centre[0], centre[1])[0] * 16, y, chunk_of(centre[0], centre[1])[1] * 16)
+        write_json(os.path.join(WG, "structure", nom + ".json"), structure_json(lim, "none", y, [piece(g, wm, o) for g, wm in pieces]))
+        write_json(os.path.join(WG, "structure_set", nom + ".json"), set_json("les_limbes:" + nom, chunk_of(centre[0], centre[1]), salt))
+
+    site("port_nacre", (950, -750), 66, [("les_limbes:mer/port_nacre_ile", (922, 63, -778))], 1006)
+    site("phare_du_dessous", (1440, -750), 84, [("les_limbes:mer/phare_du_dessous", (1435, 83, -755))], 1007)
+    site("marche_flottant", (800, -600), 63, [("les_limbes:mer/marche_flottant", (788, 62, -612))], 1008)
+    site("navire_perdu", (1150, -950), 40, [("les_limbes:mer/navire_perdu", (1140, 39, -979))], 1009)
+    site("sanctuaire_des_bancs", (1050, -560), 44, [("les_limbes:mer/sanctuaire_des_bancs", (1042, 43, -568))], 1010)
+    site("quai_des_falaises", (560, -360), 82, [("les_limbes:mer/quai_des_falaises", (553, 62, -371))], 1011)
+    site("sylvecime", (1050, 350), 72, [("les_limbes:jardins/sylvecime", (1020, 71, 320))], 1012)
+    site("serre_ancienne", (900, 520), 72, [("les_limbes:jardins/serre_ancienne", (891, 71, 508))], 1013)
+    site("pepiniere_royale", (1220, 230), 72, [("les_limbes:jardins/pepiniere_royale", (1209, 71, 222))], 1014)
+    site("arbre_creux", (1050, 620), 72, [("les_limbes:jardins/arbre_creux", (1042, 71, 612))], 1015)
+    site("clairiere_du_geant", (1280, 480), 72, [("les_limbes:jardins/clairiere_du_geant", (1264, 71, 464))], 1016)
+    site("meridiane", (150, 1250), 66, [("les_limbes:desert/meridiane", (115, 65, 1215))], 1017)
+    site("observatoire_des_heures", (0, 1420), 66, [("les_limbes:desert/observatoire_des_heures", (-7, 65, 1413))], 1018)
+    site("jardin_fertile", (380, 1130), 66, [("les_limbes:desert/jardin_fertile", (368, 65, 1118))], 1019)
+    site("verreole", (-1150, 500), 96, [("les_limbes:montagnes/verreole", (-1182, 95, 468))], 1020)
+    site("bains_des_sources", (-1000, 380), 90, [("les_limbes:montagnes/bains_des_sources", (-1010, 89, 370))], 1021)
+    site("atelier_d_instruments", (-1320, 620), 100, [("les_limbes:montagnes/atelier_d_instruments", (-1328, 99, 613))], 1022)
+    site("pont_qui_chante", (-1150, 680), 104, [("les_limbes:montagnes/pont_qui_chante", (-1154, 100, 653))], 1023)
+    site("haute_garde", (-610, -610), 82, [("les_limbes:couronne/haute_garde", (-644, 81, -644))], 1024)
+    site("quartier_des_portes", (-900, -720), 78, [("les_limbes:couronne/quartier_des_portes", (-925, 77, -740))], 1025)
     with open(os.path.join(RAPPORT_DIR, "RAPPORT.md"), "w", encoding="utf-8") as fh:
         fh.write("\n".join(lignes))
     print(f"{len(canvases)} gabarits écrits ; rapport : {os.path.relpath(RAPPORT_DIR, ROOT)}/RAPPORT.md")

@@ -1,0 +1,20 @@
+{
+  "nom": "Pépiniériste",
+  "debut": [
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Ces pousses deviendront des géants dans cent ans. On plante pour ceux qui viendront. C'est ça, Sylvécime."
+      ],
+      "choix": [
+        {
+          "texte": "Merci."
+        }
+      ]
+    }
+  }
+}

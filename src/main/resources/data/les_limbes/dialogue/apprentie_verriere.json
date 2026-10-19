@@ -1,0 +1,20 @@
+{
+  "nom": "Linnea",
+  "debut": [
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Le verre de montagne, on le taille, on ne le fond pas. Il vient des sommets, tout fait. Gunnar dit que les montagnes nous le prêtent."
+      ],
+      "choix": [
+        {
+          "texte": "Merci."
+        }
+      ]
+    }
+  }
+}

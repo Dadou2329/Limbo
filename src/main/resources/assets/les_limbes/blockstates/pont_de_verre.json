@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "forme=true": {
+      "model": "les_limbes:block/pont_de_verre"
+    },
+    "forme=false": {
+      "model": "les_limbes:block/pont_de_verre_trame"
+    }
+  }
+}

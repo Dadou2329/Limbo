@@ -1,0 +1,20 @@
+{
+  "nom": "Gaël",
+  "debut": [
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Le fumoir tourne jour et nuit. Un poisson-lanterne fumé, ça se garde des semaines. Si vous voulez apprendre, apportez du bois sombre : les planches du vieux naufrage sont parfaites."
+      ],
+      "choix": [
+        {
+          "texte": "Merci."
+        }
+      ]
+    }
+  }
+}

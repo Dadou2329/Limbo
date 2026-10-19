@@ -1,0 +1,18 @@
+{
+  "placement": {
+    "type": "les_limbes:fixed",
+    "salt": 1011,
+    "chunks": [
+      [
+        35,
+        -23
+      ]
+    ]
+  },
+  "structures": [
+    {
+      "structure": "les_limbes:quai_des_falaises",
+      "weight": 1
+    }
+  ]
+}

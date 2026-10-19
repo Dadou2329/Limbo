@@ -1,0 +1,55 @@
+{
+  "nom": "Gunnar",
+  "debut": [
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "La grande forge de Verréole. Deux foyers, trois enclumes, et la reine qui passe tous les matins vérifier que rien ne manque.",
+        "Trois éclats résonnants et un cristal de nacre, et je vous fais du thé des cimes : on tombe moins vite quand on en boit. Utile, par ici."
+      ],
+      "choix": [
+        {
+          "texte": "Thé des cimes (3 éclats + 1 cristal).",
+          "si": [
+            {
+              "objet": {
+                "id": "les_limbes:eclat_resonnant",
+                "nombre": 3
+              }
+            },
+            {
+              "objet": {
+                "id": "les_limbes:cristal_de_nacre",
+                "nombre": 1
+              }
+            }
+          ],
+          "actions": [
+            {
+              "type": "retirer",
+              "objet": "les_limbes:eclat_resonnant",
+              "nombre": 3
+            },
+            {
+              "type": "retirer",
+              "objet": "les_limbes:cristal_de_nacre",
+              "nombre": 1
+            },
+            {
+              "type": "donner",
+              "objet": "les_limbes:the_des_cimes",
+              "nombre": 4
+            }
+          ]
+        },
+        {
+          "texte": "Une autre fois."
+        }
+      ]
+    }
+  }
+}

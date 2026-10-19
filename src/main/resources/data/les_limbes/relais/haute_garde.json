@@ -1,0 +1,11 @@
+{
+  "nom": "Porte de Haute-Garde",
+  "description": "Sur la place d'armes, devant la grande porte.",
+  "pos": [
+    -620,
+    82,
+    -610
+  ],
+  "dimension": "les_limbes:limbes",
+  "ordre": 8
+}

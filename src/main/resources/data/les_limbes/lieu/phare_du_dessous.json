@@ -1,0 +1,11 @@
+{
+  "nom": "Phare du Dessous",
+  "pos": [
+    1440,
+    84,
+    -750
+  ],
+  "rayon": 16,
+  "region": "mer",
+  "description": "Un phare au bord du vide, dont la lampe éclaire vers le bas."
+}

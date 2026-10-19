@@ -1,0 +1,20 @@
+{
+  "nom": "Maude",
+  "debut": [
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Poisson-lanterne du matin ! Pêché dans les lagons, il éclaire encore un peu quand on le mange. Et il permet de respirer sous l'eau un bon moment : les plongeurs ne jurent que par lui."
+      ],
+      "choix": [
+        {
+          "texte": "Merci."
+        }
+      ]
+    }
+  }
+}

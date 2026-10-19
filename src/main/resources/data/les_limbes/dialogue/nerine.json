@@ -1,0 +1,44 @@
+{
+  "nom": "Nérine",
+  "debut": [
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Au marché flottant, on vend ce que la mer rapporte d'ailleurs : horloges qui tournent à l'envers, lunettes qui voient de nuit, carnets dans des langues inconnues.",
+        "Une perle de nacre contre un objet venu d'un autre monde, c'est le tarif. Les perles, on les trouve dans les coquilles des récifs et les coffres des épaves."
+      ],
+      "choix": [
+        {
+          "texte": "Une perle contre un sablier d'opale.",
+          "si": [
+            {
+              "objet": {
+                "id": "les_limbes:perle_de_nacre",
+                "nombre": 1
+              }
+            }
+          ],
+          "actions": [
+            {
+              "type": "retirer",
+              "objet": "les_limbes:perle_de_nacre",
+              "nombre": 1
+            },
+            {
+              "type": "donner",
+              "objet": "les_limbes:sablier_d_opale",
+              "nombre": 1
+            }
+          ]
+        },
+        {
+          "texte": "Je regarde seulement."
+        }
+      ]
+    }
+  }
+}

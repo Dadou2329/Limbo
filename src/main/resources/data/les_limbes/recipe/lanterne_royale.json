@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "NNN",
+    "NCN",
+    "NNN"
+  ],
+  "key": {
+    "N": {
+      "item": "minecraft:gold_nugget"
+    },
+    "C": {
+      "item": "les_limbes:cristal_de_nacre"
+    }
+  },
+  "result": {
+    "id": "les_limbes:lanterne_royale",
+    "count": 2
+  }
+}

@@ -66,7 +66,9 @@
     [
       "les_limbes:lacs"
     ],
-    [],
+    [
+      "les_limbes:routes"
+    ],
     [],
     [],
     [],
@@ -78,8 +80,8 @@
     [
       "les_limbes:arbres_aube_epars",
       "les_limbes:bosquet_fibres_dense",
-      "les_limbes:lanternes_perdues",
-      "les_limbes:fleurs_rosee"
+      "les_limbes:fleurs_rosee",
+      "les_limbes:lanternes_perdues"
     ],
     []
   ]

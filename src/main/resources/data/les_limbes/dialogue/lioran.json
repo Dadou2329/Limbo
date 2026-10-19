@@ -1,0 +1,20 @@
+{
+  "nom": "Lioran",
+  "debut": [
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Pépiniériste royal, oui. Le titre date du roi ; les pousses, elles, n'ont pas attendu. J'ai des graines venues d'ailleurs qui n'ont jamais germé. Si une Arrivée en apporte d'autres, prévenez-moi."
+      ],
+      "choix": [
+        {
+          "texte": "Merci."
+        }
+      ]
+    }
+  }
+}

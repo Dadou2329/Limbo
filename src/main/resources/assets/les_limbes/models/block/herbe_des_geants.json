@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "top": "les_limbes:block/herbe_des_geants_top",
+    "side": "les_limbes:block/herbe_des_geants_side",
+    "bottom": "les_limbes:block/terre_des_limbes"
+  }
+}

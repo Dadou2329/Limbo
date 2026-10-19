@@ -1,0 +1,8 @@
+{
+  "feature": "les_limbes:mer",
+  "placement": [
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

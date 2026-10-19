@@ -2,7 +2,7 @@
 
 Ordre conseillé par le cahier des charges : 1 socle → 2 Prairies/Clairval/manoir/première quête/premiers pouvoirs → 3 tranche de qualité (mini-aventure, monture, Arrivée, combat) → 4 domaine/journal/passages → 5 régions restantes → 6 prétendants/campagne/couronnement → 7 pouvoirs supérieurs/règne → 8 complétion/optimisation.
 
-État : étapes 1 à 4 réalisées (tranche « Le Passage » ; monture, Arrivées, mini-aventures ; domaine, recrutement, salle des passages, journal/carte/options) ; étape 5 (régions) à suivre.
+État : étapes 1 à 5 réalisées (tranche « Le Passage » ; monture, Arrivées, mini-aventures ; domaine, recrutement, salle des passages, journal/carte/options ; six régions, villes, lieux, créatures et montures) ; étape 6 (prétendants, campagne, couronnement) à suivre.
 
 ## Prochaines actions exécutables (par priorité)
 
@@ -31,10 +31,13 @@ Ordre conseillé par le cahier des charges : 1 socle → 2 Prairies/Clairval/man
 - [ ] Scènes de vie des compagnons (horaires, gestes) et services des marchands (échanges) : étape 8.
 - [ ] Multijoueur : le domaine est partagé par le monde (un manoir commun) ; domaines par groupe et permissions : étape 8.
 
-### D. Régions (étape 5)
-- [ ] Mer suspendue (volumes d'eau stables, Port-Nacre, navigation, plongée), Jardins des Géants (Sylvécime, verticalité), Désert des Heures (Méridiane, mécanismes temporels locaux), Montagnes de Verre (Verréole, forges), Couronne Immobile (quartiers éveillables, cité de Vaëron).
-- [ ] Par région : matériau, cuisine, créatures, déplacement, personnages, aventures, récompenses ; transitions naturelles.
-- [ ] Routes procédurales suivant le relief entre les sites (actuellement : chemins sur les plateaux seulement).
+### D. Régions (étape 5) — réalisée
+- [x] Source de biomes régionale (Voronoï pondéré, transitions), relief par région, 18 biomes, matériaux et blocs scénarisés (sève ascendante, cadran des heures, pavé horaire, pont de verre, cristal résonnant), Mer suspendue à volume d'eau stable, routes pavées sur le relief.
+- [x] Villes : Port-Nacre, Sylvécime, Méridiane, Verréole, Haute-Garde ; quinze lieux forts (phare, marché flottant, navire perdu, sanctuaire des bancs, quai, serre, pépinière, arbre creux, clairière, observatoire des heures, jardin des heures, bains, atelier, pont qui chante, quartier des portes) ; 63 personnages ; 9 relais.
+- [x] Cinq prétendants introduits avec une aventure chacun ; 30 créatures dont 6 montures (pacte, saut, nage, vol, sifflet des montures).
+- [ ] Vérifier en captures client le rendu des 26 modèles (proportions, animations de marche et d'annonce), des villes et des biomes (prévu en fin de projet).
+- [ ] Capitale et palais sur le plateau réservé (−900/86/−900) : étape 6.
+- [ ] Mécanismes temporels de Méridiane à étendre (quartier figé qui s'anime selon l'heure) et plongée outillée dans la Mer (respiration, lumière) : étape 8.
 
 ### E. Prétendants, campagne, couronnement (étape 6)
 - [ ] Aélis, Kaël, Orsane, Sahir : rencontres, aventures communes, duels (arènes maîtrisées), reconnaissances alternatives (tournoi, négociation, expédition, duel rituel).

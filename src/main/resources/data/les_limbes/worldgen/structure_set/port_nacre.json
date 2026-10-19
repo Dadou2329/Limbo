@@ -1,0 +1,18 @@
+{
+  "placement": {
+    "type": "les_limbes:fixed",
+    "salt": 1006,
+    "chunks": [
+      [
+        59,
+        -47
+      ]
+    ]
+  },
+  "structures": [
+    {
+      "structure": "les_limbes:port_nacre",
+      "weight": 1
+    }
+  ]
+}

@@ -1,0 +1,95 @@
+{
+  "temperature": 0.2,
+  "downfall": 0.4,
+  "has_precipitation": false,
+  "effects": {
+    "sky_color": 11852016,
+    "fog_color": 15135482,
+    "water_color": 8374504,
+    "water_fog_color": 4887224,
+    "grass_color": 11060408,
+    "foliage_color": 12110242,
+    "mood_sound": {
+      "sound": "minecraft:ambient.cave",
+      "tick_delay": 6000,
+      "block_search_extent": 8,
+      "offset": 2.0
+    },
+    "music": {
+      "sound": "minecraft:music.overworld.frozen_peaks",
+      "min_delay": 12000,
+      "max_delay": 24000,
+      "replace_current_music": false
+    }
+  },
+  "spawners": {
+    "creature": [
+      {
+        "type": "les_limbes:bouquetin_de_verre",
+        "weight": 4,
+        "minCount": 1,
+        "maxCount": 3
+      },
+      {
+        "type": "les_limbes:griffon_de_verre",
+        "weight": 2,
+        "minCount": 1,
+        "maxCount": 1
+      }
+    ],
+    "ambient": [
+      {
+        "type": "les_limbes:poisson_lune",
+        "weight": 12,
+        "minCount": 3,
+        "maxCount": 6
+      },
+      {
+        "type": "les_limbes:papillon_de_cristal",
+        "weight": 6,
+        "minCount": 2,
+        "maxCount": 4
+      }
+    ],
+    "monster": [
+      {
+        "type": "les_limbes:colosse_de_cristal",
+        "weight": 2,
+        "minCount": 1,
+        "maxCount": 1
+      },
+      {
+        "type": "les_limbes:echo_resonnant",
+        "weight": 3,
+        "minCount": 1,
+        "maxCount": 1
+      }
+    ],
+    "water_creature": [],
+    "water_ambient": [],
+    "underground_water_creature": [],
+    "axolotls": [],
+    "misc": []
+  },
+  "spawn_costs": {},
+  "carvers": {},
+  "features": [
+    [],
+    [],
+    [
+      "les_limbes:routes"
+    ],
+    [],
+    [],
+    [],
+    [
+      "les_limbes:cristaux_resonnants"
+    ],
+    [],
+    [],
+    [
+      "les_limbes:cristaux_de_surface"
+    ],
+    []
+  ]
+}

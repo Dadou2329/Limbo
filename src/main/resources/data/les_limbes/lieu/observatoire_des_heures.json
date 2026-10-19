@@ -1,0 +1,11 @@
+{
+  "nom": "Observatoire des heures",
+  "pos": [
+    0,
+    66,
+    1420
+  ],
+  "rayon": 14,
+  "region": "desert",
+  "description": "Une tour d'où l'on lit le ciel du désert."
+}

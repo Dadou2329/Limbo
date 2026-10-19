@@ -2,6 +2,9 @@
   "replace": false,
   "values": [
     "les_limbes:terre_des_limbes",
-    "les_limbes:herbe_argentee"
+    "les_limbes:herbe_argentee",
+    "les_limbes:sable_de_nacre",
+    "les_limbes:sable_d_opale",
+    "les_limbes:herbe_des_geants"
   ]
 }

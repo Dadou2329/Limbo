@@ -30,6 +30,14 @@ Vous venez de créer une partie de survie avec Les Limbes. Voici de quoi commenc
 - Les **portes de relais** que vous touchez en voyage s'ajoutent à votre réseau ; la salle des passages du manoir permet ensuite de passer de l'une à l'autre.
 - Le journal (J) a une **carte** des lieux découverts et un onglet **Options** (effets, secousses, indications discrètes).
 
+## Les autres régions
+
+- Les **routes pavées** qui partent de Clairval mènent aux cinq autres régions ; suivez les lampadaires. Chaque grande ville a une **porte de relais** : parlez à la personne qui vous accueille, et la ville rejoint votre réseau des passages.
+- Dans chaque ville, un personnage important vous confie une première aventure. Il y a toujours une façon de la finir sans rien casser.
+- Les **montures** : approchez une bête avec son appât favori (poissons-lanternes, fruits de géant, dattes, thé des cimes, pain de la cour) et nourrissez-la trois fois. Clic droit pour monter, avancez dans la direction du regard, **espace** pour sauter. Le **sifflet des montures** la rappelle, où qu'elle soit ; accroupi, il change de monture.
+- Les ennemis des régions, comme les Veilleurs, **annoncent** leurs coups ; les tireurs se préparent avant de lancer un éclat : un pas de côté suffit.
+- Dans la Mer suspendue, le sable de nacre cache des perles ; les crabes aussi. Dans les Jardins, la **sève ascendante** vous porte vers la canopée. Dans le Désert, les cadrans et les pavés horaires suivent l'heure du jour. Dans les Montagnes, les ponts de verre n'apparaissent qu'à votre approche et les cristaux chantent sous les pas.
+
 ## Conseils
 
 - Les fibres nacrées des prairies font de bonnes cordes ; l'herbe de l'aube et un bol donnent un bouillon réconfortant.

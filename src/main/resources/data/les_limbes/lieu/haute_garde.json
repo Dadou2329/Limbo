@@ -1,0 +1,12 @@
+{
+  "nom": "Haute-Garde",
+  "pos": [
+    -610,
+    82,
+    -610
+  ],
+  "rayon": 40,
+  "region": "couronne",
+  "description": "La cité de Vaëron : murs, école, infirmerie, marché.",
+  "relais": "haute_garde"
+}

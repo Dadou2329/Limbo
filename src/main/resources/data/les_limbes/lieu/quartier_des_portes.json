@@ -1,0 +1,11 @@
+{
+  "nom": "Quartier des portes",
+  "pos": [
+    -900,
+    78,
+    -720
+  ],
+  "rayon": 30,
+  "region": "couronne",
+  "description": "Le premier quartier de la capitale, gardé par Elouan."
+}

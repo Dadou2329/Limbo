@@ -68,26 +68,205 @@
           "y": 66,
           "rayon": 12,
           "transition": 12
+        },
+        {
+          "x": 950,
+          "z": -750,
+          "y": 66,
+          "rayon": 60,
+          "transition": 26
+        },
+        {
+          "x": 1150,
+          "z": -950,
+          "y": 40,
+          "rayon": 40,
+          "transition": 16
+        },
+        {
+          "x": 1050,
+          "z": -560,
+          "y": 44,
+          "rayon": 24,
+          "transition": 14
+        },
+        {
+          "x": 1440,
+          "z": -750,
+          "y": 84,
+          "rayon": 18,
+          "transition": 12
+        },
+        {
+          "x": 560,
+          "z": -360,
+          "y": 82,
+          "rayon": 16,
+          "transition": 12
+        },
+        {
+          "x": 1050,
+          "z": 350,
+          "y": 72,
+          "rayon": 70,
+          "transition": 30
+        },
+        {
+          "x": 900,
+          "z": 520,
+          "y": 72,
+          "rayon": 30,
+          "transition": 20
+        },
+        {
+          "x": 1220,
+          "z": 230,
+          "y": 72,
+          "rayon": 30,
+          "transition": 20
+        },
+        {
+          "x": 1050,
+          "z": 620,
+          "y": 72,
+          "rayon": 30,
+          "transition": 20
+        },
+        {
+          "x": 1280,
+          "z": 480,
+          "y": 72,
+          "rayon": 40,
+          "transition": 24
+        },
+        {
+          "x": 150,
+          "z": 1250,
+          "y": 66,
+          "rayon": 70,
+          "transition": 30
+        },
+        {
+          "x": 0,
+          "z": 1420,
+          "y": 66,
+          "rayon": 30,
+          "transition": 20
+        },
+        {
+          "x": 380,
+          "z": 1130,
+          "y": 66,
+          "rayon": 34,
+          "transition": 20
+        },
+        {
+          "x": -1150,
+          "z": 500,
+          "y": 96,
+          "rayon": 70,
+          "transition": 34
+        },
+        {
+          "x": -1000,
+          "z": 380,
+          "y": 90,
+          "rayon": 30,
+          "transition": 24
+        },
+        {
+          "x": -1320,
+          "z": 620,
+          "y": 100,
+          "rayon": 30,
+          "transition": 24
+        },
+        {
+          "x": -1150,
+          "z": 655,
+          "y": 104,
+          "rayon": 14,
+          "transition": 14
+        },
+        {
+          "x": -1150,
+          "z": 705,
+          "y": 104,
+          "rayon": 14,
+          "transition": 14
+        },
+        {
+          "x": -1150,
+          "z": 680,
+          "y": 60,
+          "rayon": 9,
+          "transition": 8
+        },
+        {
+          "x": -610,
+          "z": -610,
+          "y": 82,
+          "rayon": 70,
+          "transition": 30
+        },
+        {
+          "x": -900,
+          "z": -720,
+          "y": 78,
+          "rayon": 50,
+          "transition": 26
+        },
+        {
+          "x": -900,
+          "z": -900,
+          "y": 86,
+          "rayon": 90,
+          "transition": 40
         }
       ],
       "argument": {
-        "type": "minecraft:add",
-        "argument1": {
-          "type": "minecraft:y_clamped_gradient",
-          "from_y": 32,
-          "to_y": 96,
-          "from_value": 1.0,
-          "to_value": -1.0
-        },
-        "argument2": {
-          "type": "minecraft:mul",
-          "argument1": {
+        "type": "les_limbes:regions",
+        "collines": {
+          "type": "minecraft:cache_2d",
+          "argument": {
             "type": "minecraft:noise",
             "noise": "les_limbes:collines",
             "xz_scale": 1.0,
             "y_scale": 0.0
-          },
-          "argument2": 0.42
+          }
+        },
+        "iles": {
+          "type": "minecraft:cache_2d",
+          "argument": {
+            "type": "minecraft:noise",
+            "noise": "les_limbes:iles",
+            "xz_scale": 1.0,
+            "y_scale": 0.0
+          }
+        },
+        "temperature": {
+          "type": "minecraft:cache_2d",
+          "argument": {
+            "type": "minecraft:shifted_noise",
+            "noise": "minecraft:temperature",
+            "shift_x": "minecraft:shift_x",
+            "shift_y": 0.0,
+            "shift_z": "minecraft:shift_z",
+            "xz_scale": 0.25,
+            "y_scale": 0.0
+          }
+        },
+        "humidite": {
+          "type": "minecraft:cache_2d",
+          "argument": {
+            "type": "minecraft:shifted_noise",
+            "noise": "minecraft:vegetation",
+            "shift_x": "minecraft:shift_x",
+            "shift_y": 0.0,
+            "shift_z": "minecraft:shift_z",
+            "xz_scale": 0.25,
+            "y_scale": 0.0
+          }
         }
       }
     },

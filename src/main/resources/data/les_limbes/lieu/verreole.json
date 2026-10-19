@@ -1,0 +1,12 @@
+{
+  "nom": "Verréole",
+  "pos": [
+    -1150,
+    96,
+    500
+  ],
+  "rayon": 40,
+  "region": "montagnes",
+  "description": "La cité d'Orsane sur son plateau de verre : palais des miroirs, forge, bains.",
+  "relais": "verreole"
+}

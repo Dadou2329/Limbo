@@ -1,0 +1,18 @@
+{
+  "placement": {
+    "type": "les_limbes:fixed",
+    "salt": 1020,
+    "chunks": [
+      [
+        -72,
+        31
+      ]
+    ]
+  },
+  "structures": [
+    {
+      "structure": "les_limbes:verreole",
+      "weight": 1
+    }
+  ]
+}

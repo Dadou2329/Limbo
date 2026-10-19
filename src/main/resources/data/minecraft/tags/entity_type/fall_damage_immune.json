@@ -2,6 +2,12 @@
   "replace": false,
   "values": [
     "les_limbes:poisson_lune",
-    "les_limbes:raie_celeste"
+    "les_limbes:raie_celeste",
+    "les_limbes:meduse_celeste",
+    "les_limbes:libellule_de_rosee",
+    "les_limbes:papillon_de_cristal",
+    "les_limbes:colombe_astrale",
+    "les_limbes:griffon_de_verre",
+    "les_limbes:echo_resonnant"
   ]
 }

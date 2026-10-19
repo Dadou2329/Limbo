@@ -1,0 +1,20 @@
+{
+  "nom": "Ayoub",
+  "debut": [
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Les dunes bougent, les routes horaires aussi. Si vous vous perdez : à midi, suivez les pavés dorés ; la nuit, cherchez la lueur de l'observatoire au sud-ouest."
+      ],
+      "choix": [
+        {
+          "texte": "Merci."
+        }
+      ]
+    }
+  }
+}

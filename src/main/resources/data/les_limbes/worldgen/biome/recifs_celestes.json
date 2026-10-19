@@ -1,0 +1,113 @@
+{
+  "temperature": 0.8,
+  "downfall": 0.4,
+  "has_precipitation": false,
+  "effects": {
+    "sky_color": 10475762,
+    "fog_color": 14545146,
+    "water_color": 5220576,
+    "water_fog_color": 3571904,
+    "grass_color": 11851440,
+    "foliage_color": 12766632,
+    "mood_sound": {
+      "sound": "minecraft:ambient.cave",
+      "tick_delay": 6000,
+      "block_search_extent": 8,
+      "offset": 2.0
+    },
+    "music": {
+      "sound": "minecraft:music.overworld.lush_caves",
+      "min_delay": 12000,
+      "max_delay": 24000,
+      "replace_current_music": false
+    }
+  },
+  "spawners": {
+    "creature": [
+      {
+        "type": "les_limbes:raie_celeste",
+        "weight": 4,
+        "minCount": 1,
+        "maxCount": 2
+      },
+      {
+        "type": "les_limbes:tortue_des_lagons",
+        "weight": 2,
+        "minCount": 1,
+        "maxCount": 2
+      },
+      {
+        "type": "minecraft:rabbit",
+        "weight": 3,
+        "minCount": 2,
+        "maxCount": 3
+      },
+      {
+        "type": "les_limbes:crabe_de_nacre",
+        "weight": 8,
+        "minCount": 2,
+        "maxCount": 4
+      }
+    ],
+    "ambient": [
+      {
+        "type": "les_limbes:poisson_lune",
+        "weight": 12,
+        "minCount": 3,
+        "maxCount": 6
+      },
+      {
+        "type": "les_limbes:meduse_celeste",
+        "weight": 4,
+        "minCount": 1,
+        "maxCount": 2
+      }
+    ],
+    "monster": [],
+    "water_creature": [
+      {
+        "type": "les_limbes:poisson_lanterne",
+        "weight": 8,
+        "minCount": 3,
+        "maxCount": 6
+      },
+      {
+        "type": "minecraft:squid",
+        "weight": 3,
+        "minCount": 1,
+        "maxCount": 2
+      }
+    ],
+    "water_ambient": [],
+    "underground_water_creature": [],
+    "axolotls": [],
+    "misc": []
+  },
+  "spawn_costs": {},
+  "carvers": {},
+  "features": [
+    [],
+    [
+      "les_limbes:mer"
+    ],
+    [
+      "les_limbes:routes"
+    ],
+    [],
+    [],
+    [],
+    [
+      "les_limbes:cristaux"
+    ],
+    [],
+    [],
+    [
+      "les_limbes:arbres_aube_epars",
+      "les_limbes:coraux_nacre",
+      "les_limbes:coraux_azur",
+      "les_limbes:bosquet_fibres",
+      "les_limbes:herbes_aube"
+    ],
+    []
+  ]
+}

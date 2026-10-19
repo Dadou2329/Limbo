@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:ore",
+  "config": {
+    "discard_chance_on_air_exposure": 0.0,
+    "size": 5,
+    "targets": [
+      {
+        "target": {
+          "predicate_type": "minecraft:block_match",
+          "block": "les_limbes:pierre_de_verre"
+        },
+        "state": {
+          "Name": "les_limbes:cristal_resonnant"
+        }
+      },
+      {
+        "target": {
+          "predicate_type": "minecraft:block_match",
+          "block": "les_limbes:pierre_nacree"
+        },
+        "state": {
+          "Name": "les_limbes:cristal_de_nacre"
+        }
+      }
+    ]
+  }
+}

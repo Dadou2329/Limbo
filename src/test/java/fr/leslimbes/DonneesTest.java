@@ -187,8 +187,9 @@ class DonneesTest {
 		JsonObject terrain = json(DATA.resolve("worldgen/density_function/terrain.json"));
 		String texte = terrain.toString();
 		assertTrue(texte.contains("\"les_limbes:aplanir\""), "la fonction d'aplanissement doit être utilisée");
-		for (int[] site : new int[][]{{0, 140}, {-120, 150}, {150, 60}, {0, 56}, {70, 210}, {-80, 80}, {220, 150}, {-60, 20}}) {
-			assertTrue(texte.contains("\"x\":" + site[0] + ",\"z\":" + site[1] + ",\"y\":66"), "site aplani manquant : " + site[0] + "," + site[1]);
+		for (int[] site : new int[][]{{0, 140, 66}, {-120, 150, 66}, {150, 60, 66}, {0, 56, 66}, {70, 210, 66}, {-80, 80, 66}, {220, 150, 66}, {-60, 20, 66},
+				{950, -750, 66}, {1050, 350, 72}, {150, 1250, 66}, {-1150, 500, 96}, {-610, -610, 82}, {-900, -720, 78}, {-900, -900, 86}}) {
+			assertTrue(texte.contains("\"x\":" + site[0] + ",\"z\":" + site[1] + ",\"y\":" + site[2]), "site aplani manquant : " + site[0] + "," + site[1] + " à " + site[2]);
 		}
 		assertEquals(0, fr.leslimbes.world.dimension.LimbesSites.CLAIRVAL.getX());
 		assertEquals(140, fr.leslimbes.world.dimension.LimbesSites.CLAIRVAL.getZ());
@@ -252,7 +253,7 @@ class DonneesTest {
 		fr.leslimbes.domaine.DomaineLoader.chargerDepuisJson(projets, lieux, relais);
 		assertTrue(fr.leslimbes.domaine.DomaineLoader.projets().size() >= 10, "au moins dix projets de domaine");
 		assertTrue(fr.leslimbes.domaine.DomaineLoader.lieux().size() >= 10, "au moins dix lieux d'intérêt");
-		assertEquals(4, fr.leslimbes.domaine.DomaineLoader.relais().size());
+		assertEquals(9, fr.leslimbes.domaine.DomaineLoader.relais().size());
 		Set<String> prerequisConnus = Set.of("drapeau", "drapeau_monde", "sans_drapeau", "sans_drapeau_monde", "pouvoir", "quete_terminee", "quete_active", "objet", "tout", "un_de", "non");
 		Set<String> actionsConnues = Set.of("message", "drapeau", "drapeau_monde", "deplacer_pnj", "donner", "pouvoir", "decouvrir_relais", "decouvrir_lieu", "titre", "son",
 				"experience", "compteur", "modifier_bloc", "demarrer_quete", "objectif", "majeste_max", "apparition");
@@ -302,11 +303,16 @@ class DonneesTest {
 			}
 		}
 		// Chaque relais a sa porte dans un gabarit (identifiant inscrit dans le bloc-entité) et chaque porte un relais défini.
-		String structures = Files.readString(Paths.get("tools/structgen/build_structures.py"), StandardCharsets.UTF_8);
-		java.util.regex.Matcher m = java.util.regex.Pattern.compile("\"relais\": \"(\\w+)\"").matcher(structures);
+		StringBuilder structures = new StringBuilder();
+		for (Path py : fichiers(Paths.get("tools/structgen"), ".py")) {
+			structures.append(Files.readString(py, StandardCharsets.UTF_8)).append('\n');
+		}
 		Set<String> portes = new HashSet<>();
-		while (m.find()) {
-			portes.add(m.group(1));
+		for (String motif : List.of("\"relais\": \"(\\w+)\"", "relais\\(c, [^\\n]*?\"(\\w+)\"\\)")) {
+			java.util.regex.Matcher m = java.util.regex.Pattern.compile(motif).matcher(structures);
+			while (m.find()) {
+				portes.add(m.group(1));
+			}
 		}
 		for (String id : fr.leslimbes.domaine.DomaineLoader.relais().keySet()) {
 			if (!portes.contains(id)) {

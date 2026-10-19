@@ -51,7 +51,14 @@ def lb(path: str) -> str:
 
 # ----------------------------------------------------------------------------- blocs
 CUBE_ALL = ["pierre_nacree", "pierre_nacree_taillee", "pierre_nacree_polie", "pierre_nacree_sculptee",
-            "planches_d_aube", "terre_des_limbes", "cristal_de_nacre", "feuilles_d_aube", "meule_royale"]
+            "planches_d_aube", "terre_des_limbes", "cristal_de_nacre", "feuilles_d_aube", "meule_royale",
+            # régions (étape 5)
+            "sable_de_nacre", "corail_de_nacre", "corail_azur", "planches_de_geant", "feuilles_de_geant", "petale_rose", "petale_bleu",
+            "sable_d_opale", "gres_des_heures", "gres_des_heures_taille", "pierre_des_heures",
+            "pierre_de_verre", "pierre_de_verre_taillee", "verre_de_montagne", "cristal_resonnant",
+            "pierre_de_couronne", "pierre_de_couronne_taillee", "pierre_de_couronne_polie", "pierre_de_couronne_sculptee"]
+# Blocs régionaux à modèle particulier (pilier, herbe, lanterne, colonnes, blocs horaires)
+REGIONS_SPECIAUX = ["buche_de_geant", "herbe_des_geants", "lanterne_royale", "seve_ascendante", "courant_cristallin", "cadran_des_heures", "pave_horaire", "pont_de_verre"]
 CROSS = ["fibres_nacrees", "herbe_de_l_aube", "fleur_de_rosee", "pousse_d_aube"]
 
 
@@ -238,12 +245,66 @@ def gen_blocks() -> None:
                 {"from": [0, 29, 5], "to": [16, 32, 11], "faces": pierre},
                 {"from": [3, 0, 7], "to": [13, 29, 9], "faces": {"north": {"texture": "#voile"}, "south": {"texture": "#voile"}}}]})
     asset("models/item", "porte_de_relais", {"parent": lb("block/porte_de_relais_eveillee")})
+    # --- Régions ---
+    # bûche de géant (pilier)
+    asset("blockstates", "buche_de_geant", {"variants": {
+        "axis=x": {"model": lb("block/buche_de_geant_horizontal"), "x": 90, "y": 90},
+        "axis=y": {"model": lb("block/buche_de_geant")},
+        "axis=z": {"model": lb("block/buche_de_geant_horizontal"), "x": 90}}})
+    asset("models/block", "buche_de_geant", {"parent": mc("block/cube_column"), "textures": {"end": lb("block/buche_de_geant_top"), "side": lb("block/buche_de_geant")}})
+    asset("models/block", "buche_de_geant_horizontal", {"parent": mc("block/cube_column_horizontal"), "textures": {"end": lb("block/buche_de_geant_top"), "side": lb("block/buche_de_geant")}})
+    asset("models/item", "buche_de_geant", {"parent": lb("block/buche_de_geant")})
+    # herbe des géants
+    asset("blockstates", "herbe_des_geants", {"variants": {"": [{"model": lb("block/herbe_des_geants")}, {"model": lb("block/herbe_des_geants"), "y": 90},
+                                                                {"model": lb("block/herbe_des_geants"), "y": 180}, {"model": lb("block/herbe_des_geants"), "y": 270}]}})
+    asset("models/block", "herbe_des_geants", {"parent": mc("block/cube_bottom_top"), "textures": {
+        "top": lb("block/herbe_des_geants_top"), "side": lb("block/herbe_des_geants_side"), "bottom": lb("block/terre_des_limbes")}})
+    asset("models/item", "herbe_des_geants", {"parent": lb("block/herbe_des_geants")})
+    # lanterne royale
+    asset("blockstates", "lanterne_royale", {"variants": {
+        "hanging=false": {"model": lb("block/lanterne_royale")}, "hanging=true": {"model": lb("block/lanterne_royale_suspendue")}}})
+    asset("models/block", "lanterne_royale", {"parent": mc("block/template_lantern"), "textures": {"lantern": lb("block/lanterne_royale")}})
+    asset("models/block", "lanterne_royale_suspendue", {"parent": mc("block/template_hanging_lantern"), "textures": {"lantern": lb("block/lanterne_royale")}})
+    asset("models/item", "lanterne_royale", {"parent": mc("item/generated"), "textures": {"layer0": lb("block/lanterne_royale")}})
+    # colonnes porteuses (sève, courant) : cube translucide
+    for b in ["seve_ascendante", "courant_cristallin"]:
+        asset("blockstates", b, {"variants": {"": {"model": lb("block/" + b)}}})
+        asset("models/block", b, {"parent": mc("block/cube_all"), "textures": {"all": lb("block/" + b)}})
+        asset("models/item", b, {"parent": lb("block/" + b)})
+    # cadran des heures : quatre faces supérieures
+    asset("blockstates", "cadran_des_heures", {"variants": {f"heure={h}": {"model": lb(f"block/cadran_des_heures_{h}")} for h in range(4)}})
+    for h in range(4):
+        asset("models/block", f"cadran_des_heures_{h}", {"parent": mc("block/cube_bottom_top"), "textures": {
+            "top": lb(f"block/cadran_des_heures_{h}"), "side": lb("block/gres_des_heures_taille"), "bottom": lb("block/gres_des_heures_taille")}})
+    asset("models/item", "cadran_des_heures", {"parent": lb("block/cadran_des_heures_1")})
+    # pavé horaire : plein quand visible, reflet mince sinon
+    variants = {}
+    for ph in range(4):
+        variants[f"phase={ph},visible=true"] = {"model": lb("block/pave_horaire")}
+        variants[f"phase={ph},visible=false"] = {"model": lb("block/pave_horaire_reflet")}
+    asset("blockstates", "pave_horaire", {"variants": variants})
+    asset("models/block", "pave_horaire", {"parent": mc("block/cube_all"), "textures": {"all": lb("block/pave_horaire")}})
+    asset("models/block", "pave_horaire_reflet", {"textures": {"particle": lb("block/pave_horaire_reflet"), "r": lb("block/pave_horaire_reflet")},
+                                                  "elements": [{"from": [0, 0, 0], "to": [16, 1, 16], "faces": {f: {"texture": "#r"} for f in ["north", "south", "east", "west", "up", "down"]}}]})
+    asset("models/item", "pave_horaire", {"parent": lb("block/pave_horaire")})
+    # pont de verre : plein quand formé, trame mince sinon
+    asset("blockstates", "pont_de_verre", {"variants": {"forme=true": {"model": lb("block/pont_de_verre")}, "forme=false": {"model": lb("block/pont_de_verre_trame")}}})
+    asset("models/block", "pont_de_verre", {"parent": mc("block/cube_all"), "textures": {"all": lb("block/pont_de_verre")}})
+    asset("models/block", "pont_de_verre_trame", {"textures": {"particle": lb("block/pont_de_verre_trame"), "r": lb("block/pont_de_verre_trame")},
+                                                  "elements": [{"from": [0, 0, 0], "to": [16, 1, 16], "faces": {f: {"texture": "#r"} for f in ["north", "south", "east", "west", "up", "down"]}}]})
+    asset("models/item", "pont_de_verre", {"parent": lb("block/pont_de_verre")})
 
 
 # ----------------------------------------------------------------------------- objets
 ITEMS_GENERATED = ["fragment_de_nacre", "boussole_nacree", "fibres_nacrees", "herbe_de_l_aube", "bouillon_de_l_aube",
                    "fragment_de_couronne", "cle_du_manoir", "oeuf_habitant", "oeuf_poisson_lune", "oeuf_cerf_lanterne", "oeuf_veilleur_egare",
-                   "sifflet_de_raie", "oeuf_raie_celeste", "farine", "pain_d_emile", "journal_de_bord", "ragout_du_domaine"]
+                   "sifflet_de_raie", "oeuf_raie_celeste", "farine", "pain_d_emile", "journal_de_bord", "ragout_du_domaine",
+                   "poisson_lanterne", "perle_de_nacre", "fruit_de_geant", "miel_de_rosee", "dattes_des_heures", "sablier_d_opale",
+                   "the_des_cimes", "eclat_resonnant", "pain_de_la_cour"]
+
+# Espèces régionales (étape 5) : un œuf d'apparition par espèce, texture oeuf_<id>.
+ESPECES_REGIONALES = ["crabe_de_nacre", "meduse_celeste", "poisson_lanterne", "gardien_des_epaves", "tortue_des_lagons", "geant_des_jardins", "libellule_de_rosee", "escargot_des_racines", "rodeur_des_racines", "scarabee_de_seve", "fennec_des_dunes", "scorpion_des_heures", "lezard_cadran", "sentinelle_de_sable", "gazelle_d_opale", "bouquetin_de_verre", "papillon_de_cristal", "colosse_de_cristal", "echo_resonnant", "griffon_de_verre", "colombe_astrale", "chat_de_palais", "sentinelle_de_la_couronne", "spectre_de_la_cour", "cerf_royal"]
+ITEMS_GENERATED += ["oeuf_" + e for e in ESPECES_REGIONALES]
 
 
 def gen_items() -> None:
@@ -278,6 +339,14 @@ SOUNDS = {
     "monde.arrivee": ("monde/arrivee", "subtitles.les_limbes.monde.arrivee"),
     "bloc.moulin.grince": ("bloc/moulin_grince", "subtitles.les_limbes.bloc.moulin"),
     "bloc.dalle.emerge": ("bloc/dalle_emerge", "subtitles.les_limbes.bloc.dalle"),
+    "bloc.cristal.resonne": ("bloc/cristal_resonne", "subtitles.les_limbes.bloc.cristal"),
+    "creature.crabe.clic": ("creature/crabe_clic", "subtitles.les_limbes.creature.crabe"),
+    "creature.insecte.bourdon": ("creature/insecte_bourdon", "subtitles.les_limbes.creature.insecte"),
+    "creature.oiseau.chant": ("creature/oiseau_chant", "subtitles.les_limbes.creature.oiseau"),
+    "creature.geant.pas": ("creature/geant_pas", "subtitles.les_limbes.creature.geant"),
+    "creature.monture.appel": ("creature/monture_appel", "subtitles.les_limbes.creature.monture"),
+    "creature.tireur.tir": ("creature/tireur_tir", "subtitles.les_limbes.creature.tireur"),
+    "creature.petit.cri": ("creature/petit_cri", "subtitles.les_limbes.creature.petit"),
 }
 
 
@@ -302,12 +371,20 @@ def gen_tags() -> None:
 
     pierre = [lb(x) for x in ["pierre_nacree", "pierre_nacree_taillee", "pierre_nacree_polie", "pierre_nacree_sculptee",
                              "escalier_de_pierre_nacree", "dalle_de_pierre_nacree", "muret_de_pierre_nacree", "cristal_de_nacre", "lanterne_nacree",
-                             "meule_royale", "meule_de_moulin", "vitrine", "porte_de_relais"]]
-    bois = [lb(x) for x in ["buche_d_aube", "planches_d_aube", "escalier_d_aube", "dalle_d_aube", "barriere_d_aube", "porte_d_aube", "ailes_de_moulin"]]
+                             "meule_royale", "meule_de_moulin", "vitrine", "porte_de_relais",
+                             "corail_de_nacre", "corail_azur", "gres_des_heures", "gres_des_heures_taille", "pierre_des_heures", "cadran_des_heures",
+                             "pierre_de_verre", "pierre_de_verre_taillee", "verre_de_montagne", "cristal_resonnant",
+                             "pierre_de_couronne", "pierre_de_couronne_taillee", "pierre_de_couronne_polie", "pierre_de_couronne_sculptee", "lanterne_royale"]]
+    bois = [lb(x) for x in ["buche_d_aube", "planches_d_aube", "escalier_d_aube", "dalle_d_aube", "barriere_d_aube", "porte_d_aube", "ailes_de_moulin", "buche_de_geant", "planches_de_geant"]]
     tag("block", "../../minecraft/tags/block/mineable/pickaxe", pierre)
     tag("block", "../../minecraft/tags/block/mineable/axe", bois)
-    tag("block", "../../minecraft/tags/block/mineable/shovel", [lb("terre_des_limbes"), lb("herbe_argentee")])
-    tag("block", "../../minecraft/tags/block/mineable/hoe", [lb("feuilles_d_aube")])
+    tag("block", "../../minecraft/tags/block/mineable/shovel", [lb("terre_des_limbes"), lb("herbe_argentee"), lb("sable_de_nacre"), lb("sable_d_opale"), lb("herbe_des_geants")])
+    tag("block", "../../minecraft/tags/block/mineable/hoe", [lb("feuilles_d_aube"), lb("feuilles_de_geant"), lb("petale_rose"), lb("petale_bleu")])
+    tag("block", "../../minecraft/tags/block/leaves", [lb("feuilles_d_aube"), lb("feuilles_de_geant")])
+    tag("block", "../../minecraft/tags/block/logs", [lb("buche_d_aube"), lb("buche_de_geant")])
+    tag("block", "../../minecraft/tags/block/logs_that_burn", [lb("buche_d_aube"), lb("buche_de_geant")])
+    tag("block", "../../minecraft/tags/block/sand", [lb("sable_de_nacre"), lb("sable_d_opale")])
+    tag("block", "../../minecraft/tags/block/dirt", [lb("terre_des_limbes"), lb("herbe_argentee"), lb("herbe_des_geants")])
     tag("block", "../../minecraft/tags/block/dirt", [lb("terre_des_limbes"), lb("herbe_argentee")])
     tag("block", "../../minecraft/tags/block/animals_spawnable_on", [lb("herbe_argentee")])
     tag("block", "../../minecraft/tags/block/logs", [lb("buche_d_aube")])
@@ -349,11 +426,17 @@ def gen_tags() -> None:
     tag("item", "../../minecraft/tags/item/swords", [lb("epee_du_souverain")])
     tag("item", "../../minecraft/tags/item/stone_bricks", [lb("pierre_nacree_taillee")])
     # tags du mod
-    tag("worldgen/biome", "limbes", [lb("plaines_nacrees"), lb("vergers_suspendus"), lb("vallee_des_lanternes")])
+    tag("worldgen/biome", "limbes", [lb(b) for b in TOUS_LES_BIOMES])
+    for region, biomes in BIOMES_PAR_REGION.items():
+        tag("worldgen/biome", region, [lb(b) for b in biomes])
     tag("worldgen/biome", "a_vestiges", [mc(x) for x in ["plains", "sunflower_plains", "forest", "flower_forest", "birch_forest", "meadow",
                                                          "savanna", "taiga", "cherry_grove", "dark_forest", "old_growth_birch_forest", "snowy_plains", "windswept_hills"]])
     tag("worldgen/structure", "vestiges", [lb("vestige")])
-    tag("entity_type", "../../minecraft/tags/entity_type/fall_damage_immune", [lb("poisson_lune"), lb("raie_celeste")])
+    tag("entity_type", "../../minecraft/tags/entity_type/fall_damage_immune", [lb("poisson_lune"), lb("raie_celeste"), lb("meduse_celeste"), lb("libellule_de_rosee"),
+                                                                              lb("papillon_de_cristal"), lb("colombe_astrale"), lb("griffon_de_verre"), lb("echo_resonnant")])
+    # Respiration sous l'eau : la respiration des entités vivantes est décidée par cette étiquette vanilla (méthode finale).
+    tag("entity_type", "../../minecraft/tags/entity_type/can_breathe_under_water", [lb("poisson_lanterne"), lb("tortue_des_lagons"), lb("crabe_de_nacre")])
+    tag("entity_type", "../../minecraft/tags/entity_type/aquatic", [lb("poisson_lanterne")])
 
 
 # ----------------------------------------------------------------------------- butin
@@ -369,13 +452,59 @@ def silk_or(block: str, alt: str):
         {"type": "minecraft:item", "name": lb(alt), "conditions": [{"condition": "minecraft:survives_explosion"}]}]}]}]}
 
 
+def butin_entite(entrees):
+    """Table de butin d'une créature : liste de (objet, min, max, chance)."""
+    pools = []
+    for n, a, b, chance in entrees:
+        entry = {"type": "minecraft:item", "name": n, "functions": [{"function": "minecraft:set_count", "count": {"type": "minecraft:uniform", "min": a, "max": b}},
+                                                                    {"function": "minecraft:enchanted_count_increase", "enchantment": "minecraft:looting", "count": {"type": "minecraft:uniform", "min": 0, "max": 1}}]}
+        pool = {"rolls": 1, "bonus_rolls": 0, "entries": [entry]}
+        if chance < 1:
+            pool["conditions"] = [{"condition": "minecraft:random_chance", "chance": chance}]
+        pools.append(pool)
+    return {"type": "minecraft:entity", "pools": pools}
+
+
+BUTINS_ENTITES = {
+    "crabe_de_nacre": [(lb("perle_de_nacre"), 1, 1, 0.25)],
+    "poisson_lanterne": [(lb("poisson_lanterne"), 1, 1, 1.0)],
+    "gardien_des_epaves": [(lb("perle_de_nacre"), 1, 2, 1.0), ("minecraft:prismarine_crystals", 1, 2, 0.5)],
+    "rodeur_des_racines": [(lb("fruit_de_geant"), 1, 2, 0.6)],
+    "scorpion_des_heures": [(lb("sable_d_opale"), 1, 2, 0.5)],
+    "sentinelle_de_sable": [(lb("sable_d_opale"), 1, 3, 1.0), (lb("gres_des_heures"), 1, 2, 0.4)],
+    "colosse_de_cristal": [(lb("eclat_resonnant"), 1, 3, 1.0), (lb("pierre_de_verre"), 1, 2, 0.5)],
+    "echo_resonnant": [(lb("eclat_resonnant"), 0, 1, 1.0)],
+    "sentinelle_de_la_couronne": [(lb("pierre_de_couronne"), 1, 2, 1.0), (lb("lanterne_royale"), 1, 1, 0.15)],
+    "spectre_de_la_cour": [(lb("pain_de_la_cour"), 1, 1, 0.3)],
+    "fennec_des_dunes": [], "lezard_cadran": [], "escargot_des_racines": [], "chat_de_palais": [], "bouquetin_de_verre": [], "geant_des_jardins": [],
+    "meduse_celeste": [], "libellule_de_rosee": [], "papillon_de_cristal": [], "colombe_astrale": [],
+    "tortue_des_lagons": [], "scarabee_de_seve": [], "gazelle_d_opale": [], "griffon_de_verre": [], "cerf_royal": [],
+}
+
+
 def gen_loot() -> None:
+    for ident, entrees in BUTINS_ENTITES.items():
+        data("loot_table/entities", ident, butin_entite(entrees))
     for b in ["pierre_nacree", "pierre_nacree_taillee", "pierre_nacree_polie", "pierre_nacree_sculptee", "escalier_de_pierre_nacree",
               "muret_de_pierre_nacree", "cristal_de_nacre", "terre_des_limbes", "buche_d_aube", "planches_d_aube", "escalier_d_aube",
               "barriere_d_aube", "pousse_d_aube", "fleur_de_rosee", "lanterne_nacree", "meule_royale", "meule_de_moulin", "ailes_de_moulin",
-              "vitrine", "porte_de_relais"]:
+              "vitrine", "porte_de_relais",
+              "sable_de_nacre", "corail_de_nacre", "corail_azur", "buche_de_geant", "planches_de_geant", "herbe_des_geants", "petale_rose", "petale_bleu", "seve_ascendante",
+              "sable_d_opale", "gres_des_heures", "gres_des_heures_taille", "pierre_des_heures", "cadran_des_heures",
+              "pierre_de_verre", "pierre_de_verre_taillee", "verre_de_montagne", "courant_cristallin",
+              "pierre_de_couronne", "pierre_de_couronne_taillee", "pierre_de_couronne_polie", "pierre_de_couronne_sculptee", "lanterne_royale"]:
         data("loot_table/blocks", b, self_drop(b))
+    for b in ["pave_horaire", "pont_de_verre"]:
+        data("loot_table/blocks", b, {"type": "minecraft:block", "pools": []})
+    data("loot_table/blocks", "feuilles_de_geant", {"type": "minecraft:block", "pools": [{"rolls": 1, "entries": [{"type": "minecraft:item", "name": lb("fruit_de_geant"),
+        "conditions": [{"condition": "minecraft:random_chance", "chance": 0.08}]}]}]})
     data("loot_table/blocks", "dalle_de_rosee", {"type": "minecraft:block", "pools": []})
+    # Cristal résonnant : 1 à 2 éclats résonnants à la main, le bloc entier au toucher de soie (quête « Le pont qui chante »).
+    data("loot_table/blocks", "cristal_resonnant", {"type": "minecraft:block", "pools": [{"rolls": 1, "bonus_rolls": 0, "entries": [{"type": "minecraft:alternatives", "children": [
+        {"type": "minecraft:item", "name": lb("cristal_resonnant"), "conditions": [{"condition": "minecraft:match_tool", "predicate": {"predicates": {
+            "minecraft:enchantments": [{"enchantments": "minecraft:silk_touch", "levels": {"min": 1}}]}}}]},
+        {"type": "minecraft:item", "name": lb("eclat_resonnant"), "functions": [{"function": "minecraft:set_count", "count": {"type": "minecraft:uniform", "min": 1, "max": 2}}],
+         "conditions": [{"condition": "minecraft:survives_explosion"}]}]}]}]})
     data("loot_table/blocks", "herbe_argentee", silk_or("herbe_argentee", "terre_des_limbes"))
     for b in ["dalle_de_pierre_nacree", "dalle_d_aube"]:
         data("loot_table/blocks", b, {"type": "minecraft:block", "pools": [{"rolls": 1, "bonus_rolls": 0, "entries": [{"type": "minecraft:item", "name": lb(b), "functions": [
@@ -419,6 +548,22 @@ def gen_loot() -> None:
             {"type": "minecraft:item", "name": lb("cristal_de_nacre"), "weight": 2},
             {"type": "minecraft:item", "name": "minecraft:map", "weight": 1},
             {"type": "minecraft:item", "name": lb("lanterne_nacree"), "weight": 2, "functions": [{"function": "minecraft:set_count", "count": {"type": "minecraft:uniform", "min": 1, "max": 2}}]}]}]})
+    def coffre(nom, entrees, rolls=(2, 4), garanti=()):
+        pools = [{"rolls": {"type": "minecraft:uniform", "min": rolls[0], "max": rolls[1]}, "entries": [
+            {"type": "minecraft:item", "name": n, "weight": w, **({"functions": [{"function": "minecraft:set_count", "count": {"type": "minecraft:uniform", "min": a, "max": b}}]} if a else {})}
+            for (n, w, a, b) in entrees]}]
+        for n in garanti:
+            pools.append({"rolls": 1, "entries": [{"type": "minecraft:item", "name": n}]})
+        data("loot_table/chests", nom, {"type": "minecraft:chest", "pools": pools})
+
+    coffre("capitainerie", [("minecraft:map", 2, 0, 0), ("minecraft:compass", 2, 0, 0), (lb("perle_de_nacre"), 3, 1, 3), ("minecraft:spyglass", 1, 0, 0), (lb("poisson_lanterne"), 3, 2, 4), ("minecraft:emerald", 2, 1, 3)])
+    coffre("marche_flottant", [("minecraft:clock", 1, 0, 0), (lb("perle_de_nacre"), 3, 1, 2), ("minecraft:name_tag", 1, 0, 0), (lb("journal_de_bord"), 1, 0, 0), ("minecraft:glass_bottle", 2, 1, 3), (lb("sable_de_nacre"), 2, 4, 8)])
+    coffre("navire_perdu", [(lb("perle_de_nacre"), 4, 2, 4), ("minecraft:gold_ingot", 3, 1, 3), ("minecraft:emerald", 2, 1, 2), ("minecraft:prismarine_crystals", 3, 2, 5), (lb("cristal_de_nacre"), 2, 1, 2), ("minecraft:nautilus_shell", 1, 0, 0), ("minecraft:dark_oak_planks", 2, 4, 9)], rolls=(3, 5), garanti=[lb("journal_de_bord")])
+    coffre("quai", [(lb("poisson_lanterne"), 3, 1, 3), ("minecraft:oak_boat", 1, 0, 0), ("minecraft:string", 2, 2, 5), (lb("fibres_nacrees"), 2, 2, 4)])
+    coffre("sylvecime", [(lb("fruit_de_geant"), 4, 2, 4), (lb("miel_de_rosee"), 3, 1, 2), ("minecraft:bone_meal", 2, 2, 4), (lb("planches_de_geant"), 2, 4, 8), ("minecraft:shears", 1, 0, 0)])
+    coffre("meridiane", [(lb("dattes_des_heures"), 4, 2, 5), ("minecraft:clock", 1, 0, 0), (lb("gres_des_heures_taille"), 2, 4, 8), ("minecraft:gold_nugget", 3, 2, 6), ("minecraft:lantern", 1, 1, 2)])
+    coffre("verreole", [(lb("eclat_resonnant"), 4, 1, 3), (lb("the_des_cimes"), 3, 1, 2), ("minecraft:iron_ingot", 3, 1, 3), (lb("cristal_resonnant"), 1, 0, 0), ("minecraft:glass", 2, 3, 6)])
+    coffre("haute_garde", [(lb("pain_de_la_cour"), 4, 1, 3), ("minecraft:iron_ingot", 3, 2, 4), (lb("pierre_de_couronne_taillee"), 2, 4, 8), ("minecraft:shield", 1, 0, 0), (lb("lanterne_royale"), 1, 1, 2)])
     data("loot_table/chests", "manoir", {"type": "minecraft:chest", "pools": [
         {"rolls": {"type": "minecraft:uniform", "min": 2, "max": 4}, "entries": [
             {"type": "minecraft:item", "name": "minecraft:book", "weight": 4},
@@ -499,6 +644,18 @@ def gen_recipes() -> None:
     shapeless("farine", ["minecraft:wheat", "minecraft:wheat", "minecraft:wheat"], lb("farine"), 2)
     shapeless("pain_d_emile", [lb("farine"), lb("farine"), "minecraft:bucket"], lb("pain_d_emile"), 1)
     shapeless("ragout_du_domaine", ["minecraft:bowl", lb("herbe_de_l_aube"), "minecraft:carrot", "minecraft:cod", lb("pain_d_emile")], lb("ragout_du_domaine"), 1)
+    shapeless("planches_de_geant", [lb("buche_de_geant")], lb("planches_de_geant"), 4)
+    shaped("gres_des_heures", ["##", "##"], {"#": lb("sable_d_opale")}, lb("gres_des_heures"), 1)
+    shaped("gres_des_heures_taille", ["##", "##"], {"#": lb("gres_des_heures")}, lb("gres_des_heures_taille"), 4)
+    shaped("pierre_de_verre_taillee", ["##", "##"], {"#": lb("pierre_de_verre")}, lb("pierre_de_verre_taillee"), 4)
+    shaped("pierre_de_couronne_taillee", ["##", "##"], {"#": lb("pierre_de_couronne")}, lb("pierre_de_couronne_taillee"), 4)
+    shaped("pierre_de_couronne_polie", ["##", "##"], {"#": lb("pierre_de_couronne_taillee")}, lb("pierre_de_couronne_polie"), 4)
+    shaped("lanterne_royale", ["NNN", "NCN", "NNN"], {"N": "minecraft:gold_nugget", "C": lb("cristal_de_nacre")}, lb("lanterne_royale"), 2)
+    shaped("cadran_des_heures", ["GGG", "GCG", "GGG"], {"G": lb("gres_des_heures_taille"), "C": "minecraft:clock"}, lb("cadran_des_heures"), 1)
+    shapeless("miel_de_rosee", ["minecraft:honey_bottle", lb("fleur_de_rosee"), lb("petale_rose")], lb("miel_de_rosee"), 1)
+    shapeless("the_des_cimes", ["minecraft:glass_bottle", lb("herbe_de_l_aube"), lb("eclat_resonnant")], lb("the_des_cimes"), 2)
+    shapeless("pain_de_la_cour", [lb("farine"), lb("farine"), lb("miel_de_rosee"), "minecraft:egg"], lb("pain_de_la_cour"), 1)
+    data("recipe", "poisson_lanterne_cuit", {"type": "minecraft:smelting", "ingredient": {"item": lb("poisson_lanterne")}, "result": {"id": "minecraft:cooked_cod"}, "experience": 0.3, "cookingtime": 200})
     for b in ["pierre_nacree_taillee", "pierre_nacree_polie", "escalier_de_pierre_nacree", "dalle_de_pierre_nacree", "muret_de_pierre_nacree", "pierre_nacree_sculptee"]:
         count = 2 if b == "dalle_de_pierre_nacree" else 1
         data("recipe", "tailleur_" + b, {"type": "minecraft:stonecutting", "ingredient": {"item": lb("pierre_nacree")}, "result": {"id": lb(b), "count": count}})
@@ -575,7 +732,147 @@ SITES = [
     {"x": 220, "z": 150, "y": 66, "rayon": 16, "transition": 14},   # Site d'Arrivée 3
     {"x": -60, "z": 20, "y": 66, "rayon": 22, "transition": 16},    # Lac du Crépuscule
     {"x": -30, "z": 20, "y": 66, "rayon": 12, "transition": 12},    # Rive est du lac (site d'Arrivée « rive »)
+    # --- Mer suspendue (étape 5) ---
+    {"x": 950, "z": -750, "y": 66, "rayon": 60, "transition": 26},   # Port-Nacre (île-ville)
+    {"x": 1150, "z": -950, "y": 40, "rayon": 40, "transition": 16},  # Navire perdu (fond plat)
+    {"x": 1050, "z": -560, "y": 44, "rayon": 24, "transition": 14},  # Sanctuaire des bancs (sous l'eau)
+    {"x": 1440, "z": -750, "y": 84, "rayon": 18, "transition": 12},  # Phare du Dessous (rebord)
+    {"x": 560, "z": -360, "y": 82, "rayon": 16, "transition": 12},   # Quai des Falaises (rebord, fin de la route)
+    # --- Jardins des Géants ---
+    {"x": 1050, "z": 350, "y": 72, "rayon": 70, "transition": 30},   # Sylvécime
+    {"x": 900, "z": 520, "y": 72, "rayon": 30, "transition": 20},    # Serre ancienne
+    {"x": 1220, "z": 230, "y": 72, "rayon": 30, "transition": 20},   # Pépinière royale
+    {"x": 1050, "z": 620, "y": 72, "rayon": 30, "transition": 20},   # Arbre creux
+    {"x": 1280, "z": 480, "y": 72, "rayon": 40, "transition": 24},   # Clairière du géant
+    # --- Désert des Heures ---
+    {"x": 150, "z": 1250, "y": 66, "rayon": 70, "transition": 30},   # Méridiane
+    {"x": 0, "z": 1420, "y": 66, "rayon": 30, "transition": 20},     # Observatoire des heures
+    {"x": 380, "z": 1130, "y": 66, "rayon": 34, "transition": 20},   # Jardin redevenant fertile
+    # --- Montagnes de Verre ---
+    {"x": -1150, "z": 500, "y": 96, "rayon": 70, "transition": 34},  # Verréole (plateau)
+    {"x": -1000, "z": 380, "y": 90, "rayon": 30, "transition": 24},  # Bains des sources
+    {"x": -1320, "z": 620, "y": 100, "rayon": 30, "transition": 24}, # Atelier d'instruments
+    {"x": -1150, "z": 655, "y": 104, "rayon": 14, "transition": 14}, # Pont qui chante : rive nord
+    {"x": -1150, "z": 705, "y": 104, "rayon": 14, "transition": 14}, # Pont qui chante : rive sud
+    {"x": -1150, "z": 680, "y": 60, "rayon": 9, "transition": 8},    # Pont qui chante : gorge
+    # --- Couronne Immobile ---
+    {"x": -610, "z": -610, "y": 82, "rayon": 70, "transition": 30},  # Haute-Garde (cité de Vaëron)
+    {"x": -900, "z": -720, "y": 78, "rayon": 50, "transition": 26},  # Quartier des portes et des jardins
+    {"x": -900, "z": -900, "y": 86, "rayon": 90, "transition": 40},  # Capitale et palais
 ]
+
+
+def _app(ident, poids, mini, maxi):
+    return {"type": lb(ident), "weight": poids, "minCount": mini, "maxCount": maxi}
+
+
+REMPLACEMENTS_APPARITIONS = {"minecraft:cod": lb("poisson_lanterne"), "minecraft:turtle": lb("tortue_des_lagons"), "minecraft:goat": lb("bouquetin_de_verre")}
+
+# Créatures et montures des régions (étape 5) ajoutées aux listes d'apparition des biomes ; le groupe d'apparition
+# (creature, ambient, monster, water_creature) doit correspondre au SpawnGroup du type d'entité (LimbesEspeces).
+SPAWNS_REGIONAUX = {
+    "lagons_inverses": {"creature": [_app("crabe_de_nacre", 8, 2, 4)], "ambient": [_app("meduse_celeste", 6, 1, 3)]},
+    "recifs_celestes": {"creature": [_app("crabe_de_nacre", 8, 2, 4)], "ambient": [_app("meduse_celeste", 4, 1, 2)]},
+    "archipel_des_epaves": {"creature": [_app("crabe_de_nacre", 4, 1, 3), _app("tortue_des_lagons", 2, 1, 1)], "ambient": [_app("meduse_celeste", 3, 1, 2)],
+                            "monster": [_app("gardien_des_epaves", 5, 1, 2)]},
+    "canopee_habitee": {"creature": [_app("escargot_des_racines", 6, 1, 3), _app("scarabee_de_seve", 3, 1, 2)], "ambient": [_app("libellule_de_rosee", 8, 2, 4)]},
+    "jardins_de_rosee": {"creature": [_app("escargot_des_racines", 5, 1, 3), _app("scarabee_de_seve", 2, 1, 1), _app("geant_des_jardins", 1, 1, 1)],
+                         "ambient": [_app("libellule_de_rosee", 10, 2, 5)]},
+    "racines_profondes": {"creature": [_app("escargot_des_racines", 6, 1, 3)], "ambient": [_app("libellule_de_rosee", 3, 1, 2)], "monster": [_app("rodeur_des_racines", 6, 1, 2)]},
+    "dunes_d_opale": {"creature": [_app("fennec_des_dunes", 8, 1, 3), _app("gazelle_d_opale", 4, 2, 4), _app("lezard_cadran", 6, 1, 3)],
+                      "monster": [_app("scorpion_des_heures", 6, 1, 2), _app("sentinelle_de_sable", 3, 1, 1)]},
+    "oasis_des_cadrans": {"creature": [_app("fennec_des_dunes", 6, 1, 3), _app("gazelle_d_opale", 4, 2, 4), _app("lezard_cadran", 6, 1, 3)], "monster": [_app("scorpion_des_heures", 3, 1, 1)]},
+    "terrasses_anciennes": {"creature": [_app("lezard_cadran", 8, 1, 3), _app("fennec_des_dunes", 4, 1, 2)], "monster": [_app("sentinelle_de_sable", 5, 1, 2), _app("scorpion_des_heures", 4, 1, 2)]},
+    "aiguilles_de_verre": {"creature": [_app("griffon_de_verre", 2, 1, 1)], "ambient": [_app("papillon_de_cristal", 6, 2, 4)], "monster": [_app("colosse_de_cristal", 2, 1, 1), _app("echo_resonnant", 3, 1, 1)]},
+    "vallees_resonnantes": {"creature": [_app("griffon_de_verre", 2, 1, 1)], "ambient": [_app("papillon_de_cristal", 8, 2, 4)], "monster": [_app("echo_resonnant", 4, 1, 2)]},
+    "cavernes_de_cristal": {"ambient": [_app("papillon_de_cristal", 4, 1, 3)], "monster": [_app("colosse_de_cristal", 4, 1, 1), _app("echo_resonnant", 4, 1, 2)]},
+    "capitale_endormie": {"creature": [_app("cerf_royal", 3, 1, 2), _app("chat_de_palais", 5, 1, 2)], "ambient": [_app("colombe_astrale", 8, 2, 4)],
+                          "monster": [_app("sentinelle_de_la_couronne", 4, 1, 1), _app("spectre_de_la_cour", 3, 1, 1)]},
+    "anneaux_suspendus": {"creature": [_app("cerf_royal", 3, 1, 2), _app("chat_de_palais", 3, 1, 1)], "ambient": [_app("colombe_astrale", 6, 1, 3)],
+                          "monster": [_app("sentinelle_de_la_couronne", 3, 1, 1), _app("spectre_de_la_cour", 3, 1, 1)]},
+    "confins_de_la_couronne": {"creature": [_app("cerf_royal", 2, 1, 2)], "ambient": [_app("colombe_astrale", 6, 1, 3)], "monster": [_app("spectre_de_la_cour", 2, 1, 1)]},
+}
+
+# Biomes par région, dans l'ordre des sous-biomes de LimbesRegions.sousBiome (0, 1, 2).
+BIOMES_PAR_REGION = {
+    "prairies": ["plaines_nacrees", "vergers_suspendus", "vallee_des_lanternes"],
+    "mer": ["lagons_inverses", "recifs_celestes", "archipel_des_epaves"],
+    "jardins": ["canopee_habitee", "jardins_de_rosee", "racines_profondes"],
+    "desert": ["dunes_d_opale", "oasis_des_cadrans", "terrasses_anciennes"],
+    "montagnes": ["aiguilles_de_verre", "vallees_resonnantes", "cavernes_de_cristal"],
+    "couronne": ["capitale_endormie", "anneaux_suspendus", "confins_de_la_couronne"],
+}
+TOUS_LES_BIOMES = [b for l in BIOMES_PAR_REGION.values() for b in l]
+
+# Ordre canonique des features végétales (étape vegetal_decoration), partagé par tous les biomes.
+ORDRE_VEGETAL = ["arbres_geants", "arbres_geants_epars", "arbres_aube_epars", "arbres_aube_verger", "grands_arbres_aube", "palmiers_des_heures",
+                 "fleurs_geantes_rose", "fleurs_geantes_bleu", "coraux_nacre", "coraux_azur", "bosquet_fibres", "bosquet_fibres_dense",
+                 "herbes_aube", "herbes_aube_denses", "herbes_des_cadrans", "fleurs_rosee", "lanternes_perdues", "lanternes_royales_perdues", "cristaux_de_surface"]
+
+# Routes royales : polylignes (x, z) entre les sites, pavées selon la région de départ.
+ROUTES = [
+    {"nom": "route_du_relais", "materiau": "minecraft:dirt_path", "points": [[0, 140], [150, 60]]},
+    {"nom": "route_du_manoir", "materiau": "minecraft:dirt_path", "points": [[-10, 140], [-110, 150]]},
+    {"nom": "route_de_la_mer", "materiau": "les_limbes:pierre_nacree_taillee", "points": [[150, 60], [400, -150], [560, -360]]},
+    {"nom": "route_des_jardins", "materiau": "les_limbes:planches_de_geant", "points": [[10, 140], [300, 200], [600, 260], [850, 320], [1050, 350]]},
+    {"nom": "route_des_heures", "materiau": "les_limbes:gres_des_heures_taille", "points": [[0, 150], [80, 420], [120, 800], [150, 1100], [150, 1250]]},
+    {"nom": "route_de_verre", "materiau": "les_limbes:pierre_de_verre_taillee", "points": [[-120, 150], [-400, 250], [-750, 380], [-1050, 470], [-1150, 500]]},
+    {"nom": "route_de_la_couronne", "materiau": "les_limbes:pierre_de_couronne_taillee", "points": [[0, 56], [-250, -200], [-450, -450], [-610, -610]]},
+    {"nom": "route_des_portes", "materiau": "les_limbes:pierre_de_couronne_taillee", "points": [[-610, -610], [-760, -700], [-900, -720]]},
+    {"nom": "sentiers_de_sylvecime", "materiau": "les_limbes:planches_de_geant", "lampadaires": 0, "points": [[900, 520], [1050, 350], [1220, 230]]},
+    {"nom": "sentier_de_l_arbre_creux", "materiau": "les_limbes:planches_de_geant", "lampadaires": 0, "points": [[1050, 350], [1050, 620], [1280, 480]]},
+    {"nom": "pistes_de_meridiane", "materiau": "les_limbes:gres_des_heures_taille", "lampadaires": 0, "points": [[0, 1420], [150, 1250], [380, 1130]]},
+    {"nom": "sentiers_de_verreole", "materiau": "les_limbes:pierre_de_verre_taillee", "lampadaires": 0, "points": [[-1000, 380], [-1150, 500], [-1320, 620]]},
+    {"nom": "sentier_du_pont", "materiau": "les_limbes:pierre_de_verre_taillee", "lampadaires": 0, "points": [[-1150, 500], [-1150, 655]]},
+]
+
+
+def surface_rules() -> dict:
+    """Règles de surface par région : sol et sous-sol propres à chaque biome, plafonds nacrés partout."""
+    def floor(depth_add: bool, offset: int = 0):
+        return {"type": "minecraft:stone_depth", "add_surface_depth": depth_add, "offset": offset, "secondary_depth_range": 0, "surface_type": "floor"}
+
+    def above(y: int):
+        return {"type": "minecraft:y_above", "anchor": {"absolute": y}, "surface_depth_multiplier": 0, "add_stone_depth": False}
+
+    def cond(if_true, then_run):
+        return {"type": "minecraft:condition", "if_true": if_true, "then_run": then_run}
+
+    def block(b):
+        return {"type": "minecraft:block", "result_state": state(lb(b))}
+
+    def biome_is(biomes):
+        return {"type": "minecraft:biome", "biome_is": [lb(b) for b in biomes]}
+
+    def sol(biomes, dessus, dessous, profond=None, y_min=24):
+        regles = [cond(floor(False), cond(above(y_min), block(dessus))), cond(floor(True), cond(above(y_min), block(dessous)))]
+        if profond:
+            regles.append(cond(floor(True, 6), block(profond)))
+        return cond(biome_is(biomes), {"type": "minecraft:sequence", "sequence": regles})
+
+    mer = BIOMES_PAR_REGION["mer"]
+    return {"type": "minecraft:sequence", "sequence": [
+        # Mer : plages de sable nacré sous 66, herbe argentée sur les îles au-dessus ; fond sableux
+        cond(biome_is(mer), {"type": "minecraft:sequence", "sequence": [
+            cond(floor(False), cond(above(66), block("herbe_argentee"))),
+            cond(floor(True), cond(above(66), block("terre_des_limbes"))),
+            cond(floor(True, 2), block("sable_de_nacre"))]}),
+        sol(BIOMES_PAR_REGION["jardins"], "herbe_des_geants", "terre_des_limbes"),
+        cond(biome_is(["terrasses_anciennes"]), {"type": "minecraft:sequence", "sequence": [
+            cond(floor(False), block("pierre_des_heures")), cond(floor(True, 3), block("gres_des_heures"))]}),
+        cond(biome_is(["dunes_d_opale", "oasis_des_cadrans"]), {"type": "minecraft:sequence", "sequence": [
+            cond(floor(True, 3), block("sable_d_opale")), cond(floor(True, 7), block("gres_des_heures"))]}),
+        cond(biome_is(BIOMES_PAR_REGION["montagnes"]), {"type": "minecraft:sequence", "sequence": [
+            cond(floor(False), cond(above(100), block("verre_de_montagne"))),
+            cond(floor(True, 8), block("pierre_de_verre"))]}),
+        cond(biome_is(BIOMES_PAR_REGION["couronne"]), {"type": "minecraft:sequence", "sequence": [
+            cond(floor(False), cond(above(24), block("herbe_argentee"))),
+            cond(floor(True, 1), block("terre_des_limbes")),
+            cond(floor(True, 6), block("pierre_de_couronne"))]}),
+        # Prairies (et défaut)
+        cond(floor(False), cond(above(24), block("herbe_argentee"))),
+        cond(floor(True), cond(above(24), block("terre_des_limbes"))),
+        cond({"type": "minecraft:stone_depth", "add_surface_depth": False, "offset": 0, "secondary_depth_range": 0, "surface_type": "ceiling"}, block("pierre_nacree_polie"))]}
 
 
 def gen_worldgen() -> None:
@@ -584,8 +881,15 @@ def gen_worldgen() -> None:
     data("worldgen/noise", "iles", {"firstOctave": -6, "amplitudes": [1.0, 0.5]})
     data("worldgen/noise", "dessous", {"firstOctave": -5, "amplitudes": [1.0, 0.6]})
     # Fonctions de densité
-    sol_haut = {"type": lb("aplanir"), "pente": 0.03125, "sites": SITES,
-                "argument": add(ycg(32, 96, 1.0, -1.0), mul(noise(lb("collines"), 1.0, 0.0), 0.42))}
+    # Relief régional (les_limbes:regions, Java) : hauteur de surface par région à partir des bruits, puis
+    # plateaux des sites fixes (les_limbes:aplanir). Dans les Prairies, le résultat est identique à l'ancien
+    # terme « ycg(32, 96) + 0,42 × collines » (test de non-régression des captures).
+    shifted = lambda n: {"type": "minecraft:shifted_noise", "noise": n, "shift_x": "minecraft:shift_x", "shift_y": 0.0, "shift_z": "minecraft:shift_z", "xz_scale": 0.25, "y_scale": 0.0}
+    bruit2d = lambda n: {"type": "minecraft:cache_2d", "argument": noise(lb(n), 1.0, 0.0)}
+    regions = {"type": lb("regions"), "collines": bruit2d("collines"), "iles": bruit2d("iles"),
+               "temperature": {"type": "minecraft:cache_2d", "argument": shifted("minecraft:temperature")},
+               "humidite": {"type": "minecraft:cache_2d", "argument": shifted("minecraft:vegetation")}}
+    sol_haut = {"type": lb("aplanir"), "pente": 0.03125, "sites": SITES, "argument": regions}
     sol_bas = add(ycg(10, 34, -1.0, 1.0), mul(noise(lb("dessous"), 1.0, 1.0), 0.5))
     bande = mul(ycg(104, 118, 0.0, 1.0), ycg(140, 164, 1.0, 0.0))
     # Hors de la bande d'altitude des îles, le terme vaut -0,6 (franchement négatif) : il ne doit jamais
@@ -594,7 +898,6 @@ def gen_worldgen() -> None:
     terrain = dmax(dmin(sol_haut, sol_bas), iles)
     data("worldgen/density_function", "terrain", terrain)
     data("worldgen/density_function", "densite_finale", {"type": "minecraft:squeeze", "argument": mul(0.64, {"type": "minecraft:interpolated", "argument": {"type": "minecraft:blend_density", "argument": lb("terrain")}})})
-    shifted = lambda n: {"type": "minecraft:shifted_noise", "noise": n, "shift_x": "minecraft:shift_x", "shift_y": 0.0, "shift_z": "minecraft:shift_z", "xz_scale": 0.25, "y_scale": 0.0}
     data("worldgen/noise_settings", "limbes", {
         "sea_level": -64, "disable_mob_generation": False, "aquifers_enabled": False, "ore_veins_enabled": False, "legacy_random_source": False,
         "default_block": state(lb("pierre_nacree")), "default_fluid": state("minecraft:water", {"level": "0"}),
@@ -606,26 +909,15 @@ def gen_worldgen() -> None:
             "initial_density_without_jaggedness": lb("terrain"), "final_density": lb("densite_finale"),
             "vein_toggle": 0.0, "vein_ridged": 0.0, "vein_gap": 0.0},
         "spawn_target": [],
-        "surface_rule": {"type": "minecraft:sequence", "sequence": [
-            {"type": "minecraft:condition", "if_true": {"type": "minecraft:stone_depth", "add_surface_depth": False, "offset": 0, "secondary_depth_range": 0, "surface_type": "floor"},
-             "then_run": {"type": "minecraft:condition", "if_true": {"type": "minecraft:y_above", "anchor": {"absolute": 24}, "surface_depth_multiplier": 0, "add_stone_depth": False},
-                          "then_run": {"type": "minecraft:block", "result_state": state(lb("herbe_argentee"))}}},
-            {"type": "minecraft:condition", "if_true": {"type": "minecraft:stone_depth", "add_surface_depth": True, "offset": 0, "secondary_depth_range": 0, "surface_type": "floor"},
-             "then_run": {"type": "minecraft:condition", "if_true": {"type": "minecraft:y_above", "anchor": {"absolute": 24}, "surface_depth_multiplier": 0, "add_stone_depth": False},
-                          "then_run": {"type": "minecraft:block", "result_state": state(lb("terre_des_limbes"))}}},
-            {"type": "minecraft:condition", "if_true": {"type": "minecraft:stone_depth", "add_surface_depth": False, "offset": 0, "secondary_depth_range": 0, "surface_type": "ceiling"},
-             "then_run": {"type": "minecraft:block", "result_state": state(lb("pierre_nacree_polie"))}}]}})
+        "surface_rule": surface_rules()})
     # Type de dimension et dimension
     data("dimension_type", "limbes", {
         "ultrawarm": False, "natural": True, "coordinate_scale": 1.0, "has_skylight": True, "has_ceiling": False, "ambient_light": 0.1,
         "piglin_safe": False, "bed_works": True, "respawn_anchor_works": False, "has_raids": False,
         "logical_height": 256, "min_y": 0, "height": 256, "infiniburn": "#minecraft:infiniburn_overworld", "effects": lb("limbes"),
         "monster_spawn_light_level": {"type": "minecraft:uniform", "min_inclusive": 0, "max_inclusive": 7}, "monster_spawn_block_light_limit": 0})
-    full = [-1.0, 1.0]
-    data("dimension", "limbes", {"type": lb("limbes"), "generator": {"type": "minecraft:noise", "settings": lb("limbes"), "biome_source": {"type": "minecraft:multi_noise", "biomes": [
-        {"biome": lb("plaines_nacrees"), "parameters": {"temperature": [-1.0, 0.1], "humidity": full, "continentalness": full, "erosion": full, "weirdness": full, "depth": full, "offset": 0.0}},
-        {"biome": lb("vergers_suspendus"), "parameters": {"temperature": [0.1, 1.0], "humidity": [-1.0, 0.0], "continentalness": full, "erosion": full, "weirdness": full, "depth": full, "offset": 0.0}},
-        {"biome": lb("vallee_des_lanternes"), "parameters": {"temperature": [0.1, 1.0], "humidity": [0.0, 1.0], "continentalness": full, "erosion": full, "weirdness": full, "depth": full, "offset": 0.0}}]}}})
+    data("dimension", "limbes", {"type": lb("limbes"), "generator": {"type": "minecraft:noise", "settings": lb("limbes"), "biome_source": {
+        "type": lb("regions"), "biomes": {region: [lb(b) for b in biomes] for region, biomes in BIOMES_PAR_REGION.items()}}}})
     # Features configurées
     feuilles = simple(lb("feuilles_d_aube"), {"distance": "7", "persistent": "false", "waterlogged": "false"})
     data("worldgen/configured_feature", "arbre_d_aube", {"type": "minecraft:tree", "config": {
@@ -650,7 +942,39 @@ def gen_worldgen() -> None:
     patch("herbes_aube", "herbe_de_l_aube", 20, 5)
     patch("fleurs_rosee", "fleur_de_rosee", 32)
     patch("lanternes_perdues", "lanterne_nacree", 3, 6, {"hanging": "false", "waterlogged": "false"})
+    patch("lanternes_royales_perdues", "lanterne_royale", 2, 6, {"hanging": "false", "waterlogged": "false"})
+    patch("coraux_nacre", "corail_de_nacre", 24, 6)
+    patch("coraux_azur", "corail_azur", 24, 6)
+    patch("cristaux_de_surface", "cristal_resonnant", 6, 5)
+    patch("herbes_des_cadrans", "herbe_de_l_aube", 10, 5)
     data("worldgen/configured_feature", "lac", {"type": lb("lac"), "config": {}})
+    data("worldgen/configured_feature", "mer", {"type": lb("mer"), "config": {}})
+    data("worldgen/configured_feature", "routes", {"type": lb("routes"), "config": {"routes": [dict({"largeur": 3, "lampadaires": 24}, **r) for r in ROUTES]}})
+    # Arbres géants (tronc 2x2, 28 à 36 blocs), fleurs monumentales (tige de bois de géant, corolle de pétales)
+    feuilles_geant = simple(lb("feuilles_de_geant"), {"distance": "7", "persistent": "false", "waterlogged": "false"})
+    data("worldgen/configured_feature", "arbre_geant", {"type": "minecraft:tree", "config": {
+        "trunk_provider": simple(lb("buche_de_geant"), {"axis": "y"}), "foliage_provider": feuilles_geant, "dirt_provider": simple(lb("terre_des_limbes")),
+        "trunk_placer": {"type": "minecraft:giant_trunk_placer", "base_height": 26, "height_rand_a": 8, "height_rand_b": 2},
+        "foliage_placer": {"type": "minecraft:mega_pine_foliage_placer", "radius": 3, "offset": 2, "crown_height": {"type": "minecraft:uniform", "min_inclusive": 10, "max_inclusive": 16}},
+        "minimum_size": {"type": "minecraft:two_layers_feature_size", "limit": 1, "lower_size": 1, "upper_size": 2},
+        "force_dirt": False, "ignore_vines": True, "decorators": []}})
+    for couleur in ("rose", "bleu"):
+        data("worldgen/configured_feature", "fleur_geante_" + couleur, {"type": "minecraft:tree", "config": {
+            "trunk_provider": simple(lb("buche_de_geant"), {"axis": "y"}), "foliage_provider": simple(lb("petale_" + couleur)), "dirt_provider": simple(lb("terre_des_limbes")),
+            "trunk_placer": {"type": "minecraft:straight_trunk_placer", "base_height": 6, "height_rand_a": 3, "height_rand_b": 0},
+            "foliage_placer": {"type": "minecraft:blob_foliage_placer", "radius": 2, "offset": 0, "height": 2},
+            "minimum_size": {"type": "minecraft:two_layers_feature_size", "limit": 1, "lower_size": 0, "upper_size": 1},
+            "force_dirt": False, "ignore_vines": True, "decorators": []}})
+    data("worldgen/configured_feature", "palmier_des_heures", {"type": "minecraft:tree", "config": {
+        "trunk_provider": simple("minecraft:jungle_log", {"axis": "y"}), "foliage_provider": simple("minecraft:jungle_leaves", {"distance": "7", "persistent": "false", "waterlogged": "false"}),
+        "dirt_provider": simple(lb("sable_d_opale")),
+        "trunk_placer": {"type": "minecraft:straight_trunk_placer", "base_height": 6, "height_rand_a": 3, "height_rand_b": 0},
+        "foliage_placer": {"type": "minecraft:acacia_foliage_placer", "radius": 2, "offset": 0},
+        "minimum_size": {"type": "minecraft:two_layers_feature_size", "limit": 1, "lower_size": 0, "upper_size": 1},
+        "force_dirt": False, "ignore_vines": True, "decorators": []}})
+    data("worldgen/configured_feature", "cristaux_resonnants", {"type": "minecraft:ore", "config": {"discard_chance_on_air_exposure": 0.0, "size": 5, "targets": [
+        {"target": {"predicate_type": "minecraft:block_match", "block": lb("pierre_de_verre")}, "state": state(lb("cristal_resonnant"))},
+        {"target": {"predicate_type": "minecraft:block_match", "block": lb("pierre_nacree")}, "state": state(lb("cristal_de_nacre"))}]}})
     data("worldgen/configured_feature", "cristaux", {"type": "minecraft:ore", "config": {"discard_chance_on_air_exposure": 0.0, "size": 4, "targets": [
         {"target": {"predicate_type": "minecraft:block_match", "block": lb("pierre_nacree")}, "state": state(lb("cristal_de_nacre"))}]}})
 
@@ -676,19 +1000,54 @@ def gen_worldgen() -> None:
     placed("lacs", "lac", [{"type": "minecraft:rarity_filter", "chance": 9}, {"type": "minecraft:in_square"}, {"type": "minecraft:heightmap", "heightmap": "WORLD_SURFACE_WG"}, {"type": "minecraft:biome"}])
     placed("cristaux", "cristaux", [{"type": "minecraft:count", "count": 6}, {"type": "minecraft:in_square"},
                                     {"type": "minecraft:height_range", "height": {"type": "minecraft:uniform", "min_inclusive": {"absolute": 20}, "max_inclusive": {"absolute": 60}}}, {"type": "minecraft:biome"}])
+    placed("mer", "mer", [{"type": "minecraft:biome"}])
+    placed("routes", "routes", [])
+    fond_marin = {"type": "minecraft:heightmap", "heightmap": "OCEAN_FLOOR_WG"}
+    placed("coraux_nacre", "coraux_nacre", [{"type": "minecraft:count", "count": 2}, {"type": "minecraft:in_square"}, fond_marin, {"type": "minecraft:biome"}])
+    placed("coraux_azur", "coraux_azur", [{"type": "minecraft:count", "count": 2}, {"type": "minecraft:in_square"}, fond_marin, {"type": "minecraft:biome"}])
+    placed("arbres_geants", "arbre_geant", [{"type": "minecraft:count", "count": 1}, {"type": "minecraft:rarity_filter", "chance": 2}, {"type": "minecraft:in_square"},
+                                            {"type": "minecraft:surface_water_depth_filter", "max_water_depth": 0}, {"type": "minecraft:heightmap", "heightmap": "OCEAN_FLOOR"},
+                                            {"type": "minecraft:biome"}])
+    placed("arbres_geants_epars", "arbre_geant", [{"type": "minecraft:rarity_filter", "chance": 6}, {"type": "minecraft:in_square"},
+                                                  {"type": "minecraft:surface_water_depth_filter", "max_water_depth": 0}, {"type": "minecraft:heightmap", "heightmap": "OCEAN_FLOOR"},
+                                                  {"type": "minecraft:biome"}])
+    for couleur in ("rose", "bleu"):
+        placed("fleurs_geantes_" + couleur, "fleur_geante_" + couleur, [{"type": "minecraft:rarity_filter", "chance": 3}, {"type": "minecraft:in_square"},
+                                                                         {"type": "minecraft:surface_water_depth_filter", "max_water_depth": 0}, {"type": "minecraft:heightmap", "heightmap": "OCEAN_FLOOR"},
+                                                                         {"type": "minecraft:biome"}])
+    placed("palmiers_des_heures", "palmier_des_heures", [{"type": "minecraft:count", "count": 1}, {"type": "minecraft:rarity_filter", "chance": 2}, {"type": "minecraft:in_square"},
+                                                         {"type": "minecraft:surface_water_depth_filter", "max_water_depth": 0}, {"type": "minecraft:heightmap", "heightmap": "OCEAN_FLOOR"},
+                                                         {"type": "minecraft:biome"}])
+    placed("cristaux_resonnants", "cristaux_resonnants", [{"type": "minecraft:count", "count": 10}, {"type": "minecraft:in_square"},
+                                                          {"type": "minecraft:height_range", "height": {"type": "minecraft:uniform", "min_inclusive": {"absolute": 20}, "max_inclusive": {"absolute": 120}}}, {"type": "minecraft:biome"}])
+    placed("cristaux_de_surface", "cristaux_de_surface", [{"type": "minecraft:rarity_filter", "chance": 3}, {"type": "minecraft:in_square"}, heightmap, {"type": "minecraft:biome"}])
+    placed("lanternes_royales_perdues", "lanternes_royales_perdues", [{"type": "minecraft:rarity_filter", "chance": 3}, {"type": "minecraft:in_square"}, heightmap, {"type": "minecraft:biome"}])
+    placed("herbes_des_cadrans", "herbes_des_cadrans", [{"type": "minecraft:count", "count": 2}, {"type": "minecraft:in_square"}, heightmap, {"type": "minecraft:biome"}])
     # Biomes
-    def biome(name, temperature, sky, fog, water, water_fog, grass, foliage, features_vegetal, creatures, ambient, monsters, music):
+    def remplacer_apparitions(liste):
+        """Les animaux vanilla provisoires cèdent la place aux espèces des Limbes."""
+        return [dict(e, type=REMPLACEMENTS_APPARITIONS[e["type"]]) if e["type"] in REMPLACEMENTS_APPARITIONS else e for e in liste]
+
+    def biome(name, temperature, sky, fog, water, water_fog, grass, foliage, features_vegetal, creatures, ambient, monsters, music,
+              lacs=True, cristaux=True, mer=False, carvers=False, water_creatures=None, extra_underground=None):
         features = [[] for _ in range(11)]
-        features[1] = [lb("lacs")]
-        features[6] = [lb("cristaux")]
-        features[9] = features_vegetal
+        features[1] = ([lb("lacs")] if lacs else []) + ([lb("mer")] if mer else [])
+        features[2] = [lb("routes")]
+        features[6] = ([lb("cristaux")] if cristaux else []) + (extra_underground or [])
+        # Ordre global des features végétales : Minecraft exige un ordre cohérent entre biomes d'une même étape
+        # (sinon « Feature order cycle found » à la génération).
+        features[9] = sorted(features_vegetal, key=lambda f: ORDRE_VEGETAL.index(f.split(":")[1]) if f.split(":")[1] in ORDRE_VEGETAL else 99)
+        creatures = remplacer_apparitions(creatures) + SPAWNS_REGIONAUX.get(name, {}).get("creature", [])
+        ambient = remplacer_apparitions(ambient) + SPAWNS_REGIONAUX.get(name, {}).get("ambient", [])
+        monsters = remplacer_apparitions(monsters) + SPAWNS_REGIONAUX.get(name, {}).get("monster", [])
+        water_creatures = remplacer_apparitions(water_creatures or []) + SPAWNS_REGIONAUX.get(name, {}).get("water_creature", [])
         data("worldgen/biome", name, {
             "temperature": temperature, "downfall": 0.4, "has_precipitation": False,
             "effects": {"sky_color": sky, "fog_color": fog, "water_color": water, "water_fog_color": water_fog, "grass_color": grass, "foliage_color": foliage,
                         "mood_sound": {"sound": "minecraft:ambient.cave", "tick_delay": 6000, "block_search_extent": 8, "offset": 2.0},
                         "music": {"sound": music, "min_delay": 12000, "max_delay": 24000, "replace_current_music": False}},
-            "spawners": {"creature": creatures, "ambient": ambient, "monster": monsters, "water_creature": [], "water_ambient": [], "underground_water_creature": [], "axolotls": [], "misc": []},
-            "spawn_costs": {}, "carvers": {}, "features": features})
+            "spawners": {"creature": creatures, "ambient": ambient, "monster": monsters, "water_creature": water_creatures or [], "water_ambient": [], "underground_water_creature": [], "axolotls": [], "misc": []},
+            "spawn_costs": {}, "carvers": ({"air": ["minecraft:cave", "minecraft:cave_extra_underground"]} if carvers else {}), "features": features})
 
     cerf = {"type": lb("cerf_lanterne"), "weight": 10, "minCount": 2, "maxCount": 4}
     mouton = {"type": "minecraft:sheep", "weight": 4, "minCount": 2, "maxCount": 3}
@@ -706,6 +1065,51 @@ def gen_worldgen() -> None:
           [lb("arbres_aube_epars"), lb("bosquet_fibres_dense"), lb("lanternes_perdues"), lb("fleurs_rosee")],
           [{"type": lb("cerf_lanterne"), "weight": 16, "minCount": 2, "maxCount": 5}, raie], [{"type": lb("poisson_lune"), "weight": 16, "minCount": 4, "maxCount": 8}], [veilleur],
           "minecraft:music.overworld.forest")
+    # --- Régions (étape 5) ---
+    poisson_lanterne = {"type": "minecraft:cod", "weight": 8, "minCount": 3, "maxCount": 6}
+    tortue = {"type": "minecraft:turtle", "weight": 2, "minCount": 1, "maxCount": 2}
+    chevre = {"type": "minecraft:goat", "weight": 4, "minCount": 1, "maxCount": 3}
+    # Mer suspendue : eau claire, îles herbeuses, coraux lumineux sous l'eau
+    biome("lagons_inverses", 0.75, 0x8FD0F0, 0xD6ECF8, 0x3C8FD6, 0x2C6FB0, 0xA8CFB4, 0xB8C9A2,
+          [lb("coraux_azur"), lb("bosquet_fibres"), lb("fleurs_rosee")], [raie, tortue], [poisson], [], "minecraft:music.overworld.lush_caves",
+          lacs=False, mer=True, water_creatures=[poisson_lanterne])
+    biome("recifs_celestes", 0.8, 0x9FD8F2, 0xDDF0FA, 0x4FA8E0, 0x3680C0, 0xB4D6B0, 0xC2CDA8,
+          [lb("coraux_nacre"), lb("coraux_azur"), lb("arbres_aube_epars"), lb("bosquet_fibres"), lb("herbes_aube")], [raie, tortue, lapin], [poisson], [], "minecraft:music.overworld.lush_caves",
+          lacs=False, mer=True, water_creatures=[poisson_lanterne, {"type": "minecraft:squid", "weight": 3, "minCount": 1, "maxCount": 2}])
+    biome("archipel_des_epaves", 0.7, 0x86B8DC, 0xC8DAE8, 0x2F78B8, 0x1F5890, 0x9FC2A8, 0xB4C6AC,
+          [lb("coraux_nacre"), lb("arbres_aube_epars"), lb("bosquet_fibres_dense"), lb("lanternes_perdues")], [raie], [poisson], [veilleur], "minecraft:music.overworld.deep_dark",
+          lacs=False, mer=True, water_creatures=[poisson_lanterne])
+    # Jardins des Géants : arbres immenses, fleurs monumentales, herbe profonde
+    biome("canopee_habitee", 0.8, 0x9FD0C8, 0xD6EEDC, 0x5AAEC8, 0x3F86A0, 0x6FA85A, 0x4E8F3E,
+          [lb("arbres_geants"), lb("fleurs_geantes_rose"), lb("herbes_aube_denses"), lb("fleurs_rosee")], [cerf, mouton, lapin], [poisson], [], "minecraft:music.overworld.jungle")
+    biome("jardins_de_rosee", 0.85, 0xB4DCD0, 0xE2F2E8, 0x5AAEC8, 0x3F86A0, 0x8FBF6E, 0x7FBF5E,
+          [lb("fleurs_geantes_rose"), lb("fleurs_geantes_bleu"), lb("arbres_geants_epars"), lb("herbes_aube_denses"), lb("fleurs_rosee"), lb("bosquet_fibres")], [cerf, mouton, lapin, {"type": "minecraft:bee", "weight": 4, "minCount": 1, "maxCount": 3}], [poisson], [], "minecraft:music.overworld.flower_forest")
+    biome("racines_profondes", 0.7, 0x86B0A8, 0xBFD6CC, 0x4E9AB4, 0x356E88, 0x5A8A4E, 0x3F7A3A,
+          [lb("arbres_geants"), lb("bosquet_fibres_dense"), lb("lanternes_perdues")], [cerf], [poisson], [veilleur], "minecraft:music.overworld.old_growth_taiga")
+    # Désert des Heures : dunes claires, oasis, terrasses
+    biome("dunes_d_opale", 1.6, 0xC8E0F0, 0xF4EBD6, 0x6EC4E8, 0x9AD8F0, 0xC9C29A, 0xC9B07E,
+          [lb("herbes_des_cadrans")], [lapin, {"type": "minecraft:camel", "weight": 2, "minCount": 1, "maxCount": 2}], [], [veilleur], "minecraft:music.overworld.badlands",
+          lacs=False)
+    biome("oasis_des_cadrans", 1.2, 0xBEE0F0, 0xEEEAD8, 0x3C9AD6, 0x2C6FB0, 0xA8C77E, 0xA6B86E,
+          [lb("palmiers_des_heures"), lb("herbes_des_cadrans"), lb("herbes_aube"), lb("fleurs_rosee")], [lapin, mouton, {"type": "minecraft:camel", "weight": 2, "minCount": 1, "maxCount": 2}], [poisson], [], "minecraft:music.overworld.desert")
+    biome("terrasses_anciennes", 1.3, 0xC2D8EC, 0xEADFCC, 0x6EC4E8, 0x9AD8F0, 0xB8AE86, 0xB49A6E,
+          [lb("herbes_des_cadrans"), lb("lanternes_perdues")], [lapin], [], [veilleur], "minecraft:music.overworld.badlands", lacs=False)
+    # Montagnes de Verre : sommets translucides, vallées, cavernes de cristal
+    biome("aiguilles_de_verre", 0.2, 0xB4D8F0, 0xE6F2FA, 0x7FC8E8, 0x4A92B8, 0xA8C4B8, 0xB8C9A2,
+          [lb("cristaux_de_surface")], [chevre], [poisson], [], "minecraft:music.overworld.frozen_peaks", lacs=False, cristaux=False, extra_underground=[lb("cristaux_resonnants")])
+    biome("vallees_resonnantes", 0.4, 0xA8CCE8, 0xD8E6F2, 0x6EC4E8, 0x9AD8F0, 0x9FBFA8, 0xB4C6AC,
+          [lb("arbres_aube_epars"), lb("cristaux_de_surface"), lb("herbes_aube"), lb("bosquet_fibres")], [chevre, cerf, mouton], [poisson], [veilleur], "minecraft:music.overworld.grove",
+          extra_underground=[lb("cristaux_resonnants")])
+    biome("cavernes_de_cristal", 0.3, 0x9FC0DC, 0xCCDCEA, 0x6EC4E8, 0x9AD8F0, 0x9FB8B0, 0xA9C0B4,
+          [lb("cristaux_de_surface"), lb("lanternes_perdues")], [chevre], [poisson], [veilleur], "minecraft:music.overworld.dripstone_caves",
+          lacs=False, carvers=True, extra_underground=[lb("cristaux_resonnants")])
+    # Couronne Immobile : terrasses suspendues, pierre blanche, lanternes royales éteintes
+    biome("capitale_endormie", 0.6, 0xC8D4F0, 0xE6E8F4, 0x6EC4E8, 0x9AD8F0, 0xB8C6B4, 0xC9B7A2,
+          [lb("lanternes_royales_perdues"), lb("herbes_aube"), lb("fleurs_rosee")], [], [poisson], [veilleur], "minecraft:music.overworld.stony_peaks", lacs=False)
+    biome("anneaux_suspendus", 0.6, 0xB8CCF0, 0xDEE4F2, 0x6EC4E8, 0x9AD8F0, 0xB4C6AC, 0xC9B7A2,
+          [lb("arbres_aube_epars"), lb("lanternes_royales_perdues"), lb("herbes_aube"), lb("fleurs_rosee"), lb("bosquet_fibres")], [cerf, mouton], [poisson], [veilleur], "minecraft:music.overworld.meadow")
+    biome("confins_de_la_couronne", 0.6, 0xA8BCE0, 0xD2DAEC, 0x6EC4E8, 0x9AD8F0, 0xA9C0B4, 0xC9B7A2,
+          [lb("arbres_aube_epars"), lb("grands_arbres_aube"), lb("bosquet_fibres"), lb("herbes_aube")], [cerf, mouton, lapin], [poisson], [veilleur], "minecraft:music.overworld.forest")
     # Vestiges dans l'Overworld (structure composée ; le gabarit est produit par structgen)
     data("worldgen/structure", "vestige", {"type": lb("composee"), "biomes": "#" + lb("a_vestiges"), "step": "surface_structures", "terrain_adaptation": "beard_thin",
                                            "spawn_overrides": {}, "ancre": [8, 0, 8], "heightmap": "WORLD_SURFACE_WG",

@@ -1,0 +1,11 @@
+{
+  "nom": "Jardin des heures",
+  "pos": [
+    380,
+    66,
+    1130
+  ],
+  "rayon": 16,
+  "region": "desert",
+  "description": "Un jardin tari depuis le vol de son sablier d'opale."
+}

@@ -1,0 +1,20 @@
+{
+  "nom": "Marchand",
+  "debut": [
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Fer, laine, lanternes royales. La capitale en faisait de plus belles, dit-on. Quand elle se réveillera, on verra."
+      ],
+      "choix": [
+        {
+          "texte": "Merci."
+        }
+      ]
+    }
+  }
+}

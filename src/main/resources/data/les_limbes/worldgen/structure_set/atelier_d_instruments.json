@@ -1,0 +1,18 @@
+{
+  "placement": {
+    "type": "les_limbes:fixed",
+    "salt": 1022,
+    "chunks": [
+      [
+        -83,
+        38
+      ]
+    ]
+  },
+  "structures": [
+    {
+      "structure": "les_limbes:atelier_d_instruments",
+      "weight": 1
+    }
+  ]
+}

@@ -1,0 +1,119 @@
+{
+  "nom": "Aubin",
+  "debut": [
+    {
+      "noeud": "revu",
+      "si": [
+        {
+          "drapeau": "haute_garde_visitee"
+        }
+      ]
+    },
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Bienvenue à Haute-Garde, la cité de Vaëron. Il n'est pas là : il parcourt les routes, il protège, il bâtit. Je tiens la maison en son absence.",
+        "Regardez autour de vous : les murs, l'école, l'infirmerie, le marché. Tout ça, c'est lui. Les gens l'aiment pour ce qu'ils voient, pas pour ce qu'il dit.",
+        "Vous portez un fragment. Il le sait déjà. Il vous accueillera comme un allié ; soyez-en un."
+      ],
+      "actions": [
+        {
+          "type": "drapeau",
+          "nom": "haute_garde_visitee"
+        },
+        {
+          "type": "decouvrir_relais",
+          "id": "haute_garde",
+          "annoncer": false
+        }
+      ],
+      "choix": [
+        {
+          "texte": "Comment aider la cité ?",
+          "actions": [
+            {
+              "type": "demarrer_quete",
+              "quete": "les_murs_de_haute_garde"
+            }
+          ],
+          "suivant": "aide"
+        },
+        {
+          "texte": "Merci de l'accueil."
+        }
+      ]
+    },
+    "aide": {
+      "texte": [
+        "Les patrouilles manquent de pain et de lanternes. Rapportez-moi cinq pains de la cour et deux lanternes royales : le boulanger du marché vend la farine, et les lanternes se forgent avec des pépites d'or et du cristal."
+      ],
+      "choix": [
+        {
+          "texte": "Je m'en occupe."
+        }
+      ]
+    },
+    "revu": {
+      "texte": [
+        "La garde fait sa ronde. Vaëron rentrera quand les routes seront sûres. Elles ne le sont jamais tout à fait, dit-il."
+      ],
+      "choix": [
+        {
+          "texte": "Voici les pains et les lanternes.",
+          "si": [
+            {
+              "objet": {
+                "id": "les_limbes:pain_de_la_cour",
+                "nombre": 5
+              }
+            },
+            {
+              "objet": {
+                "id": "les_limbes:lanterne_royale",
+                "nombre": 2
+              }
+            },
+            {
+              "quete_active": "les_murs_de_haute_garde"
+            }
+          ],
+          "actions": [
+            {
+              "type": "retirer",
+              "objet": "les_limbes:pain_de_la_cour",
+              "nombre": 5
+            },
+            {
+              "type": "retirer",
+              "objet": "les_limbes:lanterne_royale",
+              "nombre": 2
+            },
+            {
+              "type": "objectif",
+              "quete": "les_murs_de_haute_garde",
+              "objectif": "livrer"
+            }
+          ],
+          "suivant": "merci"
+        },
+        {
+          "texte": "À plus tard."
+        }
+      ]
+    },
+    "merci": {
+      "texte": [
+        "Les patrouilles vous remercient. Je le dirai à Vaëron : un allié qui nourrit la garde, ça compte. Le quartier des portes, au nord-ouest, est le premier quartier de la capitale ; Elouan le garde. Allez le voir."
+      ],
+      "choix": [
+        {
+          "texte": "J'y vais."
+        }
+      ]
+    }
+  }
+}

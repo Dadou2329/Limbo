@@ -1,0 +1,113 @@
+{
+  "temperature": 0.7,
+  "downfall": 0.4,
+  "has_precipitation": false,
+  "effects": {
+    "sky_color": 8829148,
+    "fog_color": 13163240,
+    "water_color": 3111096,
+    "water_fog_color": 2054288,
+    "grass_color": 10470056,
+    "foliage_color": 11847340,
+    "mood_sound": {
+      "sound": "minecraft:ambient.cave",
+      "tick_delay": 6000,
+      "block_search_extent": 8,
+      "offset": 2.0
+    },
+    "music": {
+      "sound": "minecraft:music.overworld.deep_dark",
+      "min_delay": 12000,
+      "max_delay": 24000,
+      "replace_current_music": false
+    }
+  },
+  "spawners": {
+    "creature": [
+      {
+        "type": "les_limbes:raie_celeste",
+        "weight": 4,
+        "minCount": 1,
+        "maxCount": 2
+      },
+      {
+        "type": "les_limbes:crabe_de_nacre",
+        "weight": 4,
+        "minCount": 1,
+        "maxCount": 3
+      },
+      {
+        "type": "les_limbes:tortue_des_lagons",
+        "weight": 2,
+        "minCount": 1,
+        "maxCount": 1
+      }
+    ],
+    "ambient": [
+      {
+        "type": "les_limbes:poisson_lune",
+        "weight": 12,
+        "minCount": 3,
+        "maxCount": 6
+      },
+      {
+        "type": "les_limbes:meduse_celeste",
+        "weight": 3,
+        "minCount": 1,
+        "maxCount": 2
+      }
+    ],
+    "monster": [
+      {
+        "type": "les_limbes:veilleur_egare",
+        "weight": 3,
+        "minCount": 1,
+        "maxCount": 1
+      },
+      {
+        "type": "les_limbes:gardien_des_epaves",
+        "weight": 5,
+        "minCount": 1,
+        "maxCount": 2
+      }
+    ],
+    "water_creature": [
+      {
+        "type": "les_limbes:poisson_lanterne",
+        "weight": 8,
+        "minCount": 3,
+        "maxCount": 6
+      }
+    ],
+    "water_ambient": [],
+    "underground_water_creature": [],
+    "axolotls": [],
+    "misc": []
+  },
+  "spawn_costs": {},
+  "carvers": {},
+  "features": [
+    [],
+    [
+      "les_limbes:mer"
+    ],
+    [
+      "les_limbes:routes"
+    ],
+    [],
+    [],
+    [],
+    [
+      "les_limbes:cristaux"
+    ],
+    [],
+    [],
+    [
+      "les_limbes:arbres_aube_epars",
+      "les_limbes:coraux_nacre",
+      "les_limbes:bosquet_fibres_dense",
+      "les_limbes:lanternes_perdues"
+    ],
+    []
+  ]
+}

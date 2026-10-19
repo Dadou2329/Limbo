@@ -1,0 +1,20 @@
+{
+  "nom": "Tancrède",
+  "debut": [
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Bienvenue au Banc Lumineux. Lit propre, soupe de poisson, et la meilleure vue sur les lagons. Kaël y mange quand il est à terre, c'est-à-dire pas souvent."
+      ],
+      "choix": [
+        {
+          "texte": "Merci."
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "nom": "Bains des sources",
+  "pos": [
+    -1000,
+    90,
+    380
+  ],
+  "rayon": 14,
+  "region": "montagnes",
+  "description": "Des sources chaudes dans la pierre de verre."
+}

@@ -1,0 +1,126 @@
+{
+  "nom": "Oriane",
+  "debut": [
+    {
+      "noeud": "restauree",
+      "si": [
+        {
+          "drapeau": "source_restauree"
+        }
+      ]
+    },
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "La serre ancienne a nourri Sylvécime pendant des générations. Depuis que la source est tarie, les bacs sèchent et je rationne l'eau.",
+        "Les anciens posaient un cristal de nacre dans le bassin : la rosée remontait d'elle-même. Je n'en ai plus. Si vous en trouvez un, posez-le sur la pierre du bassin."
+      ],
+      "choix": [
+        {
+          "texte": "Je pose un cristal de nacre.",
+          "si": [
+            {
+              "objet": {
+                "id": "les_limbes:cristal_de_nacre",
+                "nombre": 1
+              }
+            },
+            {
+              "quete_active": "la_source_tarie"
+            }
+          ],
+          "actions": [
+            {
+              "type": "retirer",
+              "objet": "les_limbes:cristal_de_nacre",
+              "nombre": 1
+            },
+            {
+              "type": "drapeau",
+              "nom": "source_restauree"
+            },
+            {
+              "type": "objectif",
+              "quete": "la_source_tarie",
+              "objectif": "cristal"
+            },
+            {
+              "type": "modifier_bloc",
+              "pos": [
+                900,
+                72,
+                520
+              ],
+              "bloc": "les_limbes:pierre_nacree_polie",
+              "proprietes": {}
+            },
+            {
+              "type": "son",
+              "id": "les_limbes:bloc.dalle.emerge"
+            }
+          ],
+          "suivant": "choix_eau"
+        },
+        {
+          "texte": "Je reviendrai avec un cristal."
+        }
+      ]
+    },
+    "choix_eau": {
+      "texte": [
+        "Elle remonte ! Regardez, le bassin se remplit. Maintenant, une question : les canaux peuvent arroser la serre seule, ou la serre et le village isolé des racines, plus bas. Avec le village, nos récoltes seront plus maigres.",
+        "Aélis m'a dit de vous laisser décider."
+      ],
+      "choix": [
+        {
+          "texte": "Partagez l'eau avec le village.",
+          "actions": [
+            {
+              "type": "drapeau",
+              "nom": "eau_partagee"
+            },
+            {
+              "type": "message",
+              "texte": "Les canaux s'ouvrent vers les racines profondes. Les récoltes de la serre seront plus modestes, mais personne n'aura soif."
+            }
+          ]
+        },
+        {
+          "texte": "Gardez l'eau pour la serre.",
+          "actions": [
+            {
+              "type": "drapeau",
+              "nom": "eau_gardee"
+            },
+            {
+              "type": "message",
+              "texte": "La serre retrouve toute son eau. Le village des racines devra creuser son propre puits ; Aélis s'en souviendra."
+            }
+          ]
+        }
+      ]
+    },
+    "restauree": {
+      "texte": [
+        "La rosée monte de nouveau chaque matin. Prenez un fruit de géant en passant, c'est le moins que je puisse faire."
+      ],
+      "choix": [
+        {
+          "texte": "Avec plaisir.",
+          "actions": [
+            {
+              "type": "donner",
+              "objet": "les_limbes:fruit_de_geant",
+              "nombre": 2,
+              "une_fois": "fruit_oriane"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "nom": "Zoé",
+  "debut": [
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Objets d'ailleurs, objets d'ici ! Une horloge qui sonne les heures d'un autre monde, une longue-vue… Le sablier d'opale ? Je l'ai vendu à une marchande des lagons, Nérine. Désolée."
+      ],
+      "choix": [
+        {
+          "texte": "Je vais voir Nérine."
+        },
+        {
+          "texte": "Dattes des heures ?",
+          "si": [
+            {
+              "objet": {
+                "id": "minecraft:emerald",
+                "nombre": 1
+              }
+            }
+          ],
+          "actions": [
+            {
+              "type": "retirer",
+              "objet": "minecraft:emerald",
+              "nombre": 1
+            },
+            {
+              "type": "donner",
+              "objet": "les_limbes:dattes_des_heures",
+              "nombre": 4
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "nom": "Capitainerie de Port-Nacre",
+  "description": "Sur le quai, devant la capitainerie.",
+  "pos": [
+    950,
+    66,
+    -759
+  ],
+  "dimension": "les_limbes:limbes",
+  "ordre": 4
+}

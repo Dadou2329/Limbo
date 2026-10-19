@@ -1,0 +1,18 @@
+{
+  "placement": {
+    "type": "les_limbes:fixed",
+    "salt": 1010,
+    "chunks": [
+      [
+        65,
+        -35
+      ]
+    ]
+  },
+  "structures": [
+    {
+      "structure": "les_limbes:sanctuaire_des_bancs",
+      "weight": 1
+    }
+  ]
+}

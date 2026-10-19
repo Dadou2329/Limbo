@@ -1,0 +1,11 @@
+{
+  "nom": "Pépinière royale",
+  "pos": [
+    1220,
+    72,
+    230
+  ],
+  "rayon": 16,
+  "region": "jardins",
+  "description": "Les jeunes géants y poussaient pour les jardins du roi."
+}

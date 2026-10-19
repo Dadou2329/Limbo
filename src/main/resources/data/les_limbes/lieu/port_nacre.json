@@ -1,0 +1,12 @@
+{
+  "nom": "Port-Nacre",
+  "pos": [
+    950,
+    66,
+    -750
+  ],
+  "rayon": 40,
+  "region": "mer",
+  "description": "L'île-ville de Kaël : capitainerie, quais, criée et marché aux perles.",
+  "relais": "port_nacre"
+}

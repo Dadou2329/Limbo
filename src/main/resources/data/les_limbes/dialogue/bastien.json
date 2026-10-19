@@ -1,0 +1,20 @@
+{
+  "nom": "Bastien",
+  "debut": [
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Terminus de la route ! Au-delà, c'est la mer. Prenez une barque, cap au nord-est, et vous verrez les lumières de Port-Nacre. Si vous préférez voler, les raies connaissent le chemin."
+      ],
+      "choix": [
+        {
+          "texte": "Merci."
+        }
+      ]
+    }
+  }
+}

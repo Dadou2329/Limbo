@@ -1,0 +1,20 @@
+{
+  "nom": "Habitante",
+  "debut": [
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Le quartier des portes, à la capitale, dort depuis la disparition du roi. Vaëron dit qu'il le réveillera. Beaucoup y croient."
+      ],
+      "choix": [
+        {
+          "texte": "Merci."
+        }
+      ]
+    }
+  }
+}

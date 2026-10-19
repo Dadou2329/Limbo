@@ -1,0 +1,102 @@
+{
+  "temperature": 0.3,
+  "downfall": 0.4,
+  "has_precipitation": false,
+  "effects": {
+    "sky_color": 10469596,
+    "fog_color": 13425898,
+    "water_color": 7259368,
+    "water_fog_color": 10148080,
+    "grass_color": 10467504,
+    "foliage_color": 11124916,
+    "mood_sound": {
+      "sound": "minecraft:ambient.cave",
+      "tick_delay": 6000,
+      "block_search_extent": 8,
+      "offset": 2.0
+    },
+    "music": {
+      "sound": "minecraft:music.overworld.dripstone_caves",
+      "min_delay": 12000,
+      "max_delay": 24000,
+      "replace_current_music": false
+    }
+  },
+  "spawners": {
+    "creature": [
+      {
+        "type": "les_limbes:bouquetin_de_verre",
+        "weight": 4,
+        "minCount": 1,
+        "maxCount": 3
+      }
+    ],
+    "ambient": [
+      {
+        "type": "les_limbes:poisson_lune",
+        "weight": 12,
+        "minCount": 3,
+        "maxCount": 6
+      },
+      {
+        "type": "les_limbes:papillon_de_cristal",
+        "weight": 4,
+        "minCount": 1,
+        "maxCount": 3
+      }
+    ],
+    "monster": [
+      {
+        "type": "les_limbes:veilleur_egare",
+        "weight": 3,
+        "minCount": 1,
+        "maxCount": 1
+      },
+      {
+        "type": "les_limbes:colosse_de_cristal",
+        "weight": 4,
+        "minCount": 1,
+        "maxCount": 1
+      },
+      {
+        "type": "les_limbes:echo_resonnant",
+        "weight": 4,
+        "minCount": 1,
+        "maxCount": 2
+      }
+    ],
+    "water_creature": [],
+    "water_ambient": [],
+    "underground_water_creature": [],
+    "axolotls": [],
+    "misc": []
+  },
+  "spawn_costs": {},
+  "carvers": {
+    "air": [
+      "minecraft:cave",
+      "minecraft:cave_extra_underground"
+    ]
+  },
+  "features": [
+    [],
+    [],
+    [
+      "les_limbes:routes"
+    ],
+    [],
+    [],
+    [],
+    [
+      "les_limbes:cristaux",
+      "les_limbes:cristaux_resonnants"
+    ],
+    [],
+    [],
+    [
+      "les_limbes:lanternes_perdues",
+      "les_limbes:cristaux_de_surface"
+    ],
+    []
+  ]
+}

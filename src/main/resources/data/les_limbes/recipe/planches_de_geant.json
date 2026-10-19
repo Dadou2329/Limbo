@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "les_limbes:buche_de_geant"
+    }
+  ],
+  "result": {
+    "id": "les_limbes:planches_de_geant",
+    "count": 4
+  }
+}

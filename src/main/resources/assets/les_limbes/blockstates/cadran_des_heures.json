@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "heure=0": {
+      "model": "les_limbes:block/cadran_des_heures_0"
+    },
+    "heure=1": {
+      "model": "les_limbes:block/cadran_des_heures_1"
+    },
+    "heure=2": {
+      "model": "les_limbes:block/cadran_des_heures_2"
+    },
+    "heure=3": {
+      "model": "les_limbes:block/cadran_des_heures_3"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "nom": "Habitant",
+  "debut": [
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "On est arrivés par une Arrivée, il y a deux ans. Vaëron nous a logés le soir même. Vous comprendrez pourquoi on le suit."
+      ],
+      "choix": [
+        {
+          "texte": "Merci."
+        }
+      ]
+    }
+  }
+}

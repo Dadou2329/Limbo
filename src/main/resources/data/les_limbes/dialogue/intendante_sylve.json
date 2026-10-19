@@ -1,0 +1,20 @@
+{
+  "nom": "Mélisande",
+  "debut": [
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Je tiens les comptes de Sylvécime : sève, fruits, planches. Si Aélis vous a reçu, c'est que l'arbre vous a laissé monter. Il ne laisse pas monter n'importe qui."
+      ],
+      "choix": [
+        {
+          "texte": "Merci."
+        }
+      ]
+    }
+  }
+}

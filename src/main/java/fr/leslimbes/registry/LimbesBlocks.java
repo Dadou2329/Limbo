@@ -134,6 +134,81 @@ public final class LimbesBlocks {
 			AbstractBlock.Settings.create().mapColor(MapColor.OFF_WHITE).strength(-1.0F, 3600000.0F).sounds(BlockSoundGroup.AMETHYST_BLOCK).nonOpaque()
 					.luminance(state -> state.get(fr.leslimbes.block.PorteDeRelaisBlock.EVEILLEE) ? 13 : 4).pistonBehavior(PistonBehavior.BLOCK)));
 
+	// --- Mer suspendue ----------------------------------------------------------------------------
+	public static final Block SABLE_DE_NACRE = register("sable_de_nacre", new Block(
+			AbstractBlock.Settings.create().mapColor(MapColor.PALE_YELLOW).strength(0.5F).sounds(BlockSoundGroup.SAND)));
+	public static final Block CORAIL_DE_NACRE = register("corail_de_nacre", new Block(
+			AbstractBlock.Settings.create().mapColor(MapColor.PINK).strength(0.6F).sounds(BlockSoundGroup.CORAL).luminance(state -> 5)));
+	public static final Block CORAIL_AZUR = register("corail_azur", new Block(
+			AbstractBlock.Settings.create().mapColor(MapColor.LIGHT_BLUE).strength(0.6F).sounds(BlockSoundGroup.CORAL).luminance(state -> 5)));
+
+	// --- Jardins des Géants ----------------------------------------------------------------------
+	public static final Block BUCHE_DE_GEANT = register("buche_de_geant", new PillarBlock(
+			AbstractBlock.Settings.create().mapColor(MapColor.BROWN).instrument(NoteBlockInstrument.BASS).strength(2.5F).sounds(BlockSoundGroup.WOOD).burnable()));
+	public static final Block PLANCHES_DE_GEANT = register("planches_de_geant", new Block(
+			AbstractBlock.Settings.create().mapColor(MapColor.BROWN).instrument(NoteBlockInstrument.BASS).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD).burnable()));
+	public static final Block FEUILLES_DE_GEANT = register("feuilles_de_geant", new LeavesBlock(
+			AbstractBlock.Settings.create().mapColor(MapColor.GREEN).strength(0.2F).ticksRandomly().sounds(BlockSoundGroup.AZALEA_LEAVES).nonOpaque()
+					.allowsSpawning(LimbesBlocks::canSpawnOnLeaves).suffocates(LimbesBlocks::never).blockVision(LimbesBlocks::never).burnable()
+					.pistonBehavior(PistonBehavior.DESTROY).solidBlock(LimbesBlocks::never)));
+	public static final Block HERBE_DES_GEANTS = register("herbe_des_geants", new Block(
+			AbstractBlock.Settings.create().mapColor(MapColor.GREEN).strength(0.6F).sounds(BlockSoundGroup.GRASS)));
+	public static final Block PETALE_ROSE = register("petale_rose", new Block(
+			AbstractBlock.Settings.create().mapColor(MapColor.PINK).strength(0.4F).sounds(BlockSoundGroup.MOSS_BLOCK).luminance(state -> 7)));
+	public static final Block PETALE_BLEU = register("petale_bleu", new Block(
+			AbstractBlock.Settings.create().mapColor(MapColor.LIGHT_BLUE).strength(0.4F).sounds(BlockSoundGroup.MOSS_BLOCK).luminance(state -> 7)));
+	public static final Block SEVE_ASCENDANTE = register("seve_ascendante", new fr.leslimbes.block.SeveAscendanteBlock(
+			AbstractBlock.Settings.create().mapColor(MapColor.LIME).strength(0.3F).sounds(BlockSoundGroup.HONEY).nonOpaque().luminance(state -> 8)
+					.suffocates(LimbesBlocks::never).blockVision(LimbesBlocks::never).pistonBehavior(PistonBehavior.DESTROY), 0.42));
+
+	// --- Désert des Heures -----------------------------------------------------------------------
+	public static final Block SABLE_D_OPALE = register("sable_d_opale", new Block(
+			AbstractBlock.Settings.create().mapColor(MapColor.OFF_WHITE).strength(0.5F).sounds(BlockSoundGroup.SAND)));
+	public static final Block GRES_DES_HEURES = register("gres_des_heures", new Block(
+			AbstractBlock.Settings.create().mapColor(MapColor.PALE_YELLOW).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(0.8F).sounds(BlockSoundGroup.STONE)));
+	public static final Block GRES_DES_HEURES_TAILLE = register("gres_des_heures_taille", new Block(
+			AbstractBlock.Settings.create().mapColor(MapColor.PALE_YELLOW).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(0.8F).sounds(BlockSoundGroup.STONE)));
+	public static final Block PIERRE_DES_HEURES = register("pierre_des_heures", new Block(
+			AbstractBlock.Settings.create().mapColor(MapColor.TERRACOTTA_ORANGE).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1.5F, 6.0F).sounds(BlockSoundGroup.STONE)));
+	public static final Block CADRAN_DES_HEURES = register("cadran_des_heures", new fr.leslimbes.block.CadranBlock(
+			AbstractBlock.Settings.create().mapColor(MapColor.GOLD).requiresTool().strength(2.0F, 6.0F).sounds(BlockSoundGroup.STONE).luminance(state -> 6)));
+	public static final Block PAVE_HORAIRE = register("pave_horaire", new fr.leslimbes.block.PaveHoraireBlock(
+			AbstractBlock.Settings.create().mapColor(MapColor.GOLD).strength(-1.0F, 3600000.0F).dropsNothing().nonOpaque().sounds(BlockSoundGroup.AMETHYST_BLOCK)
+					.luminance(state -> state.get(fr.leslimbes.block.PaveHoraireBlock.VISIBLE) ? 9 : 2).suffocates(LimbesBlocks::never).blockVision(LimbesBlocks::never)
+					.pistonBehavior(PistonBehavior.BLOCK)));
+
+	// --- Montagnes de Verre ----------------------------------------------------------------------
+	public static final Block PIERRE_DE_VERRE = register("pierre_de_verre", new Block(
+			AbstractBlock.Settings.create().mapColor(MapColor.LIGHT_BLUE_GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1.8F, 6.0F).sounds(BlockSoundGroup.DEEPSLATE)));
+	public static final Block PIERRE_DE_VERRE_TAILLEE = register("pierre_de_verre_taillee", new Block(
+			AbstractBlock.Settings.create().mapColor(MapColor.LIGHT_BLUE_GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1.8F, 6.0F).sounds(BlockSoundGroup.DEEPSLATE)));
+	public static final Block VERRE_DE_MONTAGNE = register("verre_de_montagne", new net.minecraft.block.TransparentBlock(
+			AbstractBlock.Settings.create().mapColor(MapColor.LIGHT_BLUE).requiresTool().strength(1.2F, 4.0F).sounds(BlockSoundGroup.GLASS).nonOpaque()
+					.allowsSpawning(LimbesBlocks::canSpawnOnLeaves).solidBlock(LimbesBlocks::never).suffocates(LimbesBlocks::never).blockVision(LimbesBlocks::never)));
+	public static final Block CRISTAL_RESONNANT = register("cristal_resonnant", new fr.leslimbes.block.CristalResonnantBlock(
+			AbstractBlock.Settings.create().mapColor(MapColor.CYAN).requiresTool().strength(1.5F, 4.0F).sounds(BlockSoundGroup.AMETHYST_BLOCK).luminance(state -> 10).nonOpaque()));
+	public static final Block PONT_DE_VERRE = register("pont_de_verre", new fr.leslimbes.block.PontDeVerreBlock(
+			AbstractBlock.Settings.create().mapColor(MapColor.LIGHT_BLUE).strength(-1.0F, 3600000.0F).dropsNothing().nonOpaque().sounds(BlockSoundGroup.GLASS)
+					.luminance(state -> state.get(fr.leslimbes.block.PontDeVerreBlock.FORME) ? 8 : 0).suffocates(LimbesBlocks::never).blockVision(LimbesBlocks::never)
+					.pistonBehavior(PistonBehavior.BLOCK)));
+	public static final Block COURANT_CRISTALLIN = register("courant_cristallin", new fr.leslimbes.block.SeveAscendanteBlock(
+			AbstractBlock.Settings.create().mapColor(MapColor.LIGHT_BLUE).strength(0.3F).sounds(BlockSoundGroup.AMETHYST_CLUSTER).nonOpaque().luminance(state -> 9)
+					.suffocates(LimbesBlocks::never).blockVision(LimbesBlocks::never).pistonBehavior(PistonBehavior.DESTROY), 0.55));
+
+	// --- Couronne Immobile -----------------------------------------------------------------------
+	public static final Block PIERRE_DE_COURONNE = register("pierre_de_couronne", new Block(couronne()));
+	public static final Block PIERRE_DE_COURONNE_TAILLEE = register("pierre_de_couronne_taillee", new Block(couronne()));
+	public static final Block PIERRE_DE_COURONNE_POLIE = register("pierre_de_couronne_polie", new Block(couronne()));
+	public static final Block PIERRE_DE_COURONNE_SCULPTEE = register("pierre_de_couronne_sculptee", new Block(couronne()));
+	public static final Block LANTERNE_ROYALE = register("lanterne_royale", new LanternBlock(
+			AbstractBlock.Settings.create().mapColor(MapColor.GOLD).solid().requiresTool().strength(3.5F)
+					.sounds(BlockSoundGroup.LANTERN).luminance(state -> 15).nonOpaque().pistonBehavior(PistonBehavior.DESTROY)));
+
+	private static AbstractBlock.Settings couronne() {
+		return AbstractBlock.Settings.create().mapColor(MapColor.WHITE).instrument(NoteBlockInstrument.BASEDRUM)
+				.requiresTool().strength(1.8F, 6.0F).sounds(BlockSoundGroup.STONE);
+	}
+
 	private static AbstractBlock.Settings pierre() {
 		return AbstractBlock.Settings.create().mapColor(MapColor.OFF_WHITE).instrument(NoteBlockInstrument.BASEDRUM)
 				.requiresTool().strength(1.5F, 6.0F).sounds(BlockSoundGroup.STONE);

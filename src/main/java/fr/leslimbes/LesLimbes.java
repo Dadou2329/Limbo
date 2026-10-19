@@ -45,6 +45,7 @@ public final class LesLimbes implements ModInitializer {
 		LimbesItems.init();
 		LimbesBlockEntities.init();
 		LimbesEntities.init();
+		fr.leslimbes.registry.LimbesEspeces.init();
 		LimbesItemGroups.init();
 		LimbesAttachments.init();
 		LimbesWorldgen.init();
@@ -56,6 +57,7 @@ public final class LesLimbes implements ModInitializer {
 		fr.leslimbes.domaine.ProjetManager.init();
 		LimbesNetworking.init();
 		LimbesServerEvents.init();
+		fr.leslimbes.registry.LimbesLoot.init();
 		LimbesCommands.init();
 		AutoTest.init();
 	}

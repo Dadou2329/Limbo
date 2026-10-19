@@ -43,6 +43,37 @@ public final class LimbesSites {
 	public static final BlockPos LAC_DU_CREPUSCULE = new BlockPos(-60, SOL_PRAIRIES, 20);
 	public static final int RAYON_APLANI_ARRIVEE = 16;
 
+	// --- Mer suspendue (centre de région 950 / −750) ---------------------------------------------
+	/** Port-Nacre : île-ville au cœur de la Mer suspendue. */
+	public static final BlockPos PORT_NACRE = new BlockPos(950, 66, -750);
+	public static final BlockPos MARCHE_FLOTTANT = new BlockPos(800, 63, -600);
+	public static final BlockPos NAVIRE_PERDU = new BlockPos(1150, 40, -950);
+	public static final BlockPos SANCTUAIRE_DES_BANCS = new BlockPos(1050, 44, -560);
+	public static final BlockPos PHARE_DU_DESSOUS = new BlockPos(1440, 84, -750);
+	public static final BlockPos QUAI_DES_FALAISES = new BlockPos(560, 82, -360);
+	// --- Jardins des Géants (1050 / 350) ---------------------------------------------------------
+	public static final BlockPos SYLVECIME = new BlockPos(1050, 72, 350);
+	public static final BlockPos SERRE_ANCIENNE = new BlockPos(900, 72, 520);
+	public static final BlockPos PEPINIERE_ROYALE = new BlockPos(1220, 72, 230);
+	public static final BlockPos ARBRE_CREUX = new BlockPos(1050, 72, 620);
+	public static final BlockPos CLAIRIERE_DU_GEANT = new BlockPos(1280, 72, 480);
+	// --- Désert des Heures (150 / 1250) ----------------------------------------------------------
+	public static final BlockPos MERIDIANE = new BlockPos(150, 66, 1250);
+	public static final BlockPos OBSERVATOIRE_DES_HEURES = new BlockPos(0, 66, 1420);
+	public static final BlockPos JARDIN_FERTILE = new BlockPos(380, 66, 1130);
+	// --- Montagnes de Verre (−1150 / 500) --------------------------------------------------------
+	public static final BlockPos VERREOLE = new BlockPos(-1150, 96, 500);
+	public static final BlockPos BAINS_DES_SOURCES = new BlockPos(-1000, 90, 380);
+	public static final BlockPos ATELIER_D_INSTRUMENTS = new BlockPos(-1320, 100, 620);
+	public static final BlockPos PONT_QUI_CHANTE = new BlockPos(-1150, 104, 680);
+	// --- Couronne Immobile (−900 / −900) ---------------------------------------------------------
+	/** Haute-Garde : la cité fortifiée de Vaëron, sur l'anneau extérieur. */
+	public static final BlockPos HAUTE_GARDE = new BlockPos(-610, 82, -610);
+	/** Quartier des portes et des jardins : premier quartier de la capitale endormie. */
+	public static final BlockPos QUARTIER_DES_PORTES = new BlockPos(-900, 78, -720);
+	/** Centre de la capitale et du palais (structures des étapes suivantes). */
+	public static final BlockPos CAPITALE = new BlockPos(-900, 86, -900);
+
 	/** Rayon (blocs) des zones aplanies ; cohérent avec les fichiers de densité. */
 	public static final int RAYON_APLANI_VILLAGE = 70;
 	public static final int RAYON_APLANI_SITE = 34;

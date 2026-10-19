@@ -78,3 +78,8 @@ RAIE_CELESTE = {
 MODELES = {
     "raie_celeste": RAIE_CELESTE,
 }
+
+# Créatures et montures régionales (étape 5), construites par gabarits.
+from modeles_regions import MODELES_REGIONS  # noqa: E402
+
+MODELES.update(MODELES_REGIONS)

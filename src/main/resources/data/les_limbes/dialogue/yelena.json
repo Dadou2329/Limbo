@@ -1,0 +1,20 @@
+{
+  "nom": "Yéléna",
+  "debut": [
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Du haut de la tour, la nuit, le palais semble plus proche. J'ai noté sa position chaque soir pendant dix ans : il ne bouge pas d'un cheveu. La route de nuit passe au pied de l'observatoire."
+      ],
+      "choix": [
+        {
+          "texte": "Merci."
+        }
+      ]
+    }
+  }
+}

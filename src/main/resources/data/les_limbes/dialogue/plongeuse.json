@@ -1,0 +1,20 @@
+{
+  "nom": "Isaure",
+  "debut": [
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "La plongée, c'est de la patience : on descend, on regarde, on remonte. Les épaves de l'archipel gardent des perles de nacre dans leurs coffres. Et le navire perdu… lui, il garde une histoire."
+      ],
+      "choix": [
+        {
+          "texte": "Merci."
+        }
+      ]
+    }
+  }
+}

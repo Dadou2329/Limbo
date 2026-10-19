@@ -142,5 +142,53 @@
     "sounds": [
       "les_limbes:bloc/dalle_emerge"
     ]
+  },
+  "bloc.cristal.resonne": {
+    "subtitle": "subtitles.les_limbes.bloc.cristal",
+    "sounds": [
+      "les_limbes:bloc/cristal_resonne"
+    ]
+  },
+  "creature.crabe.clic": {
+    "subtitle": "subtitles.les_limbes.creature.crabe",
+    "sounds": [
+      "les_limbes:creature/crabe_clic"
+    ]
+  },
+  "creature.insecte.bourdon": {
+    "subtitle": "subtitles.les_limbes.creature.insecte",
+    "sounds": [
+      "les_limbes:creature/insecte_bourdon"
+    ]
+  },
+  "creature.oiseau.chant": {
+    "subtitle": "subtitles.les_limbes.creature.oiseau",
+    "sounds": [
+      "les_limbes:creature/oiseau_chant"
+    ]
+  },
+  "creature.geant.pas": {
+    "subtitle": "subtitles.les_limbes.creature.geant",
+    "sounds": [
+      "les_limbes:creature/geant_pas"
+    ]
+  },
+  "creature.monture.appel": {
+    "subtitle": "subtitles.les_limbes.creature.monture",
+    "sounds": [
+      "les_limbes:creature/monture_appel"
+    ]
+  },
+  "creature.tireur.tir": {
+    "subtitle": "subtitles.les_limbes.creature.tireur",
+    "sounds": [
+      "les_limbes:creature/tireur_tir"
+    ]
+  },
+  "creature.petit.cri": {
+    "subtitle": "subtitles.les_limbes.creature.petit",
+    "sounds": [
+      "les_limbes:creature/petit_cri"
+    ]
   }
 }

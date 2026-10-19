@@ -31,6 +31,12 @@ import net.minecraft.entity.EntityType;
 
 /** Point d'entrée client : rendu, interface, touches. Jamais chargé sur un serveur dédié. */
 public final class LesLimbesClient implements ClientModInitializer {
+	/** Toute espèce régionale est rendue par son modèle piloté par données, sous le même identifiant. */
+	@SuppressWarnings("unchecked")
+	private static void enregistrerModeleDonnees(String id, net.minecraft.entity.EntityType<? extends net.minecraft.entity.mob.MobEntity> type) {
+		EntityRendererRegistry.register((net.minecraft.entity.EntityType<net.minecraft.entity.mob.MobEntity>) type, ctx -> new RenduDonneesRenderer<>(ctx, id));
+	}
+
 	@Override
 	public void onInitializeClient() {
 		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), LimbesBlocks.FIBRES_NACREES, LimbesBlocks.HERBE_DE_L_AUBE,
@@ -51,6 +57,8 @@ public final class LesLimbesClient implements ClientModInitializer {
 		EntityRendererRegistry.register(LimbesEntities.VEILLEUR_EGARE, VeilleurEgareRenderer::new);
 		ModeleDonneesRegistry.init();
 		EntityRendererRegistry.register(LimbesEntities.RAIE_CELESTE, ctx -> new RenduDonneesRenderer<>(ctx, "raie_celeste"));
+		fr.leslimbes.registry.LimbesEspeces.types().forEach(LesLimbesClient::enregistrerModeleDonnees);
+		EntityRendererRegistry.register(fr.leslimbes.registry.LimbesEspeces.ECLAT_PROJECTILE, net.minecraft.client.render.entity.FlyingItemEntityRenderer::new);
 		LivingEntityFeatureRendererRegistrationCallback.EVENT.register((entityType, entityRenderer, registrationHelper, context) -> {
 			if (entityType == EntityType.PLAYER && entityRenderer instanceof PlayerEntityRenderer playerRenderer) {
 				registrationHelper.register(new FragmentDeCouronneFeature(playerRenderer));

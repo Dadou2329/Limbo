@@ -25,9 +25,16 @@ public final class LimbesWorldgen {
 
 	/** Lac clair des Prairies (remplace minecraft:lake, dépréciée et instable en bordure de chunk). */
 	public static final Feature<DefaultFeatureConfig> LAC = Registry.register(Registries.FEATURE, LesLimbes.id("lac"), new LacFeature(DefaultFeatureConfig.CODEC));
+	/** Remplissage de la Mer suspendue (volumes d'eau stables dans la cuvette de la région). */
+	public static final Feature<DefaultFeatureConfig> MER = Registry.register(Registries.FEATURE, LesLimbes.id("mer"), new fr.leslimbes.world.gen.MerFeature(DefaultFeatureConfig.CODEC));
+	/** Routes royales procédurales entre les sites. */
+	public static final Feature<fr.leslimbes.world.gen.RoutesFeature.Config> ROUTES = Registry.register(Registries.FEATURE, LesLimbes.id("routes"),
+			new fr.leslimbes.world.gen.RoutesFeature(fr.leslimbes.world.gen.RoutesFeature.Config.CODEC));
 
 	public static void init() {
 		Registry.register(Registries.DENSITY_FUNCTION_TYPE, LesLimbes.id("aplanir"), FlattenDensityFunction.MAP_CODEC);
+		Registry.register(Registries.DENSITY_FUNCTION_TYPE, LesLimbes.id("regions"), fr.leslimbes.world.gen.RegionsDensityFunction.MAP_CODEC);
+		Registry.register(Registries.BIOME_SOURCE, LesLimbes.id("regions"), fr.leslimbes.world.biome.RegionBiomeSource.CODEC);
 	}
 
 	private LimbesWorldgen() {

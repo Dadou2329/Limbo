@@ -1,0 +1,18 @@
+{
+  "placement": {
+    "type": "les_limbes:fixed",
+    "salt": 1019,
+    "chunks": [
+      [
+        23,
+        70
+      ]
+    ]
+  },
+  "structures": [
+    {
+      "structure": "les_limbes:jardin_fertile",
+      "weight": 1
+    }
+  ]
+}

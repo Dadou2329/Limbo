@@ -1,0 +1,11 @@
+{
+  "nom": "Quai des Falaises",
+  "pos": [
+    560,
+    82,
+    -360
+  ],
+  "rayon": 14,
+  "region": "mer",
+  "description": "Le bout de la route des Prairies, au-dessus de la Mer suspendue."
+}

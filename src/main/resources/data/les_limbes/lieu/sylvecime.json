@@ -1,0 +1,12 @@
+{
+  "nom": "Sylvécime",
+  "pos": [
+    1050,
+    72,
+    350
+  ],
+  "rayon": 40,
+  "region": "jardins",
+  "description": "La ville d'Aélis, bâtie dans et autour des géants.",
+  "relais": "sylvecime"
+}

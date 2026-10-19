@@ -1,0 +1,20 @@
+{
+  "nom": "Tobie",
+  "debut": [
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Marchez sur les cristaux du sol : chacun a sa note. J'ai mis dix ans à les accorder. Si vous rapportez des éclats résonnants du pont, j'en ferai un instrument pour votre domaine."
+      ],
+      "choix": [
+        {
+          "texte": "Merci."
+        }
+      ]
+    }
+  }
+}

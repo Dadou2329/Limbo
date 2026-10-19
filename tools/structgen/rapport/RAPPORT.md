@@ -4605,3 +4605,4247 @@ Jardin de Hanna la jardinière, sur le plateau de Clairval : carrés de cultures
              
 Légende : #=les_limbes:herbe_argentee, %=les_limbes:terre_des_limbes, &=minecraft:water, @=minecraft:farmland, +=les_limbes:planches_d_aube, ==les_limbes:barriere_d_aube, *=les_limbes:herbe_de_l_aube, :=les_limbes:fleur_de_rosee, ;=minecraft:wheat, ,=minecraft:structure_block, .=minecraft:composter, -=minecraft:chest, ~=minecraft:oak_fence_gate, ^=les_limbes:lanterne_nacree, !=les_limbes:feuilles_d_aube, ?=les_limbes:dalle_d_aube
 ```
+
+## mer/port_nacre_ile
+
+Port-Nacre : île-ville de la Mer suspendue. Quais, marché aux poissons, capitainerie de Kaël, fumoir, maisons de pêcheurs, porte de relais.
+
+- taille : [57, 20, 57]
+- blocs : 11164 ; entités de bloc : 15 ; entités : 7
+- palette : les_limbes:sable_de_nacre (3574), les_limbes:terre_des_limbes (1793), minecraft:air (1165), minecraft:dark_oak_planks (937), les_limbes:herbe_argentee (933), les_limbes:planches_d_aube (891), minecraft:dark_oak_stairs (719), les_limbes:pierre_nacree_taillee (377), les_limbes:feuilles_d_aube (174), minecraft:dark_oak_log (111), les_limbes:pierre_nacree_polie (109), minecraft:dark_oak_slab (90)
+
+## mer/phare_du_dessous
+
+Phare du Dessous : tour de pierre nacrée sur la falaise de la Mer, feu de cristal, galerie vitrée qui regarde sous la surface ; le gardien Anselme.
+
+- taille : [11, 27, 11]
+- blocs : 1404 ; entités de bloc : 3 ; entités : 0
+- palette : minecraft:air (594), les_limbes:pierre_nacree_taillee (534), les_limbes:pierre_nacree_polie (98), minecraft:glass (60), les_limbes:dalle_de_pierre_nacree (49), les_limbes:planches_d_aube (24), les_limbes:escalier_de_pierre_nacree (18), minecraft:glass_pane (18), les_limbes:porte_d_aube_door (2), les_limbes:cristal_de_nacre (2), minecraft:chest (1), minecraft:structure_block (1)
+
+```
+--- y=0 ---
+###########
+###########
+###########
+###########
+###########
+###########
+###########
+###########
+###########
+###########
+###########
+--- y=1 ---
+    %%%    
+   #%%%#   
+  ##...##  
+ ##&@...## 
+ #.......# 
+ #...+...# 
+ #=......# 
+ ##.....## 
+  ##...##  
+   ##*##   
+           
+--- y=2 ---
+    ...    
+   #...#   
+  ##...##  
+ ##.&...## 
+ #.......# 
+ #.......# 
+ #.......# 
+ ##.....## 
+  ##...##  
+   ##*:#   
+           
+--- y=3 ---
+    %%%    
+   #%%%#   
+  ##...##  
+ ##..&..## 
+ #.......# 
+ #.......# 
+ #.......# 
+ ##.....## 
+  ##...##  
+   #####   
+           
+--- y=4 ---
+           
+   #####   
+  ##...##  
+ ##...&.## 
+ #.......# 
+ #.......# 
+ #.......# 
+ ##.....## 
+  ##...##  
+   #####   
+           
+--- y=5 ---
+           
+   ;;,;;   
+  ;;...;;  
+ ;;.....;; 
+ ;.....&.; 
+ ,......., 
+ ;.......; 
+ ;;.....;; 
+  ;;...;;  
+   ;;;;;   
+           
+--- y=6 ---
+           
+   ##,##   
+  ##...##  
+ ##.....## 
+ #.......# 
+ ,.....&., 
+ #.......# 
+ ##.....## 
+  ##...##  
+   #####   
+           
+--- y=7 ---
+           
+   #####   
+  ##...##  
+ ##.....## 
+ #.......# 
+ #.......# 
+ #.....&.# 
+ ##.....## 
+  ##...##  
+   #####   
+           
+--- y=8 ---
+           
+   #####   
+  ##...##  
+ ##.....## 
+ #.......# 
+ #.......# 
+ #.......# 
+ ##....&## 
+  ##...##  
+   #####   
+           
+--- y=9 ---
+           
+   #####   
+  ##...##  
+ ##.....## 
+ #.......# 
+ #.......# 
+ #.......# 
+ ##...&.## 
+  ##...##  
+   #####   
+           
+--- y=10 ---
+           
+   ;;,;;   
+  ;;...;;  
+ ;;.....;; 
+ ;.......; 
+ ,......., 
+ ;.......; 
+ ;;..&..;; 
+  ;;...;;  
+   ;;;;;   
+           
+--- y=11 ---
+           
+   ##,##   
+  ##...##  
+ ##.....## 
+ #.......# 
+ ,......., 
+ #.......# 
+ ##.&...## 
+  ##...##  
+   #####   
+           
+--- y=12 ---
+           
+   #####   
+  ##...##  
+ ##.....## 
+ #.......# 
+ #.......# 
+ #.......# 
+ ##&....## 
+  ##...##  
+   #####   
+           
+--- y=13 ---
+           
+   #####   
+  ##...##  
+ ##.....## 
+ #.......# 
+ #.......# 
+ #.&.....# 
+ ##.....## 
+  ##...##  
+   #####   
+           
+--- y=14 ---
+           
+           
+    ###    
+   #...#   
+  #.....#  
+  #&....#  
+  #.....#  
+   #...#   
+    ###    
+           
+           
+--- y=15 ---
+           
+     ,     
+    ;;;    
+   ;...;   
+  ;&....;  
+ ,;.....;, 
+  ;.....;  
+   ;...;   
+    ;;;    
+           
+           
+--- y=16 ---
+           
+     ,     
+    ###    
+   &...#   
+  #.....#  
+ ,#.....#, 
+  #.....#  
+   #...#   
+    ###    
+           
+           
+--- y=17 ---
+           
+           
+    ###    
+   #&..#   
+  #.....#  
+  #.....#  
+  #.....#  
+   #...#   
+    ###    
+           
+           
+--- y=18 ---
+           
+           
+    ###    
+   #.&.#   
+  #.....#  
+  #.....#  
+  #.....#  
+   #...#   
+    ###    
+           
+           
+--- y=19 ---
+           
+           
+    ###    
+   #...#   
+  #.....#  
+  #.....#  
+  #.....#  
+   #...#   
+    ###    
+           
+           
+--- y=20 ---
+           
+           
+  ;;;;;;;  
+  ;.....;  
+  ;.....;  
+  ;.....;  
+  ;.....;  
+  ;.....;  
+  ;;;;;;;  
+           
+           
+--- y=21 ---
+           
+           
+  %%%%%%%  
+  %     %  
+  %     %  
+  %  -  %  
+  %     %  
+  %     %  
+  %%%%%%%  
+           
+           
+--- y=22 ---
+           
+           
+  %%%%%%%  
+  %     %  
+  %     %  
+  %  -  %  
+  %     %  
+  %     %  
+  %%%%%%%  
+           
+           
+--- y=23 ---
+           
+           
+  ~~~~~~~  
+  ~~~~~~~  
+  ~~~~~~~  
+  ~~~~~~~  
+  ~~~~~~~  
+  ~~~~~~~  
+  ~~~~~~~  
+           
+           
+--- y=24 ---
+           
+           
+           
+           
+           
+     ^     
+           
+           
+           
+           
+           
+--- y=25 ---
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+--- y=26 ---
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+Légende : #=les_limbes:pierre_nacree_taillee, %=minecraft:glass, &=les_limbes:escalier_de_pierre_nacree, @=minecraft:structure_block, +=minecraft:lectern, ==minecraft:chest, *=les_limbes:porte_d_aube_door, :=minecraft:dark_oak_wall_sign, ;=les_limbes:pierre_nacree_polie, ,=minecraft:glass_pane, .=les_limbes:planches_d_aube, -=les_limbes:cristal_de_nacre, ~=les_limbes:dalle_de_pierre_nacree, ^=les_limbes:lanterne_nacree
+```
+
+## mer/marche_flottant
+
+Marché flottant des lagons : quatre radeaux reliés, étals d'objets arrivés d'ailleurs, marchande Nérine, barques.
+
+- taille : [25, 8, 25]
+- blocs : 817 ; entités de bloc : 4 ; entités : 4
+- palette : les_limbes:planches_d_aube (345), minecraft:dark_oak_log (332), minecraft:dark_oak_planks (24), minecraft:dark_oak_slab (20), les_limbes:barriere_d_aube (16), les_limbes:lanterne_nacree (16), minecraft:light_blue_wool (15), minecraft:white_wool (15), minecraft:cyan_wool (15), minecraft:magenta_wool (15), minecraft:structure_block (2), minecraft:chest (1)
+
+## mer/navire_perdu
+
+Navire perdu : grand vaisseau d'un autre monde reposant sur le fond des récifs ; mâts émergés, cale inondée pleine de cargaison, journal du bord.
+
+- taille : [21, 44, 59]
+- blocs : 9898 ; entités de bloc : 8 ; entités : 0
+- palette : minecraft:water (6681), minecraft:dark_oak_planks (1857), les_limbes:planches_d_aube (967), minecraft:white_wool (189), minecraft:dark_oak_fence (102), minecraft:dark_oak_log (88), minecraft:chest (7), minecraft:barrel (6), minecraft:lectern (1)
+
+## mer/sanctuaire_des_bancs
+
+Sanctuaire des bancs : dôme vitré au fond des lagons, autel de nacre, tunnel d'accès vertical ; les bancs lumineux le traversent.
+
+- taille : [17, 14, 17]
+- blocs : 1458 ; entités de bloc : 3 ; entités : 0
+- palette : minecraft:air (802), les_limbes:pierre_nacree_polie (269), minecraft:glass (258), les_limbes:pierre_nacree_taillee (111), minecraft:ladder (5), les_limbes:corail_azur (4), les_limbes:lanterne_nacree (4), minecraft:structure_block (2), les_limbes:pierre_nacree_sculptee (1), les_limbes:cristal_de_nacre (1), minecraft:dark_oak_wall_sign (1)
+
+```
+--- y=0 ---
+      #####      
+    ##.....##    
+   #.........#   
+  #...........#  
+ #.............# 
+ #.............# 
+#...............#
+#...............#
+#...............#
+#...............#
+#...............#
+ #.............# 
+ #.............# 
+  #...........#  
+   #.........#   
+    ##.....##    
+      #####      
+--- y=1 ---
+      #####      
+    #########    
+  #############  
+  #############  
+ ############### 
+ ############### 
+#################
+#################
+#################
+#################
+#################
+ ############### 
+ ############### 
+  #############  
+  #############  
+    #########    
+      #####      
+--- y=2 ---
+      %&&%&      
+    &%.....%&    
+   &.........%   
+  &...@.......&  
+ &.............& 
+ %...+.....+...& 
+%...............&
+&...............&
+&.......=.......%
+%...............&
+&...............&
+ %...+.....+...& 
+ &.............% 
+  %.......@...%  
+   &.........%   
+    &&.....&%    
+      &&%&&      
+--- y=3 ---
+       &&%       
+    &%&&.&&%&    
+   &%.......&%   
+  &%.........&&  
+ &%...........%& 
+ %...*.....*...& 
+ &.............% 
+&&.............&&
+&.......:.......%
+%&.............%&
+ &.............& 
+ %...*.....*...& 
+ &&...........&% 
+  %&.........&%  
+   &%....;..&%   
+    &&%&.%&&%    
+       &%&       
+--- y=4 ---
+                 
+     %&&%&&%     
+    %&.....&&    
+   %.........&   
+  %...........%  
+ %&...........&& 
+ &.............% 
+ &.............& 
+ %.............& 
+ &.............% 
+ &.............& 
+ %&...........&& 
+  &...........&  
+   &.........&   
+    %&.....&&    
+     &%&&%&&     
+                 
+--- y=5 ---
+                 
+        %        
+     &&%&&%&     
+    &&.....&%    
+   &.........&   
+  &&.........%&  
+  &...........&  
+  %...........%  
+ %&...........&& 
+  &...........&  
+  %...........%  
+  &&.........%&  
+   %.........&   
+    &%.....%&    
+     &&%&&%&     
+        &        
+                 
+--- y=6 ---
+                 
+                 
+       %&&       
+     &%&&%&&     
+    &%&...&%&    
+   &%.......&%   
+   %&.......%&   
+  %&.........&%  
+  &&.........%&  
+  &%.........&&  
+   &&.......&&   
+   &%.......&%   
+    &&%...&&%    
+     %&&%&&%     
+       %&&       
+                 
+                 
+--- y=7 ---
+                 
+                 
+                 
+                 
+      &&%&&      
+     &&%&&%&     
+    &&%&.%&&%    
+    &%&...&%&    
+    %&.....&&    
+    &&%...&&%    
+    &%&&.&&%&    
+     &&%&&%&     
+      %&&%&      
+                 
+                 
+                 
+                 
+--- y=8 ---
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+       &%&       
+       %&&       
+       &&%       
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+--- y=9 ---
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+       &&&       
+       &,&       
+       &&&       
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+--- y=10 ---
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+       &&&       
+       &,&       
+       &&&       
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+--- y=11 ---
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+       &&&       
+       &,&       
+       &&&       
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+--- y=12 ---
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+       &&&       
+       &,&       
+       &&&       
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+--- y=13 ---
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+       &&&       
+       &,&       
+       &&&       
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+Légende : #=les_limbes:pierre_nacree_polie, %=les_limbes:pierre_nacree_taillee, &=minecraft:glass, @=minecraft:structure_block, +=les_limbes:corail_azur, ==les_limbes:pierre_nacree_sculptee, *=les_limbes:lanterne_nacree, :=les_limbes:cristal_de_nacre, ;=minecraft:dark_oak_wall_sign, ,=minecraft:ladder
+```
+
+## mer/quai_des_falaises
+
+Quai des Falaises : terminus de la route depuis Clairval, escalier de pierre descendant la falaise jusqu'au ponton ; passeur Bastien.
+
+- taille : [15, 24, 23]
+- blocs : 278 ; entités de bloc : 3 ; entités : 0
+- palette : les_limbes:pierre_nacree_polie (108), les_limbes:pierre_nacree_taillee (57), minecraft:dark_oak_planks (42), minecraft:air (30), les_limbes:muret_de_pierre_nacree (14), les_limbes:escalier_de_pierre_nacree (11), les_limbes:barriere_d_aube (8), les_limbes:lanterne_nacree (4), minecraft:dark_oak_sign (1), minecraft:barrel (1), minecraft:chest (1), minecraft:structure_block (1)
+
+```
+--- y=0 ---
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+--- y=1 ---
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+--- y=2 ---
+   #########   
+   ###.%####   
+   ##&######   
+   #########   
+   #########   
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+--- y=3 ---
+   @       @   
+       +       
+         =     
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+--- y=4 ---
+   *       *   
+       .       
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+--- y=5 ---
+               
+       .       
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+--- y=6 ---
+               
+       .       
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+--- y=7 ---
+               
+       .       
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+--- y=8 ---
+               
+       .       
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+--- y=9 ---
+               
+       .       
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+--- y=10 ---
+               
+       .       
+       +       
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+--- y=11 ---
+               
+       .       
+       .       
+       +       
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+--- y=12 ---
+               
+               
+       .       
+       .       
+       +       
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+--- y=13 ---
+               
+               
+               
+       .       
+       .       
+       +       
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+--- y=14 ---
+               
+               
+               
+               
+       .       
+       .       
+       +       
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+--- y=15 ---
+               
+               
+               
+               
+               
+       .       
+       .       
+       +       
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+--- y=16 ---
+               
+               
+               
+               
+               
+               
+       .       
+       .       
+       +       
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+--- y=17 ---
+               
+               
+               
+               
+               
+               
+               
+       .       
+       .       
+       +       
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+--- y=18 ---
+               
+               
+               
+               
+               
+               
+               
+               
+       .       
+       .       
+       +       
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+--- y=19 ---
+               
+               
+               
+               
+               
+               
+               
+               
+               
+       .       
+       .       
+       +       
+:::::::::::::::
+:;;;;;;;;;;;;::
+:;;;;;;;;;;;;::
+:;;;;;;;;;;;;::
+:;;;;;;;;;;;;::
+:;;;;;;;;;;;;::
+:;;;;;;;;;;;;::
+:;;;;;;;;;;;;::
+:;;;;;;;;;;;;::
+:;;;;;;;;;;;;::
+:::::::::::::::
+--- y=20 ---
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+       .       
+       .       
+,,,,,,,.,,,,,,,
+               
+               
+   .           
+               
+               
+               
+               
+               
+ @           @ 
+               
+--- y=21 ---
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+       .       
+               
+               
+               
+               
+               
+               
+               
+               
+               
+ @           @ 
+               
+--- y=22 ---
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+ @           @ 
+               
+--- y=23 ---
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+ *           * 
+               
+Légende : #=minecraft:dark_oak_planks, %=minecraft:chest, &=minecraft:barrel, @=les_limbes:barriere_d_aube, +=les_limbes:escalier_de_pierre_nacree, ==minecraft:structure_block, *=les_limbes:lanterne_nacree, :=les_limbes:pierre_nacree_taillee, ;=les_limbes:pierre_nacree_polie, ,=les_limbes:muret_de_pierre_nacree, .=minecraft:dark_oak_sign
+```
+
+## jardins/sylvecime
+
+Sylvécime : ville perchée des Jardins des Géants. Tronc creux avec colonne de sève, trois plates-formes, cabanes, halle d'Aélis, racines-routes, porte de relais au pied.
+
+- taille : [61, 60, 61]
+- blocs : 17306 ; entités de bloc : 13 ; entités : 0
+- palette : les_limbes:feuilles_de_geant (7904), les_limbes:herbe_des_geants (2821), les_limbes:buche_de_geant (2590), les_limbes:planches_de_geant (1773), minecraft:air (1171), les_limbes:barriere_d_aube (342), minecraft:dark_oak_stairs (289), minecraft:dark_oak_planks (128), les_limbes:seve_ascendante (46), les_limbes:petale_bleu (45), minecraft:dark_oak_slab (36), minecraft:glass_pane (32)
+
+## jardins/serre_ancienne
+
+Serre ancienne des Jardins : verrière à armature de bois de géant, cultures extraordinaires, bassin tari (quête « La source tarie »), jardinière Oriane.
+
+- taille : [19, 18, 25]
+- blocs : 3962 ; entités de bloc : 3 ; entités : 0
+- palette : minecraft:air (2270), minecraft:glass (460), les_limbes:pierre_nacree_polie (408), minecraft:dark_oak_stairs (324), les_limbes:buche_de_geant (166), minecraft:dark_oak_planks (162), les_limbes:pierre_nacree_taillee (84), minecraft:dark_oak_slab (25), minecraft:farmland (24), minecraft:wheat (12), minecraft:carrots (6), minecraft:sweet_berry_bush (6)
+
+```
+--- y=0 ---
+###################
+#%%%%%%%%%%%%%%%%%#
+#%%%%%%%%%%%%%%%%%#
+#%%%%%%%%%%%%%%%%%#
+#%%%%%%%%%%%%%%%%%#
+#%%%%%%%%%%%%%%%%%#
+#%%%%%%%%%%%%%%%%%#
+#%%%%%%%%%%%%%%%%%#
+#%%%%%%%%%%%%%%%%%#
+#%%%%%%%%%%%%%%%%%#
+#%%%%%%%%%%%%%%%%%#
+#%%%%%%%%%%%%%%%%%#
+#%%%%%%%%%%%%%%%%%#
+#%%%%%%%%%%%%%%%%%#
+#%%%%%%%%%%%%%%%%%#
+#%%%%%%%%%%%%%%%%%#
+#%%%%%%%%%%%%%%%%%#
+#%%%%%%%%%%%%%%%%%#
+#%%%%%%%%%%%%%%%%%#
+#%%%%%%%%%%%%%%%%%#
+#%%%%%%%%%%%%%%%%%#
+#%%%%%%%%%%%%%%%%%#
+#%%%%%%%%%%%%%%%%%#
+#%%%%%%%%%%%%%%%%%#
+###################
+--- y=1 ---
+&@@&@@&@@&@@&@@&@@&
+@.................@
+@.................@
+&.+...+.....+...+.&
+@.+...+.....+...+.@
+@........=........@
+&.................&
+@.................@
+@.................@
+&.+...+.%%%.+...+.&
+@.+...+.%*%.+...+.@
+@.......%*%.......@
+&.......%%%.......&
+@.......%*%.......@
+@.......%*%.......@
+&.+...+.%%%.+...+.&
+@.+...+.....+...+.@
+@.................@
+&.................&
+@.................@
+@.................@
+&.................&
+@.:;............,.@
+@.................@
+&@@&@@&@..@@&@@&@@&
+--- y=2 ---
+&@@&@@&@@&@@&@@&@@&
+@.................@
+@.................@
+&.-...~.....^...-.&
+@.-...~.....^...-.@
+@.................@
+&.................&
+@.................@
+@.................@
+&.-...~.....^...-.&
+@.-...~.....^...-.@
+@.................@
+&.................&
+@.................@
+@.................@
+&.-...~.....^...-.&
+@.-...~..!..^...-.@
+@.................@
+&.................&
+@.................@
+@.................@
+&.................&
+@.................@
+@.................@
+&@@&@@&@..@@&@@&@@&
+--- y=3 ---
+&@@&@@&@@&@@&@@&@@&
+@.................@
+@.................@
+&.................&
+@.................@
+@.................@
+&.................&
+@.................@
+@.................@
+&.................&
+@.................@
+@.................@
+&.................&
+@.................@
+@.................@
+&.................&
+@.................@
+@.................@
+&.................&
+@.................@
+@.................@
+&.................&
+@.................@
+@.................@
+&@@&@@&@@&@@&@@&@@&
+--- y=4 ---
+&@@&@@&@@&@@&@@&@@&
+@.................@
+@.................@
+&.................&
+@.................@
+@.................@
+&.................&
+@.................@
+@.................@
+&.................&
+@.................@
+@.................@
+&.................&
+@.................@
+@.................@
+&.................&
+@.................@
+@.................@
+&.................&
+@.................@
+@.................@
+&.................&
+@.................@
+@.................@
+&@@&@@&@@&@@&@@&@@&
+--- y=5 ---
+&@@&@@&@@&@@&@@&@@&
+@.................@
+@.................@
+&.................&
+@.................@
+@.................@
+&.................&
+@.................@
+@.................@
+&.................&
+@.................@
+@.................@
+&.................&
+@.................@
+@.................@
+&.................&
+@.................@
+@.................@
+&.................&
+@.................@
+@.................@
+&.................&
+@.................@
+@.................@
+&@@&@@&@@&@@&@@&@@&
+--- y=6 ---
+&@@&@@&@@&@@&@@&@@&
+@.................@
+@.................@
+&.................&
+@.................@
+@.................@
+&...?.........?...&
+@.................@
+@.................@
+&.................&
+@.................@
+@.................@
+&.................&
+@.................@
+@.................@
+&.................&
+@.................@
+@.................@
+&...?.........?...&
+@.................@
+@.................@
+&.................&
+@.................@
+@.................@
+&@@&@@&@@&@@&@@&@@&
+--- y=7 ---
+@$$$$$$$$$$$$$$$$$@
+a                 a
+@                 @
+a                 a
+@                 @
+a                 a
+@                 @
+a                 a
+@                 @
+a                 a
+@                 @
+a                 a
+@                 @
+a                 a
+@                 @
+a                 a
+@                 @
+a                 a
+@                 @
+a                 a
+@                 @
+a                 a
+@                 @
+a                 a
+@$$$$$$$$$$$$$$$$$@
+--- y=8 ---
+ a$$$$$$$$$$$$$$$a 
+ @               @ 
+ a               a 
+ @               @ 
+ a               a 
+ @               @ 
+ a               a 
+ @               @ 
+ a               a 
+ @               @ 
+ a               a 
+ @               @ 
+ a               a 
+ @               @ 
+ a               a 
+ @               @ 
+ a               a 
+ @               @ 
+ a               a 
+ @               @ 
+ a               a 
+ @               @ 
+ a               a 
+ @               @ 
+ a$$$$$$$$$$$$$$$a 
+--- y=9 ---
+  @$$$$$$$$$$$$$@  
+  a             a  
+  @             @  
+  a             a  
+  @             @  
+  a             a  
+  @             @  
+  a             a  
+  @             @  
+  a             a  
+  @             @  
+  a             a  
+  @             @  
+  a             a  
+  @             @  
+  a             a  
+  @             @  
+  a             a  
+  @             @  
+  a             a  
+  @             @  
+  a             a  
+  @             @  
+  a             a  
+  @$$$$$$$$$$$$$@  
+--- y=10 ---
+   a$$$$$$$$$$$a   
+   @           @   
+   a           a   
+   @           @   
+   a           a   
+   @           @   
+   a           a   
+   @           @   
+   a           a   
+   @           @   
+   a           a   
+   @           @   
+   a           a   
+   @           @   
+   a           a   
+   @           @   
+   a           a   
+   @           @   
+   a           a   
+   @           @   
+   a           a   
+   @           @   
+   a           a   
+   @           @   
+   a$$$$$$$$$$$a   
+--- y=11 ---
+    @$$$$$$$$$@    
+    a         a    
+    @         @    
+    a         a    
+    @         @    
+    a         a    
+    @         @    
+    a         a    
+    @         @    
+    a         a    
+    @         @    
+    a         a    
+    @         @    
+    a         a    
+    @         @    
+    a         a    
+    @         @    
+    a         a    
+    @         @    
+    a         a    
+    @         @    
+    a         a    
+    @         @    
+    a         a    
+    @$$$$$$$$$@    
+--- y=12 ---
+     a$$$$$$$a     
+     a       a     
+     a       a     
+     a       a     
+     a       a     
+     a       a     
+     a       a     
+     a       a     
+     a       a     
+     a       a     
+     a       a     
+     a       a     
+     a       a     
+     a       a     
+     a       a     
+     a       a     
+     a       a     
+     a       a     
+     a       a     
+     a       a     
+     a       a     
+     a       a     
+     a       a     
+     a       a     
+     a$$$$$$$a     
+--- y=13 ---
+      a$$$$$a      
+      a     a      
+      a     a      
+      a     a      
+      a     a      
+      a     a      
+      a     a      
+      a     a      
+      a     a      
+      a     a      
+      a     a      
+      a     a      
+      a     a      
+      a     a      
+      a     a      
+      a     a      
+      a     a      
+      a     a      
+      a     a      
+      a     a      
+      a     a      
+      a     a      
+      a     a      
+      a     a      
+      a$$$$$a      
+--- y=14 ---
+       a$$$a       
+       a   a       
+       a   a       
+       a   a       
+       a   a       
+       a   a       
+       a   a       
+       a   a       
+       a   a       
+       a   a       
+       a   a       
+       a   a       
+       a   a       
+       a   a       
+       a   a       
+       a   a       
+       a   a       
+       a   a       
+       a   a       
+       a   a       
+       a   a       
+       a   a       
+       a   a       
+       a   a       
+       a$$$a       
+--- y=15 ---
+        a$a        
+        a a        
+        a a        
+        a a        
+        a a        
+        a a        
+        a a        
+        a a        
+        a a        
+        a a        
+        a a        
+        a a        
+        a a        
+        a a        
+        a a        
+        a a        
+        a a        
+        a a        
+        a a        
+        a a        
+        a a        
+        a a        
+        a a        
+        a a        
+        a$a        
+--- y=16 ---
+         b         
+         b         
+         b         
+         b         
+         b         
+         b         
+         b         
+         b         
+         b         
+         b         
+         b         
+         b         
+         b         
+         b         
+         b         
+         b         
+         b         
+         b         
+         b         
+         b         
+         b         
+         b         
+         b         
+         b         
+         b         
+--- y=17 ---
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+Légende : #=les_limbes:pierre_nacree_taillee, %=les_limbes:pierre_nacree_polie, &=les_limbes:buche_de_geant, @=minecraft:glass, +=minecraft:farmland, ==minecraft:structure_block, *=minecraft:cauldron, :=minecraft:composter, ;=minecraft:barrel, ,=minecraft:chest, .=les_limbes:porte_d_aube_door, -=minecraft:wheat, ~=minecraft:carrots, ^=minecraft:sweet_berry_bush, !=minecraft:dark_oak_sign, ?=les_limbes:lanterne_nacree, $=minecraft:dark_oak_planks, a=minecraft:dark_oak_stairs, b=minecraft:dark_oak_slab
+```
+
+## jardins/pepiniere_royale
+
+Pépinière royale : abri ouvert de bois de géant, rangées de pousses et de jeunes géants, pépiniériste Lioran (quête des graines).
+
+- taille : [23, 14, 17]
+- blocs : 926 ; entités de bloc : 3 ; entités : 0
+- palette : les_limbes:feuilles_de_geant (391), les_limbes:herbe_des_geants (376), les_limbes:petale_bleu (76), les_limbes:buche_de_geant (45), les_limbes:terre_des_limbes (15), minecraft:dark_oak_sapling (10), minecraft:flowering_azalea (5), les_limbes:dalle_de_pierre_nacree (4), minecraft:composter (1), minecraft:chest (1), minecraft:dark_oak_wall_sign (1), minecraft:structure_block (1)
+
+```
+--- y=0 ---
+#######################
+#######################
+#######################
+##%###%###%###%###%####
+#######################
+#######################
+#######################
+##%###%###%###%###%####
+#######################
+#######################
+#######################
+##%###%###%###%###%####
+#######################
+#######################
+#######################
+#######################
+#######################
+--- y=1 ---
+&          &          &
+         @@@@          
+         +  =          
+  *   :   *   *   :    
+                       
+                       
+           ;           
+  :   *   *   :   *    
+     &           &     
+                       
+                       
+  *   *   :   *   *    
+                       
+                       
+                       
+                       
+&          &          &
+--- y=2 ---
+&          &          &
+          ,            
+                       
+                       
+                       
+                       
+                       
+                       
+     &           &     
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+&          &          &
+--- y=3 ---
+&          &          &
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+     &           &     
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+&          &          &
+--- y=4 ---
+&          &          &
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+     &           &     
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+&          &          &
+--- y=5 ---
+&          &          &
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+     &           &     
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+&          &          &
+--- y=6 ---
+.......................
+.---------------------.
+.---------------------.
+.---------------------.
+.---------------------.
+.---------------------.
+.---------------------.
+.---------------------.
+.----&-----------&----.
+.---------------------.
+.---------------------.
+.---------------------.
+.---------------------.
+.---------------------.
+.---------------------.
+.---------------------.
+.......................
+--- y=7 ---
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+     &           &     
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+--- y=8 ---
+                       
+                       
+                       
+                       
+                       
+     -                 
+   -----               
+   -----               
+  -------        &     
+   -----               
+   -----               
+     -                 
+                       
+                       
+                       
+                       
+                       
+--- y=9 ---
+                       
+                       
+                       
+                       
+                       
+                 -     
+               -----   
+    ---        -----   
+    ---       -------  
+    ---        -----   
+               -----   
+                 -     
+                       
+                       
+                       
+                       
+                       
+--- y=10 ---
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                ---    
+     -          ---    
+                ---    
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+--- y=11 ---
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                 -     
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+--- y=12 ---
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+--- y=13 ---
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+Légende : #=les_limbes:herbe_des_geants, %=les_limbes:terre_des_limbes, &=les_limbes:buche_de_geant, @=les_limbes:dalle_de_pierre_nacree, +=minecraft:composter, ==minecraft:chest, *=minecraft:dark_oak_sapling, :=minecraft:flowering_azalea, ;=minecraft:structure_block, ,=minecraft:dark_oak_wall_sign, .=les_limbes:petale_bleu, -=les_limbes:feuilles_de_geant
+```
+
+## jardins/arbre_creux
+
+Arbre creux : géant évidé, quatre étages aménagés (foyer, bibliothèque de l'arbre, atelier, belvédère), colonne de sève ; l'ermite Baruch.
+
+- taille : [17, 40, 17]
+- blocs : 5517 ; entités de bloc : 4 ; entités : 0
+- palette : les_limbes:buche_de_geant (2523), minecraft:air (1861), les_limbes:feuilles_de_geant (573), les_limbes:herbe_des_geants (289), les_limbes:planches_de_geant (190), les_limbes:seve_ascendante (30), minecraft:glass_pane (24), minecraft:bookshelf (8), les_limbes:barriere_d_aube (5), les_limbes:lanterne_nacree (4), minecraft:green_bed (2), minecraft:crafting_table (1)
+
+```
+--- y=0 ---
+#################
+#################
+#################
+#################
+#################
+#################
+#################
+#################
+#################
+#################
+#################
+#################
+#################
+#################
+#################
+#################
+#################
+--- y=1 ---
+                 
+                 
+     %%%%%%%     
+    %%%%%%%%%    
+   %%%.....%%%   
+  %%%......&%%%  
+  %%.@.......%%  
+  %%.@.......%%  
+  %%....+....%%  
+  %%.........%%  
+  %%.......=.%%  
+  %%%.......%%%  
+   %%%.....%%%   
+    %%%%.%%%%    
+     %%%.%%%     
+                 
+                 
+--- y=2 ---
+                 
+                 
+     %%%%%%%     
+    %%%%%%%%%    
+   %%%.....%%%   
+  %%%.......%%%  
+  %%.........%%  
+  %%.........%%  
+  %%....+....%%  
+  %%.........%%  
+  %%.........%%  
+  %%%.......%%%  
+   %%%.....%%%   
+    %%%%.%%%%    
+     %%%.*%%     
+                 
+                 
+--- y=3 ---
+                 
+                 
+     %%%%%%%     
+    %%%%%%%%%    
+   %%%.....%%%   
+  %%%.......%%%  
+  %%.........%%  
+  %%.........%%  
+  %%....+....%%  
+  %%.........%%  
+  %%.........%%  
+  %%%.......%%%  
+   %%%.....%%%   
+    %%%%%%%%%    
+     %%%%%%%     
+                 
+                 
+--- y=4 ---
+                 
+                 
+     %%%:%%%     
+    %%%%%%%%%    
+   %%%.....%%%   
+  %%%.......%%%  
+  %%.........%%  
+  %%.........%%  
+  :%....+....%:  
+  %%.........%%  
+  %%.........%%  
+  %%%.......%%%  
+   %%%.....%%%   
+    %%%%%%%%%    
+     %%%%%%%     
+                 
+                 
+--- y=5 ---
+                 
+                 
+     %%%:%%%     
+    %%%%%%%%%    
+   %%%.....%%%   
+  %%%.......%%%  
+  %%.........%%  
+  %%.........%%  
+  :%....+....%:  
+  %%.........%%  
+  %%.........%%  
+  %%%.......%%%  
+   %%%.....%%%   
+    %%%%%%%%%    
+     %%%%%%%     
+                 
+                 
+--- y=6 ---
+                 
+                 
+     %%%%%%%     
+    %%%%%%%%%    
+   %%%.....%%%   
+  %%%.......%%%  
+  %%.........%%  
+  %%.........%%  
+  %%.;..+....%%  
+  %%.........%%  
+  %%.........%%  
+  %%%.......%%%  
+   %%%.....%%%   
+    %%%%%%%%%    
+     %%%%%%%     
+                 
+                 
+--- y=7 ---
+                 
+                 
+     %%%%%%%     
+    %%%%%%%%%    
+   %%%.....%%%   
+  %%%.......%%%  
+  %%.........%%  
+  %%.........%%  
+  %%....+....%%  
+  %%.........%%  
+  %%.........%%  
+  %%%.......%%%  
+   %%%.....%%%   
+    %%%%%%%%%    
+     %%%%%%%     
+                 
+                 
+--- y=8 ---
+                 
+                 
+     %%%%%%%     
+    %%%%%%%%%    
+   %%%,,,,,%%%   
+  %%%,,,,,,,%%%  
+  %%,,,,,,,,,%%  
+  %%,,,...,,,%%  
+  %%,,,.+.,,,%%  
+  %%,,,...,,,%%  
+  %%,,,,,,,,,%%  
+  %%%,,,,,,,%%%  
+   %%%,,,,,%%%   
+    %%%%%%%%%    
+     %%%%%%%     
+                 
+                 
+--- y=9 ---
+                 
+                 
+     %%%%%%%     
+    %%%%%%%%%    
+   %%%.....%%%   
+  %%%...-...%%%  
+  %%.........%%  
+  %%.........%%  
+  %%....+....%%  
+  %%..~......%%  
+  %%.........%%  
+  %%%.......%%%  
+   %%%.....%%%   
+    %%%%%%%%%    
+     %%%%%%%     
+                 
+                 
+--- y=10 ---
+                 
+                 
+     %%%%%%%     
+    %%%%%%%%%    
+   %%%.....%%%   
+  %%%.......%%%  
+  %%.........%%  
+  %%.........%%  
+  %%....+....%%  
+  %%.........%%  
+  %%.........%%  
+  %%%.......%%%  
+   %%%.....%%%   
+    %%%%%%%%%    
+     %%%%%%%     
+                 
+                 
+--- y=11 ---
+                 
+                 
+     %%%%%%%     
+    %%%%%%%%%    
+   %%%.....%%%   
+  %%%.......%%%  
+  %%.........%%  
+  %%.........%%  
+  %%....+....%%  
+  %%.........%%  
+  %%.........%%  
+  %%%.......%%%  
+   %%%.....%%%   
+    %%%%%%%%%    
+     %%%%%%%     
+                 
+                 
+--- y=12 ---
+                 
+                 
+     %%%:%%%     
+    %%%%%%%%%    
+   %%%.....%%%   
+  %%%.......%%%  
+  %%.........%%  
+  %%.........%%  
+  :%....+....%:  
+  %%.........%%  
+  %%.........%%  
+  %%%.......%%%  
+   %%%.....%%%   
+    %%%%%%%%%    
+     %%%%%%%     
+                 
+                 
+--- y=13 ---
+                 
+                 
+     %%%:%%%     
+    %%%%%%%%%    
+   %%%.....%%%   
+  %%%.......%%%  
+  %%.........%%  
+  %%.........%%  
+  :%....+....%:  
+  %%.........%%  
+  %%.........%%  
+  %%%.......%%%  
+   %%%.....%%%   
+    %%%%%%%%%    
+     %%%%%%%     
+                 
+                 
+--- y=14 ---
+                 
+                 
+     %%%%%%%     
+    %%%%%%%%%    
+   %%%.....%%%   
+  %%%.......%%%  
+  %%.........%%  
+  %%.........%%  
+  %%.;..+....%%  
+  %%.........%%  
+  %%.........%%  
+  %%%.......%%%  
+   %%%.....%%%   
+    %%%%%%%%%    
+     %%%%%%%     
+                 
+                 
+--- y=15 ---
+                 
+                 
+     %%%%%%%     
+    %%%%%%%%%    
+   %%%.....%%%   
+  %%%.......%%%  
+  %%.........%%  
+  %%.........%%  
+  %%....+....%%  
+  %%.........%%  
+  %%.........%%  
+  %%%.......%%%  
+   %%%.....%%%   
+    %%%%%%%%%    
+     %%%%%%%     
+                 
+                 
+--- y=16 ---
+                 
+                 
+     %%%%%%%     
+    %%%%%%%%%    
+   %%%,,,,,%%%   
+  %%%,,,,,,,%%%  
+  %%,,,,,,,,,%%  
+  %%,,,...,,,%%  
+  %%,,,.+.,,,%%  
+  %%,,,...,,,%%  
+  %%,,,,,,,,,%%  
+  %%%,,,,,,,%%%  
+   %%%,,,,,%%%   
+    %%%%%%%%%    
+     %%%%%%%     
+                 
+                 
+--- y=17 ---
+                 
+                 
+     %%%%%%%     
+    %%%%%%%%%    
+   %%%.....%%%   
+  %%%.......%%%  
+  %%.........%%  
+  %%.........%%  
+  %%....+....%%  
+  %%.........%%  
+  %%.........%%  
+  %%%^!....?%%%  
+   %%%.....%%%   
+    %%%%%%%%%    
+     %%%%%%%     
+                 
+                 
+--- y=18 ---
+                 
+                 
+     %%%%%%%     
+    %%%%%%%%%    
+   %%%.....%%%   
+  %%%.......%%%  
+  %%.........%%  
+  %%.........%%  
+  %%....+....%%  
+  %%.........%%  
+  %%.........%%  
+  %%%.......%%%  
+   %%%.....%%%   
+    %%%%%%%%%    
+     %%%%%%%     
+                 
+                 
+--- y=19 ---
+                 
+                 
+     %%%%%%%     
+    %%%%%%%%%    
+   %%%.....%%%   
+  %%%.......%%%  
+  %%.........%%  
+  %%.........%%  
+  %%....+....%%  
+  %%.........%%  
+  %%.........%%  
+  %%%.......%%%  
+   %%%.....%%%   
+    %%%%%%%%%    
+     %%%%%%%     
+                 
+                 
+--- y=20 ---
+                 
+                 
+     %%%:%%%     
+    %%%%%%%%%    
+   %%%.....%%%   
+  %%%.......%%%  
+  %%.........%%  
+  %%.........%%  
+  :%....+....%:  
+  %%.........%%  
+  %%.........%%  
+  %%%.......%%%  
+   %%%.....%%%   
+    %%%%%%%%%    
+     %%%%%%%     
+                 
+                 
+--- y=21 ---
+                 
+                 
+     %%%:%%%     
+    %%%%%%%%%    
+   %%%.....%%%   
+  %%%.......%%%  
+  %%.........%%  
+  %%.........%%  
+  :%....+....%:  
+  %%.........%%  
+  %%.........%%  
+  %%%.......%%%  
+   %%%.....%%%   
+    %%%%%%%%%    
+     %%%%%%%     
+                 
+                 
+--- y=22 ---
+                 
+                 
+     %%%%%%%     
+    %%%%%%%%%    
+   %%%.....%%%   
+  %%%.......%%%  
+  %%.........%%  
+  %%.........%%  
+  %%.;..+....%%  
+  %%.........%%  
+  %%.........%%  
+  %%%.......%%%  
+   %%%.....%%%   
+    %%%%%%%%%    
+     %%%%%%%     
+                 
+                 
+--- y=23 ---
+                 
+                 
+     %%%%%%%     
+    %%%%%%%%%    
+   %%%.....%%%   
+  %%%.......%%%  
+  %%.........%%  
+  %%.........%%  
+  %%....+....%%  
+  %%.........%%  
+  %%.........%%  
+  %%%.......%%%  
+   %%%.....%%%   
+    %%%%%%%%%    
+     %%%%%%%     
+                 
+                 
+--- y=24 ---
+                 
+                 
+     %%%%%%%     
+    %%%%%%%%%    
+   %%%,,,,,%%%   
+  %%%,,,,,,,%%%  
+  %%,,,,,,,,,%%,,
+  %%,,,...,,,%%,,
+  %%,,,.+.,,,%%,,
+  %%,,,...,,,%%,,
+  %%,,,,,,,,,%%,,
+  %%%,,,,,,,%%%  
+   %%%,,,,,%%%   
+    %%%%%%%%%    
+     %%%%%%%     
+                 
+                 
+--- y=25 ---
+                 
+                 
+     %%%%%%%     
+    %%%%%%%%%    
+   %%%.....%%%   
+  %%%.......%%%  
+  %%.........%% $
+  %%........... $
+  %%....+...... $
+  %%........... $
+  %%.........%% $
+  %%%.......%%%  
+   %%%.....%%%   
+    %%%%%%%%%    
+     %%%%%%%     
+                 
+                 
+--- y=26 ---
+                 
+                 
+     %%%%%%%     
+    %%%%%%%%%    
+   %%%.....%%%   
+  %%%.......%%%  
+  %%.........%%  
+  %%...........  
+  %%....+......  
+  %%...........  
+  %%.........%%  
+  %%%.......%%%  
+   %%%.....%%%   
+    %%%%%%%%%    
+     %%%%%%%     
+                 
+                 
+--- y=27 ---
+                 
+                 
+     %%%%%%%     
+    %%%%%%%%%    
+   %%%.....%%%   
+  %%%.......%%%  
+  %%.........%%  
+  %%...........  
+  %%....+......  
+  %%...........  
+  %%.........%%  
+  %%%.......%%%  
+   %%%.....%%%   
+    %%%%%%%%%    
+     %%%%%%%     
+                 
+                 
+--- y=28 ---
+                 
+                 
+     %%%:%%%     
+    %%%%%%%%%    
+   %%%.....%%%   
+  %%%.......%%%  
+  %%.........%%  
+  %%.........%%  
+  :%....+....%:  
+  %%.........%%  
+  %%.........%%  
+  %%%.......%%%  
+   %%%.....%%%   
+    %%%%%%%%%    
+     %%%%%%%     
+                 
+                 
+--- y=29 ---
+                 
+                 
+     %%%:%%%     
+    %%%%%%%%%    
+   %%%.....%%%   
+  %%%.......%%%  
+  %%.........%%  
+  %%.........%%  
+  :%....+....%:  
+  %%.........%%  
+  %%.........%%  
+  %%%.......%%%  
+   %%%.....%%%   
+    %%%%%%%%%    
+     %%%%%%%     
+                 
+                 
+--- y=30 ---
+                 
+                 
+     %%%%%%%     
+    %%%%%%%%%    
+   %%%.....%%%   
+  %%%.......%%%  
+  %%.........%%  
+  %%.........%%  
+  %%.;..+....%%  
+  %%.........%%  
+  %%.........%%  
+  %%%.......%%%  
+   %%%.....%%%   
+    %%%%%%%%%    
+     %%%%%%%     
+                 
+                 
+--- y=31 ---
+                 
+                 
+     %%%%%%%     
+    %%%%%%%%%    
+   %%%%%%%%%%%   
+  %%%%%%%%%%%%%  
+  %%%%%%%%%%%%%  
+  %%%%%%%%%%%%%  
+  %%%%%%%%%%%%%  
+  %%%%%%%%%%%%%  
+  %%%%%%%%%%%%%  
+  %%%%%%%%%%%%%  
+   %%%%%%%%%%%   
+    %%%%%%%%%    
+     %%%%%%%     
+                 
+                 
+--- y=32 ---
+    aaaaaaaaa    
+   aaaaaaaaaaa   
+  aaa%%%%%%%aaa  
+ aaa%%%%%%%%%aaa 
+aaa%%%%%%%%%%%aaa
+aa%%%%%%%%%%%%%aa
+aa%%%%%%%%%%%%%aa
+aa%%%%%%%%%%%%%aa
+aa%%%%%%%%%%%%%aa
+aa%%%%%%%%%%%%%aa
+aa%%%%%%%%%%%%%aa
+aa%%%%%%%%%%%%%aa
+aaa%%%%%%%%%%%aaa
+ aaa%%%%%%%%%aaa 
+  aaa%%%%%%%aaa  
+   aaaaaaaaaaa   
+    aaaaaaaaa    
+--- y=33 ---
+                 
+     aaaaaaa     
+    aaaaaaaaa    
+   aaaaaaaaaaa   
+  aaaaaaaaaaaaa  
+ aaaaaaaaaaaaaaa 
+ aaaaaaaaaaaaaaa 
+ aaaaaaaaaaaaaaa 
+ aaaaaaaaaaaaaaa 
+ aaaaaaaaaaaaaaa 
+ aaaaaaaaaaaaaaa 
+ aaaaaaaaaaaaaaa 
+  aaaaaaaaaaaaa  
+   aaaaaaaaaaa   
+    aaaaaaaaa    
+     aaaaaaa     
+                 
+--- y=34 ---
+                 
+                 
+      aaaaa      
+     aaaaaaa     
+    aaaaaaaaa    
+   aaaaaaaaaaa   
+  aaaaaaaaaaaaa  
+  aaaaaaaaaaaaa  
+  aaaaaaaaaaaaa  
+  aaaaaaaaaaaaa  
+  aaaaaaaaaaaaa  
+   aaaaaaaaaaa   
+    aaaaaaaaa    
+     aaaaaaa     
+      aaaaa      
+                 
+                 
+--- y=35 ---
+                 
+                 
+                 
+       aaa       
+     aaaaaaa     
+    aaaaaaaaa    
+    aaaaaaaaa    
+   aaaaaaaaaaa   
+   aaaaaaaaaaa   
+   aaaaaaaaaaa   
+    aaaaaaaaa    
+    aaaaaaaaa    
+     aaaaaaa     
+       aaa       
+                 
+                 
+                 
+--- y=36 ---
+                 
+                 
+                 
+                 
+                 
+      aaaaa      
+     aaaaaaa     
+     aaaaaaa     
+     aaaaaaa     
+     aaaaaaa     
+     aaaaaaa     
+      aaaaa      
+                 
+                 
+                 
+                 
+                 
+--- y=37 ---
+                 
+                 
+                 
+                 
+                 
+                 
+       aaa       
+      aaaaa      
+      aaaaa      
+      aaaaa      
+       aaa       
+                 
+                 
+                 
+                 
+                 
+                 
+--- y=38 ---
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+--- y=39 ---
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+Légende : #=les_limbes:herbe_des_geants, %=les_limbes:buche_de_geant, &=minecraft:campfire, @=minecraft:green_bed, +=les_limbes:seve_ascendante, ==minecraft:chest, *=minecraft:dark_oak_wall_sign, :=minecraft:glass_pane, ;=les_limbes:lanterne_nacree, ,=les_limbes:planches_de_geant, .=minecraft:bookshelf, -=minecraft:lectern, ~=minecraft:structure_block, ^=minecraft:crafting_table, !=minecraft:loom, ?=minecraft:barrel, $=les_limbes:barriere_d_aube, a=les_limbes:feuilles_de_geant
+```
+
+## jardins/clairiere_du_geant
+
+Clairière du géant : anneau de pétales, quatre fleurs monumentales, offrandes ; le Géant des jardins (créature paisible) y repose.
+
+- taille : [33, 16, 33]
+- blocs : 940 ; entités de bloc : 3 ; entités : 0
+- palette : les_limbes:herbe_des_geants (684), les_limbes:petale_rose (120), les_limbes:petale_bleu (97), les_limbes:buche_de_geant (28), les_limbes:lanterne_nacree (4), les_limbes:fibres_nacrees (4), minecraft:chest (1), minecraft:dark_oak_sign (1), minecraft:structure_block (1)
+
+## desert/meridiane
+
+Méridiane : cité du Désert des Heures. Tour de l'horloge et son cadran, caravansérail autour, marché des objets venus d'ailleurs, quartier figé pendant une fête, archives de Sahir, porte de relais.
+
+- taille : [71, 36, 71]
+- blocs : 9151 ; entités de bloc : 26 ; entités : 3
+- palette : les_limbes:sable_d_opale (2747), les_limbes:gres_des_heures_taille (2265), minecraft:air (1355), les_limbes:pierre_des_heures (1300), les_limbes:gres_des_heures (690), minecraft:smooth_sandstone_slab (300), minecraft:jungle_leaves (52), les_limbes:lanterne_nacree (43), minecraft:glass_pane (39), les_limbes:barriere_d_aube (36), les_limbes:pave_horaire (29), minecraft:jungle_log (24)
+
+## desert/observatoire_des_heures
+
+Observatoire des heures : tour de grès à cadran, route de nuit en pavés horaires, lunette ; l'astronome Yéléna.
+
+- taille : [15, 26, 15]
+- blocs : 1291 ; entités de bloc : 3 ; entités : 0
+- palette : minecraft:air (523), les_limbes:gres_des_heures (345), les_limbes:gres_des_heures_taille (121), les_limbes:pierre_des_heures (116), les_limbes:sable_d_opale (89), les_limbes:planches_d_aube (24), les_limbes:barriere_d_aube (24), minecraft:smooth_sandstone_stairs (16), les_limbes:pave_horaire (15), minecraft:glass_pane (6), les_limbes:lanterne_nacree (4), les_limbes:porte_d_aube_door (2)
+
+```
+--- y=0 ---
+###############
+%%%%%%%%%%%%%%%
+##&&&&&&&&&&&##
+##&&&&&&&&&&&##
+##&&&&&&&&&&&##
+##&&&&&&&&&&&##
+##&&&&&&&&&&&##
+##&&&&&&&&&&&##
+##&&&&&&&&&&&##
+##&&&&&&&&&&&##
+##&&&&&&&&&&&##
+##&&&&&&&&&&&##
+##&&&&&&&&&&&##
+###############
+###############
+--- y=1 ---
+               
+               
+               
+     @@@@@     
+    @@...@@    
+   @@.....@@   
+   @.......@   
+   @.....+=@   
+   @.......@   
+   @@.....@@   
+    @@...@@    
+     @@*@@     
+          :    
+               
+               
+--- y=2 ---
+               
+               
+               
+     @@@@@     
+    @@...@@    
+   @@.....@@   
+   @.......@   
+   @.......@   
+   @.......@   
+   @@....=@@   
+    @@...@@    
+     @@*@@     
+               
+               
+               
+--- y=3 ---
+               
+               
+               
+     @@@@@     
+    @@...@@    
+   @@.....@@   
+   @.......@   
+   @.......@   
+   @.......@   
+   @@.....@@   
+    @@=..@@    
+     @@@@@     
+               
+               
+               
+--- y=4 ---
+               
+               
+               
+     ;;,;;     
+    ;;...;;    
+   ;;.....;;   
+   ;.......;   
+   ;.......;   
+   ;.......;   
+   ;=.....;;   
+    ;;...;;    
+     ;;;;;     
+               
+               
+               
+--- y=5 ---
+               
+               
+               
+     @@,@@     
+    @@...@@    
+   @@.....@@   
+   @=......@   
+   @.......@   
+   @.......@   
+   @@.....@@   
+    @@...@@    
+     @@@@@     
+               
+               
+               
+--- y=6 ---
+               
+               
+               
+     @@@@@     
+    @@=..@@    
+   @@.....@@   
+   @.......@   
+   @.......@   
+   @.......@   
+   @@.....@@   
+    @@...@@    
+     @@@@@     
+               
+               
+               
+--- y=7 ---
+               
+               
+               
+     @@@@@     
+    @@...=@    
+   @@.....@@   
+   @.......@   
+   @.......@   
+   @.......@   
+   @@.....@@   
+    @@...@@    
+     @@@@@     
+               
+               
+               
+--- y=8 ---
+               
+               
+               
+     ;;,;;     
+    ;;...;;    
+   ;;.....;;   
+   ;......=;   
+   ;.......;   
+   ;.......;   
+   ;;.....;;   
+    ;;...;;    
+     ;;;;;     
+               
+               
+               
+--- y=9 ---
+               
+               
+               
+     @@,@@     
+    @@...@@    
+   @@.....@@   
+   @.......@   
+   @.......@   
+   @.......@   
+   @@....=@@   
+    @@...@@    
+     @@@@@     
+               
+               
+               
+--- y=10 ---
+               
+               
+               
+     @@@@@     
+    @@...@@    
+   @@.....@@   
+   @.......@   
+   @.......@   
+   @.......@   
+   @@.....@@   
+    @@.=.@@    
+     @@@@@     
+               
+               
+               
+--- y=11 ---
+               
+               
+               
+     @@@@@     
+    @@...@@    
+   @@.....@@   
+   @.......@   
+   @.......@   
+   @.......@   
+   @@=....@@   
+    @@...@@    
+     @@@@@     
+               
+               
+               
+--- y=12 ---
+               
+               
+               
+       ,       
+      ;;;      
+     ;...;     
+    =.....;    
+    ;.....;    
+    ;.....;    
+     ;...;     
+      ;;;      
+               
+               
+               
+               
+--- y=13 ---
+               
+               
+               
+       ,       
+     =@@@      
+     @...@     
+    @.....@    
+    @.....@    
+    @.....@    
+     @...@     
+      @@@      
+               
+               
+               
+               
+--- y=14 ---
+               
+               
+               
+               
+      @@=      
+     @...@     
+    @.....@    
+    @.....@    
+    @.....@    
+     @...@     
+      @@@      
+               
+               
+               
+               
+--- y=15 ---
+               
+               
+               
+               
+      @@@      
+     @...@     
+    @.....=    
+    @.....@    
+    @.....@    
+     @...@     
+      @@@      
+               
+               
+               
+               
+--- y=16 ---
+               
+               
+               
+               
+      ;;;      
+     ;...;     
+    ;.....;    
+    ;.....;    
+    ;.....;    
+     ;...;=    
+      ;;;      
+               
+               
+               
+               
+--- y=17 ---
+               
+               
+               
+               
+      @@@      
+     @...@     
+    @.....@    
+    @.....@    
+    @.....@    
+     @...@     
+      @@@      
+               
+               
+               
+               
+--- y=18 ---
+               
+               
+               
+               
+    ;;;;;;;    
+    ;.....;    
+    ;.....;    
+    ;.....;    
+    ;.....;    
+    ;..-..;    
+    ;;;;;;;    
+               
+               
+               
+               
+--- y=19 ---
+               
+               
+               
+               
+    ~~~~~~~    
+    ~^    ~    
+    ~     ~    
+    ~  !  ~    
+    ~     ~    
+    ~     ~    
+    ~~~~~~~    
+               
+               
+               
+               
+--- y=20 ---
+               
+               
+               
+               
+    ?     ?    
+               
+               
+       $       
+               
+               
+    ?     ?    
+               
+               
+               
+               
+--- y=21 ---
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+--- y=22 ---
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+--- y=23 ---
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+--- y=24 ---
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+--- y=25 ---
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+Légende : #=les_limbes:sable_d_opale, %=les_limbes:pave_horaire, &=les_limbes:gres_des_heures_taille, @=les_limbes:gres_des_heures, +=minecraft:lectern, ==minecraft:smooth_sandstone_stairs, *=les_limbes:porte_d_aube_door, :=minecraft:jungle_sign, ;=les_limbes:pierre_des_heures, ,=minecraft:glass_pane, .=les_limbes:planches_d_aube, -=minecraft:structure_block, ~=les_limbes:barriere_d_aube, ^=les_limbes:cadran_des_heures, !=minecraft:lightning_rod, ?=les_limbes:lanterne_nacree, $=minecraft:glass
+```
+
+## desert/jardin_fertile
+
+Jardin redevenant fertile : canaux à sec, bassin central, parterres de sable ; une fois le sablier d'opale rendu, l'eau revient (quête « Le jardin des heures »), jardinier Ismaël.
+
+- taille : [25, 12, 25]
+- blocs : 780 ; entités de bloc : 3 ; entités : 0
+- palette : les_limbes:sable_d_opale (520), les_limbes:gres_des_heures_taille (150), minecraft:jungle_leaves (26), les_limbes:gres_des_heures (25), les_limbes:pierre_des_heures (24), minecraft:dead_bush (18), minecraft:jungle_log (10), minecraft:air (2), les_limbes:pierre_nacree_sculptee (1), minecraft:gold_block (1), minecraft:chest (1), minecraft:jungle_sign (1)
+
+## montagnes/verreole
+
+Verréole : cité des Montagnes de Verre. Grande forge, palais de miroirs d'Orsane, bains de vapeur, atelier d'instruments, maisons de verriers, remontée cristalline, porte de relais.
+
+- taille : [65, 30, 65]
+- blocs : 14150 ; entités de bloc : 18 ; entités : 0
+- palette : minecraft:air (4703), les_limbes:pierre_de_verre_taillee (3314), les_limbes:pierre_de_verre (2890), minecraft:polished_deepslate_stairs (1045), les_limbes:verre_de_montagne (694), les_limbes:planches_d_aube (416), minecraft:polished_deepslate (408), les_limbes:pierre_nacree_polie (298), minecraft:polished_deepslate_slab (84), minecraft:water (65), minecraft:tinted_glass (54), les_limbes:barriere_d_aube (35)
+
+## montagnes/bains_des_sources
+
+Bains des sources : trois bassins chauds en terrasse, pavillon de pierre de verre, baigneuse Nell.
+
+- taille : [21, 10, 21]
+- blocs : 436 ; entités de bloc : 3 ; entités : 0
+- palette : les_limbes:pierre_de_verre_taillee (240), les_limbes:pierre_de_verre (66), minecraft:water (53), les_limbes:planches_d_aube (35), minecraft:polished_deepslate_slab (35), minecraft:magma_block (2), les_limbes:lanterne_nacree (2), minecraft:chest (1), minecraft:structure_block (1), minecraft:spruce_sign (1)
+
+```
+--- y=0 ---
+       #######       
+     ###########     
+    #############    
+   %%%############   
+  %&&&%############  
+ #%&@&%############# 
+ #%&&&%#%%%%%####### 
+###%%%#%%&&&%%#######
+######%%&&&&&%%######
+######%&&&&&&&%######
+######%&&&&&&&%######
+######%&&&&&&&%######
+######%%&&&&&%%%%####
+#######%%&&&%%&&&%###
+ #######%%%%%%&@&%## 
+ ############%&&&%## 
+  ############%%%##  
+   ###############   
+    #############    
+     ###########     
+       #######       
+--- y=1 ---
+                     
+                     
+                     
+            +        
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+  =======            
+  =======            
+  =======            
+  =======            
+  =======            
+                     
+                     
+--- y=2 ---
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+  %     %            
+     *               
+     :               
+                     
+  %     %            
+                     
+                     
+--- y=3 ---
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+  %     %            
+                     
+                     
+                     
+  %     %            
+                     
+                     
+--- y=4 ---
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+  %     %            
+                     
+   ;   ;             
+                     
+  %     %            
+                     
+                     
+--- y=5 ---
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+  ,,,,,,,            
+  ,,,,,,,            
+  ,,,,,,,            
+  ,,,,,,,            
+  ,,,,,,,            
+                     
+                     
+--- y=6 ---
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+--- y=7 ---
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+--- y=8 ---
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+--- y=9 ---
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+Légende : #=les_limbes:pierre_de_verre_taillee, %=les_limbes:pierre_de_verre, &=minecraft:water, @=minecraft:magma_block, +=minecraft:spruce_sign, ==les_limbes:planches_d_aube, *=minecraft:structure_block, :=minecraft:chest, ;=les_limbes:lanterne_nacree, ,=minecraft:polished_deepslate_slab
+```
+
+## montagnes/atelier_d_instruments
+
+Atelier d'instruments des Montagnes : établis de luthier, orgue de cristaux résonnants (on joue en marchant), luthier Tobie.
+
+- taille : [17, 16, 15]
+- blocs : 1380 ; entités de bloc : 3 ; entités : 0
+- palette : minecraft:air (394), les_limbes:pierre_de_verre_taillee (345), les_limbes:pierre_de_verre (271), minecraft:polished_deepslate_stairs (180), les_limbes:planches_d_aube (81), minecraft:polished_deepslate (72), minecraft:polished_deepslate_slab (15), les_limbes:cristal_resonnant (6), les_limbes:verre_de_montagne (4), minecraft:note_block (3), les_limbes:porte_d_aube_door (2), minecraft:crafting_table (1)
+
+```
+--- y=0 ---
+#################
+#################
+#################
+#################
+#################
+#################
+#################
+#################
+#################
+#################
+#################
+#################
+#################
+#################
+#################
+--- y=1 ---
+                 
+  %%%%%%%%%%%%%  
+  %&&&&&&&&&@&%  
+  %+%+%+%+%+%+%  
+  %&&&&&&&&&&&%  
+  %&&&&&&&&&&&%  
+  %&&&&&&&&&&&%  
+  %&&&&&&&&&&&%  
+  %&=*&&&&&&:&%  
+  %&&&&;&;&;&&%  
+  %&&&&&&&&&&&%  
+  %%%%%%%%%%%%%  
+                 
+                 
+                 
+--- y=2 ---
+                 
+  #%%%%%%%%%%%#  
+  %...........%  
+  %...........%  
+  %...........%  
+  %...........%  
+  %.....,.....%  
+  %...........%  
+  %...........%  
+  %...........%  
+  %...........%  
+  #%%%%%.%%%%%#  
+                 
+                 
+                 
+--- y=3 ---
+                 
+  #%%%%%%%%%%%#  
+  %...........%  
+  %...........%  
+  %...........%  
+  %...........%  
+  -...........-  
+  %...........%  
+  %...........%  
+  %...........%  
+  %...........%  
+  #-%%%%.~%%%-#  
+                 
+                 
+                 
+--- y=4 ---
+                 
+  #%%%%%%%%%%%#  
+  %...........%  
+  %...........%  
+  %...........%  
+  %...........%  
+  %...........%  
+  %...........%  
+  %...........%  
+  %...........%  
+  %...........%  
+  #%%%%%%%%%%%#  
+                 
+                 
+                 
+--- y=5 ---
+                 
+  #%%%%%%%%%%%#  
+  %...........%  
+  %...........%  
+  %...........%  
+  %...........%  
+  %.....^.....%  
+  %...........%  
+  %...........%  
+  %...........%  
+  %...........%  
+  #%%%%%%%%%%%#  
+                 
+                 
+                 
+--- y=6 ---
+                 
+  %%%%%%%%%%%%%  
+  %%%%%%%%%%%%%  
+  %%%%%%%%%%%%%  
+  %%%%%%%%%%%%%  
+  %%%%%%%%%%%%%  
+  %%%%%%%%%%%%%  
+  %%%%%%%%%%%%%  
+  %%%%%%%%%%%%%  
+  %%%%%%%%%%%%%  
+  %%%%%%%%%%%%%  
+  %%%%%%%%%%%%%  
+                 
+                 
+                 
+--- y=7 ---
+ !!!!!!!!!!!!!!! 
+ ?             ? 
+ ?             ? 
+ ?             ? 
+ ?             ? 
+ ?             ? 
+ ?             ? 
+ ?             ? 
+ ?             ? 
+ ?             ? 
+ ?             ? 
+ ?             ? 
+ !!!!!!!!!!!!!!! 
+                 
+                 
+--- y=8 ---
+                 
+ !!!!!!!!!!!!!!! 
+ ?             ? 
+ ?             ? 
+ ?             ? 
+ ?             ? 
+ ?             ? 
+ ?             ? 
+ ?             ? 
+ ?             ? 
+ ?             ? 
+ !!!!!!!!!!!!!!! 
+                 
+                 
+                 
+--- y=9 ---
+                 
+                 
+ !!!!!!!!!!!!!!! 
+ ?             ? 
+ ?             ? 
+ ?             ? 
+ ?             ? 
+ ?             ? 
+ ?             ? 
+ ?             ? 
+ !!!!!!!!!!!!!!! 
+                 
+                 
+                 
+                 
+--- y=10 ---
+                 
+                 
+                 
+ !!!!!!!!!!!!!!! 
+ ?             ? 
+ ?             ? 
+ ?             ? 
+ ?             ? 
+ ?             ? 
+ !!!!!!!!!!!!!!! 
+                 
+                 
+                 
+                 
+                 
+--- y=11 ---
+                 
+                 
+                 
+                 
+ !!!!!!!!!!!!!!! 
+ ?             ? 
+ ?             ? 
+ ?             ? 
+ !!!!!!!!!!!!!!! 
+                 
+                 
+                 
+                 
+                 
+                 
+--- y=12 ---
+                 
+                 
+                 
+                 
+                 
+ !!!!!!!!!!!!!!! 
+ ?             ? 
+ !!!!!!!!!!!!!!! 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+--- y=13 ---
+                 
+                 
+                 
+                 
+                 
+                 
+ $$$$$$$$$$$$$$$ 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+--- y=14 ---
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+--- y=15 ---
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+Légende : #=les_limbes:pierre_de_verre, %=les_limbes:pierre_de_verre_taillee, &=les_limbes:planches_d_aube, @=minecraft:chest, +=les_limbes:cristal_resonnant, ==minecraft:crafting_table, *=minecraft:fletching_table, :=minecraft:jukebox, ;=minecraft:note_block, ,=minecraft:structure_block, .=les_limbes:porte_d_aube_door, -=les_limbes:verre_de_montagne, ~=minecraft:spruce_wall_sign, ^=les_limbes:lanterne_nacree, !=minecraft:polished_deepslate_stairs, ?=minecraft:polished_deepslate, $=minecraft:polished_deepslate_slab
+```
+
+## montagnes/pont_qui_chante
+
+Pont qui chante : 45 blocs de pont de verre qui se reforment au passage au-dessus d'une gorge, culées de pierre de verre, cristaux résonnants.
+
+- taille : [9, 10, 55]
+- blocs : 773 ; entités de bloc : 2 ; entités : 0
+- palette : les_limbes:pierre_de_verre_taillee (440), les_limbes:pont_de_verre (225), minecraft:air (80), les_limbes:cristal_resonnant (14), les_limbes:pierre_de_verre (12), minecraft:spruce_sign (2)
+
+```
+--- y=0 ---
+#########
+#########
+#########
+#########
+#########
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+#########
+#########
+#########
+#########
+#########
+--- y=1 ---
+#########
+#########
+#########
+#########
+#########
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+#########
+#########
+#########
+#########
+#########
+--- y=2 ---
+#########
+#########
+#########
+#########
+#########
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+#########
+#########
+#########
+#########
+#########
+--- y=3 ---
+#########
+#########
+#########
+#########
+#########
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+#########
+#########
+#########
+#########
+#########
+--- y=4 ---
+ ####### 
+ ####### 
+%#######%
+ ####### 
+ ####### 
+ .&&&&&. 
+ .&&&&&. 
+ .&&&&&. 
+ .&&&&&. 
+ #&&&&&# 
+ .&&&&&. 
+ .&&&&&. 
+ .&&&&&. 
+ .&&&&&. 
+ .&&&&&. 
+ .&&&&&. 
+ .&&&&&. 
+ .&&&&&. 
+ #&&&&&# 
+ .&&&&&. 
+ .&&&&&. 
+ .&&&&&. 
+ .&&&&&. 
+ .&&&&&. 
+ .&&&&&. 
+ .&&&&&. 
+ .&&&&&. 
+ #&&&&&# 
+ .&&&&&. 
+ .&&&&&. 
+ .&&&&&. 
+ .&&&&&. 
+ .&&&&&. 
+ .&&&&&. 
+ .&&&&&. 
+ .&&&&&. 
+ #&&&&&# 
+ .&&&&&. 
+ .&&&&&. 
+ .&&&&&. 
+ .&&&&&. 
+ .&&&&&. 
+ .&&&&&. 
+ .&&&&&. 
+ .&&&&&. 
+ #&&&&&# 
+ .&&&&&. 
+ .&&&&&. 
+ .&&&&&. 
+ .&&&&&. 
+ ####### 
+ ####### 
+%#######%
+ ####### 
+ ####### 
+--- y=5 ---
+         
+         
+%   @   %
+         
+         
+         
+         
+         
+         
+ +     + 
+         
+         
+         
+         
+         
+         
+         
+         
+ +     + 
+         
+         
+         
+         
+         
+         
+         
+         
+ +     + 
+         
+         
+         
+         
+         
+         
+         
+         
+ +     + 
+         
+         
+         
+         
+         
+         
+         
+         
+ +     + 
+         
+         
+         
+         
+         
+         
+%   @   %
+         
+         
+--- y=6 ---
+         
+         
+%       %
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+%       %
+         
+         
+--- y=7 ---
+         
+         
++       +
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
++       +
+         
+         
+--- y=8 ---
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+--- y=9 ---
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+Légende : #=les_limbes:pierre_de_verre_taillee, %=les_limbes:pierre_de_verre, &=les_limbes:pont_de_verre, @=minecraft:spruce_sign, +=les_limbes:cristal_resonnant
+```
+
+## couronne/haute_garde
+
+Haute-Garde : cité fortifiée de Vaëron sur l'anneau extérieur de la Couronne. Remparts et tours, porte sud, place d'armes, hall, caserne, école, infirmerie, logements, marché, porte de relais.
+
+- taille : [69, 30, 69]
+- blocs : 34593 ; entités de bloc : 19 ; entités : 6
+- palette : minecraft:air (19444), les_limbes:pierre_de_couronne_taillee (5906), les_limbes:herbe_argentee (3016), minecraft:quartz_stairs (1383), les_limbes:pierre_de_couronne (1180), les_limbes:pierre_de_couronne_polie (1070), les_limbes:planches_d_aube (805), minecraft:quartz_block (534), les_limbes:terre_des_limbes (504), minecraft:quartz_slab (271), les_limbes:feuilles_d_aube (196), minecraft:glass_pane (54)
+
+## couronne/quartier_des_portes
+
+Capitale endormie, quartier des portes et des jardins : porte monumentale close, allée des lanternes éteintes, jardins figés, pavillon du gardien Elouan ; s'éveille avec la campagne.
+
+- taille : [51, 24, 41]
+- blocs : 3755 ; entités de bloc : 4 ; entités : 0
+- palette : les_limbes:pierre_de_couronne_taillee (2086), les_limbes:pierre_de_couronne_polie (649), minecraft:air (249), les_limbes:pierre_de_couronne (210), les_limbes:terre_des_limbes (180), minecraft:quartz_stairs (130), les_limbes:planches_d_aube (63), les_limbes:pierre_de_couronne_sculptee (60), minecraft:quartz_block (50), les_limbes:buche_d_aube (36), minecraft:quartz_slab (13), minecraft:soul_lantern (10)

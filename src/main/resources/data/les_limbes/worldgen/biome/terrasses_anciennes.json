@@ -1,0 +1,95 @@
+{
+  "temperature": 1.3,
+  "downfall": 0.4,
+  "has_precipitation": false,
+  "effects": {
+    "sky_color": 12769516,
+    "fog_color": 15392716,
+    "water_color": 7259368,
+    "water_fog_color": 10148080,
+    "grass_color": 12103302,
+    "foliage_color": 11836014,
+    "mood_sound": {
+      "sound": "minecraft:ambient.cave",
+      "tick_delay": 6000,
+      "block_search_extent": 8,
+      "offset": 2.0
+    },
+    "music": {
+      "sound": "minecraft:music.overworld.badlands",
+      "min_delay": 12000,
+      "max_delay": 24000,
+      "replace_current_music": false
+    }
+  },
+  "spawners": {
+    "creature": [
+      {
+        "type": "minecraft:rabbit",
+        "weight": 3,
+        "minCount": 2,
+        "maxCount": 3
+      },
+      {
+        "type": "les_limbes:lezard_cadran",
+        "weight": 8,
+        "minCount": 1,
+        "maxCount": 3
+      },
+      {
+        "type": "les_limbes:fennec_des_dunes",
+        "weight": 4,
+        "minCount": 1,
+        "maxCount": 2
+      }
+    ],
+    "ambient": [],
+    "monster": [
+      {
+        "type": "les_limbes:veilleur_egare",
+        "weight": 3,
+        "minCount": 1,
+        "maxCount": 1
+      },
+      {
+        "type": "les_limbes:sentinelle_de_sable",
+        "weight": 5,
+        "minCount": 1,
+        "maxCount": 2
+      },
+      {
+        "type": "les_limbes:scorpion_des_heures",
+        "weight": 4,
+        "minCount": 1,
+        "maxCount": 2
+      }
+    ],
+    "water_creature": [],
+    "water_ambient": [],
+    "underground_water_creature": [],
+    "axolotls": [],
+    "misc": []
+  },
+  "spawn_costs": {},
+  "carvers": {},
+  "features": [
+    [],
+    [],
+    [
+      "les_limbes:routes"
+    ],
+    [],
+    [],
+    [],
+    [
+      "les_limbes:cristaux"
+    ],
+    [],
+    [],
+    [
+      "les_limbes:herbes_des_cadrans",
+      "les_limbes:lanternes_perdues"
+    ],
+    []
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "les_limbes:block/pierre_de_verre_taillee"
+  }
+}

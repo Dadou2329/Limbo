@@ -1,0 +1,90 @@
+{
+  "nom": "Aélis",
+  "debut": [
+    {
+      "noeud": "revu",
+      "si": [
+        {
+          "drapeau": "aelis_rencontree"
+        }
+      ]
+    },
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Vous êtes monté jusqu'ici par la sève ? Alors les Jardins vous acceptent. Je suis Aélis. Sylvécime est ma ville ; les géants qui la portent sont ma famille.",
+        "On me dit prudente. C'est vrai. Certaines zones des Jardins sont fermées parce qu'elles sont dangereuses, pas parce que j'aime fermer des portes.",
+        "Un fragment de couronne… Les racines m'avaient prévenue. Si vous voulez ma confiance, aidez la serre ancienne : sa source est tarie, et ses jardiniers n'ont plus d'eau."
+      ],
+      "actions": [
+        {
+          "type": "drapeau",
+          "nom": "aelis_rencontree"
+        },
+        {
+          "type": "decouvrir_relais",
+          "id": "sylvecime",
+          "annoncer": false
+        }
+      ],
+      "choix": [
+        {
+          "texte": "Je vais voir la serre.",
+          "actions": [
+            {
+              "type": "demarrer_quete",
+              "quete": "la_source_tarie"
+            }
+          ]
+        },
+        {
+          "texte": "Enchanté, Aélis."
+        }
+      ]
+    },
+    "revu": {
+      "texte": [
+        "Les racines savent où l'eau manque. Oriane, à la serre ancienne, vous dira ce qu'il faut : un cristal de nacre dans le bassin, et la rosée remontera.",
+        "Quand les prétendants parleront du trône, souvenez-vous d'une chose : un royaume, ça s'arrose avant de se gouverner."
+      ],
+      "choix": [
+        {
+          "texte": "La source coule de nouveau.",
+          "si": [
+            {
+              "drapeau": "source_restauree"
+            },
+            {
+              "quete_active": "la_source_tarie"
+            }
+          ],
+          "actions": [
+            {
+              "type": "objectif",
+              "quete": "la_source_tarie",
+              "objectif": "rapporter"
+            }
+          ],
+          "suivant": "merci"
+        },
+        {
+          "texte": "À bientôt."
+        }
+      ]
+    },
+    "merci": {
+      "texte": [
+        "Vous avez choisi l'eau pour tous plutôt que pour les plus proches. C'est ce que j'attendais. Sylvécime vous est ouverte, et moi aussi, un peu."
+      ],
+      "choix": [
+        {
+          "texte": "Merci, Aélis."
+        }
+      ]
+    }
+  }
+}

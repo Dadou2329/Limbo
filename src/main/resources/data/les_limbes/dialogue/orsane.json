@@ -1,0 +1,97 @@
+{
+  "nom": "Orsane",
+  "debut": [
+    {
+      "noeud": "revu",
+      "si": [
+        {
+          "drapeau": "orsane_rencontree"
+        }
+      ]
+    },
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Vous êtes dans le palais des miroirs. Regardez-vous : voilà ce que vous êtes pour l'instant, quelqu'un qui porte un fragment et qui n'a rien prouvé.",
+        "Je suis Orsane. Verréole tient parce que tout y est à sa place : la forge, les bains, les voies de cristal. Les Limbes tiendraient mieux avec la même discipline.",
+        "Une voie de cristal s'est tue : le pont qui chante, au sud. Mes artisans n'y comprennent rien. Allez voir, et rapportez-moi trois éclats résonnants du pont."
+      ],
+      "actions": [
+        {
+          "type": "drapeau",
+          "nom": "orsane_rencontree"
+        },
+        {
+          "type": "decouvrir_relais",
+          "id": "verreole",
+          "annoncer": false
+        }
+      ],
+      "choix": [
+        {
+          "texte": "J'irai au pont.",
+          "actions": [
+            {
+              "type": "demarrer_quete",
+              "quete": "le_pont_qui_chante"
+            }
+          ]
+        },
+        {
+          "texte": "Majesté."
+        }
+      ]
+    },
+    "revu": {
+      "texte": [
+        "Le pont, les éclats. Je n'aime pas attendre, mais j'aime moins encore qu'on fasse les choses à moitié."
+      ],
+      "choix": [
+        {
+          "texte": "Voici trois éclats résonnants.",
+          "si": [
+            {
+              "objet": {
+                "id": "les_limbes:eclat_resonnant",
+                "nombre": 3
+              }
+            },
+            {
+              "quete_active": "le_pont_qui_chante"
+            }
+          ],
+          "actions": [
+            {
+              "type": "retirer",
+              "objet": "les_limbes:eclat_resonnant",
+              "nombre": 3
+            },
+            {
+              "type": "objectif",
+              "quete": "le_pont_qui_chante",
+              "objectif": "rapporter"
+            }
+          ],
+          "suivant": "merci"
+        },
+        {
+          "texte": "Je reviens."
+        }
+      ]
+    },
+    "merci": {
+      "texte": [
+        "Ils chantent encore. Le pont n'était pas muet : il attendait quelqu'un qui marche sans peur. Gunnar, à la forge, vous montrera ce qu'on fait de ces éclats. Vous avez gagné un peu de ma considération. Un peu."
+      ],
+      "choix": [
+        {
+          "texte": "Merci, Orsane."
+        }
+      ]
+    }
+  }
+}

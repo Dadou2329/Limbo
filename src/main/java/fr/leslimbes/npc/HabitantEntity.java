@@ -42,7 +42,8 @@ import java.util.Set;
  */
 public class HabitantEntity extends PathAwareEntity {
 	public static final Set<String> ROLES_ESSENTIELS = Set.of("maelle", "thibault", "orielle", "brann", "vaeron", "gaspard", "emile", "lisbeth", "rosalie",
-			"sabine", "loic", "hanna", "theo", "marguerite", "ysolde", "marchand_1", "marchand_2");
+			"sabine", "loic", "hanna", "theo", "marguerite", "ysolde", "marchand_1", "marchand_2",
+			"kael", "aelis", "oriane", "sahir", "ismael", "nerine", "orsane", "intendant_garde", "elouan", "anselme");
 	private static final TrackedData<String> ROLE = DataTracker.registerData(HabitantEntity.class, TrackedDataHandlerRegistry.STRING);
 	private static final TrackedData<Boolean> EN_CONVERSATION = DataTracker.registerData(HabitantEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 

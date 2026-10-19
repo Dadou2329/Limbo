@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "phase=0,visible=true": {
+      "model": "les_limbes:block/pave_horaire"
+    },
+    "phase=0,visible=false": {
+      "model": "les_limbes:block/pave_horaire_reflet"
+    },
+    "phase=1,visible=true": {
+      "model": "les_limbes:block/pave_horaire"
+    },
+    "phase=1,visible=false": {
+      "model": "les_limbes:block/pave_horaire_reflet"
+    },
+    "phase=2,visible=true": {
+      "model": "les_limbes:block/pave_horaire"
+    },
+    "phase=2,visible=false": {
+      "model": "les_limbes:block/pave_horaire_reflet"
+    },
+    "phase=3,visible=true": {
+      "model": "les_limbes:block/pave_horaire"
+    },
+    "phase=3,visible=false": {
+      "model": "les_limbes:block/pave_horaire_reflet"
+    }
+  }
+}

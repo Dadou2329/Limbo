@@ -1,0 +1,43 @@
+{
+  "titre": "Les murs de Haute-Garde",
+  "description": "Les patrouilles de Haute-Garde manquent de pain et de lanternes. Aubin, l'intendant de Vaëron, compte sur vous : cinq pains de la cour et deux lanternes royales.",
+  "acte": 3,
+  "etapes": [
+    {
+      "id": "livrer",
+      "resume": "Rassembler cinq pains de la cour (farine, miel de rosée, œuf) et deux lanternes royales (pépites d'or, cristal de nacre), puis les livrer à Aubin.",
+      "lieu": {
+        "nom": "Haute-Garde",
+        "pos": [
+          -610,
+          82,
+          -610
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "livrer",
+          "type": "parler",
+          "cible": "intendant_garde",
+          "manuel": true,
+          "texte": "Livrer cinq pains de la cour et deux lanternes royales à Aubin"
+        }
+      ]
+    }
+  ],
+  "fin": [
+    {
+      "type": "experience",
+      "niveaux": 3
+    },
+    {
+      "type": "drapeau",
+      "nom": "haute_garde_aidee"
+    },
+    {
+      "type": "message",
+      "texte": "Les patrouilles de Haute-Garde vous remercient. Elouan vous attend au quartier des portes."
+    }
+  ]
+}

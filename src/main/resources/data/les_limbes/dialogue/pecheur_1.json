@@ -1,0 +1,20 @@
+{
+  "nom": "Pêcheur",
+  "debut": [
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Ici, la mer ne tombe jamais. On a mis des années à y croire. Maintenant on pêche sans regarder en bas."
+      ],
+      "choix": [
+        {
+          "texte": "Merci."
+        }
+      ]
+    }
+  }
+}

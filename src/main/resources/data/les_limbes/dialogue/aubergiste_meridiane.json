@@ -1,0 +1,20 @@
+{
+  "nom": "Rachida",
+  "debut": [
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "L'Ombre longue : c'est le nom de l'auberge et ce qu'on y trouve. De l'ombre, de l'eau fraîche, des dattes. Les chambres donnent sur l'horloge."
+      ],
+      "choix": [
+        {
+          "texte": "Merci."
+        }
+      ]
+    }
+  }
+}

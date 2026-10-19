@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "les_limbes:farine"
+    },
+    {
+      "item": "les_limbes:farine"
+    },
+    {
+      "item": "les_limbes:miel_de_rosee"
+    },
+    {
+      "item": "minecraft:egg"
+    }
+  ],
+  "result": {
+    "id": "les_limbes:pain_de_la_cour",
+    "count": 1
+  }
+}

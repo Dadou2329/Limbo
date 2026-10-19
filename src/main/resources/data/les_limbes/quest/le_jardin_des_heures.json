@@ -1,0 +1,65 @@
+{
+  "titre": "Le jardin des heures",
+  "description": "Le jardin qui verdissait le désert est mort depuis qu'on lui a volé son sablier d'opale. Sahir veut qu'on le rende, sans rien casser. Nérine, au marché flottant de la Mer suspendue, échange un sablier contre une perle de nacre.",
+  "acte": 3,
+  "etapes": [
+    {
+      "id": "sablier",
+      "resume": "Retrouver un sablier d'opale (Nérine, au marché flottant, en échange un contre une perle de nacre) et le rendre à Ismaël, au jardin des heures.",
+      "lieu": {
+        "nom": "Jardin des heures",
+        "pos": [
+          380,
+          66,
+          1130
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "sablier",
+          "type": "parler",
+          "cible": "ismael",
+          "manuel": true,
+          "texte": "Rendre le sablier d'opale à Ismaël"
+        }
+      ]
+    },
+    {
+      "id": "rapporter",
+      "resume": "Annoncer à Sahir, aux archives de Méridiane, que le jardin est redevenu fertile.",
+      "lieu": {
+        "nom": "Méridiane",
+        "pos": [
+          150,
+          66,
+          1250
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "rapporter",
+          "type": "parler",
+          "cible": "sahir",
+          "manuel": true,
+          "texte": "Annoncer à Sahir que le jardin est fertile"
+        }
+      ]
+    }
+  ],
+  "fin": [
+    {
+      "type": "experience",
+      "niveaux": 3
+    },
+    {
+      "type": "drapeau",
+      "nom": "sahir_allie"
+    },
+    {
+      "type": "message",
+      "texte": "Les archives de Méridiane vous sont ouvertes : Sahir parlera de vous aux gardiens du passé."
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "placement": {
+    "type": "les_limbes:fixed",
+    "salt": 1013,
+    "chunks": [
+      [
+        56,
+        32
+      ]
+    ]
+  },
+  "structures": [
+    {
+      "structure": "les_limbes:serre_ancienne",
+      "weight": 1
+    }
+  ]
+}

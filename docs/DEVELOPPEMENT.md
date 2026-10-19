@@ -19,13 +19,14 @@
 | `block` | blocs à comportement (Porte des Limbes, herbe argentée, plantes, cristal) |
 | `item` | objets à comportement (boussole nacrée, Épée du Souverain, fragment de couronne) |
 | `world/dimension` | clés de la dimension, voyage par les portes, protection des brumes, positions des sites |
-| `world/gen` | fonction de densité `les_limbes:aplanir` |
+| `world/gen` | fonctions de densité `les_limbes:aplanir` et `les_limbes:regions`, features Java (lacs, mer, routes) |
+| `world/biome` | source de biomes régionale `les_limbes:regions` (Voronoï pondéré, transitions, sous-biomes) ; `LimbesRegions` porte les formules de relief |
 | `world/structure` | placement fixe `les_limbes:fixed`, structure composée `les_limbes:composee`, pièce avec marqueurs |
 | `world/state` | données du joueur (attachement persistant), état du monde (PersistentState), synchronisation |
 | `npc` | entité Habitant, réapparition des personnages essentiels, dialogues (`npc/dialogue`) |
 | `quest` | définitions, chargeur, progression, gestionnaire, signaux |
 | `power` | techniques royales (registre, arsenal, portes, décrets), majesté, recharges |
-| `entity` | créatures (poisson-lune, cerf-lanterne, Veilleur égaré) |
+| `entity` | créatures des Prairies (poisson-lune, cerf-lanterne, Veilleur égaré, raie céleste) ; `entity/region` : archétypes des espèces régionales (paisible, volant, aquatique, ennemi annoncé, ennemi tireur, monture) et projectile « éclat » |
 | `event` | branchement des événements serveur, première connexion |
 | `command` | `/limbes` (administration et diagnostic) |
 | `network` | paquets (intentions client → serveur ; affichage serveur → client) |
@@ -50,6 +51,8 @@ Tout fichier généré est regénéré par les scripts ci-dessous ; ne modifiez 
 | Script | Rôle |
 |---|---|
 | `tools/textures/gen_textures.py` | toutes les textures (blocs, objets, skins, créatures, particules, interface, icône), déterministes |
+| `tools/models/gen_models.py` | modèles d'entités JSON et textures peintes cube par cube depuis `modeles.py` (raie) et `modeles_regions.py` (25 espèces par gabarits : quadrupède, bipède, insecte, oiseau, poisson, méduse ; UV attribuées automatiquement) |
+| `tools/structgen/regions_*.py` | gabarits des villes et lieux des cinq régions (un fichier par région) |
 | `tools/sounds/gen_sounds.py` | sons originaux synthétisés (numpy → WAV → OGG via ffmpeg) |
 | `tools/datagen/gen_data.py` | blockstates, modèles, tags, butin, recettes, progrès, génération de monde, biomes, ensemble de structures des vestiges, copie de langue |
 | `tools/structgen/build_structures.py --rapport` | gabarits NBT des structures, JSON des structures composées à position fixe, rapport d'inspection (statistiques, vues ASCII, rendus PNG dans `tools/structgen/rapport/`) |
@@ -65,6 +68,8 @@ Ordre recommandé après modification : textures → sons → données → struc
 - **Un pouvoir** : une `Ability` dans `Abilities.java`, une exécution serveur, un effet client dans `EffetsClient.java`, les clés `pouvoir.les_limbes.<id>`, `.court`, `.description`.
 - **Un projet de domaine** : un fichier `projet/<id>.json` (titre, description, `indice` lisible pour les prérequis, `ordre`, `prerequis` = conditions de dialogue, `cout`, `gabarit`, `origine`, éventuellement `avant`/`origine_avant` = gabarit d'origine dont les blocs ne comptent pas comme constructions du joueur, `drapeau_monde`, `apres` = actions). Le gabarit vient de `build_structures.py` ; `ProjetManager` fait le reste (aperçu, conflits, ressources, pose, inventaires rendus, drapeau, actions). Les origines doivent rester sur le plateau aplani du manoir (rayon 40), ce que vérifie `lesProjetsLieuxEtRelaisSontCoherents`.
 - **Un lieu d'intérêt** : `lieu/<id>.json` (nom, pos, rayon, région, dimension, éventuellement `relais`) ; découverte automatique (drapeau `lieu:<id>`), carte du journal. Un relais : `relais/<id>.json` (nom, pos = point d'arrivée devant la porte) **et** une porte de relais dans un gabarit (`les_limbes:porte_de_relais` avec `{"relais": "<id>"}` dans le bloc-entité).
+- **Une créature régionale** : une fiche dans `LimbesEspeces` (archétype, taille, statistiques, sons, appât, combat, couleurs d'œuf), un modèle du même identifiant dans `tools/models/modeles_regions.py` (gabarits `quadrupede`, `bipede`, `insecte`, `oiseau`, `poisson` ou os libres), une texture d'œuf dans `gen_textures.py`, l'identifiant dans `ESPECES_REGIONALES` et une table de butin dans `BUTINS_ENTITES` (`gen_data.py`), des apparitions dans `SPAWNS_REGIONAUX` (le groupe doit correspondre au `SpawnGroup` de l'archétype : paisibles et montures `creature`, volants `ambient`, ennemis `monster`, aquatiques `water_creature`), les clés `entity.les_limbes.<id>` et `item.les_limbes.oeuf_<id>`. Le rendu client est automatique (`RenduDonneesRenderer` sous le même identifiant). La fiche est lue depuis le type d'entité (`LimbesEspeces.especeDe`) parce que le constructeur parent appelle `initGoals()` avant l'affectation des champs.
+- **Une région ou un sous-biome** : relief dans `LimbesRegions` (hauteur, pente, règle de sous-biome), biome dans `BIOMES_PAR_REGION` et appel `biome(...)` de `gen_data.py` (règles de surface par biome, végétation triée selon `ORDRE_VEGETAL`), sites aplanis dans `SITES`, gabarits dans `regions_<region>.py` et appels `site(...)` de `build_structures.py`, lieux `lieu/*.json`, relais `relais/*.json` (la porte posée par `relais(c, ...)` dans le gabarit), dialogues et noms des personnages.
 - **Une action ou condition de dialogue** : `Actions.java` / `Conditions.java` ; toute action accepte `"si": [conditions]` et `"une_fois": "<drapeau>"`.
 
 ## Commandes d'administration (`/limbes`, niveau 2)
@@ -79,6 +84,17 @@ Ordre recommandé après modification : textures → sons → données → struc
 - **`minecraft:lake` est dépréciée et plante** en bordure de chunk (lecture de biomes à deux chunks pour la glace). `les_limbes:lac` (Java) reste dans un rayon d'un chunk.
 - **Une feature listée deux fois** dans une étape de biome provoque un cycle d'ordre au chargement des registres : utilisez une feature placée distincte.
 - **Serveur de GameTest** : monde plat sans dimensions de datapack ; la génération réelle se vérifie avec `./gradlew runAutotest` (AutoTest.java), qui journalise « AUTOTEST OK/ECHEC » puis s'arrête.
+
+## Régions et créatures : leçons apprises (étape 5)
+
+- **Source de biomes** : `RegionBiomeSource` choisit la région par distance normalisée (d / rayon) aux centres, avec une bande de transition de 12 % où la frontière est déplacée par le bruit ; la fonction de densité `les_limbes:regions` lit les mêmes formules (`LimbesRegions.hauteur`) pour que relief et biome coïncident. Les Prairies gardent exactement leur relief d'avant (test `lesRegionsPlacentLesSitesEtGardentLesPrairiesInchangees`).
+- **Mer stable** : l'eau est posée par une feature Java (`MerFeature`) de y 63 vers le bas dans les colonnes « mer » ; le fond est à 41–46 et le rebord de la région est garanti au-dessus de l'eau (formule `rebord` de `LimbesRegions`), sinon la mer déborde dans la région voisine.
+- **Ordre des features** : Minecraft exige un ordre cohérent des features d'une même étape entre tous les biomes (« Feature order cycle found ») : `biome()` trie la végétation selon `ORDRE_VEGETAL`.
+- **Musiques vanilla** : seules les clés `music.overworld.<biome>` existantes sont acceptées au chargement des registres (liste dans `gen_data.py`).
+- **Apparitions** : le groupe d'apparition du biome doit correspondre au `SpawnGroup` du type ; les animaux vanilla provisoires (cabillaud, tortue, chèvre) sont remplacés par `REMPLACEMENTS_APPARITIONS`.
+- **Respiration et chute** : `LivingEntity.canBreatheInWater()` est finale et lit l'étiquette `minecraft:can_breathe_under_water` ; l'immunité à la chute passe par `minecraft:fall_damage_immune` (les deux sont écrites par `gen_data.py`).
+- **Tables de butin 1.21** : la fonction de pillage s'appelle `minecraft:enchanted_count_increase` (avec `enchantment: minecraft:looting`), plus `looting_enchant`.
+- **GameTests et créatures** : le monde de test n'a aucun joueur à moins de 128 blocs des structures : une créature non persistante est retirée dès son premier tick (`setPersistent()` dans les tests) ; plus de 24 entités au même point déclenchent les dégâts d'entassement de vanilla.
 
 ## Rendu client : leçons apprises (vérifiées par captures)
 

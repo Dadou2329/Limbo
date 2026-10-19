@@ -1,0 +1,11 @@
+{
+  "nom": "Le pont qui chante",
+  "pos": [
+    -1150,
+    104,
+    680
+  ],
+  "rayon": 30,
+  "region": "montagnes",
+  "description": "Une voie de cristal au-dessus de la gorge ; elle chante sous les pas."
+}

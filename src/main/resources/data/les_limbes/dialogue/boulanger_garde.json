@@ -1,0 +1,43 @@
+{
+  "nom": "Boulanger",
+  "debut": [
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Pain de la cour : farine, miel de rosée, un œuf. Recette de la capitale, du temps du roi. Je vends la farine si vous voulez le faire vous-même."
+      ],
+      "choix": [
+        {
+          "texte": "Trois farines contre une émeraude.",
+          "si": [
+            {
+              "objet": {
+                "id": "minecraft:emerald",
+                "nombre": 1
+              }
+            }
+          ],
+          "actions": [
+            {
+              "type": "retirer",
+              "objet": "minecraft:emerald",
+              "nombre": 1
+            },
+            {
+              "type": "donner",
+              "objet": "les_limbes:farine",
+              "nombre": 3
+            }
+          ]
+        },
+        {
+          "texte": "Merci."
+        }
+      ]
+    }
+  }
+}

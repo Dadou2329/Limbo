@@ -1,0 +1,112 @@
+{
+  "temperature": 1.2,
+  "downfall": 0.4,
+  "has_precipitation": false,
+  "effects": {
+    "sky_color": 12509424,
+    "fog_color": 15657688,
+    "water_color": 3971798,
+    "water_fog_color": 2912176,
+    "grass_color": 11061118,
+    "foliage_color": 10926190,
+    "mood_sound": {
+      "sound": "minecraft:ambient.cave",
+      "tick_delay": 6000,
+      "block_search_extent": 8,
+      "offset": 2.0
+    },
+    "music": {
+      "sound": "minecraft:music.overworld.desert",
+      "min_delay": 12000,
+      "max_delay": 24000,
+      "replace_current_music": false
+    }
+  },
+  "spawners": {
+    "creature": [
+      {
+        "type": "minecraft:rabbit",
+        "weight": 3,
+        "minCount": 2,
+        "maxCount": 3
+      },
+      {
+        "type": "minecraft:sheep",
+        "weight": 4,
+        "minCount": 2,
+        "maxCount": 3
+      },
+      {
+        "type": "minecraft:camel",
+        "weight": 2,
+        "minCount": 1,
+        "maxCount": 2
+      },
+      {
+        "type": "les_limbes:fennec_des_dunes",
+        "weight": 6,
+        "minCount": 1,
+        "maxCount": 3
+      },
+      {
+        "type": "les_limbes:gazelle_d_opale",
+        "weight": 4,
+        "minCount": 2,
+        "maxCount": 4
+      },
+      {
+        "type": "les_limbes:lezard_cadran",
+        "weight": 6,
+        "minCount": 1,
+        "maxCount": 3
+      }
+    ],
+    "ambient": [
+      {
+        "type": "les_limbes:poisson_lune",
+        "weight": 12,
+        "minCount": 3,
+        "maxCount": 6
+      }
+    ],
+    "monster": [
+      {
+        "type": "les_limbes:scorpion_des_heures",
+        "weight": 3,
+        "minCount": 1,
+        "maxCount": 1
+      }
+    ],
+    "water_creature": [],
+    "water_ambient": [],
+    "underground_water_creature": [],
+    "axolotls": [],
+    "misc": []
+  },
+  "spawn_costs": {},
+  "carvers": {},
+  "features": [
+    [],
+    [
+      "les_limbes:lacs"
+    ],
+    [
+      "les_limbes:routes"
+    ],
+    [],
+    [],
+    [],
+    [
+      "les_limbes:cristaux"
+    ],
+    [],
+    [],
+    [
+      "les_limbes:palmiers_des_heures",
+      "les_limbes:herbes_aube",
+      "les_limbes:herbes_des_cadrans",
+      "les_limbes:fleurs_rosee"
+    ],
+    []
+  ]
+}

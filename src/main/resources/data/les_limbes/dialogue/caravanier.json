@@ -1,0 +1,20 @@
+{
+  "nom": "Idir",
+  "debut": [
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Le caravansérail accueille tout ce qui marche ou vole. Chameaux, raies, voyageurs. Une caravane part pour Clairval tous les trois jours ; la route des heures est longue mais sûre."
+      ],
+      "choix": [
+        {
+          "texte": "Merci."
+        }
+      ]
+    }
+  }
+}

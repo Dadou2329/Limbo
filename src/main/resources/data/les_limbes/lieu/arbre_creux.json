@@ -1,0 +1,11 @@
+{
+  "nom": "L'arbre creux",
+  "pos": [
+    1050,
+    72,
+    620
+  ],
+  "rayon": 12,
+  "region": "jardins",
+  "description": "Un géant mort, habité jusqu'au sommet."
+}

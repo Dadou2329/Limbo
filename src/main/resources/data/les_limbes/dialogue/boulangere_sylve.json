@@ -1,0 +1,20 @@
+{
+  "nom": "Colombe",
+  "debut": [
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Le four des cimes cuit au bois de géant : une bûche tient trois jours. Mon pain au fruit de géant fait sauter plus haut, les enfants adorent ça."
+      ],
+      "choix": [
+        {
+          "texte": "Merci."
+        }
+      ]
+    }
+  }
+}

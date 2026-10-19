@@ -1,0 +1,100 @@
+{
+  "nom": "Sahir",
+  "debut": [
+    {
+      "noeud": "revu",
+      "si": [
+        {
+          "drapeau": "sahir_rencontre"
+        }
+      ]
+    },
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Asseyez-vous. Vous êtes pressé ? Ici, personne ne l'est. Je suis Sahir, et j'ai connu le roi quand vous n'étiez pas né.",
+        "Je garde les heures de Méridiane : le quartier figé, les archives, l'horloge. On me reproche de protéger le passé. Je protège des gens.",
+        "Vous portez un fragment. Alors apprenez ceci : le jardin des heures, à l'est, est mort parce qu'on lui a volé son sablier. Rendez-le, sans rien casser."
+      ],
+      "actions": [
+        {
+          "type": "drapeau",
+          "nom": "sahir_rencontre"
+        },
+        {
+          "type": "decouvrir_relais",
+          "id": "meridiane",
+          "annoncer": false
+        }
+      ],
+      "choix": [
+        {
+          "texte": "Où trouver ce sablier ?",
+          "actions": [
+            {
+              "type": "demarrer_quete",
+              "quete": "le_jardin_des_heures"
+            }
+          ],
+          "suivant": "sablier"
+        },
+        {
+          "texte": "Je comprends."
+        }
+      ]
+    },
+    "sablier": {
+      "texte": [
+        "Le sablier d'opale a été vendu au marché des objets d'ailleurs, puis emporté sur la Mer suspendue. Nérine, au marché flottant, en garde peut-être un : elle échange contre des perles de nacre."
+      ],
+      "choix": [
+        {
+          "texte": "Je le retrouverai."
+        }
+      ]
+    },
+    "revu": {
+      "texte": [
+        "Les heures passent, même ici. Le jardin attend son sablier. Et moi, je regarde ce que vous faites des gens que vous croisez : c'est à ça qu'on juge un souverain."
+      ],
+      "choix": [
+        {
+          "texte": "Le jardin est redevenu fertile.",
+          "si": [
+            {
+              "drapeau": "jardin_fertile"
+            },
+            {
+              "quete_active": "le_jardin_des_heures"
+            }
+          ],
+          "actions": [
+            {
+              "type": "objectif",
+              "quete": "le_jardin_des_heures",
+              "objectif": "rapporter"
+            }
+          ],
+          "suivant": "merci"
+        },
+        {
+          "texte": "À plus tard."
+        }
+      ]
+    },
+    "merci": {
+      "texte": [
+        "Sans rien casser. Bien. Vous avez le temps pour vous, maintenant : les archives vous sont ouvertes, et je parlerai de vous aux autres gardiens du passé."
+      ],
+      "choix": [
+        {
+          "texte": "Merci, Sahir."
+        }
+      ]
+    }
+  }
+}

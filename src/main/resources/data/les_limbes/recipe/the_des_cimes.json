@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:glass_bottle"
+    },
+    {
+      "item": "les_limbes:herbe_de_l_aube"
+    },
+    {
+      "item": "les_limbes:eclat_resonnant"
+    }
+  ],
+  "result": {
+    "id": "les_limbes:the_des_cimes",
+    "count": 2
+  }
+}

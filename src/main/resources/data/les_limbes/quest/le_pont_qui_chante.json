@@ -1,0 +1,65 @@
+{
+  "titre": "Le pont qui chante",
+  "description": "Une voie de cristal s'est tue au sud de Verréole. Orsane veut trois éclats résonnants pris sur le pont, pour comprendre.",
+  "acte": 3,
+  "etapes": [
+    {
+      "id": "eclats",
+      "resume": "Traverser le pont qui chante, au sud de Verréole, et briser ses cristaux résonnants pour en tirer trois éclats.",
+      "lieu": {
+        "nom": "Le pont qui chante",
+        "pos": [
+          -1150,
+          104,
+          680
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "eclats",
+          "type": "collecter",
+          "cible": "les_limbes:eclat_resonnant",
+          "nombre": 3,
+          "texte": "Récolter trois éclats résonnants sur le pont qui chante"
+        }
+      ]
+    },
+    {
+      "id": "rapporter",
+      "resume": "Rapporter les éclats à Orsane, au palais des miroirs de Verréole.",
+      "lieu": {
+        "nom": "Palais des miroirs",
+        "pos": [
+          -1150,
+          96,
+          500
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "rapporter",
+          "type": "parler",
+          "cible": "orsane",
+          "manuel": true,
+          "texte": "Rapporter trois éclats résonnants à Orsane"
+        }
+      ]
+    }
+  ],
+  "fin": [
+    {
+      "type": "experience",
+      "niveaux": 3
+    },
+    {
+      "type": "drapeau",
+      "nom": "orsane_alliee"
+    },
+    {
+      "type": "message",
+      "texte": "Orsane vous accorde un peu de sa considération. Gunnar, à la forge, sait ce qu'on fait des éclats."
+    }
+  ]
+}

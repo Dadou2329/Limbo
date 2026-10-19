@@ -1,0 +1,20 @@
+{
+  "nom": "Rolande",
+  "debut": [
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Sergent Rolande. La garde s'entraîne à l'aube sur la place. Si vous savez tenir une lame, venez : on manque de bras depuis que les routes se sont rallongées."
+      ],
+      "choix": [
+        {
+          "texte": "Merci."
+        }
+      ]
+    }
+  }
+}

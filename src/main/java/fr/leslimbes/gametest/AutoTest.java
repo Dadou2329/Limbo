@@ -33,8 +33,14 @@ public final class AutoTest {
 	private static final boolean ACTIF = Boolean.getBoolean("les_limbes.autotest");
 	private static final List<String> ECHECS = new ArrayList<>();
 	private static final List<String> SUCCES = new ArrayList<>();
+	/** Points de contrôle des régions (un chunk et ses voisins chargés) : eau de la Mer, plateau de Verréole, dunes, jardins, Couronne. */
+	private static final List<BlockPos> POINTS_REGIONS = List.of(new BlockPos(880, 63, -680), LimbesSites.VERREOLE, LimbesSites.MERIDIANE, LimbesSites.SYLVECIME, LimbesSites.HAUTE_GARDE,
+			LimbesSites.MERIDIANE.add(90, 0, 0), LimbesSites.SYLVECIME.add(90, 0, 0));
 	private static final List<BlockPos> SITES = List.of(LimbesSites.SANCTUAIRE, LimbesSites.CLAIRVAL, LimbesSites.MANOIR, LimbesSites.RELAIS_ROYAL,
-			LimbesSites.LAC_DU_CREPUSCULE, LimbesSites.ARRIVEE_PRAIRIES_1);
+			LimbesSites.LAC_DU_CREPUSCULE, LimbesSites.ARRIVEE_PRAIRIES_1,
+			// Villes et lieux des régions dont l'auto-test vérifie les personnages ou les créatures (rayon de deux chunks : les toiles font jusqu'à 71 blocs).
+			LimbesSites.PORT_NACRE, LimbesSites.MARCHE_FLOTTANT, LimbesSites.SYLVECIME, LimbesSites.SERRE_ANCIENNE, LimbesSites.CLAIRIERE_DU_GEANT,
+			LimbesSites.MERIDIANE, LimbesSites.JARDIN_FERTILE, LimbesSites.VERREOLE, LimbesSites.HAUTE_GARDE, LimbesSites.QUARTIER_DES_PORTES);
 	private static int phase;
 	private static long tickDepart;
 	private static long debutGeneration;
@@ -94,6 +100,16 @@ public final class AutoTest {
 				}
 			}
 		}
+		for (BlockPos point : POINTS_REGIONS) {
+			ChunkPos c = new ChunkPos(point);
+			for (int dx = -1; dx <= 1; dx++) {
+				for (int dz = -1; dz <= 1; dz++) {
+					limbes.setChunkForced(c.x + dx, c.z + dz, true);
+					limbes.getChunk(c.x + dx, c.z + dz);
+					chunks++;
+				}
+			}
+		}
 		double secondes = (System.nanoTime() - debutGeneration) / 1.0E9;
 		LesLimbes.LOGGER.info("AUTOTEST : {} chunks des Limbes générés en {} s (machine de test, sans client)", chunks, String.format("%.1f", secondes));
 	}
@@ -143,9 +159,12 @@ public final class AutoTest {
 		verifier(!limbes.getBlockState(LimbesSites.RELAIS_ROYAL.down()).isAir(), "sol du relais");
 		// Personnages essentiels et Veilleurs.
 		for (String[] r : new String[][]{{"maelle", "0", "82", "0"}, {"thibault", "14", "66", "128"}, {"brann", "16", "66", "146"}, {"vaeron", "3", "66", "142"},
-				{"orielle", "-120", "66", "157"}, {"gaspard", "150", "66", "60"}}) {
+				{"orielle", "-120", "66", "157"}, {"gaspard", "150", "66", "60"},
+				{"kael", "950", "66", "-750"}, {"aelis", "1050", "72", "350"}, {"sahir", "150", "66", "1250"}, {"orsane", "-1150", "96", "500"}, {"intendant_garde", "-610", "82", "-610"},
+				{"oriane", "900", "72", "520"}, {"ismael", "380", "66", "1130"}, {"nerine", "800", "63", "-600"}, {"elouan", "-900", "78", "-720"}}) {
 			BlockPos centre = new BlockPos(Integer.parseInt(r[1]), Integer.parseInt(r[2]), Integer.parseInt(r[3]));
-			List<HabitantEntity> l = limbes.getEntitiesByClass(HabitantEntity.class, new Box(centre).expand(32, 24, 32), h -> h.getRole().equals(r[0]));
+			// Grande hauteur : Aélis siège au sommet de Sylvécime (y 110), Kaël à la capitainerie, Orsane au palais.
+			List<HabitantEntity> l = limbes.getEntitiesByClass(HabitantEntity.class, new Box(centre).expand(32, 64, 32), h -> h.getRole().equals(r[0]));
 			verifier(!l.isEmpty(), "personnage « " + r[0] + " » présent près de " + centre.toShortString());
 		}
 		List<VeilleurEgareEntity> veilleurs = limbes.getEntitiesByClass(VeilleurEgareEntity.class, new Box(LimbesSites.RELAIS_ROYAL).expand(32, 24, 32), e -> true);
@@ -174,7 +193,9 @@ public final class AutoTest {
 		verifier(maison != null, "définition d'Arrivée « maison_egaree » chargée");
 		if (maison != null) {
 			Optional<fr.leslimbes.arrivee.ArriveeEvenement> e = fr.leslimbes.arrivee.ArriveeManager.declencher(server, maison, "prairies_1");
-			verifier(e.isPresent(), "Arrivée « La maison égarée » déclenchée sur le site prairies_1");
+			String raison = fr.leslimbes.arrivee.ArriveeLoader.sites().values().stream().filter(st -> st.id().equals("prairies_1")).findFirst()
+					.map(st -> fr.leslimbes.arrivee.ArriveeManager.raisonOccupation(limbes, st.pos().add(-8, -1, -8), new net.minecraft.util.math.Vec3i(17, 8, 17))).orElse("site inconnu");
+			verifier(e.isPresent(), "Arrivée « La maison égarée » déclenchée sur le site prairies_1" + (e.isPresent() ? "" : " (zone : " + raison + ")"));
 			if (e.isPresent()) {
 				verifier(limbes.getBlockState(new BlockPos(67, 66, 206)).isOf(net.minecraft.block.Blocks.SMOKER), "four à pain de la maison égarée en 67/66/206 (trouvé " + limbes.getBlockState(new BlockPos(67, 66, 206)) + ")");
 				List<HabitantEntity> emile = limbes.getEntitiesByClass(HabitantEntity.class, new Box(siteArrivee).expand(16, 16, 16), h -> h.getRole().equals("emile"));
@@ -184,7 +205,9 @@ public final class AutoTest {
 			}
 		}
 		// Portes de relais générées avec leur identifiant (sanctuaire, Clairval, relais royal).
-		for (Object[] porte : new Object[][] {{new BlockPos(-8, 83, 0), "sanctuaire"}, {new BlockPos(0, 66, 149), "clairval"}, {new BlockPos(148, 66, 54), "relais_royal"}}) {
+		for (Object[] porte : new Object[][] {{new BlockPos(-8, 83, 0), "sanctuaire"}, {new BlockPos(0, 66, 149), "clairval"}, {new BlockPos(148, 66, 54), "relais_royal"},
+				{new BlockPos(950, 66, -761), "port_nacre"}, {new BlockPos(1040, 72, 362), "sylvecime"}, {new BlockPos(150, 66, 1234), "meridiane"},
+				{new BlockPos(-1150, 96, 487), "verreole"}, {new BlockPos(-622, 82, -610), "haute_garde"}}) {
 			BlockPos pp = (BlockPos) porte[0];
 			net.minecraft.block.BlockState etatPorte = limbes.getBlockState(pp);
 			String relaisId = limbes.getBlockEntity(pp) instanceof fr.leslimbes.block.PorteDeRelaisBlock.PorteDeRelaisBlockEntity be ? be.getRelais() : "(aucun)";
@@ -249,6 +272,68 @@ public final class AutoTest {
 			verifier(raies.size() == 1, "la raie disparue est recréée par le sifflet (trouvé " + raies.size() + ")");
 			raies.forEach(r -> r.discard());
 		}
+		// Régions : biome, relief et matériaux aux points de contrôle.
+		verifier(fr.leslimbes.world.dimension.LimbesRegions.region(0, 140) == fr.leslimbes.world.dimension.LimbesRegions.Region.PRAIRIES, "Clairval est dans les Prairies");
+		BlockPos merPt = POINTS_REGIONS.get(0);
+		String biomeMer = limbes.getBiome(merPt).getKey().map(k -> k.getValue().toString()).orElse("?");
+		verifier(biomeMer.endsWith("lagons_inverses") || biomeMer.endsWith("recifs_celestes") || biomeMer.endsWith("archipel_des_epaves"), "biome de la Mer suspendue en " + merPt.toShortString() + " : " + biomeMer);
+		verifier(limbes.getBlockState(merPt).isOf(net.minecraft.block.Blocks.WATER) && limbes.getBlockState(merPt.up()).isAir(), "eau de la Mer suspendue à " + merPt.toShortString() + " et air au-dessus (trouvé " + limbes.getBlockState(merPt) + " / " + limbes.getBlockState(merPt.up()) + ")");
+		int profondeur = 0;
+		for (int y = merPt.getY(); y > 20 && limbes.getBlockState(new BlockPos(merPt.getX(), y, merPt.getZ())).isOf(net.minecraft.block.Blocks.WATER); y--) {
+			profondeur++;
+		}
+		verifier(profondeur >= 6, "la Mer a de la profondeur (" + profondeur + " blocs d'eau)");
+		BlockPos verreole = LimbesSites.VERREOLE;
+		verifier(!limbes.getBlockState(verreole.down()).isAir() && limbes.getBlockState(verreole).isAir(), "plateau de Verréole à " + verreole.getY() + " (sol " + limbes.getBlockState(verreole.down()) + ")");
+		String biomeMontagne = limbes.getBiome(verreole).getKey().map(k -> k.getValue().toString()).orElse("?");
+		verifier(biomeMontagne.contains("verre") || biomeMontagne.contains("resonnantes") || biomeMontagne.contains("cristal"), "biome des Montagnes de Verre à Verréole : " + biomeMontagne);
+		BlockPos dune = LimbesSites.MERIDIANE.add(90, 0, 0);
+		int yDune = limbes.getTopY(net.minecraft.world.Heightmap.Type.WORLD_SURFACE, dune.getX(), dune.getZ()) - 1;
+		BlockState solDune = limbes.getBlockState(new BlockPos(dune.getX(), yDune, dune.getZ()));
+		verifier(solDune.isOf(LimbesBlocks.SABLE_D_OPALE) || solDune.isOf(LimbesBlocks.PIERRE_DES_HEURES) || solDune.isOf(LimbesBlocks.GRES_DES_HEURES) || solDune.isOf(LimbesBlocks.GRES_DES_HEURES_TAILLE)
+				|| solDune.isIn(net.minecraft.registry.tag.BlockTags.LEAVES) || solDune.isOf(net.minecraft.block.Blocks.JUNGLE_LOG) || solDune.isOf(LimbesBlocks.HERBE_DE_L_AUBE),
+				"sol du Désert des Heures près de Méridiane : " + solDune + " à y=" + yDune);
+		BlockPos jardin = LimbesSites.SYLVECIME.add(90, 0, 0);
+		int yJardin = limbes.getTopY(net.minecraft.world.Heightmap.Type.OCEAN_FLOOR, jardin.getX(), jardin.getZ()) - 1;
+		BlockState solJardin = limbes.getBlockState(new BlockPos(jardin.getX(), yJardin, jardin.getZ()));
+		verifier(solJardin.isOf(LimbesBlocks.HERBE_DES_GEANTS) || solJardin.isOf(LimbesBlocks.BUCHE_DE_GEANT) || solJardin.isOf(LimbesBlocks.PETALE_ROSE) || solJardin.isOf(LimbesBlocks.PETALE_BLEU)
+				|| solJardin.isOf(LimbesBlocks.TERRE_DES_LIMBES) || solJardin.isOf(LimbesBlocks.PLANCHES_DE_GEANT) || solJardin.isIn(net.minecraft.registry.tag.BlockTags.LEAVES),
+				"sol des Jardins des Géants près de Sylvécime : " + solJardin + " à y=" + yJardin);
+		BlockPos garde = LimbesSites.HAUTE_GARDE;
+		int yGarde = limbes.getTopY(net.minecraft.world.Heightmap.Type.WORLD_SURFACE, garde.getX(), garde.getZ()) - 1;
+		verifier(yGarde >= garde.getY() - 1 && yGarde <= garde.getY() + 8, "plateau de Haute-Garde bâti vers " + garde.getY() + " (surface à " + yGarde + ", " + limbes.getBlockState(new BlockPos(garde.getX(), yGarde, garde.getZ())) + ")");
+		// Créatures régionales : chaque espèce se crée et vit sur le serveur dédié, les biomes des régions les font
+		// apparaître, et le géant dort dans sa clairière (marqueur de structure).
+		int especes = 0;
+		for (var entree : fr.leslimbes.registry.LimbesEspeces.types().entrySet()) {
+			net.minecraft.entity.mob.MobEntity e = entree.getValue().create(limbes);
+			if (e != null) {
+				e.refreshPositionAndAngles(0.5, 120, 0.5, 0, 0);
+				limbes.spawnEntity(e);
+				if (e.isAlive()) {
+					especes++;
+				}
+				e.discard();
+			}
+		}
+		verifier(especes == fr.leslimbes.registry.LimbesEspeces.types().size() && especes >= 24, "les " + especes + " espèces régionales se créent sur le serveur dédié");
+		verifier(limbes.getBiome(merPt).value().getSpawnSettings().getSpawnEntries(net.minecraft.entity.SpawnGroup.WATER_CREATURE).getEntries().stream()
+				.anyMatch(s -> s.type == fr.leslimbes.registry.LimbesEspeces.type("poisson_lanterne")), "la Mer suspendue fait apparaître des poissons-lanternes");
+		verifier(limbes.getBiome(dune).value().getSpawnSettings().getSpawnEntries(net.minecraft.entity.SpawnGroup.MONSTER).getEntries().stream()
+				.anyMatch(s -> fr.leslimbes.registry.LimbesEspeces.types().containsValue(s.type)), "le Désert des Heures a ses propres ennemis");
+		List<fr.leslimbes.entity.region.CreaturePaisibleEntity> geants = limbes.getEntitiesByClass(fr.leslimbes.entity.region.CreaturePaisibleEntity.class,
+				new Box(LimbesSites.CLAIRIERE_DU_GEANT).expand(24, 16, 24), c -> c.espece().id.equals("geant_des_jardins"));
+		verifier(!geants.isEmpty(), "le géant des jardins dort dans sa clairière (trouvé " + geants.size() + ")");
+		int routes = 0;
+		for (int x = -8; x <= 8; x++) {
+			for (int z = 140; z <= 160; z++) {
+				int y = limbes.getTopY(net.minecraft.world.Heightmap.Type.WORLD_SURFACE, x, z) - 1;
+				if (limbes.getBlockState(new BlockPos(x, y, z)).isOf(net.minecraft.block.Blocks.DIRT_PATH)) {
+					routes++;
+				}
+			}
+		}
+		verifier(routes > 0, "une route pavée est posée au sud de la place de Clairval (" + routes + " pavés)");
 		// Overworld : un vestige est localisable depuis le point d'apparition.
 		ServerWorld overworld = server.getWorld(World.OVERWORLD);
 		long t0 = System.nanoTime();
