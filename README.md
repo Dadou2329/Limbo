@@ -4,7 +4,7 @@ Dimension d'aventure pour **Minecraft Java 1.21.1 / Fabric**.
 
 Tout ce qui disparaît ailleurs finit par arriver dans les Limbes : un navire perdu rejoint une mer suspendue, une bibliothèque oubliée réapparaît dans une montagne. Le joueur y découvre des prairies d'argent sous un ciel de nacre, un village accueillant, un manoir à faire revivre, une grande magie royale et, au loin, le palais de la Couronne Immobile dont le trône attend un nouveau souverain.
 
-Le projet est développé par tranches jouables. **Cette version (0.6.0) contient la première tranche « Le Passage »** — l'entrée dans les Limbes, le Sanctuaire de l'Arrivée, Clairval, le manoir, le premier sauvetage, les premiers pouvoirs royaux et la rencontre de Vaëron —, **la tranche de qualité** (monture, Arrivées, mini-aventures), **le domaine** (dix projets, six compagnons, salle des passages, galerie, journal avec carte et options), **les six régions** (villes, vingt lieux, trente créatures dont six montures) **et la campagne des prétendants** : actes II à IV, les cinq prétendants avec leurs aventures, leurs reconnaissances (négociation, expédition, duel rituel, tournoi) et leurs duels à phases, la capitale endormie qui s'éveille quartier par quartier, le duel final contre Vaëron, le couronnement jouable et le premier acte royal, **les trente-trois techniques royales** (sept branches, quatre emplacements, sélection radiale, Avènement) **et le règne** (acte V : la cité arrivée de Brumeval, le grand tournoi, le navire royal, les frontières). Elle n'est pas la dimension complète : voir `docs/ETAT_AVANCEMENT.md` et `docs/BACKLOG.md`.
+Le projet est développé par tranches jouables. **Cette version (1.0.0) contient la première tranche « Le Passage »** — l'entrée dans les Limbes, le Sanctuaire de l'Arrivée, Clairval, le manoir, le premier sauvetage, les premiers pouvoirs royaux et la rencontre de Vaëron —, **la tranche de qualité** (monture, Arrivées, mini-aventures), **le domaine** (dix projets, six compagnons, salle des passages, galerie, journal avec carte et options), **les six régions** (villes, vingt lieux, trente créatures dont six montures) **et la campagne des prétendants** : actes II à IV, les cinq prétendants avec leurs aventures, leurs reconnaissances (négociation, expédition, duel rituel, tournoi) et leurs duels à phases, la capitale endormie qui s'éveille quartier par quartier, le duel final contre Vaëron, le couronnement jouable et le premier acte royal, **les trente-trois techniques royales** (sept branches, quatre emplacements, sélection radiale, Avènement) **et le règne** (acte V : la cité arrivée de Brumeval, le grand tournoi, le navire royal, les frontières), **et la complétion** : quarante quêtes secondaires, treize types d'Arrivées, blocs de décor, musiques originales par région, budgets serveur configurables et profil graphique. C'est la dimension complète décrite par le cahier des charges, vérifiée par les tests automatiques et des captures client ; ce qui n'a pas été vérifié « en main » est listé dans `docs/ETAT_AVANCEMENT.md` et `docs/BACKLOG.md`.
 
 Tout le contenu destiné au joueur est en français.
 
@@ -39,7 +39,7 @@ Le JAR est produit dans `build/libs/les-limbes-<version>.jar`. Il nécessite [Fa
 
 ## Captures
 
-Images prises par le scénario automatique (`docs/captures/`, client 1.21.1 en rendu logiciel) :
+Images prises par le scénario automatique (`docs/captures/`, client 1.21.1 en rendu logiciel, fenêtre 854 × 480) :
 
 | Arche de retour du Sanctuaire | Dialogue avec Maëlle |
 |---|---|
@@ -52,6 +52,20 @@ Images prises par le scénario automatique (`docs/captures/`, client 1.21.1 en r
 | Relais royal et Veilleur égaré | Nuit sur Clairval |
 |---|---|
 | ![Relais](docs/captures/11_relais.jpg) | ![Nuit](docs/captures/12_nuit_constellations.jpg) |
+
+| Raie céleste au-dessus du Sanctuaire | Sylvécime, perchée dans les géants |
+|---|---|
+| ![Raie](docs/captures/13_raie_celeste.jpg) | ![Sylvécime](docs/captures/19_sylvecime.jpg) |
+
+| Pont de lumière sur le Lac du Crépuscule | Sélection rapide des techniques |
+|---|---|
+| ![Pont](docs/captures/26_pont_de_lumiere.jpg) | ![Sélection](docs/captures/27_selection_radiale.jpg) |
+
+| Avènement : couronne et manteau | Brumeval, la cité arrivée |
+|---|---|
+| ![Avènement](docs/captures/28_avenement.jpg) | ![Brumeval](docs/captures/29_brumeval.jpg) |
+
+Les trente-six captures de la campagne finale (étapes 1 à 8) sont dans `docs/captures/`.
 
 ## Licence
 

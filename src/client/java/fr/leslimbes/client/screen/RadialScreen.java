@@ -45,19 +45,21 @@ public class RadialScreen extends Screen {
 		if (branche.isEmpty() && !branches.isEmpty()) {
 			branche = branches.get(0);
 		}
-		int rb = Math.min(70, Math.min(width, height) / 4);
-		for (int i = 0; i < branches.size(); i++) {
-			final String b = branches.get(i);
-			double a = -Math.PI / 2 + i * Math.PI * 2 / branches.size();
-			int bx = cx + (int) Math.round(Math.cos(a) * rb) - 40;
-			int by = cy + (int) Math.round(Math.sin(a) * rb) - 9;
-			ButtonWidget bouton = ButtonWidget.builder(Text.translatable("branche.les_limbes." + b), bt -> {
-				branche = b;
-				clearChildren();
-				init();
-			}).dimensions(bx, by, 80, 18).build();
-			bouton.active = !b.equals(branche);
-			addDrawableChild(bouton);
+		// Branches : une rangée d'onglets sous le titre (les noms des branches ne tiennent pas dans un anneau aux
+		// petites résolutions ; les techniques, elles, ont un libellé court).
+		if (!branches.isEmpty()) {
+			int lo = Math.min(72, (width - 16) / branches.size() - 2);
+			int x = cx - (branches.size() * (lo + 2) - 2) / 2;
+			for (String b : branches) {
+				ButtonWidget bouton = ButtonWidget.builder(Text.translatable("branche.les_limbes." + b + ".court"), bt -> {
+					branche = b;
+					clearChildren();
+					init();
+				}).dimensions(x, 36, lo, 18).build();
+				bouton.active = !b.equals(branche);
+				addDrawableChild(bouton);
+				x += lo + 2;
+			}
 		}
 		List<String> pouvoirs = new ArrayList<>();
 		for (String id : data.pouvoirs) {
@@ -67,12 +69,20 @@ public class RadialScreen extends Screen {
 			}
 		}
 		pouvoirs.sort(String::compareTo);
-		int rp = Math.min(rb + 70, Math.min(width, height) / 2 - 24);
+		// Techniques : une ellipse qui exploite la largeur de l'écran ; boutons à la taille du libellé le plus long,
+		// jamais plus serrés que leur largeur (neuf techniques tiennent même en 427 × 240).
+		int w = 56;
+		for (String id : pouvoirs) {
+			w = Math.max(w, textRenderer.getWidth(Text.translatable("pouvoir.les_limbes." + id + ".court")) + 12);
+		}
+		w = Math.min(w, 96);
+		int rx = Math.min(170, width / 2 - w / 2 - 8);
+		int ry = Math.min(95, Math.max(30, height / 2 - 9 - 58));
 		for (int i = 0; i < pouvoirs.size(); i++) {
 			final String id = pouvoirs.get(i);
 			double a = -Math.PI / 2 + i * Math.PI * 2 / Math.max(1, pouvoirs.size());
-			int px = cx + (int) Math.round(Math.cos(a) * rp) - 55;
-			int py = cy + (int) Math.round(Math.sin(a) * rp) - 9;
+			int px = cx + (int) Math.round(Math.cos(a) * rx) - w / 2;
+			int py = cy + 6 + (int) Math.round(Math.sin(a) * ry) - 9;
 			addDrawableChild(ButtonWidget.builder(Text.translatable("pouvoir.les_limbes." + id + ".court"), bt -> {
 				if (hasShiftDown()) {
 					int slot = 0;
@@ -90,12 +100,14 @@ public class RadialScreen extends Screen {
 					ClientPlayNetworking.send(new LimbesPayloads.UtiliserPouvoirId(id));
 					close();
 				}
-			}).dimensions(px, py, 110, 18).build());
+			}).dimensions(px, py, w, 18).build());
 		}
 	}
 
+	/** Tout ce qui est dessiné avant {@code super.renderBackground} serait flouté avec le monde (1.21). */
 	@Override
-	public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+	public void renderBackground(DrawContext context, int mouseX, int mouseY, float delta) {
+		super.renderBackground(context, mouseX, mouseY, delta);
 		PlayerLimbesData data = ClientLimbesData.get();
 		context.fill(0, 0, width, height, 0x70000000);
 		int cx = width / 2;
@@ -105,8 +117,14 @@ public class RadialScreen extends Screen {
 		if (data.pouvoirs.isEmpty()) {
 			context.drawCenteredTextWithShadow(textRenderer, Text.translatable("ecran.les_limbes.journal.aucun_pouvoir"), cx, cy - 4, GRIS);
 		} else {
-			context.drawCenteredTextWithShadow(textRenderer, Text.translatable("branche.les_limbes." + branche), cx, cy - 4, OR);
+			context.drawCenteredTextWithShadow(textRenderer, Text.translatable("branche.les_limbes." + branche), cx, cy + 2, OR);
 		}
+	}
+
+	@Override
+	public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+		PlayerLimbesData data = ClientLimbesData.get();
+		int cx = width / 2;
 		super.render(context, mouseX, mouseY, delta);
 		// Détail de la technique survolée : coût, recharge, description, emplacement.
 		survol = "";

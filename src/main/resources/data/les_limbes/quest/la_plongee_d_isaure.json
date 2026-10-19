@@ -1,0 +1,73 @@
+{
+  "titre": "La plongée d'Isaure",
+  "acte": 3,
+  "description": "Isaure, la plongeuse, veut du corail de nacre du sanctuaire des bancs pour réparer les parures de la capitainerie.",
+  "etapes": [
+    {
+      "id": "corail",
+      "resume": "Plonger jusqu'au sanctuaire des bancs et remonter quatre coraux de nacre.",
+      "lieu": {
+        "nom": "Port-Nacre",
+        "pos": [
+          950,
+          66,
+          -750
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "sanctuaire",
+          "type": "atteindre",
+          "pos": [
+            1050,
+            44,
+            -560
+          ],
+          "rayon": 14,
+          "dimension": "les_limbes:limbes",
+          "texte": "Plonger jusqu'au sanctuaire des bancs"
+        },
+        {
+          "id": "corail",
+          "type": "collecter",
+          "cible": "les_limbes:corail_de_nacre",
+          "nombre": 4,
+          "texte": "Remonter quatre coraux de nacre"
+        }
+      ]
+    },
+    {
+      "id": "retour",
+      "resume": "Rapporter le corail à Isaure.",
+      "lieu": {
+        "nom": "Port-Nacre",
+        "pos": [
+          950,
+          66,
+          -750
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "retour",
+          "type": "parler",
+          "cible": "plongeuse",
+          "manuel": true,
+          "texte": "Rapporter le corail à Isaure"
+        }
+      ]
+    }
+  ],
+  "fin": [
+    {
+      "type": "experience",
+      "niveaux": 3
+    },
+    {
+      "type": "drapeau",
+      "nom": "la_plongee_d_isaure_terminee"
+    }
+  ]
+}

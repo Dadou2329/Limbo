@@ -21,6 +21,8 @@ public final class OptionsLimbes {
 	private static OptionsLimbes instance;
 
 	public int densiteEffets = 100;
+	/** Profil graphique : 0 bas (particules réduites, pas de secousses), 1 normal, 2 élevé (particules doublées). */
+	public int profil = 1;
 	public boolean secousses = true;
 	public boolean flashes = true;
 	public boolean marqueurs = true;
@@ -48,6 +50,7 @@ public final class OptionsLimbes {
 						o.indicesVus = new LinkedHashSet<>();
 					}
 					o.densiteEffets = Math.max(25, Math.min(100, o.densiteEffets));
+					o.profil = Math.max(0, Math.min(2, o.profil));
 					return o;
 				}
 			} catch (IOException | RuntimeException e) {
@@ -74,7 +77,22 @@ public final class OptionsLimbes {
 
 	/** Nombre de particules à émettre pour une quantité de référence. */
 	public int quantite(int base) {
-		return Math.max(1, base * densiteEffets / 100);
+		int facteur = profil == 0 ? 50 : profil == 2 ? 200 : 100;
+		return Math.max(1, base * densiteEffets * facteur / 10000);
+	}
+
+	public void cyclerProfil() {
+		profil = (profil + 1) % 3;
+		if (profil == 0) {
+			secousses = false;
+		} else if (profil == 1) {
+			secousses = true;
+		}
+		sauvegarder();
+	}
+
+	public String nomProfil() {
+		return net.minecraft.text.Text.translatable("ecran.les_limbes.options.profil." + (profil == 0 ? "bas" : profil == 2 ? "eleve" : "normal")).getString();
 	}
 
 	public boolean indiceVu(String id) {

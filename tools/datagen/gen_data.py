@@ -50,6 +50,13 @@ def lb(path: str) -> str:
 
 
 # ----------------------------------------------------------------------------- blocs
+# Blocs que la génération peut poser (sols, plafonds, plantes, coraux, cristaux, arbres) : étiquette
+# les_limbes:terrain_naturel, lue par ArriveeManager.naturel pour qu'une Arrivée ne détruise jamais une construction.
+TERRAIN_NATUREL = ["pierre_nacree", "terre_des_limbes", "herbe_argentee", "herbe_des_geants", "sable_de_nacre", "sable_d_opale",
+                   "gres_des_heures", "pierre_des_heures", "pierre_de_verre", "verre_de_montagne", "pierre_de_couronne",
+                   "corail_azur", "corail_de_nacre", "cristal_de_nacre", "cristal_resonnant", "fibres_nacrees", "herbe_de_l_aube",
+                   "fleur_de_rosee", "petale_bleu", "petale_rose", "buche_d_aube", "feuilles_d_aube", "pousse_d_aube",
+                   "buche_de_geant", "feuilles_de_geant"]
 CUBE_ALL = ["pierre_nacree", "pierre_nacree_taillee", "pierre_nacree_polie", "pierre_nacree_sculptee",
             "planches_d_aube", "terre_des_limbes", "cristal_de_nacre", "feuilles_d_aube", "meule_royale",
             # régions (étape 5)
@@ -309,6 +316,23 @@ def gen_blocks() -> None:
     asset("models/block", "pont_royal_trame", {"textures": {"particle": lb("block/pont_royal_trame"), "r": lb("block/pont_royal_trame")},
                                                "elements": [{"from": [0, 0, 0], "to": [16, 1, 16], "faces": {f: {"texture": "#r"} for f in ["north", "south", "east", "west", "up", "down"]}}]})
     asset("models/item", "pont_royal", {"parent": lb("block/pont_royal")})
+    # Décor (étape 8) : tapis (modèle vanilla de tapis), vase (éléments), guirlande (cordon et trois lanternes, deux axes).
+    asset("blockstates", "tapis_de_nacre", {"variants": {"": {"model": lb("block/tapis_de_nacre")}}})
+    asset("models/block", "tapis_de_nacre", {"parent": mc("block/carpet"), "textures": {"wool": lb("block/tapis_de_nacre")}})
+    asset("models/item", "tapis_de_nacre", {"parent": lb("block/tapis_de_nacre")})
+    asset("blockstates", "vase_de_nacre", {"variants": {"": {"model": lb("block/vase_de_nacre")}}})
+    asset("models/block", "vase_de_nacre", {"textures": {"particle": lb("block/vase_de_nacre"), "v": lb("block/vase_de_nacre")}, "elements": [
+        {"from": [5, 0, 5], "to": [11, 2, 11], "faces": {f: {"texture": "#v", "uv": [5, 14, 11, 16]} for f in ["north", "south", "east", "west", "up", "down"]}},
+        {"from": [4, 2, 4], "to": [12, 8, 12], "faces": {f: {"texture": "#v", "uv": [4, 6, 12, 14]} for f in ["north", "south", "east", "west", "up", "down"]}},
+        {"from": [5, 8, 5], "to": [11, 11, 11], "faces": {f: {"texture": "#v", "uv": [5, 0, 11, 6]} for f in ["north", "south", "east", "west", "up", "down"]}},
+        {"from": [6, 11, 6], "to": [10, 13, 10], "faces": {f: {"texture": "#v", "uv": [6, 0, 10, 2]} for f in ["north", "south", "east", "west", "up"]}}]})
+    asset("models/item", "vase_de_nacre", {"parent": lb("block/vase_de_nacre")})
+    asset("blockstates", "guirlande_de_fete", {"variants": {"axis=x": {"model": lb("block/guirlande_de_fete")}, "axis=z": {"model": lb("block/guirlande_de_fete"), "y": 90}}})
+    asset("models/block", "guirlande_de_fete", {"textures": {"particle": lb("block/guirlande_de_fete"), "g": lb("block/guirlande_de_fete")}, "elements": [
+        {"from": [0, 15, 8], "to": [16, 16, 8], "faces": {"north": {"texture": "#g", "uv": [0, 0, 16, 1]}, "south": {"texture": "#g", "uv": [0, 0, 16, 1]}}},
+        *[{"from": [x, 9, 7], "to": [x + 2, 14, 9], "faces": {f: {"texture": "#g", "uv": [0, 2, 2, 7]} for f in ["north", "south", "east", "west", "down"]}} for x in (2, 7, 12)],
+        *[{"from": [x, 14, 8], "to": [x + 2, 15, 8], "faces": {"north": {"texture": "#g", "uv": [4, 2, 6, 3]}, "south": {"texture": "#g", "uv": [4, 2, 6, 3]}}} for x in (2, 7, 12)]]})
+    asset("models/item", "guirlande_de_fete", {"parent": mc("item/generated"), "textures": {"layer0": lb("item/guirlande_de_fete")}})
     # Pont de lumière (décret « Que le chemin s'ouvre ») : cube translucide.
     asset("blockstates", "pont_de_lumiere", {"variants": {"": {"model": lb("block/pont_de_lumiere")}}})
     asset("models/block", "pont_de_lumiere", {"parent": mc("block/cube_all"), "textures": {"all": lb("block/pont_de_lumiere")}})
@@ -390,12 +414,18 @@ SOUNDS = {
 }
 
 
+# Musiques originales (étape 8) : une pièce par région, jouée par ses biomes (voir biome()).
+REGIONS_MUSIQUE = ["prairies", "mer", "jardins", "desert", "montagnes", "couronne"]
+
+
 def gen_particles_sounds() -> None:
     for p in ["etoile_royale", "eclat_de_nacre", "lueur", "brume"]:
         asset("particles", p, {"textures": [lb(p)]})
     sounds = {}
     for event, (path, subtitle) in SOUNDS.items():
         sounds[event] = {"subtitle": subtitle, "sounds": [lb(path)]}
+    for region in REGIONS_MUSIQUE:
+        sounds["musique." + region] = {"subtitle": "subtitles.les_limbes.musique", "sounds": [{"name": lb("musique/" + region), "stream": True}]}
     write(os.path.join(ASSETS, "sounds.json"), sounds)
 
 
@@ -425,12 +455,11 @@ def gen_tags() -> None:
     tag("block", "../../minecraft/tags/block/logs_that_burn", [lb("buche_d_aube"), lb("buche_de_geant")])
     tag("block", "../../minecraft/tags/block/sand", [lb("sable_de_nacre"), lb("sable_d_opale")])
     tag("block", "../../minecraft/tags/block/dirt", [lb("terre_des_limbes"), lb("herbe_argentee"), lb("herbe_des_geants")])
-    tag("block", "../../minecraft/tags/block/dirt", [lb("terre_des_limbes"), lb("herbe_argentee")])
     tag("block", "../../minecraft/tags/block/animals_spawnable_on", [lb("herbe_argentee")])
-    tag("block", "../../minecraft/tags/block/logs", [lb("buche_d_aube")])
-    tag("block", "../../minecraft/tags/block/logs_that_burn", [lb("buche_d_aube")])
+    tag("block", "terrain_naturel", [lb(b) for b in TERRAIN_NATUREL])
+    # Trouvailles posées par la génération (lanternes perdues) : une Arrivée peut se poser dessus, elles tombent en objets.
+    tag("block", "trouvailles", [lb("lanterne_nacree"), lb("lanterne_royale")])
     tag("block", "../../minecraft/tags/block/planks", [lb("planches_d_aube")])
-    tag("block", "../../minecraft/tags/block/leaves", [lb("feuilles_d_aube")])
     tag("block", "../../minecraft/tags/block/saplings", [lb("pousse_d_aube")])
     tag("block", "../../minecraft/tags/block/fences", [lb("barriere_d_aube")])
     tag("block", "../../minecraft/tags/block/wooden_fences", [lb("barriere_d_aube")])
@@ -535,7 +564,8 @@ def gen_loot() -> None:
               "sable_de_nacre", "corail_de_nacre", "corail_azur", "buche_de_geant", "planches_de_geant", "herbe_des_geants", "petale_rose", "petale_bleu", "seve_ascendante",
               "sable_d_opale", "gres_des_heures", "gres_des_heures_taille", "pierre_des_heures", "cadran_des_heures",
               "pierre_de_verre", "pierre_de_verre_taillee", "verre_de_montagne", "courant_cristallin",
-              "pierre_de_couronne", "pierre_de_couronne_taillee", "pierre_de_couronne_polie", "pierre_de_couronne_sculptee", "lanterne_royale"]:
+              "pierre_de_couronne", "pierre_de_couronne_taillee", "pierre_de_couronne_polie", "pierre_de_couronne_sculptee", "lanterne_royale",
+              "tapis_de_nacre", "vase_de_nacre", "guirlande_de_fete"]:
         data("loot_table/blocks", b, self_drop(b))
     for b in ["pave_horaire", "pont_de_verre", "porte_royale", "pont_royal", "pont_de_lumiere"]:
         data("loot_table/blocks", b, {"type": "minecraft:block", "pools": []})
@@ -610,6 +640,15 @@ def gen_loot() -> None:
     coffre("belvedere", [("minecraft:gold_ingot", 3, 2, 4), (lb("pierre_de_couronne_sculptee"), 2, 2, 4), (lb("lanterne_royale"), 2, 1, 2), ("minecraft:emerald", 2, 1, 3)], rolls=(2, 3), garanti=[lb("sceau_royal")])
     # Étape 7 : l'île des ruines garantit le journal de l'expédition royale ; la cabine du navire royal est garnie.
     coffre("ruines", [("minecraft:gold_ingot", 2, 1, 3), (lb("perle_de_nacre"), 3, 1, 2), (lb("pierre_de_couronne_sculptee"), 2, 1, 3), ("minecraft:emerald", 1, 1, 2)], rolls=(2, 3), garanti=[lb("journal_de_bord")])
+    # Étape 8 : coffres des nouvelles Arrivées
+    coffre("charrette", [("minecraft:bread", 4, 2, 5), ("minecraft:hay_block", 2, 1, 3), (lb("farine"), 3, 2, 4), ("minecraft:leather", 2, 1, 2), ("minecraft:emerald", 1, 1, 2)], rolls=(2, 3))
+    coffre("puits", [("minecraft:bucket", 2, 1, 1), (lb("fragment_de_nacre"), 2, 1, 2), ("minecraft:emerald", 2, 1, 3), ("minecraft:string", 2, 2, 5)], rolls=(2, 3))
+    coffre("kiosque", [("minecraft:note_block", 2, 1, 2), ("minecraft:paper", 3, 2, 6), ("minecraft:music_disc_strad", 1, 1, 1), (lb("perle_de_nacre"), 1, 1, 2)], rolls=(2, 3))
+    coffre("radeau", [("minecraft:cod", 3, 2, 5), ("minecraft:spruce_planks", 2, 4, 8), ("minecraft:fishing_rod", 1, 1, 1), (lb("perle_de_nacre"), 2, 1, 3), ("minecraft:compass", 1, 1, 1)], rolls=(2, 4))
+    coffre("serre_tombee", [("minecraft:wheat_seeds", 3, 3, 6), ("minecraft:carrot", 3, 2, 5), ("minecraft:potato", 3, 2, 5), ("minecraft:bone_meal", 2, 2, 4), (lb("fleur_de_rosee"), 1, 1, 2)], rolls=(2, 4))
+    coffre("tente", [(lb("dattes_des_heures"), 3, 2, 5), ("minecraft:leather_boots", 1, 1, 1), ("minecraft:paper", 2, 1, 3), ("minecraft:gold_nugget", 2, 2, 5), (lb("sable_d_opale"), 2, 2, 4)], rolls=(2, 3))
+    coffre("cloche", [("minecraft:copper_ingot", 3, 2, 4), (lb("eclat_resonnant"), 3, 1, 3), (lb("the_des_cimes"), 2, 1, 2), ("minecraft:amethyst_shard", 2, 1, 3)], rolls=(2, 3))
+    coffre("bibliotheque", [("minecraft:book", 3, 2, 5), ("minecraft:paper", 3, 3, 8), ("minecraft:ink_sac", 2, 1, 3), (lb("perle_de_nacre"), 2, 1, 2), ("minecraft:enchanted_book", 1, 1, 1)], rolls=(2, 4))
     coffre("navire_royal", [(lb("poisson_lanterne"), 3, 2, 5), ("minecraft:bread", 3, 2, 4), (lb("perle_de_nacre"), 2, 1, 2), ("minecraft:spyglass", 1, 1, 1), (lb("fibres_nacrees"), 2, 2, 4)], rolls=(2, 4))
     coffre("haute_garde", [(lb("pain_de_la_cour"), 4, 1, 3), ("minecraft:iron_ingot", 3, 2, 4), (lb("pierre_de_couronne_taillee"), 2, 4, 8), ("minecraft:shield", 1, 0, 0), (lb("lanterne_royale"), 1, 1, 2)])
     data("loot_table/chests", "manoir", {"type": "minecraft:chest", "pools": [
@@ -674,6 +713,10 @@ def shapeless(name, ingredients, result, count=1):
 
 def gen_recipes() -> None:
     shapeless("planches_d_aube", [lb("buche_d_aube")], lb("planches_d_aube"), 4)
+    # Décor (étape 8)
+    shaped("tapis_de_nacre", ["##"], {"#": lb("fibres_nacrees")}, lb("tapis_de_nacre"), 3)
+    shaped("vase_de_nacre", ["# #", "###"], {"#": lb("pierre_nacree_taillee")}, lb("vase_de_nacre"), 1)
+    shaped("guirlande_de_fete", ["#L#"], {"#": lb("fibres_nacrees"), "L": lb("lanterne_nacree")}, lb("guirlande_de_fete"), 2)
     shaped("escalier_d_aube", ["#  ", "## ", "###"], {"#": lb("planches_d_aube")}, lb("escalier_d_aube"), 4)
     shaped("dalle_d_aube", ["###"], {"#": lb("planches_d_aube")}, lb("dalle_d_aube"), 6)
     shaped("barriere_d_aube", ["#/#", "#/#"], {"#": lb("planches_d_aube"), "/": "minecraft:stick"}, lb("barriere_d_aube"), 3)
@@ -818,6 +861,12 @@ SITES = [
     {"x": 1030, "z": -800, "y": 56, "rayon": 24, "transition": 14},   # Chantier naval (fond plat sous la Mer, le navire royal y est bâti)
     {"x": 1300, "z": -1000, "y": 70, "rayon": 26, "transition": 18},  # Île des ruines (expédition du navire royal)
     {"x": -900, "z": -1380, "y": 86, "rayon": 30, "transition": 24},  # Lisière des brumes (frontière du nord, l'ancien roi)
+    # --- Étape 8 : sites d'Arrivée des régions ---
+    {"x": 900, "z": -650, "y": 66, "rayon": 16, "transition": 14},    # Îlot d'Arrivée de la Mer (radeau)
+    {"x": 960, "z": 400, "y": 72, "rayon": 16, "transition": 14},     # Site d'Arrivée des Jardins (serre)
+    {"x": 260, "z": 1150, "y": 66, "rayon": 16, "transition": 14},    # Site d'Arrivée du Désert (tente)
+    {"x": -1060, "z": 560, "y": 96, "rayon": 16, "transition": 14},   # Site d'Arrivée des Montagnes (cloche)
+    {"x": -720, "z": -760, "y": 82, "rayon": 16, "transition": 14},   # Site d'Arrivée de la Couronne (bibliothèque)
 ]
 
 
@@ -931,7 +980,8 @@ def surface_rules() -> dict:
         # Prairies (et défaut)
         cond(floor(False), cond(above(24), block("herbe_argentee"))),
         cond(floor(True), cond(above(24), block("terre_des_limbes"))),
-        cond({"type": "minecraft:stone_depth", "add_surface_depth": False, "offset": 0, "secondary_depth_range": 0, "surface_type": "ceiling"}, block("pierre_nacree_polie"))]}
+        # Plafonds (surplombs, grottes) : pierre nacrée brute, jamais un bloc de construction (zones d'Arrivée).
+        cond({"type": "minecraft:stone_depth", "add_surface_depth": False, "offset": 0, "secondary_depth_range": 0, "surface_type": "ceiling"}, block("pierre_nacree"))]}
 
 
 def gen_worldgen() -> None:
@@ -1089,6 +1139,9 @@ def gen_worldgen() -> None:
 
     def biome(name, temperature, sky, fog, water, water_fog, grass, foliage, features_vegetal, creatures, ambient, monsters, music,
               lacs=True, cristaux=True, mer=False, carvers=False, water_creatures=None, extra_underground=None):
+        for region_musique, noms in BIOMES_PAR_REGION.items():
+            if name in noms:
+                music = lb("musique." + region_musique)
         features = [[] for _ in range(11)]
         features[1] = ([lb("lacs")] if lacs else []) + ([lb("mer")] if mer else [])
         features[2] = [lb("routes")]

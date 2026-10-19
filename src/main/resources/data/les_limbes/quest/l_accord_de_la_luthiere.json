@@ -1,0 +1,73 @@
+{
+  "titre": "L'accord de la luthière",
+  "acte": 3,
+  "description": "La luthière de l'atelier d'instruments cherche l'accord du pont qui chante : six éclats résonnants, et le pont écouté de près.",
+  "etapes": [
+    {
+      "id": "accord",
+      "resume": "Écouter le pont qui chante et rapporter six éclats résonnants.",
+      "lieu": {
+        "nom": "Atelier d'instruments",
+        "pos": [
+          -1320,
+          100,
+          620
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "pont",
+          "type": "atteindre",
+          "pos": [
+            -1150,
+            104,
+            680
+          ],
+          "rayon": 30,
+          "dimension": "les_limbes:limbes",
+          "texte": "Écouter le pont qui chante"
+        },
+        {
+          "id": "eclats",
+          "type": "collecter",
+          "cible": "les_limbes:eclat_resonnant",
+          "nombre": 6,
+          "texte": "Réunir six éclats résonnants"
+        }
+      ]
+    },
+    {
+      "id": "retour",
+      "resume": "Rapporter les éclats à la luthière.",
+      "lieu": {
+        "nom": "Atelier d'instruments",
+        "pos": [
+          -1320,
+          100,
+          620
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "retour",
+          "type": "parler",
+          "cible": "luthiere",
+          "manuel": true,
+          "texte": "Rapporter les éclats à la luthière"
+        }
+      ]
+    }
+  ],
+  "fin": [
+    {
+      "type": "experience",
+      "niveaux": 3
+    },
+    {
+      "type": "drapeau",
+      "nom": "l_accord_de_la_luthiere_terminee"
+    }
+  ]
+}

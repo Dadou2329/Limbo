@@ -1,0 +1,17 @@
+{
+  "titre": "La serre tombée",
+  "description": "Une serre de verre et de chêne arrachée à un potager d'ailleurs : blé, carottes et pommes de terre y poussent encore.",
+  "echelle": "petite",
+  "gabarit": "les_limbes:arrivees/serre_tombee",
+  "ancre": [
+    3,
+    1,
+    3
+  ],
+  "sites": "jardins",
+  "poids": 15,
+  "unique": false,
+  "duree": 48000,
+  "prerequis": [],
+  "annonce": "Un éclat de verre et de verdure tombe dans les Jardins"
+}

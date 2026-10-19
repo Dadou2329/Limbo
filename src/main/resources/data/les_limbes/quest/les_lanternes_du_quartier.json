@@ -1,0 +1,61 @@
+{
+  "titre": "Les lanternes du quartier",
+  "acte": 3,
+  "description": "Elouan veut rallumer le quartier des portes avant la capitale : quatre lanternes royales pour ses lampadaires.",
+  "etapes": [
+    {
+      "id": "lanternes",
+      "resume": "Réunir quatre lanternes royales pour Elouan.",
+      "lieu": {
+        "nom": "Quartier des portes",
+        "pos": [
+          -900,
+          78,
+          -720
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "lanternes",
+          "type": "collecter",
+          "cible": "les_limbes:lanterne_royale",
+          "nombre": 4,
+          "texte": "Réunir quatre lanternes royales"
+        }
+      ]
+    },
+    {
+      "id": "retour",
+      "resume": "Apporter les lanternes à Elouan, au quartier des portes.",
+      "lieu": {
+        "nom": "Quartier des portes",
+        "pos": [
+          -900,
+          78,
+          -720
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "retour",
+          "type": "parler",
+          "cible": "elouan",
+          "manuel": true,
+          "texte": "Apporter les lanternes à Elouan"
+        }
+      ]
+    }
+  ],
+  "fin": [
+    {
+      "type": "experience",
+      "niveaux": 3
+    },
+    {
+      "type": "drapeau",
+      "nom": "les_lanternes_du_quartier_terminee"
+    }
+  ]
+}

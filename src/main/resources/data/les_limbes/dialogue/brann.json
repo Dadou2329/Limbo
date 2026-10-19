@@ -1,7 +1,30 @@
 {
   "nom": "Brann",
   "debut": [
-    {"noeud": "forge"}
+    {
+      "noeud": "les_lanternes_du_pont_fin",
+      "si": [
+        {
+          "quete_active": "les_lanternes_du_pont"
+        },
+        {
+          "quete_etape": {
+            "les_lanternes_du_pont": "=1"
+          }
+        }
+      ]
+    },
+    {
+      "noeud": "les_lanternes_du_pont_cours",
+      "si": [
+        {
+          "quete_active": "les_lanternes_du_pont"
+        }
+      ]
+    },
+    {
+      "noeud": "forge"
+    }
   ],
   "noeuds": {
     "forge": {
@@ -9,8 +32,28 @@
         "Je suis Brann. Je forge ce qu'on me demande, quand j'ai le métal. Pour l'instant, je répare surtout des charrues."
       ],
       "choix": [
-        {"texte": "Que pouvez-vous forger ?", "suivant": "metal"},
-        {"texte": "Bonne journée."}
+        {
+          "texte": "Le pont est sombre, la nuit. Que puis-je faire ?",
+          "si": [
+            {
+              "quete_inconnue": "les_lanternes_du_pont"
+            }
+          ],
+          "actions": [
+            {
+              "type": "demarrer_quete",
+              "quete": "les_lanternes_du_pont"
+            }
+          ],
+          "suivant": "les_lanternes_du_pont_cours"
+        },
+        {
+          "texte": "Que pouvez-vous forger ?",
+          "suivant": "metal"
+        },
+        {
+          "texte": "Bonne journée."
+        }
       ]
     },
     "metal": {
@@ -18,7 +61,72 @@
         "Rien de royal, pas encore. Mais rapportez-moi des éclats de nacre et du cristal, et on verra ce que ce vieux fourneau sait encore faire."
       ],
       "choix": [
-        {"texte": "Je m'en souviendrai."}
+        {
+          "texte": "Le pont est sombre, la nuit. Que puis-je faire ?",
+          "si": [
+            {
+              "quete_inconnue": "les_lanternes_du_pont"
+            }
+          ],
+          "actions": [
+            {
+              "type": "demarrer_quete",
+              "quete": "les_lanternes_du_pont"
+            }
+          ],
+          "suivant": "les_lanternes_du_pont_cours"
+        },
+        {
+          "texte": "Je m'en souviendrai."
+        }
+      ]
+    },
+    "les_lanternes_du_pont_cours": {
+      "texte": [
+        "Six lanternes nacrées : du cristal de nacre, des fibres, une bougie de lumière. Je les monte sur les piles du pont, et plus personne n'arrivera dans le noir."
+      ],
+      "choix": [
+        {
+          "texte": "J'y vais."
+        }
+      ]
+    },
+    "les_lanternes_du_pont_fin": {
+      "texte": [
+        "Six lanternes ! Je grimpe les poser ce soir. Tenez, du cristal pour vos propres outils : un forgeron paie ses dettes."
+      ],
+      "choix": [
+        {
+          "texte": "Voici les six lanternes.",
+          "si": [
+            {
+              "objet": {
+                "id": "les_limbes:lanterne_nacree",
+                "nombre": 6
+              }
+            }
+          ],
+          "actions": [
+            {
+              "type": "retirer",
+              "objet": "les_limbes:lanterne_nacree",
+              "nombre": 6
+            },
+            {
+              "type": "donner",
+              "objet": "les_limbes:cristal_de_nacre",
+              "nombre": 4
+            },
+            {
+              "type": "objectif",
+              "quete": "les_lanternes_du_pont",
+              "objectif": "retour"
+            }
+          ]
+        },
+        {
+          "texte": "Pas tout de suite."
+        }
       ]
     }
   }

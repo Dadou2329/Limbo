@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "#L#"
+  ],
+  "key": {
+    "#": {
+      "item": "les_limbes:fibres_nacrees"
+    },
+    "L": {
+      "item": "les_limbes:lanterne_nacree"
+    }
+  },
+  "result": {
+    "id": "les_limbes:guirlande_de_fete",
+    "count": 2
+  }
+}

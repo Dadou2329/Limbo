@@ -48,6 +48,7 @@ public final class LesLimbesClient implements ClientModInitializer {
 		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), LimbesBlocks.LANTERNE_ROYALE_ETEINTE, LimbesBlocks.PORTE_ROYALE);
 		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getTranslucent(), LimbesBlocks.PONT_ROYAL);
 		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getTranslucent(), LimbesBlocks.PONT_DE_LUMIERE);
+		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), LimbesBlocks.VASE_DE_NACRE, LimbesBlocks.GUIRLANDE_DE_FETE);
 		// Arc du Souverain : mêmes prédicats de modèle que l'arc vanilla (tension, bandé).
 		net.minecraft.client.item.ModelPredicateProviderRegistry.register(fr.leslimbes.registry.LimbesItems.ARC_DU_SOUVERAIN, net.minecraft.util.Identifier.ofVanilla("pull"),
 				(stack, world, entity, seed) -> entity == null || entity.getActiveItem() != stack ? 0.0F : (stack.getMaxUseTime(entity) - entity.getItemUseTimeLeft()) / 20.0F);

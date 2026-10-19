@@ -166,12 +166,104 @@ class DonneesTest {
 				manquantes.add(subtitle);
 			}
 			for (var s : sounds.getAsJsonObject(key).getAsJsonArray("sounds")) {
-				String path = s.getAsString().substring("les_limbes:".length());
+				String nom = s.isJsonObject() ? s.getAsJsonObject().get("name").getAsString() : s.getAsString();
+				String path = nom.substring("les_limbes:".length());
 				assertTrue(Files.exists(ASSETS.resolve("sounds/" + path + ".ogg")), "fichier son manquant : " + path);
 			}
 		}
 		assertTrue(manquantes.isEmpty(), "clés de langue manquantes : " + manquantes);
 		assertEquals(Files.readString(ASSETS.resolve("lang/fr_fr.json")), Files.readString(ASSETS.resolve("lang/en_us.json")), "en_us doit être la copie de fr_fr (jeu entièrement en français)");
+	}
+
+	@Test
+	void lesMusiquesDesBiomesSontDesSonsEnregistres() throws IOException {
+		// Le champ music des biomes est résolu dans le registre des événements sonores : un son déclaré
+		// seulement dans sounds.json ferait échouer le chargement de la dimension (serveur dédié compris).
+		String source = Files.readString(Paths.get("src/main/java/fr/leslimbes/registry/LimbesSounds.java"), StandardCharsets.UTF_8);
+		Set<String> enregistres = new HashSet<>();
+		java.util.regex.Matcher m = java.util.regex.Pattern.compile("register\\(\"([a-z0-9_.]+)\"\\)").matcher(source);
+		while (m.find()) {
+			enregistres.add("les_limbes:" + m.group(1));
+		}
+		assertTrue(enregistres.size() >= 40, "LimbesSounds doit déclarer les sons du mod");
+		JsonObject sounds = json(ASSETS.resolve("sounds.json"));
+		for (String id : enregistres) {
+			assertTrue(sounds.has(id.substring("les_limbes:".length())), "son enregistré sans entrée dans sounds.json : " + id);
+		}
+		for (String cle : sounds.keySet()) {
+			assertTrue(enregistres.contains("les_limbes:" + cle), "son de sounds.json non enregistré dans LimbesSounds : " + cle);
+		}
+		List<Path> biomes = fichiers(DATA.resolve("worldgen/biome"), ".json");
+		assertEquals(18, biomes.size(), "les six régions comptent trois biomes chacune");
+		for (Path biome : biomes) {
+			JsonObject effets = json(biome).getAsJsonObject("effects");
+			assertTrue(effets.has("music"), "musique absente du biome " + biome.getFileName());
+			String son = effets.getAsJsonObject("music").get("sound").getAsString();
+			assertTrue(enregistres.contains(son), "musique non enregistrée dans LimbesSounds : " + son + " (" + biome.getFileName() + ")");
+		}
+	}
+
+	@Test
+	void leTerrainNaturelCouvreLaGenerationSansBlocsDeConstruction() throws IOException {
+		// Une Arrivée ne se pose que sur du terrain naturel : tout bloc que la génération peut poser doit figurer
+		// dans l'étiquette terrain_naturel, et aucun bloc de construction ne doit s'y glisser (sinon elle écraserait
+		// les constructions des joueurs).
+		Set<String> naturel = new HashSet<>();
+		for (var v : json(DATA.resolve("tags/block/terrain_naturel.json")).getAsJsonArray("values")) {
+			naturel.add(v.getAsString());
+		}
+		assertTrue(naturel.size() >= 20, "étiquette terrain_naturel trop courte");
+		Set<String> surface = new HashSet<>();
+		collecterNoms(json(DATA.resolve("worldgen/noise_settings/limbes.json")).get("surface_rule"), surface);
+		assertTrue(surface.size() >= 8, "règles de surface illisibles");
+		for (String b : surface) {
+			assertTrue(naturel.contains(b), "bloc des règles de surface absent du terrain naturel : " + b);
+		}
+		Set<String> tolere = new HashSet<>(Set.of("minecraft:jungle_log", "minecraft:jungle_leaves"));
+		for (var v : json(DATA.resolve("tags/block/trouvailles.json")).getAsJsonArray("values")) {
+			tolere.add(v.getAsString());
+		}
+		for (Path p : fichiers(DATA.resolve("worldgen/configured_feature"), ".json")) {
+			Set<String> noms = new HashSet<>();
+			collecterNoms(json(p), noms);
+			for (String b : noms) {
+				assertTrue(naturel.contains(b) || tolere.contains(b), "bloc posé par " + p.getFileName() + " ni naturel ni toléré : " + b);
+			}
+		}
+		// Les étiquettes vanilla étendues par le mod (feuilles, bûches, terre) doivent contenir les blocs des géants :
+		// une écriture en double du même fichier a déjà fait disparaître les feuilles de géant de « leaves ».
+		Path vanilla = RES.resolve("data/minecraft/tags/block");
+		for (String[] attendu : new String[][] {{"leaves", "les_limbes:feuilles_de_geant"}, {"logs", "les_limbes:buche_de_geant"},
+				{"logs_that_burn", "les_limbes:buche_de_geant"}, {"dirt", "les_limbes:herbe_des_geants"}, {"leaves", "les_limbes:feuilles_d_aube"}}) {
+			Set<String> valeurs = new HashSet<>();
+			for (var v : json(vanilla.resolve(attendu[0] + ".json")).getAsJsonArray("values")) {
+				valeurs.add(v.getAsString());
+			}
+			assertTrue(valeurs.contains(attendu[1]), "étiquette minecraft:" + attendu[0] + " sans " + attendu[1]);
+		}
+		for (String b : naturel) {
+			assertFalse(b.matches(".*(taillee|polie|sculptee|planches|dalle|escalier|muret|lanterne|porte|vitrine|meule).*"), "bloc de construction déclaré naturel : " + b);
+			assertTrue(Files.exists(ASSETS.resolve("blockstates/" + b.substring("les_limbes:".length()) + ".json")), "bloc inconnu dans terrain_naturel : " + b);
+		}
+	}
+
+	static void collecterNoms(com.google.gson.JsonElement e, Set<String> out) {
+		if (e == null) {
+			return;
+		}
+		if (e.isJsonObject()) {
+			JsonObject o = e.getAsJsonObject();
+			if (o.has("Name") && o.get("Name").isJsonPrimitive()) {
+				out.add(o.get("Name").getAsString());
+			}
+			for (String k : o.keySet()) {
+				collecterNoms(o.get(k), out);
+			}
+		} else if (e.isJsonArray()) {
+			for (var v : e.getAsJsonArray()) {
+				collecterNoms(v, out);
+			}
+		}
 	}
 
 	@Test
@@ -238,6 +330,7 @@ class DonneesTest {
 		}
 		fr.leslimbes.arrivee.ArriveeLoader.chargerDepuisJson(textes, sites);
 		assertEquals(defs.size(), fr.leslimbes.arrivee.ArriveeLoader.definitions().size());
+		assertTrue(defs.size() >= 12, "au moins douze types d'Arrivées (trouvé " + defs.size() + ")");
 		String terrain = json(DATA.resolve("worldgen/density_function/terrain.json")).toString();
 		for (fr.leslimbes.arrivee.ArriveeSite site : fr.leslimbes.arrivee.ArriveeLoader.sites().values()) {
 			assertTrue(terrain.contains("\"x\":" + site.pos().getX() + ",\"z\":" + site.pos().getZ()), "site d'Arrivée non aplani : " + site.id());
@@ -267,6 +360,7 @@ class DonneesTest {
 		fr.leslimbes.domaine.DomaineLoader.chargerDepuisJson(projets, lieux, relais);
 		assertTrue(fr.leslimbes.domaine.DomaineLoader.projets().size() >= 10, "au moins dix projets de domaine");
 		assertTrue(fr.leslimbes.domaine.DomaineLoader.lieux().size() >= 10, "au moins dix lieux d'intérêt");
+		assertTrue(fichiers(DATA.resolve("quest"), ".json").size() >= 56, "au moins seize quêtes principales et quarante secondaires (trouvé " + fichiers(DATA.resolve("quest"), ".json").size() + ")");
 		assertEquals(11, fr.leslimbes.domaine.DomaineLoader.relais().size());
 		Set<String> prerequisConnus = Set.of("drapeau", "drapeau_monde", "sans_drapeau", "sans_drapeau_monde", "pouvoir", "quete_terminee", "quete_active", "objet", "tout", "un_de", "non");
 		Set<String> actionsConnues = Set.of("message", "drapeau", "drapeau_monde", "deplacer_pnj", "donner", "pouvoir", "decouvrir_relais", "decouvrir_lieu", "titre", "son", "poser_structure",

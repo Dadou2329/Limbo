@@ -48,6 +48,13 @@ public final class LimbesSounds {
 	public static final SoundEvent POUVOIR_CONSTELLATION = register("pouvoir.constellation");
 	public static final SoundEvent POUVOIR_AVENEMENT = register("pouvoir.avenement");
 	public static final SoundEvent BALEINE_CHANT = register("creature.baleine.chant");
+	/** Musiques d'ambiance par région (référencées par le champ music des biomes ; doivent exister dans le registre). */
+	public static final SoundEvent MUSIQUE_PRAIRIES = register("musique.prairies");
+	public static final SoundEvent MUSIQUE_MER = register("musique.mer");
+	public static final SoundEvent MUSIQUE_JARDINS = register("musique.jardins");
+	public static final SoundEvent MUSIQUE_DESERT = register("musique.desert");
+	public static final SoundEvent MUSIQUE_MONTAGNES = register("musique.montagnes");
+	public static final SoundEvent MUSIQUE_COURONNE = register("musique.couronne");
 
 	private static SoundEvent register(String path) {
 		Identifier id = LesLimbes.id(path);

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "les_limbes:fibres_nacrees"
+    }
+  },
+  "result": {
+    "id": "les_limbes:tapis_de_nacre",
+    "count": 3
+  }
+}

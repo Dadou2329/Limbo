@@ -15,6 +15,27 @@
       ]
     },
     {
+      "noeud": "les_lanternes_du_quartier_fin",
+      "si": [
+        {
+          "quete_active": "les_lanternes_du_quartier"
+        },
+        {
+          "quete_etape": {
+            "les_lanternes_du_quartier": "=1"
+          }
+        }
+      ]
+    },
+    {
+      "noeud": "les_lanternes_du_quartier_cours",
+      "si": [
+        {
+          "quete_active": "les_lanternes_du_quartier"
+        }
+      ]
+    },
+    {
       "noeud": "ouverts",
       "si": [
         {
@@ -77,7 +98,73 @@
       ],
       "choix": [
         {
+          "texte": "Le quartier est bien sombre.",
+          "si": [
+            {
+              "quete_inconnue": "les_lanternes_du_quartier"
+            },
+            {
+              "drapeau_monde": "capitale_niveau_1"
+            }
+          ],
+          "actions": [
+            {
+              "type": "demarrer_quete",
+              "quete": "les_lanternes_du_quartier"
+            }
+          ],
+          "suivant": "les_lanternes_du_quartier_cours"
+        },
+        {
           "texte": "Merci, Elouan."
+        }
+      ]
+    },
+    "les_lanternes_du_quartier_cours": {
+      "texte": [
+        "Les lampadaires sont là, les lanternes non. Quatre lanternes royales, de celles qui ne s'éteignent pas, et le quartier des portes sera le premier éclairé de la capitale."
+      ],
+      "choix": [
+        {
+          "texte": "J'y vais."
+        }
+      ]
+    },
+    "les_lanternes_du_quartier_fin": {
+      "texte": [
+        "Quatre lanternes, quatre lampadaires. Ce soir le quartier brille avant la place. Prenez ces perles, les jardins en ont retrouvé dans les bassins."
+      ],
+      "choix": [
+        {
+          "texte": "Voici les lanternes.",
+          "si": [
+            {
+              "objet": {
+                "id": "les_limbes:lanterne_royale",
+                "nombre": 4
+              }
+            }
+          ],
+          "actions": [
+            {
+              "type": "retirer",
+              "objet": "les_limbes:lanterne_royale",
+              "nombre": 4
+            },
+            {
+              "type": "donner",
+              "objet": "les_limbes:perle_de_nacre",
+              "nombre": 3
+            },
+            {
+              "type": "objectif",
+              "quete": "les_lanternes_du_quartier",
+              "objectif": "retour"
+            }
+          ]
+        },
+        {
+          "texte": "Pas tout de suite."
         }
       ]
     }

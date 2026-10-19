@@ -2,6 +2,27 @@
   "nom": "Anselme",
   "debut": [
     {
+      "noeud": "le_phare_d_anselme_fin",
+      "si": [
+        {
+          "quete_active": "le_phare_d_anselme"
+        },
+        {
+          "quete_etape": {
+            "le_phare_d_anselme": "=1"
+          }
+        }
+      ]
+    },
+    {
+      "noeud": "le_phare_d_anselme_cours",
+      "si": [
+        {
+          "quete_active": "le_phare_d_anselme"
+        }
+      ]
+    },
+    {
       "noeud": "accueil"
     }
   ],
@@ -11,6 +32,21 @@
         "Je garde le phare du Dessous. Descendez dans la galerie : on y voit la mer par en dessous, et les bancs qui passent. Quand le ciel se plisse, le feu change de couleur ; je le note pour Lisbeth, à Clairval."
       ],
       "choix": [
+        {
+          "texte": "La lampe tremble, Anselme.",
+          "si": [
+            {
+              "quete_inconnue": "le_phare_d_anselme"
+            }
+          ],
+          "actions": [
+            {
+              "type": "demarrer_quete",
+              "quete": "le_phare_d_anselme"
+            }
+          ],
+          "suivant": "le_phare_d_anselme_cours"
+        },
         {
           "texte": "Le relais du phare est-il relié ?",
           "actions": [
@@ -22,6 +58,46 @@
         },
         {
           "texte": "Merci."
+        }
+      ]
+    },
+    "le_phare_d_anselme_cours": {
+      "texte": [
+        "Ce sont les gardiens des épaves. Ils montent du Dessous quand la lampe faiblit, et la lampe faiblit parce qu'ils montent. Trois de moins, et je la remonte à plein."
+      ],
+      "choix": [
+        {
+          "texte": "J'y vais."
+        }
+      ]
+    },
+    "le_phare_d_anselme_fin": {
+      "texte": [
+        "La lampe est à plein. Vous les avez entendus retomber ? Moi oui. Prenez ces lanternes, elles sont de la même huile que la mienne."
+      ],
+      "choix": [
+        {
+          "texte": "Les gardiens sont retombés.",
+          "actions": [
+            {
+              "type": "donner",
+              "objet": "les_limbes:lanterne_nacree",
+              "nombre": 6
+            },
+            {
+              "type": "donner",
+              "objet": "les_limbes:perle_de_nacre",
+              "nombre": 1
+            },
+            {
+              "type": "objectif",
+              "quete": "le_phare_d_anselme",
+              "objectif": "retour"
+            }
+          ]
+        },
+        {
+          "texte": "Pas tout de suite."
         }
       ]
     }

@@ -39,6 +39,7 @@ public final class LesLimbes implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		LOGGER.info("Les Limbes s'éveillent.");
+		LimbesConfig.get();
 		LimbesSounds.init();
 		LimbesParticles.init();
 		LimbesBlocks.init();

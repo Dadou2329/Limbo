@@ -505,7 +505,7 @@
         "then_run": {
           "type": "minecraft:block",
           "result_state": {
-            "Name": "les_limbes:pierre_nacree_polie"
+            "Name": "les_limbes:pierre_nacree"
           }
         }
       }

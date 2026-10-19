@@ -2,6 +2,27 @@
   "nom": "Perrin",
   "debut": [
     {
+      "noeud": "les_simples_de_perrin_fin",
+      "si": [
+        {
+          "quete_active": "les_simples_de_perrin"
+        },
+        {
+          "quete_etape": {
+            "les_simples_de_perrin": "=1"
+          }
+        }
+      ]
+    },
+    {
+      "noeud": "les_simples_de_perrin_cours",
+      "si": [
+        {
+          "quete_active": "les_simples_de_perrin"
+        }
+      ]
+    },
+    {
       "noeud": "accueil"
     }
   ],
@@ -12,7 +33,81 @@
       ],
       "choix": [
         {
+          "texte": "Vous cherchez des plantes, Perrin ?",
+          "si": [
+            {
+              "quete_inconnue": "les_simples_de_perrin"
+            }
+          ],
+          "actions": [
+            {
+              "type": "demarrer_quete",
+              "quete": "les_simples_de_perrin"
+            }
+          ],
+          "suivant": "les_simples_de_perrin_cours"
+        },
+        {
           "texte": "Merci."
+        }
+      ]
+    },
+    "les_simples_de_perrin_cours": {
+      "texte": [
+        "Celles des Prairies, qui ne poussent pas dans l'ombre des géants : huit herbes de l'aube, quatre fleurs de rosée. Mon onguent pour les guetteurs n'attend que ça."
+      ],
+      "choix": [
+        {
+          "texte": "J'y vais."
+        }
+      ]
+    },
+    "les_simples_de_perrin_fin": {
+      "texte": [
+        "Fraîches encore. Mon onguent sera prêt demain. Prenez ces bouillons de l'aube, j'en fais trop : une herbe de chez vous, ça réchauffe même ici."
+      ],
+      "choix": [
+        {
+          "texte": "Voici les simples.",
+          "si": [
+            {
+              "objet": {
+                "id": "les_limbes:herbe_de_l_aube",
+                "nombre": 8
+              }
+            },
+            {
+              "objet": {
+                "id": "les_limbes:fleur_de_rosee",
+                "nombre": 4
+              }
+            }
+          ],
+          "actions": [
+            {
+              "type": "retirer",
+              "objet": "les_limbes:herbe_de_l_aube",
+              "nombre": 8
+            },
+            {
+              "type": "retirer",
+              "objet": "les_limbes:fleur_de_rosee",
+              "nombre": 4
+            },
+            {
+              "type": "donner",
+              "objet": "les_limbes:bouillon_de_l_aube",
+              "nombre": 3
+            },
+            {
+              "type": "objectif",
+              "quete": "les_simples_de_perrin",
+              "objectif": "retour"
+            }
+          ]
+        },
+        {
+          "texte": "Pas tout de suite."
         }
       ]
     }

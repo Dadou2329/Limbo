@@ -1,0 +1,17 @@
+{
+  "titre": "Le puits d'ailleurs",
+  "description": "Un puits de pavés et sa potence, arrivés avec leur eau : une eau qui n'est pas d'ici, claire et froide.",
+  "echelle": "petite",
+  "gabarit": "les_limbes:arrivees/puits_d_ailleurs",
+  "ancre": [
+    2,
+    1,
+    2
+  ],
+  "sites": "prairies",
+  "poids": 15,
+  "unique": false,
+  "duree": 48000,
+  "prerequis": [],
+  "annonce": "Un bruit d'eau là où il n'y en avait pas"
+}

@@ -2,6 +2,27 @@
   "nom": "Luthière",
   "debut": [
     {
+      "noeud": "l_accord_de_la_luthiere_fin",
+      "si": [
+        {
+          "quete_active": "l_accord_de_la_luthiere"
+        },
+        {
+          "quete_etape": {
+            "l_accord_de_la_luthiere": "=1"
+          }
+        }
+      ]
+    },
+    {
+      "noeud": "l_accord_de_la_luthiere_cours",
+      "si": [
+        {
+          "quete_active": "l_accord_de_la_luthiere"
+        }
+      ]
+    },
+    {
       "noeud": "accueil"
     }
   ],
@@ -12,7 +33,75 @@
       ],
       "choix": [
         {
+          "texte": "Sur quoi travaillez-vous ?",
+          "si": [
+            {
+              "quete_inconnue": "l_accord_de_la_luthiere"
+            }
+          ],
+          "actions": [
+            {
+              "type": "demarrer_quete",
+              "quete": "l_accord_de_la_luthiere"
+            }
+          ],
+          "suivant": "l_accord_de_la_luthiere_cours"
+        },
+        {
           "texte": "Merci."
+        }
+      ]
+    },
+    "l_accord_de_la_luthiere_cours": {
+      "texte": [
+        "Sur l'accord du pont qui chante. Chaque cristal y sonne une note ; six éclats, pris sur place après l'avoir écouté, et je reconstruis sa gamme dans un instrument."
+      ],
+      "choix": [
+        {
+          "texte": "J'y vais."
+        }
+      ]
+    },
+    "l_accord_de_la_luthiere_fin": {
+      "texte": [
+        "La gamme du pont, en six éclats. Écoutez... c'est lui. Prenez ces perles, et revenez quand l'instrument sera fini."
+      ],
+      "choix": [
+        {
+          "texte": "Voici les six éclats.",
+          "si": [
+            {
+              "objet": {
+                "id": "les_limbes:eclat_resonnant",
+                "nombre": 6
+              }
+            }
+          ],
+          "actions": [
+            {
+              "type": "retirer",
+              "objet": "les_limbes:eclat_resonnant",
+              "nombre": 6
+            },
+            {
+              "type": "donner",
+              "objet": "les_limbes:perle_de_nacre",
+              "nombre": 2
+            },
+            {
+              "type": "donner",
+              "objet": "les_limbes:the_des_cimes",
+              "nombre": 2
+            },
+            {
+              "type": "objectif",
+              "quete": "l_accord_de_la_luthiere",
+              "objectif": "retour"
+            }
+          ]
+        },
+        {
+          "texte": "Pas tout de suite."
         }
       ]
     }

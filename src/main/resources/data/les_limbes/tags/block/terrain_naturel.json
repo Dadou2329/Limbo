@@ -1,0 +1,30 @@
+{
+  "replace": false,
+  "values": [
+    "les_limbes:pierre_nacree",
+    "les_limbes:terre_des_limbes",
+    "les_limbes:herbe_argentee",
+    "les_limbes:herbe_des_geants",
+    "les_limbes:sable_de_nacre",
+    "les_limbes:sable_d_opale",
+    "les_limbes:gres_des_heures",
+    "les_limbes:pierre_des_heures",
+    "les_limbes:pierre_de_verre",
+    "les_limbes:verre_de_montagne",
+    "les_limbes:pierre_de_couronne",
+    "les_limbes:corail_azur",
+    "les_limbes:corail_de_nacre",
+    "les_limbes:cristal_de_nacre",
+    "les_limbes:cristal_resonnant",
+    "les_limbes:fibres_nacrees",
+    "les_limbes:herbe_de_l_aube",
+    "les_limbes:fleur_de_rosee",
+    "les_limbes:petale_bleu",
+    "les_limbes:petale_rose",
+    "les_limbes:buche_d_aube",
+    "les_limbes:feuilles_d_aube",
+    "les_limbes:pousse_d_aube",
+    "les_limbes:buche_de_geant",
+    "les_limbes:feuilles_de_geant"
+  ]
+}

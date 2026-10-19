@@ -1,0 +1,68 @@
+{
+  "titre": "Les simples de Perrin",
+  "acte": 3,
+  "description": "Perrin, l'herboriste, prépare un onguent pour les guetteurs : de l'herbe de l'aube des Prairies et des fleurs de rosée.",
+  "etapes": [
+    {
+      "id": "simples",
+      "resume": "Cueillir huit herbes de l'aube et quatre fleurs de rosée pour Perrin.",
+      "lieu": {
+        "nom": "Sylvécime",
+        "pos": [
+          1050,
+          72,
+          350
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "herbes",
+          "type": "collecter",
+          "cible": "les_limbes:herbe_de_l_aube",
+          "nombre": 8,
+          "texte": "Cueillir huit herbes de l'aube"
+        },
+        {
+          "id": "fleurs",
+          "type": "collecter",
+          "cible": "les_limbes:fleur_de_rosee",
+          "nombre": 4,
+          "texte": "Cueillir quatre fleurs de rosée"
+        }
+      ]
+    },
+    {
+      "id": "retour",
+      "resume": "Apporter les simples à Perrin.",
+      "lieu": {
+        "nom": "Sylvécime",
+        "pos": [
+          1050,
+          72,
+          350
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "retour",
+          "type": "parler",
+          "cible": "herboriste",
+          "manuel": true,
+          "texte": "Apporter les simples à Perrin"
+        }
+      ]
+    }
+  ],
+  "fin": [
+    {
+      "type": "experience",
+      "niveaux": 2
+    },
+    {
+      "type": "drapeau",
+      "nom": "les_simples_de_perrin_terminee"
+    }
+  ]
+}

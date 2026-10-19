@@ -1,0 +1,102 @@
+{
+  "titre": "La chronique de Maud",
+  "acte": 4,
+  "description": "Maud, l'archiviste royale, achève la chronique du roi disparu : quatre lieux où il passa, à revoir pour les décrire.",
+  "etapes": [
+    {
+      "id": "lieux",
+      "resume": "Revoir le navire perdu, la serre ancienne, l'observatoire des heures et le pont qui chante pour la chronique.",
+      "lieu": {
+        "nom": "Archives royales",
+        "pos": [
+          -955,
+          86,
+          -945
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "navire",
+          "type": "atteindre",
+          "pos": [
+            1150,
+            44,
+            -950
+          ],
+          "rayon": 24,
+          "dimension": "les_limbes:limbes",
+          "texte": "Revoir le navire perdu"
+        },
+        {
+          "id": "serre",
+          "type": "atteindre",
+          "pos": [
+            900,
+            72,
+            520
+          ],
+          "rayon": 16,
+          "dimension": "les_limbes:limbes",
+          "texte": "Revoir la serre ancienne"
+        },
+        {
+          "id": "observatoire",
+          "type": "atteindre",
+          "pos": [
+            0,
+            66,
+            1420
+          ],
+          "rayon": 14,
+          "dimension": "les_limbes:limbes",
+          "texte": "Revoir l'observatoire des heures"
+        },
+        {
+          "id": "pont",
+          "type": "atteindre",
+          "pos": [
+            -1150,
+            104,
+            680
+          ],
+          "rayon": 30,
+          "dimension": "les_limbes:limbes",
+          "texte": "Revoir le pont qui chante"
+        }
+      ]
+    },
+    {
+      "id": "retour",
+      "resume": "Décrire les quatre lieux à Maud, à la tour des archives.",
+      "lieu": {
+        "nom": "Archives royales",
+        "pos": [
+          -955,
+          86,
+          -945
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "retour",
+          "type": "parler",
+          "cible": "archiviste_royale",
+          "manuel": true,
+          "texte": "Décrire les lieux à Maud"
+        }
+      ]
+    }
+  ],
+  "fin": [
+    {
+      "type": "experience",
+      "niveaux": 5
+    },
+    {
+      "type": "drapeau",
+      "nom": "la_chronique_de_maud_terminee"
+    }
+  ]
+}

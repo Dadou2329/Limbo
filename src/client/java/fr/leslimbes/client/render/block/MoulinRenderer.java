@@ -36,13 +36,20 @@ public class MoulinRenderer implements BlockEntityRenderer<MoulinBlock.MoulinBlo
 		// Les ailes sont dans le plan perpendiculaire à la façade, légèrement devant l'axe.
 		matrices.translate(0.0, 0.0, 0.62);
 		matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(angle));
+		// Une seule couche à la fois : les couches à texture propre partagent le tampon de secours du fournisseur,
+		// et demander une seconde couche termine (dessine) la première. Les bras puis les toiles.
 		VertexConsumer bois = vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(BOIS));
-		VertexConsumer toile = vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(TOILE));
 		for (int i = 0; i < 4; i++) {
 			matrices.push();
 			matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(90.0F * i));
 			// bras : 0,3 x 5,5 blocs
 			boite(matrices, bois, -0.12F, 0.0F, -0.06F, 0.12F, 5.4F, 0.06F, light);
+			matrices.pop();
+		}
+		VertexConsumer toile = vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(TOILE));
+		for (int i = 0; i < 4; i++) {
+			matrices.push();
+			matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(90.0F * i));
 			// toile : panneau 1,4 x 4,2 d'un côté du bras
 			boite(matrices, toile, 0.12F, 1.0F, -0.02F, 1.5F, 5.2F, 0.02F, light);
 			matrices.pop();

@@ -238,5 +238,59 @@
     "sounds": [
       "les_limbes:creature/petit_cri"
     ]
+  },
+  "musique.prairies": {
+    "subtitle": "subtitles.les_limbes.musique",
+    "sounds": [
+      {
+        "name": "les_limbes:musique/prairies",
+        "stream": true
+      }
+    ]
+  },
+  "musique.mer": {
+    "subtitle": "subtitles.les_limbes.musique",
+    "sounds": [
+      {
+        "name": "les_limbes:musique/mer",
+        "stream": true
+      }
+    ]
+  },
+  "musique.jardins": {
+    "subtitle": "subtitles.les_limbes.musique",
+    "sounds": [
+      {
+        "name": "les_limbes:musique/jardins",
+        "stream": true
+      }
+    ]
+  },
+  "musique.desert": {
+    "subtitle": "subtitles.les_limbes.musique",
+    "sounds": [
+      {
+        "name": "les_limbes:musique/desert",
+        "stream": true
+      }
+    ]
+  },
+  "musique.montagnes": {
+    "subtitle": "subtitles.les_limbes.musique",
+    "sounds": [
+      {
+        "name": "les_limbes:musique/montagnes",
+        "stream": true
+      }
+    ]
+  },
+  "musique.couronne": {
+    "subtitle": "subtitles.les_limbes.musique",
+    "sounds": [
+      {
+        "name": "les_limbes:musique/couronne",
+        "stream": true
+      }
+    ]
   }
 }

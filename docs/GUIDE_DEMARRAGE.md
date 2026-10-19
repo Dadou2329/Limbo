@@ -52,6 +52,12 @@ Vous venez de créer une partie de survie avec Les Limbes. Voici de quoi commenc
 - La **garde astrale** vous suit : un ordre (suivre, tenir, attaquer) vaut pour toute la garde. Les décrets et les techniques de zone n'atteignent jamais vos alliés.
 - L'**Avènement**, gagné aux frontières, révèle la royauté pendant trente secondes : couronne et manteau visibles de tous, majesté quadruplée, techniques deux fois plus rapides.
 
+## Les habitants et leurs demandes
+
+- Presque chaque habitant notable des régions (forgerons, pêcheurs, boulangères, gardes, archivistes…) a une **demande** : le premier choix de son dialogue la propose, le journal (J) la suit, et la remise vérifie que vous avez bien les objets. Quarante quêtes secondaires en tout.
+- Le ciel se plisse de temps en temps : une **Arrivée** se pose sur un site réservé de la région. Treize sortes : du puits au radeau de naufragés, de la serre à la bibliothèque perdue. Lisbeth, à l'observatoire, sait où elles sont tombées ; les petites s'effacent après quelques jours, les grandes restent.
+- Chaque région a sa **musique** ; les décors du journal (Options) permettent de régler la densité des effets et un **profil graphique** (bas, normal, élevé). Côté serveur, `config/les_limbes.json` règle les budgets (Arrivées simultanées, gardes, éclats).
+
 ## Conseils
 
 - Les fibres nacrées des prairies font de bonnes cordes ; l'herbe de l'aube et un bol donnent un bouillon réconfortant.

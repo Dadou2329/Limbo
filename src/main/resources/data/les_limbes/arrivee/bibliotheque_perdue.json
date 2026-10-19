@@ -1,0 +1,17 @@
+{
+  "titre": "La bibliothèque perdue",
+  "description": "La salle de lecture d'une ville qui s'est perdue rue par rue : rayonnages, lutrins et chroniques d'ailleurs, dont un traité des plis du ciel.",
+  "echelle": "moyenne",
+  "gabarit": "les_limbes:arrivees/bibliotheque_perdue",
+  "ancre": [
+    5,
+    1,
+    5
+  ],
+  "sites": "couronne",
+  "poids": 8,
+  "unique": true,
+  "duree": 0,
+  "prerequis": [],
+  "annonce": "Un bruit de pages tourne au-dessus de la Couronne"
+}

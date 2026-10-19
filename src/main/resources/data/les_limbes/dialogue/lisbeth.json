@@ -15,6 +15,27 @@
       ]
     },
     {
+      "noeud": "les_trois_ciels_fin",
+      "si": [
+        {
+          "quete_active": "les_trois_ciels"
+        },
+        {
+          "quete_etape": {
+            "les_trois_ciels": "=1"
+          }
+        }
+      ]
+    },
+    {
+      "noeud": "les_trois_ciels_cours",
+      "si": [
+        {
+          "quete_active": "les_trois_ciels"
+        }
+      ]
+    },
+    {
       "noeud": "veille",
       "si": [
         {
@@ -83,6 +104,21 @@
       ],
       "choix": [
         {
+          "texte": "Le ciel est-il le même partout ?",
+          "si": [
+            {
+              "quete_inconnue": "les_trois_ciels"
+            }
+          ],
+          "actions": [
+            {
+              "type": "demarrer_quete",
+              "quete": "les_trois_ciels"
+            }
+          ],
+          "suivant": "les_trois_ciels_cours"
+        },
+        {
           "texte": "Une maison est tombée ? Je vais voir.",
           "si": [
             {
@@ -142,6 +178,41 @@
               "objectif": "lisbeth"
             }
           ]
+        }
+      ]
+    },
+    "les_trois_ciels_cours": {
+      "texte": [
+        "Je ne sais pas, justement. Allez voir pour moi : l'observatoire des heures au sud, le phare du Dessous à l'est, l'atelier d'instruments dans les montagnes. Regardez le ciel, et revenez me dire."
+      ],
+      "choix": [
+        {
+          "texte": "J'y vais."
+        }
+      ]
+    },
+    "les_trois_ciels_fin": {
+      "texte": [
+        "Trois ciels, trois plis différents. Les Arrivées ne tombent pas au hasard, elles suivent les plis. Vous m'avez donné du travail pour dix ans. Prenez ces perles, elles brillent comme vos trois ciels."
+      ],
+      "choix": [
+        {
+          "texte": "Voici ce que j'ai vu.",
+          "actions": [
+            {
+              "type": "donner",
+              "objet": "les_limbes:perle_de_nacre",
+              "nombre": 3
+            },
+            {
+              "type": "objectif",
+              "quete": "les_trois_ciels",
+              "objectif": "retour"
+            }
+          ]
+        },
+        {
+          "texte": "Pas tout de suite."
         }
       ]
     }

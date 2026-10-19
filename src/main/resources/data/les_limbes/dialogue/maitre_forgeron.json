@@ -2,6 +2,27 @@
   "nom": "Gunnar",
   "debut": [
     {
+      "noeud": "le_metal_de_gunnar_fin",
+      "si": [
+        {
+          "quete_active": "le_metal_de_gunnar"
+        },
+        {
+          "quete_etape": {
+            "le_metal_de_gunnar": "=1"
+          }
+        }
+      ]
+    },
+    {
+      "noeud": "le_metal_de_gunnar_cours",
+      "si": [
+        {
+          "quete_active": "le_metal_de_gunnar"
+        }
+      ]
+    },
+    {
       "noeud": "accueil"
     }
   ],
@@ -12,6 +33,21 @@
         "Trois éclats résonnants et un cristal de nacre, et je vous fais du thé des cimes : on tombe moins vite quand on en boit. Utile, par ici."
       ],
       "choix": [
+        {
+          "texte": "Que forgez-vous, Gunnar ?",
+          "si": [
+            {
+              "quete_inconnue": "le_metal_de_gunnar"
+            }
+          ],
+          "actions": [
+            {
+              "type": "demarrer_quete",
+              "quete": "le_metal_de_gunnar"
+            }
+          ],
+          "suivant": "le_metal_de_gunnar_cours"
+        },
         {
           "texte": "Thé des cimes (3 éclats + 1 cristal).",
           "si": [
@@ -48,6 +84,65 @@
         },
         {
           "texte": "Une autre fois."
+        }
+      ]
+    },
+    "le_metal_de_gunnar_cours": {
+      "texte": [
+        "Un alliage que personne n'a réussi : du verre qui ne casse pas. Huit pierres de verre, quatre éclats résonnants pour le chant. Si ça tient, Orsane aura une épée qui ne se brise jamais."
+      ],
+      "choix": [
+        {
+          "texte": "J'y vais."
+        }
+      ]
+    },
+    "le_metal_de_gunnar_fin": {
+      "texte": [
+        "Ça tient. Ça chante quand on le frappe, mais ça tient. Prenez du cristal de nacre : pour votre lame à vous."
+      ],
+      "choix": [
+        {
+          "texte": "Voici le métal.",
+          "si": [
+            {
+              "objet": {
+                "id": "les_limbes:pierre_de_verre",
+                "nombre": 8
+              }
+            },
+            {
+              "objet": {
+                "id": "les_limbes:eclat_resonnant",
+                "nombre": 4
+              }
+            }
+          ],
+          "actions": [
+            {
+              "type": "retirer",
+              "objet": "les_limbes:pierre_de_verre",
+              "nombre": 8
+            },
+            {
+              "type": "retirer",
+              "objet": "les_limbes:eclat_resonnant",
+              "nombre": 4
+            },
+            {
+              "type": "donner",
+              "objet": "les_limbes:cristal_de_nacre",
+              "nombre": 4
+            },
+            {
+              "type": "objectif",
+              "quete": "le_metal_de_gunnar",
+              "objectif": "retour"
+            }
+          ]
+        },
+        {
+          "texte": "Pas tout de suite."
         }
       ]
     }

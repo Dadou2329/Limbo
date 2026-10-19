@@ -1,0 +1,61 @@
+{
+  "titre": "La patrouille de Gaspard",
+  "acte": 2,
+  "description": "Gaspard n'ose plus s'éloigner du relais : des Veilleurs égarés rôdent encore sur la route de l'est. Cinq de moins, et il dormira.",
+  "etapes": [
+    {
+      "id": "veilleurs",
+      "resume": "Chasser cinq Veilleurs égarés autour du relais royal et sur la route de l'est.",
+      "lieu": {
+        "nom": "Ancien relais royal",
+        "pos": [
+          150,
+          66,
+          60
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "veilleurs",
+          "type": "vaincre",
+          "cible": "les_limbes:veilleur_egare",
+          "nombre": 5,
+          "texte": "Vaincre cinq Veilleurs égarés"
+        }
+      ]
+    },
+    {
+      "id": "retour",
+      "resume": "Revenir dire à Gaspard que la route est sûre.",
+      "lieu": {
+        "nom": "Ancien relais royal",
+        "pos": [
+          150,
+          66,
+          60
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "retour",
+          "type": "parler",
+          "cible": "gaspard",
+          "manuel": true,
+          "texte": "Rassurer Gaspard"
+        }
+      ]
+    }
+  ],
+  "fin": [
+    {
+      "type": "experience",
+      "niveaux": 3
+    },
+    {
+      "type": "drapeau",
+      "nom": "la_patrouille_de_gaspard_terminee"
+    }
+  ]
+}

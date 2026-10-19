@@ -1,0 +1,68 @@
+{
+  "titre": "Le métal de Gunnar",
+  "acte": 3,
+  "description": "Gunnar, maître forgeron de Verréole, veut fondre un alliage de verre : pierre de verre et éclats résonnants.",
+  "etapes": [
+    {
+      "id": "metal",
+      "resume": "Réunir huit pierres de verre et quatre éclats résonnants pour Gunnar.",
+      "lieu": {
+        "nom": "Verréole",
+        "pos": [
+          -1150,
+          96,
+          500
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "pierre",
+          "type": "collecter",
+          "cible": "les_limbes:pierre_de_verre",
+          "nombre": 8,
+          "texte": "Extraire huit pierres de verre"
+        },
+        {
+          "id": "eclats",
+          "type": "collecter",
+          "cible": "les_limbes:eclat_resonnant",
+          "nombre": 4,
+          "texte": "Réunir quatre éclats résonnants"
+        }
+      ]
+    },
+    {
+      "id": "retour",
+      "resume": "Apporter le métal à la forge de Gunnar.",
+      "lieu": {
+        "nom": "Verréole",
+        "pos": [
+          -1150,
+          96,
+          500
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "retour",
+          "type": "parler",
+          "cible": "maitre_forgeron",
+          "manuel": true,
+          "texte": "Apporter le métal à Gunnar"
+        }
+      ]
+    }
+  ],
+  "fin": [
+    {
+      "type": "experience",
+      "niveaux": 3
+    },
+    {
+      "type": "drapeau",
+      "nom": "le_metal_de_gunnar_terminee"
+    }
+  ]
+}

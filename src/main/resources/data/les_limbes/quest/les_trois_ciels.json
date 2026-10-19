@@ -1,0 +1,90 @@
+{
+  "titre": "Les trois ciels",
+  "acte": 3,
+  "description": "Lisbeth veut comparer le ciel des Prairies à celui des autres régions : relever le ciel depuis l'observatoire des heures, le phare du Dessous et l'atelier d'instruments.",
+  "etapes": [
+    {
+      "id": "releves",
+      "resume": "Se rendre à l'observatoire des heures (Désert), au phare du Dessous (Mer) et à l'atelier d'instruments (Montagnes).",
+      "lieu": {
+        "nom": "Observatoire de Clairval",
+        "pos": [
+          30,
+          66,
+          112
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "heures",
+          "type": "atteindre",
+          "pos": [
+            0,
+            66,
+            1420
+          ],
+          "rayon": 14,
+          "dimension": "les_limbes:limbes",
+          "texte": "Relever le ciel à l'observatoire des heures"
+        },
+        {
+          "id": "phare",
+          "type": "atteindre",
+          "pos": [
+            1440,
+            84,
+            -750
+          ],
+          "rayon": 16,
+          "dimension": "les_limbes:limbes",
+          "texte": "Relever le ciel au phare du Dessous"
+        },
+        {
+          "id": "atelier",
+          "type": "atteindre",
+          "pos": [
+            -1320,
+            100,
+            620
+          ],
+          "rayon": 12,
+          "dimension": "les_limbes:limbes",
+          "texte": "Relever le ciel à l'atelier d'instruments"
+        }
+      ]
+    },
+    {
+      "id": "retour",
+      "resume": "Rapporter les trois relevés à Lisbeth.",
+      "lieu": {
+        "nom": "Observatoire de Clairval",
+        "pos": [
+          30,
+          66,
+          112
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "retour",
+          "type": "parler",
+          "cible": "lisbeth",
+          "manuel": true,
+          "texte": "Rapporter les relevés à Lisbeth"
+        }
+      ]
+    }
+  ],
+  "fin": [
+    {
+      "type": "experience",
+      "niveaux": 4
+    },
+    {
+      "type": "drapeau",
+      "nom": "les_trois_ciels_terminee"
+    }
+  ]
+}

@@ -2,6 +2,27 @@
   "nom": "Ysolde",
   "debut": [
     {
+      "noeud": "les_cartes_d_ysolde_fin",
+      "si": [
+        {
+          "quete_active": "les_cartes_d_ysolde"
+        },
+        {
+          "quete_etape": {
+            "les_cartes_d_ysolde": "=1"
+          }
+        }
+      ]
+    },
+    {
+      "noeud": "les_cartes_d_ysolde_cours",
+      "si": [
+        {
+          "quete_active": "les_cartes_d_ysolde"
+        }
+      ]
+    },
+    {
       "noeud": "domaine",
       "si": [
         {
@@ -99,6 +120,21 @@
       ],
       "choix": [
         {
+          "texte": "Vos cartes de la Mer, où en sont-elles ?",
+          "si": [
+            {
+              "quete_inconnue": "les_cartes_d_ysolde"
+            }
+          ],
+          "actions": [
+            {
+              "type": "demarrer_quete",
+              "quete": "les_cartes_d_ysolde"
+            }
+          ],
+          "suivant": "les_cartes_d_ysolde_cours"
+        },
+        {
           "texte": "La maison des explorateurs du domaine vous attendra."
         }
       ]
@@ -108,6 +144,21 @@
         "Ouvrez la maison des explorateurs et je viens y accrocher mon journal."
       ],
       "choix": [
+        {
+          "texte": "Vos cartes de la Mer, où en sont-elles ?",
+          "si": [
+            {
+              "quete_inconnue": "les_cartes_d_ysolde"
+            }
+          ],
+          "actions": [
+            {
+              "type": "demarrer_quete",
+              "quete": "les_cartes_d_ysolde"
+            }
+          ],
+          "suivant": "les_cartes_d_ysolde_cours"
+        },
         {
           "texte": "Bientôt."
         }
@@ -119,7 +170,57 @@
       ],
       "choix": [
         {
+          "texte": "Vos cartes de la Mer, où en sont-elles ?",
+          "si": [
+            {
+              "quete_inconnue": "les_cartes_d_ysolde"
+            }
+          ],
+          "actions": [
+            {
+              "type": "demarrer_quete",
+              "quete": "les_cartes_d_ysolde"
+            }
+          ],
+          "suivant": "les_cartes_d_ysolde_cours"
+        },
+        {
           "texte": "Nous irons, capitaine."
+        }
+      ]
+    },
+    "les_cartes_d_ysolde_cours": {
+      "texte": [
+        "Pleines de blancs. Le quai des Falaises, le sanctuaire des bancs sous l'eau, le navire perdu : allez-y, comptez vos pas, et je trace."
+      ],
+      "choix": [
+        {
+          "texte": "J'y vais."
+        }
+      ]
+    },
+    "les_cartes_d_ysolde_fin": {
+      "texte": [
+        "Trois blancs de moins. Un jour ces cartes serviront à votre navire royal, j'en suis sûre. Prenez des perles : la Mer vous les doit."
+      ],
+      "choix": [
+        {
+          "texte": "Voici mes relevés.",
+          "actions": [
+            {
+              "type": "donner",
+              "objet": "les_limbes:perle_de_nacre",
+              "nombre": 3
+            },
+            {
+              "type": "objectif",
+              "quete": "les_cartes_d_ysolde",
+              "objectif": "retour"
+            }
+          ]
+        },
+        {
+          "texte": "Pas tout de suite."
         }
       ]
     }

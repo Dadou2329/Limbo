@@ -1,0 +1,17 @@
+{
+  "titre": "La tente du voyageur",
+  "description": "Une tente de toile orange, un feu éteint, un carnet de route : le marcheur est parti vers une ville où il n'y a pas de nuit.",
+  "echelle": "petite",
+  "gabarit": "les_limbes:arrivees/tente_du_voyageur",
+  "ancre": [
+    3,
+    1,
+    3
+  ],
+  "sites": "desert",
+  "poids": 15,
+  "unique": false,
+  "duree": 48000,
+  "prerequis": [],
+  "annonce": "Une toile claque dans le vent du Désert"
+}

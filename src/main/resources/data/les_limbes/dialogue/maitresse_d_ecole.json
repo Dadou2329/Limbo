@@ -2,6 +2,27 @@
   "nom": "Maîtresse d'école",
   "debut": [
     {
+      "noeud": "l_ecole_de_haute_garde_fin",
+      "si": [
+        {
+          "quete_active": "l_ecole_de_haute_garde"
+        },
+        {
+          "quete_etape": {
+            "l_ecole_de_haute_garde": "=1"
+          }
+        }
+      ]
+    },
+    {
+      "noeud": "l_ecole_de_haute_garde_cours",
+      "si": [
+        {
+          "quete_active": "l_ecole_de_haute_garde"
+        }
+      ]
+    },
+    {
       "noeud": "accueil"
     }
   ],
@@ -12,7 +33,62 @@
       ],
       "choix": [
         {
+          "texte": "Que lisent vos élèves ?",
+          "si": [
+            {
+              "quete_inconnue": "l_ecole_de_haute_garde"
+            }
+          ],
+          "actions": [
+            {
+              "type": "demarrer_quete",
+              "quete": "l_ecole_de_haute_garde"
+            }
+          ],
+          "suivant": "l_ecole_de_haute_garde_cours"
+        },
+        {
           "texte": "Merci."
+        }
+      ]
+    },
+    "l_ecole_de_haute_garde_cours": {
+      "texte": [
+        "Des murs. Ils ne connaissent que les murs de Haute-Garde. Allez voir pour eux le Sanctuaire de l'Arrivée, le marché flottant de la Mer, la serre ancienne des Jardins, et revenez raconter."
+      ],
+      "choix": [
+        {
+          "texte": "J'y vais."
+        }
+      ]
+    },
+    "l_ecole_de_haute_garde_fin": {
+      "texte": [
+        "Ils ont écouté sans bouger, ce qui n'arrive jamais. Demain ils dessineront le marché flottant. Prenez ces perles : la classe a fait une collecte."
+      ],
+      "choix": [
+        {
+          "texte": "J'ai des récits pour eux.",
+          "actions": [
+            {
+              "type": "donner",
+              "objet": "les_limbes:perle_de_nacre",
+              "nombre": 2
+            },
+            {
+              "type": "donner",
+              "objet": "les_limbes:pain_de_la_cour",
+              "nombre": 2
+            },
+            {
+              "type": "objectif",
+              "quete": "l_ecole_de_haute_garde",
+              "objectif": "retour"
+            }
+          ]
+        },
+        {
+          "texte": "Pas tout de suite."
         }
       ]
     }

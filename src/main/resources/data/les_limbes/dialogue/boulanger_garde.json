@@ -2,6 +2,27 @@
   "nom": "Boulanger",
   "debut": [
     {
+      "noeud": "le_pain_de_la_cour_fin",
+      "si": [
+        {
+          "quete_active": "le_pain_de_la_cour"
+        },
+        {
+          "quete_etape": {
+            "le_pain_de_la_cour": "=1"
+          }
+        }
+      ]
+    },
+    {
+      "noeud": "le_pain_de_la_cour_cours",
+      "si": [
+        {
+          "quete_active": "le_pain_de_la_cour"
+        }
+      ]
+    },
+    {
       "noeud": "accueil"
     }
   ],
@@ -11,6 +32,21 @@
         "Pain de la cour : farine, miel de rosée, un œuf. Recette de la capitale, du temps du roi. Je vends la farine si vous voulez le faire vous-même."
       ],
       "choix": [
+        {
+          "texte": "Votre pain, c'est celui de la cour ?",
+          "si": [
+            {
+              "quete_inconnue": "le_pain_de_la_cour"
+            }
+          ],
+          "actions": [
+            {
+              "type": "demarrer_quete",
+              "quete": "le_pain_de_la_cour"
+            }
+          ],
+          "suivant": "le_pain_de_la_cour_cours"
+        },
         {
           "texte": "Trois farines contre une émeraude.",
           "si": [
@@ -36,6 +72,65 @@
         },
         {
           "texte": "Merci."
+        }
+      ]
+    },
+    "le_pain_de_la_cour_cours": {
+      "texte": [
+        "Presque. Il manque la farine du moulin de Clairval, six mesures, et deux miels de rosée des Prairies. Avec ça, je refais le pain qu'on servait au roi."
+      ],
+      "choix": [
+        {
+          "texte": "J'y vais."
+        }
+      ]
+    },
+    "le_pain_de_la_cour_fin": {
+      "texte": [
+        "Sentez. C'est celui-là. Vaëron en mangera sans rien dire, mais il en reprendra. Prenez les premières miches."
+      ],
+      "choix": [
+        {
+          "texte": "Voici la farine et le miel.",
+          "si": [
+            {
+              "objet": {
+                "id": "les_limbes:farine",
+                "nombre": 6
+              }
+            },
+            {
+              "objet": {
+                "id": "les_limbes:miel_de_rosee",
+                "nombre": 2
+              }
+            }
+          ],
+          "actions": [
+            {
+              "type": "retirer",
+              "objet": "les_limbes:farine",
+              "nombre": 6
+            },
+            {
+              "type": "retirer",
+              "objet": "les_limbes:miel_de_rosee",
+              "nombre": 2
+            },
+            {
+              "type": "donner",
+              "objet": "les_limbes:pain_de_la_cour",
+              "nombre": 6
+            },
+            {
+              "type": "objectif",
+              "quete": "le_pain_de_la_cour",
+              "objectif": "retour"
+            }
+          ]
+        },
+        {
+          "texte": "Pas tout de suite."
         }
       ]
     }

@@ -127,6 +127,9 @@ public class EnnemiTireurEntity extends HostileEntity implements RangedAttackMob
 		if (cible == null) {
 			return;
 		}
+		if (this.getWorld() instanceof net.minecraft.server.world.ServerWorld monde && !fr.leslimbes.LimbesConfig.peutLancerEclat(monde)) {
+			return;
+		}
 		EclatProjectileEntity eclat = new EclatProjectileEntity(this.getWorld(), this, (float) espece().degatsProjectile, espece().effet, espece().dureeEffet, espece().reculProjectile);
 		eclat.setPosition(this.getX(), this.getEyeY() - 0.2, this.getZ());
 		double dx = cible.getX() - this.getX();

@@ -2,6 +2,27 @@
   "nom": "Isaure",
   "debut": [
     {
+      "noeud": "la_plongee_d_isaure_fin",
+      "si": [
+        {
+          "quete_active": "la_plongee_d_isaure"
+        },
+        {
+          "quete_etape": {
+            "la_plongee_d_isaure": "=1"
+          }
+        }
+      ]
+    },
+    {
+      "noeud": "la_plongee_d_isaure_cours",
+      "si": [
+        {
+          "quete_active": "la_plongee_d_isaure"
+        }
+      ]
+    },
+    {
       "noeud": "accueil"
     }
   ],
@@ -12,7 +33,70 @@
       ],
       "choix": [
         {
+          "texte": "Vous plongez où, d'habitude ?",
+          "si": [
+            {
+              "quete_inconnue": "la_plongee_d_isaure"
+            }
+          ],
+          "actions": [
+            {
+              "type": "demarrer_quete",
+              "quete": "la_plongee_d_isaure"
+            }
+          ],
+          "suivant": "la_plongee_d_isaure_cours"
+        },
+        {
           "texte": "Merci."
+        }
+      ]
+    },
+    "la_plongee_d_isaure_cours": {
+      "texte": [
+        "Au sanctuaire des bancs, sous l'eau, droit au sud du port. Le corail de nacre y pousse serré. Quatre morceaux, et je refais les parures de la capitainerie. Respirez bien avant."
+      ],
+      "choix": [
+        {
+          "texte": "J'y vais."
+        }
+      ]
+    },
+    "la_plongee_d_isaure_fin": {
+      "texte": [
+        "Du vrai corail des bancs. Vous avez le souffle long. Tenez, du corail d'azur : il luit sous l'eau, vous retrouverez toujours le chemin."
+      ],
+      "choix": [
+        {
+          "texte": "Voici le corail.",
+          "si": [
+            {
+              "objet": {
+                "id": "les_limbes:corail_de_nacre",
+                "nombre": 4
+              }
+            }
+          ],
+          "actions": [
+            {
+              "type": "retirer",
+              "objet": "les_limbes:corail_de_nacre",
+              "nombre": 4
+            },
+            {
+              "type": "donner",
+              "objet": "les_limbes:corail_azur",
+              "nombre": 4
+            },
+            {
+              "type": "objectif",
+              "quete": "la_plongee_d_isaure",
+              "objectif": "retour"
+            }
+          ]
+        },
+        {
+          "texte": "Pas tout de suite."
         }
       ]
     }

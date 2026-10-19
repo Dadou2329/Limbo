@@ -1,0 +1,90 @@
+{
+  "titre": "L'école de Haute-Garde",
+  "acte": 3,
+  "description": "La maîtresse d'école veut des récits pour ses élèves : le Sanctuaire de l'Arrivée, le marché flottant et la serre ancienne, vus de vos yeux.",
+  "etapes": [
+    {
+      "id": "recits",
+      "resume": "Visiter le Sanctuaire de l'Arrivée, le marché flottant et la serre ancienne pour en rapporter des récits.",
+      "lieu": {
+        "nom": "Haute-Garde",
+        "pos": [
+          -610,
+          82,
+          -610
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "sanctuaire",
+          "type": "atteindre",
+          "pos": [
+            0,
+            83,
+            0
+          ],
+          "rayon": 20,
+          "dimension": "les_limbes:limbes",
+          "texte": "Visiter le Sanctuaire de l'Arrivée"
+        },
+        {
+          "id": "marche",
+          "type": "atteindre",
+          "pos": [
+            800,
+            63,
+            -600
+          ],
+          "rayon": 16,
+          "dimension": "les_limbes:limbes",
+          "texte": "Visiter le marché flottant"
+        },
+        {
+          "id": "serre",
+          "type": "atteindre",
+          "pos": [
+            900,
+            72,
+            520
+          ],
+          "rayon": 16,
+          "dimension": "les_limbes:limbes",
+          "texte": "Visiter la serre ancienne"
+        }
+      ]
+    },
+    {
+      "id": "retour",
+      "resume": "Revenir à l'école raconter.",
+      "lieu": {
+        "nom": "Haute-Garde",
+        "pos": [
+          -610,
+          82,
+          -610
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "retour",
+          "type": "parler",
+          "cible": "maitresse_d_ecole",
+          "manuel": true,
+          "texte": "Raconter aux élèves"
+        }
+      ]
+    }
+  ],
+  "fin": [
+    {
+      "type": "experience",
+      "niveaux": 3
+    },
+    {
+      "type": "drapeau",
+      "nom": "l_ecole_de_haute_garde_terminee"
+    }
+  ]
+}

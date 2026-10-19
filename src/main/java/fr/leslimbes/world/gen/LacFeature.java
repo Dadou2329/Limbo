@@ -44,7 +44,8 @@ public class LacFeature extends Feature<DefaultFeatureConfig> {
 		int rz = 4 + random.nextInt(RAYON_MAX - 3);
 		int profondeur = 2 + random.nextInt(2);
 		BlockState eau = Blocks.WATER.getDefaultState();
-		BlockState bord = LimbesBlocks.PIERRE_NACREE_POLIE.getDefaultState();
+		// Bord en pierre nacrée brute : du terrain naturel, jamais un bloc de construction (zones d'Arrivée).
+		BlockState bord = LimbesBlocks.PIERRE_NACREE.getDefaultState();
 		BlockState fond = LimbesBlocks.TERRE_DES_LIMBES.getDefaultState();
 		int poses = 0;
 		for (int dx = -rx; dx <= rx; dx++) {

@@ -285,6 +285,41 @@
           "y": 86,
           "rayon": 30,
           "transition": 24
+        },
+        {
+          "x": 900,
+          "z": -650,
+          "y": 66,
+          "rayon": 16,
+          "transition": 14
+        },
+        {
+          "x": 960,
+          "z": 400,
+          "y": 72,
+          "rayon": 16,
+          "transition": 14
+        },
+        {
+          "x": 260,
+          "z": 1150,
+          "y": 66,
+          "rayon": 16,
+          "transition": 14
+        },
+        {
+          "x": -1060,
+          "z": 560,
+          "y": 96,
+          "rayon": 16,
+          "transition": 14
+        },
+        {
+          "x": -720,
+          "z": -760,
+          "y": 82,
+          "rayon": 16,
+          "transition": 14
         }
       ],
       "argument": {

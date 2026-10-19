@@ -1,0 +1,68 @@
+{
+  "titre": "La garde de verre",
+  "acte": 3,
+  "description": "La garde de Verréole ne tient plus les cols : colosses de cristal et échos résonnants descendent vers le plateau.",
+  "etapes": [
+    {
+      "id": "cols",
+      "resume": "Abattre deux colosses de cristal et trois échos résonnants autour de Verréole.",
+      "lieu": {
+        "nom": "Verréole",
+        "pos": [
+          -1150,
+          96,
+          500
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "colosses",
+          "type": "vaincre",
+          "cible": "les_limbes:colosse_de_cristal",
+          "nombre": 2,
+          "texte": "Vaincre deux colosses de cristal"
+        },
+        {
+          "id": "echos",
+          "type": "vaincre",
+          "cible": "les_limbes:echo_resonnant",
+          "nombre": 3,
+          "texte": "Vaincre trois échos résonnants"
+        }
+      ]
+    },
+    {
+      "id": "retour",
+      "resume": "Revenir au palais des miroirs rendre compte à la garde.",
+      "lieu": {
+        "nom": "Verréole",
+        "pos": [
+          -1150,
+          96,
+          500
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "retour",
+          "type": "parler",
+          "cible": "garde_de_verre",
+          "manuel": true,
+          "texte": "Rendre compte à la garde"
+        }
+      ]
+    }
+  ],
+  "fin": [
+    {
+      "type": "experience",
+      "niveaux": 4
+    },
+    {
+      "type": "drapeau",
+      "nom": "la_garde_de_verre_terminee"
+    }
+  ]
+}

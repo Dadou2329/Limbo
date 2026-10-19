@@ -9261,3 +9261,543 @@ Brumeval, cité arrivée : socle de pierre arraché aux brumes, place dallée et
 - taille : [33, 20, 33]
 - blocs : 4002 ; entités de bloc : 6 ; entités : 0
 - palette : les_limbes:pierre_de_couronne (1291), les_limbes:pierre_de_couronne_taillee (1160), minecraft:air (573), minecraft:quartz_stairs (400), les_limbes:pierre_de_couronne_polie (178), minecraft:quartz_block (160), les_limbes:planches_d_aube (144), minecraft:glass_pane (32), les_limbes:pierre_de_couronne_sculptee (24), les_limbes:lanterne_royale_eteinte (9), les_limbes:porte_d_aube_door (8), les_limbes:lanterne_nacree (4)
+
+## arrivees/charrette_renversee
+
+Arrivée « La charrette renversée » : charrette d'épicéa couchée, roues, bottes de foin, coffre de voyage ; disparaît après deux jours.
+
+- taille : [7, 5, 7]
+- blocs : 81 ; entités de bloc : 1 ; entités : 0
+- palette : minecraft:coarse_dirt (49), minecraft:spruce_planks (21), minecraft:spruce_trapdoor (4), minecraft:hay_block (4), minecraft:spruce_log (1), minecraft:chest (1), les_limbes:lanterne_nacree (1)
+
+```
+--- y=0 ---
+#######
+#######
+#######
+#######
+#######
+#######
+#######
+--- y=1 ---
+       
+  %   %
+ &&&&& 
+@&&&&& 
+ &&&&& 
+ %   % 
+   +   
+--- y=2 ---
+       
+  = =  
+ &   & 
+ & * & 
+ &   & 
+  = =  
+       
+--- y=3 ---
+       
+       
+       
+       
+       
+       
+       
+--- y=4 ---
+       
+       
+       
+       
+       
+       
+       
+Légende : #=minecraft:coarse_dirt, %=minecraft:hay_block, &=minecraft:spruce_planks, @=minecraft:spruce_log, +=les_limbes:lanterne_nacree, ==minecraft:spruce_trapdoor, *=minecraft:chest
+```
+
+## arrivees/puits_d_ailleurs
+
+Arrivée « Le puits d'ailleurs » : margelle de pavés, eau qui n'est pas d'ici, potence, chaîne et seau ; disparaît après deux jours.
+
+- taille : [5, 7, 5]
+- blocs : 51 ; entités de bloc : 2 ; entités : 0
+- palette : minecraft:coarse_dirt (16), minecraft:cobblestone (16), minecraft:spruce_slab (9), les_limbes:barriere_d_aube (4), minecraft:water (2), minecraft:chain (1), minecraft:cauldron (1), minecraft:chest (1), minecraft:spruce_sign (1)
+
+```
+--- y=0 ---
+#####
+#%%%#
+#%&%#
+#%%%#
+#####
+--- y=1 ---
+     
+ %%% 
+@%&%+
+ %%% 
+     
+--- y=2 ---
+     
+ =   
+  *  
+   = 
+     
+--- y=3 ---
+     
+ =   
+  :  
+   = 
+     
+--- y=4 ---
+     
+ ;;; 
+ ;;; 
+ ;;; 
+     
+--- y=5 ---
+     
+     
+     
+     
+     
+--- y=6 ---
+     
+     
+     
+     
+     
+Légende : #=minecraft:coarse_dirt, %=minecraft:cobblestone, &=minecraft:water, @=minecraft:spruce_sign, +=minecraft:chest, ==les_limbes:barriere_d_aube, *=minecraft:cauldron, :=minecraft:chain, ;=minecraft:spruce_slab
+```
+
+## arrivees/kiosque_a_musique
+
+Arrivée « Le kiosque à musique » : estrade de pierre nacrée, huit colonnes, toit de planches d'aube, blocs de note et phonographe ; coffre de partitions.
+
+- taille : [9, 7, 9]
+- blocs : 186 ; entités de bloc : 2 ; entités : 0
+- palette : les_limbes:pierre_nacree_polie (49), les_limbes:planches_d_aube (37), minecraft:coarse_dirt (32), les_limbes:barriere_d_aube (32), les_limbes:dalle_de_pierre_nacree (21), les_limbes:dalle_d_aube (9), minecraft:note_block (3), les_limbes:lanterne_nacree (1), minecraft:jukebox (1), minecraft:chest (1)
+
+```
+--- y=0 ---
+####%####
+##%%%%%##
+#%%%%%%%#
+#%%%%%%%#
+%%%%%%%%%
+#%%%%%%%#
+#%%%%%%%#
+##%%%%%##
+####%####
+--- y=1 ---
+         
+    &    
+  &@@@&  
+  @@@@@  
+ &@@@@@& 
+  @@@@@  
+  &@@@&  
+    &    
+         
+--- y=2 ---
+         
+    &    
+  &   &  
+   + =   
+ &  *  & 
+   + +   
+  &   &  
+    &    
+         
+--- y=3 ---
+         
+    &    
+  &   &  
+         
+ &     & 
+         
+  &   &  
+    &    
+         
+--- y=4 ---
+         
+    &    
+  &   &  
+         
+ &  :  & 
+         
+  &   &  
+    &    
+         
+--- y=5 ---
+         
+   ;;;   
+  ;;;;;  
+ ;;;;;;; 
+ ;;;;;;; 
+ ;;;;;;; 
+  ;;;;;  
+   ;;;   
+         
+--- y=6 ---
+         
+         
+         
+   ,,,   
+   ,,,   
+   ,,,   
+         
+         
+         
+Légende : #=minecraft:coarse_dirt, %=les_limbes:pierre_nacree_polie, &=les_limbes:barriere_d_aube, @=les_limbes:dalle_de_pierre_nacree, +=minecraft:note_block, ==minecraft:chest, *=minecraft:jukebox, :=les_limbes:lanterne_nacree, ;=les_limbes:planches_d_aube, ,=les_limbes:dalle_d_aube
+```
+
+## arrivees/radeau_des_naufrages
+
+Arrivée « Le radeau des naufragés » : rondins liés, tente de toile, feu, tonneaux, caisse ; Siméon raconte la tempête d'ailleurs.
+
+- taille : [11, 6, 9]
+- blocs : 185 ; entités de bloc : 3 ; entités : 0
+- palette : les_limbes:sable_de_nacre (99), minecraft:spruce_log (36), minecraft:white_wool (17), minecraft:spruce_planks (15), les_limbes:planches_d_aube (9), minecraft:white_bed (2), minecraft:barrel (2), minecraft:blue_banner (1), minecraft:campfire (1), minecraft:chest (1), minecraft:spruce_sign (1), minecraft:structure_block (1)
+
+```
+--- y=0 ---
+###########
+###########
+###########
+###########
+###########
+###########
+###########
+###########
+###########
+--- y=1 ---
+           
+      % &  
+ &&&&&&&   
+ &&&&&&&   
+ &&&&&&&   
+ &&&&&&&@@@
+ &&&&&&&@@@
+        @@@
+           
+--- y=2 ---
+           
+        +  
+           
+  =====    
+  =====    
+  ===== +++
+       *::+
+ ;      +++
+           
+--- y=3 ---
+           
+        ,  
+           
+           
+   .--     
+        +++
+        +++
+        +++
+           
+--- y=4 ---
+           
+           
+           
+           
+           
+           
+           
+           
+           
+--- y=5 ---
+           
+           
+           
+           
+           
+           
+           
+           
+           
+Légende : #=les_limbes:sable_de_nacre, %=minecraft:campfire, &=minecraft:spruce_log, @=les_limbes:planches_d_aube, +=minecraft:white_wool, ==minecraft:spruce_planks, *=minecraft:structure_block, :=minecraft:white_bed, ;=minecraft:spruce_sign, ,=minecraft:blue_banner, .=minecraft:chest, -=minecraft:barrel
+```
+
+## arrivees/serre_tombee
+
+Arrivée « La serre tombée » : vitres de chêne, carrés de blé, carottes et pommes de terre d'un autre monde, pots de fleurs, coffre de graines.
+
+- taille : [7, 6, 7]
+- blocs : 121 ; entités de bloc : 1 ; entités : 0
+- palette : minecraft:oak_slab (25), minecraft:coarse_dirt (24), minecraft:glass_pane (20), minecraft:oak_planks (16), minecraft:glass (9), minecraft:farmland (8), minecraft:oak_log (8), minecraft:air (2), minecraft:wheat (2), minecraft:water (1), minecraft:potted_poppy (1), minecraft:potted_azure_bluet (1)
+
+```
+--- y=0 ---
+#######
+#%%%%%#
+#%&&&%#
+#%&@&%#
+#%&&&%#
+#%%%%%#
+#######
+--- y=1 ---
+       
+ +===+ 
+ =*:;= 
+ ,   . 
+ =- *= 
+ +=.=+ 
+       
+--- y=2 ---
+       
+ +===+ 
+ =   = 
+ = ~ = 
+ =   = 
+ +=.=+ 
+       
+--- y=3 ---
+       
+ ^^^^^ 
+ ^^^^^ 
+ ^^^^^ 
+ ^^^^^ 
+ ^^^^^ 
+       
+--- y=4 ---
+       
+       
+  !!!  
+  !!!  
+  !!!  
+       
+       
+--- y=5 ---
+       
+       
+       
+       
+       
+       
+       
+Légende : #=minecraft:coarse_dirt, %=minecraft:oak_planks, &=minecraft:farmland, @=minecraft:water, +=minecraft:oak_log, ==minecraft:glass_pane, *=minecraft:wheat, :=minecraft:chest, ;=minecraft:carrots, ,=minecraft:potted_poppy, .=minecraft:potted_azure_bluet, -=minecraft:potatoes, ~=les_limbes:lanterne_nacree, ^=minecraft:oak_slab, !=minecraft:glass
+```
+
+## arrivees/tente_du_voyageur
+
+Arrivée « La tente du voyageur » : toile orange et blanche, tapis, feu éteint, coffre et carnet de route d'un marcheur d'ailleurs.
+
+- taille : [7, 5, 7]
+- blocs : 107 ; entités de bloc : 2 ; entités : 0
+- palette : les_limbes:sable_d_opale (49), minecraft:orange_wool (25), minecraft:red_carpet (24), minecraft:white_wool (3), minecraft:blue_carpet (1), les_limbes:barriere_d_aube (1), minecraft:chest (1), minecraft:barrel (1), minecraft:campfire (1), minecraft:lectern (1)
+
+```
+--- y=0 ---
+#######
+#######
+#######
+#######
+#######
+#######
+#######
+--- y=1 ---
+       
+ %%%%% 
+ %%%%% 
+ %%&%%@
+ %%%%% 
+ %%%%% 
+       
+--- y=2 ---
+       
+ +++++ 
+ =     
+ =* :  
+ =;    
+ +++++ 
+       
+--- y=3 ---
+       
+  +++  
+  +++  
+  +++  
+  +++  
+  +++  
+       
+--- y=4 ---
+       
+       
+       
+   ,   
+       
+       
+       
+Légende : #=les_limbes:sable_d_opale, %=minecraft:red_carpet, &=minecraft:blue_carpet, @=minecraft:campfire, +=minecraft:orange_wool, ==minecraft:white_wool, *=minecraft:chest, :=minecraft:barrel, ;=minecraft:lectern, ,=les_limbes:barriere_d_aube
+```
+
+## arrivees/cloche_de_verre
+
+Arrivée « La cloche de verre » : quatre colonnes de verre de montagne, linteaux, cloche de bronze, coffre de l'offrande.
+
+- taille : [5, 8, 5]
+- blocs : 74 ; entités de bloc : 2 ; entités : 0
+- palette : les_limbes:pierre_nacree_taillee (25), les_limbes:pierre_de_verre_taillee (25), les_limbes:verre_de_montagne (20), minecraft:bell (1), les_limbes:lanterne_nacree (1), minecraft:chest (1), minecraft:birch_wall_sign (1)
+
+```
+--- y=0 ---
+#####
+#####
+#####
+#####
+#####
+--- y=1 ---
+%   %
+     
+     
+     
+% & %
+--- y=2 ---
+% @ %
+     
+     
+     
+%   %
+--- y=3 ---
+%   %
+     
+     
+     
+%   %
+--- y=4 ---
+%   %
+     
+     
+     
+%   %
+--- y=5 ---
+%   %
+     
+  +  
+     
+%   %
+--- y=6 ---
+=====
+=====
+=====
+=====
+=====
+--- y=7 ---
+     
+     
+  *  
+     
+     
+Légende : #=les_limbes:pierre_nacree_taillee, %=les_limbes:verre_de_montagne, &=minecraft:chest, @=minecraft:birch_wall_sign, +=minecraft:bell, ==les_limbes:pierre_de_verre_taillee, *=les_limbes:lanterne_nacree
+```
+
+## arrivees/bibliotheque_perdue
+
+Arrivée « La bibliothèque perdue » : salle de briques moussues arrachée à une autre ville, rayonnages, trois lutrins et leurs livres, lustre, coffre de reliures.
+
+- taille : [11, 8, 11]
+- blocs : 527 ; entités de bloc : 4 ; entités : 0
+- palette : minecraft:stone_bricks (175), minecraft:air (120), minecraft:bookshelf (50), minecraft:dark_oak_planks (49), minecraft:coarse_dirt (40), minecraft:stone_brick_slab (32), minecraft:mossy_stone_bricks (28), minecraft:blue_carpet (17), minecraft:lectern (3), les_limbes:lanterne_nacree (3), les_limbes:barriere_d_aube (3), minecraft:white_carpet (3)
+
+```
+--- y=0 ---
+###########
+#%%%%%%%%%#
+#%&&&&&&&%#
+#%&&&&&&&%#
+#%&&&&&&&%#
+#%&&&&&&&%#
+#%&&&&&&&%#
+#%&&&&&&&%#
+#%&&&&&&&%#
+#%%%%%%%%%#
+###########
+--- y=1 ---
+           
+ @%%%@%%%@ 
+ %+++=+++% 
+ %+****:+% 
+ %+**;**+% 
+ @+*,,,*+@ 
+ %+**;**+% 
+ %+=***=+% 
+ %.......% 
+ @%%...%%@ 
+           
+--- y=2 ---
+           
+ @%%%@%%%@ 
+ %+++++++% 
+ %+.....+% 
+ %+.....+% 
+ @+.....+@ 
+ %+.....+% 
+ %+.....+% 
+ %.......% 
+ @%%...%%@ 
+           
+--- y=3 ---
+           
+ @%%%@%%%@ 
+ %+++++++% 
+ %+.....+% 
+ %+.....+% 
+ @+.....+@ 
+ %+.....+% 
+ %+.....+% 
+ %.......% 
+ @%%%%%%%@ 
+           
+--- y=4 ---
+           
+ @%%%@%%%@ 
+ %.......% 
+ %.-.....% 
+ %.......% 
+ @...-...@ 
+ %.......% 
+ %.....-.% 
+ %.......% 
+ @%%%%%%%@ 
+           
+--- y=5 ---
+           
+ ~~~~~~~~~ 
+ ~%%%%%%%~ 
+ ~%%%%%%%~ 
+ ~%%%%%%%~ 
+ ~%%%%%%%~ 
+ ~%%%%%%%~ 
+ ~%%%%%%%~ 
+ ~%%%%%%%~ 
+ ~~~~~~~~~ 
+           
+--- y=6 ---
+           
+           
+           
+           
+           
+     ^     
+           
+           
+           
+           
+           
+--- y=7 ---
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+Légende : #=minecraft:coarse_dirt, %=minecraft:stone_bricks, &=minecraft:dark_oak_planks, @=minecraft:mossy_stone_bricks, +=minecraft:bookshelf, ==minecraft:lectern, *=minecraft:blue_carpet, :=minecraft:chest, ;=les_limbes:escalier_d_aube, ,=les_limbes:barriere_d_aube, .=minecraft:white_carpet, -=les_limbes:lanterne_nacree, ~=minecraft:stone_brick_slab, ^=minecraft:blue_banner
+```

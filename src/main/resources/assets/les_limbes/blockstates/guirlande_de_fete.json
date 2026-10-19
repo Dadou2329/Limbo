@@ -1,0 +1,11 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "les_limbes:block/guirlande_de_fete"
+    },
+    "axis=z": {
+      "model": "les_limbes:block/guirlande_de_fete",
+      "y": 90
+    }
+  }
+}

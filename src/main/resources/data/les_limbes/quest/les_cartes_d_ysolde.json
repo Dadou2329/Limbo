@@ -1,0 +1,90 @@
+{
+  "titre": "Les cartes d'Ysolde",
+  "acte": 3,
+  "description": "Ysolde veut compléter ses cartes de la Mer suspendue : le quai des Falaises, le sanctuaire des bancs sous l'eau et le navire perdu.",
+  "etapes": [
+    {
+      "id": "releves",
+      "resume": "Relever le quai des Falaises, le sanctuaire des bancs et le navire perdu pour les cartes d'Ysolde.",
+      "lieu": {
+        "nom": "Manoir de Clairval",
+        "pos": [
+          -120,
+          66,
+          150
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "quai",
+          "type": "atteindre",
+          "pos": [
+            560,
+            82,
+            -360
+          ],
+          "rayon": 14,
+          "dimension": "les_limbes:limbes",
+          "texte": "Relever le quai des Falaises"
+        },
+        {
+          "id": "bancs",
+          "type": "atteindre",
+          "pos": [
+            1050,
+            44,
+            -560
+          ],
+          "rayon": 14,
+          "dimension": "les_limbes:limbes",
+          "texte": "Plonger jusqu'au sanctuaire des bancs"
+        },
+        {
+          "id": "navire",
+          "type": "atteindre",
+          "pos": [
+            1150,
+            44,
+            -950
+          ],
+          "rayon": 24,
+          "dimension": "les_limbes:limbes",
+          "texte": "Relever le navire perdu"
+        }
+      ]
+    },
+    {
+      "id": "retour",
+      "resume": "Rapporter les relevés à Ysolde, au manoir.",
+      "lieu": {
+        "nom": "Manoir de Clairval",
+        "pos": [
+          -120,
+          66,
+          150
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "retour",
+          "type": "parler",
+          "cible": "ysolde",
+          "manuel": true,
+          "texte": "Rapporter les relevés à Ysolde"
+        }
+      ]
+    }
+  ],
+  "fin": [
+    {
+      "type": "experience",
+      "niveaux": 4
+    },
+    {
+      "type": "drapeau",
+      "nom": "les_cartes_d_ysolde_terminee"
+    }
+  ]
+}

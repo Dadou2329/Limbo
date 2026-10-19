@@ -1,0 +1,90 @@
+{
+  "titre": "La caravane d'Idir",
+  "acte": 3,
+  "description": "Idir, le caravanier, veut rouvrir sa route du désert : l'observatoire des heures, le jardin redevenu fertile et la cour des heures.",
+  "etapes": [
+    {
+      "id": "etapes",
+      "resume": "Reconnaître la route d'Idir : observatoire des heures, jardin fertile, cour des heures.",
+      "lieu": {
+        "nom": "Méridiane",
+        "pos": [
+          150,
+          66,
+          1250
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "observatoire",
+          "type": "atteindre",
+          "pos": [
+            0,
+            66,
+            1420
+          ],
+          "rayon": 14,
+          "dimension": "les_limbes:limbes",
+          "texte": "Atteindre l'observatoire des heures"
+        },
+        {
+          "id": "jardin",
+          "type": "atteindre",
+          "pos": [
+            380,
+            66,
+            1130
+          ],
+          "rayon": 16,
+          "dimension": "les_limbes:limbes",
+          "texte": "Atteindre le jardin fertile"
+        },
+        {
+          "id": "cour",
+          "type": "atteindre",
+          "pos": [
+            230,
+            66,
+            1330
+          ],
+          "rayon": 20,
+          "dimension": "les_limbes:limbes",
+          "texte": "Atteindre la cour des heures"
+        }
+      ]
+    },
+    {
+      "id": "retour",
+      "resume": "Revenir dire à Idir que la route est praticable.",
+      "lieu": {
+        "nom": "Méridiane",
+        "pos": [
+          150,
+          66,
+          1250
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "retour",
+          "type": "parler",
+          "cible": "caravanier",
+          "manuel": true,
+          "texte": "Rendre compte à Idir"
+        }
+      ]
+    }
+  ],
+  "fin": [
+    {
+      "type": "experience",
+      "niveaux": 3
+    },
+    {
+      "type": "drapeau",
+      "nom": "la_caravane_d_idir_terminee"
+    }
+  ]
+}

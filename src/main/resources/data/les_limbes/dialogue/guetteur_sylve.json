@@ -2,6 +2,27 @@
   "nom": "Guetteur",
   "debut": [
     {
+      "noeud": "le_guet_de_sylvecime_fin",
+      "si": [
+        {
+          "quete_active": "le_guet_de_sylvecime"
+        },
+        {
+          "quete_etape": {
+            "le_guet_de_sylvecime": "=1"
+          }
+        }
+      ]
+    },
+    {
+      "noeud": "le_guet_de_sylvecime_cours",
+      "si": [
+        {
+          "quete_active": "le_guet_de_sylvecime"
+        }
+      ]
+    },
+    {
       "noeud": "accueil"
     }
   ],
@@ -12,7 +33,62 @@
       ],
       "choix": [
         {
+          "texte": "Qu'est-ce que vous guettez ?",
+          "si": [
+            {
+              "quete_inconnue": "le_guet_de_sylvecime"
+            }
+          ],
+          "actions": [
+            {
+              "type": "demarrer_quete",
+              "quete": "le_guet_de_sylvecime"
+            }
+          ],
+          "suivant": "le_guet_de_sylvecime_cours"
+        },
+        {
           "texte": "Merci."
+        }
+      ]
+    },
+    "le_guet_de_sylvecime_cours": {
+      "texte": [
+        "Les rôdeurs des racines. Ils montent la nuit, lents, puis ils frappent. Quatre de moins et je laisse les enfants redescendre jouer sous les géants."
+      ],
+      "choix": [
+        {
+          "texte": "J'y vais."
+        }
+      ]
+    },
+    "le_guet_de_sylvecime_fin": {
+      "texte": [
+        "Quatre. J'ai compté les silences. Les enfants descendront demain. Prenez des fruits et des perles : le guet n'a rien d'autre, mais il a ça."
+      ],
+      "choix": [
+        {
+          "texte": "Les racines sont calmes.",
+          "actions": [
+            {
+              "type": "donner",
+              "objet": "les_limbes:fruit_de_geant",
+              "nombre": 3
+            },
+            {
+              "type": "donner",
+              "objet": "les_limbes:perle_de_nacre",
+              "nombre": 2
+            },
+            {
+              "type": "objectif",
+              "quete": "le_guet_de_sylvecime",
+              "objectif": "retour"
+            }
+          ]
+        },
+        {
+          "texte": "Pas tout de suite."
         }
       ]
     }

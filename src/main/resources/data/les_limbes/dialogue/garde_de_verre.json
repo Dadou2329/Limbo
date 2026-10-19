@@ -2,6 +2,27 @@
   "nom": "Garde",
   "debut": [
     {
+      "noeud": "la_garde_de_verre_fin",
+      "si": [
+        {
+          "quete_active": "la_garde_de_verre"
+        },
+        {
+          "quete_etape": {
+            "la_garde_de_verre": "=1"
+          }
+        }
+      ]
+    },
+    {
+      "noeud": "la_garde_de_verre_cours",
+      "si": [
+        {
+          "quete_active": "la_garde_de_verre"
+        }
+      ]
+    },
+    {
       "noeud": "accueil"
     }
   ],
@@ -12,7 +33,62 @@
       ],
       "choix": [
         {
+          "texte": "Les cols sont tenus ?",
+          "si": [
+            {
+              "quete_inconnue": "la_garde_de_verre"
+            }
+          ],
+          "actions": [
+            {
+              "type": "demarrer_quete",
+              "quete": "la_garde_de_verre"
+            }
+          ],
+          "suivant": "la_garde_de_verre_cours"
+        },
+        {
           "texte": "Merci."
+        }
+      ]
+    },
+    "la_garde_de_verre_cours": {
+      "texte": [
+        "Par eux, pas par nous. Deux colosses de cristal au nord, lents et lourds, et des échos qui repoussent tout ce qui approche. Nettoyez les cols et Orsane le saura."
+      ],
+      "choix": [
+        {
+          "texte": "J'y vais."
+        }
+      ]
+    },
+    "la_garde_de_verre_fin": {
+      "texte": [
+        "Les cols sont à nous. La reine le saura ce soir. Prenez du cristal : la garde en tire ses lames."
+      ],
+      "choix": [
+        {
+          "texte": "Les cols sont libres.",
+          "actions": [
+            {
+              "type": "donner",
+              "objet": "les_limbes:cristal_de_nacre",
+              "nombre": 4
+            },
+            {
+              "type": "donner",
+              "objet": "les_limbes:perle_de_nacre",
+              "nombre": 1
+            },
+            {
+              "type": "objectif",
+              "quete": "la_garde_de_verre",
+              "objectif": "retour"
+            }
+          ]
+        },
+        {
+          "texte": "Pas tout de suite."
         }
       ]
     }

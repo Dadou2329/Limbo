@@ -11,6 +11,7 @@ import fr.leslimbes.world.dimension.LimbesSites;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.block.BlockState;
+import net.minecraft.registry.Registries;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
@@ -42,7 +43,7 @@ public final class AutoTest {
 			LimbesSites.PORT_NACRE, LimbesSites.MARCHE_FLOTTANT, LimbesSites.SYLVECIME, LimbesSites.SERRE_ANCIENNE, LimbesSites.CLAIRIERE_DU_GEANT,
 			LimbesSites.MERIDIANE, LimbesSites.JARDIN_FERTILE, LimbesSites.VERREOLE, LimbesSites.HAUTE_GARDE, LimbesSites.QUARTIER_DES_PORTES,
 			LimbesSites.PLACE_DES_CEREMONIES, LimbesSites.PALAIS, LimbesSites.ARENE_AELIS, LimbesSites.ARENE_KAEL, LimbesSites.ARENE_ORSANE, LimbesSites.ARENE_SAHIR, LimbesSites.CAMPEMENT_DE_L_ARCHIPEL,
-			LimbesSites.CHANTIER_NAVAL, LimbesSites.ILE_DES_RUINES, LimbesSites.LISIERE_DES_BRUMES, LimbesSites.BRUMEVAL);
+			LimbesSites.CHANTIER_NAVAL, LimbesSites.ILE_DES_RUINES, LimbesSites.LISIERE_DES_BRUMES, LimbesSites.BRUMEVAL, LimbesSites.ARRIVEE_MER, LimbesSites.ARRIVEE_COURONNE);
 	private static int phase;
 	private static long tickDepart;
 	private static long debutGeneration;
@@ -439,6 +440,34 @@ public final class AutoTest {
 				verifier(!maire.isEmpty(), "Hortense, maire de Brumeval, est présente");
 			}
 		}
+		// --- Étape 8 : complétion ---
+		verifier(fr.leslimbes.quest.QuestLoader.toutes().size() >= 56, "cinquante-six quêtes chargées (" + fr.leslimbes.quest.QuestLoader.toutes().size() + ")");
+		verifier(fr.leslimbes.arrivee.ArriveeLoader.definitions().size() >= 13, "treize types d'Arrivées chargés (" + fr.leslimbes.arrivee.ArriveeLoader.definitions().size() + ")");
+		fr.leslimbes.arrivee.ArriveeDefinition biblio = fr.leslimbes.arrivee.ArriveeLoader.get("bibliotheque_perdue");
+		if (biblio != null) {
+			Optional<fr.leslimbes.arrivee.ArriveeEvenement> e = fr.leslimbes.arrivee.ArriveeManager.declencher(server, biblio, "couronne_1");
+			verifier(e.isPresent(), "Arrivée « La bibliothèque perdue » déclenchée sur le site couronne_1" + (e.isPresent() ? "" : " (zone : "
+					+ fr.leslimbes.arrivee.ArriveeManager.raisonOccupation(limbes, LimbesSites.ARRIVEE_COURONNE.add(-5, -1, -5), new net.minecraft.util.math.Vec3i(11, 8, 11)) + ")"));
+			if (e.isPresent()) {
+				verifier(limbes.getBlockState(LimbesSites.ARRIVEE_COURONNE.add(-2, 0, 2)).isOf(net.minecraft.block.Blocks.LECTERN), "lutrin de la bibliothèque perdue en place ("
+						+ limbes.getBlockState(LimbesSites.ARRIVEE_COURONNE.add(-2, 0, 2)) + ")");
+			}
+		}
+		fr.leslimbes.arrivee.ArriveeDefinition radeau = fr.leslimbes.arrivee.ArriveeLoader.get("radeau_des_naufrages");
+		if (radeau != null) {
+			Optional<fr.leslimbes.arrivee.ArriveeEvenement> e = fr.leslimbes.arrivee.ArriveeManager.declencher(server, radeau, "mer_1");
+			verifier(e.isPresent(), "Arrivée « Le radeau des naufragés » déclenchée sur l'îlot de la Mer" + (e.isPresent() ? "" : " (zone : "
+					+ fr.leslimbes.arrivee.ArriveeManager.raisonOccupation(limbes, LimbesSites.ARRIVEE_MER.add(-4, -1, -4), new net.minecraft.util.math.Vec3i(11, 6, 9)) + ")"));
+			if (e.isPresent()) {
+				List<HabitantEntity> simeon = limbes.getEntitiesByClass(HabitantEntity.class, new Box(LimbesSites.ARRIVEE_MER).expand(16, 16, 16), h -> h.getRole().equals("naufrage"));
+				verifier(!simeon.isEmpty(), "Siméon, le naufragé, est arrivé avec son radeau");
+			}
+		}
+		verifier(Registries.BLOCK.getId(LimbesBlocks.TAPIS_DE_NACRE).getPath().equals("tapis_de_nacre") && LimbesBlocks.VASE_DE_NACRE.getDefaultState().getOutlineShape(limbes, BlockPos.ORIGIN).getMax(net.minecraft.util.math.Direction.Axis.Y) < 1.0,
+				"blocs de décor enregistrés (tapis, vase à silhouette réduite, guirlande)");
+		verifier(limbes.getBiome(LimbesSites.CLAIRVAL).value().getMusic().map(m -> m.getSound().value().getId().getPath().startsWith("musique.")).orElse(false),
+				"les biomes des Limbes jouent une musique originale (" + limbes.getBiome(LimbesSites.CLAIRVAL).value().getMusic().map(m -> m.getSound().value().getId().toString()).orElse("aucune") + ")");
+		verifier(fr.leslimbes.LimbesConfig.get().gardesParJoueur >= 1 && fr.leslimbes.LimbesConfig.get().eclatsMaxParMonde >= 16, "configuration des budgets chargée");
 		int routes = 0;
 		for (int x = -8; x <= 8; x++) {
 			for (int z = 140; z <= 160; z++) {

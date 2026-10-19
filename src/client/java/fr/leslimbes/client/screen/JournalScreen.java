@@ -59,6 +59,13 @@ public class JournalScreen extends Screen {
 		return ecran;
 	}
 
+	/** Journal ouvert directement sur l'onglet des options. */
+	public static JournalScreen options() {
+		JournalScreen ecran = new JournalScreen();
+		ecran.onglet = Onglet.OPTIONS;
+		return ecran;
+	}
+
 	@Override
 	protected void init() {
 		largeur = Math.min(440, width - 20);
@@ -185,31 +192,36 @@ public class JournalScreen extends Screen {
 			o.cyclerDensite();
 			rafraichir();
 		}).dimensions(x0 + 12, y, w, 18).build());
-		y += 22;
+		y += 20;
+		addDrawableChild(ButtonWidget.builder(Text.translatable("ecran.les_limbes.options.profil", o.nomProfil()), b -> {
+			o.cyclerProfil();
+			rafraichir();
+		}).dimensions(x0 + 12, y, w, 18).build());
+		y += 20;
 		addDrawableChild(ButtonWidget.builder(Text.translatable("ecran.les_limbes.options.secousses", OptionsLimbes.ouiNon(o.secousses)), b -> {
 			o.secousses = !o.secousses;
 			o.sauvegarder();
 			rafraichir();
 		}).dimensions(x0 + 12, y, w, 18).build());
-		y += 22;
+		y += 20;
 		addDrawableChild(ButtonWidget.builder(Text.translatable("ecran.les_limbes.options.flashes", OptionsLimbes.ouiNon(o.flashes)), b -> {
 			o.flashes = !o.flashes;
 			o.sauvegarder();
 			rafraichir();
 		}).dimensions(x0 + 12, y, w, 18).build());
-		y += 22;
+		y += 20;
 		addDrawableChild(ButtonWidget.builder(Text.translatable("ecran.les_limbes.options.marqueurs", OptionsLimbes.ouiNon(o.marqueurs)), b -> {
 			o.marqueurs = !o.marqueurs;
 			o.sauvegarder();
 			rafraichir();
 		}).dimensions(x0 + 12, y, w, 18).build());
-		y += 22;
+		y += 20;
 		addDrawableChild(ButtonWidget.builder(Text.translatable("ecran.les_limbes.options.discret", OptionsLimbes.ouiNon(o.discret)), b -> {
 			o.discret = !o.discret;
 			o.sauvegarder();
 			rafraichir();
 		}).dimensions(x0 + 12, y, w, 18).build());
-		y += 22;
+		y += 20;
 		addDrawableChild(ButtonWidget.builder(Text.translatable("ecran.les_limbes.options.tutoriel"), b -> {
 			o.indicesVus.clear();
 			o.sauvegarder();
@@ -503,7 +515,7 @@ public class JournalScreen extends Screen {
 	}
 
 	private void dessinerOptions(DrawContext context) {
-		int y = y0 + 36 + 6 * 22 + 4;
+		int y = y0 + 36 + 7 * 20 + 2;
 		for (OrderedText l : textRenderer.wrapLines(Text.translatable("ecran.les_limbes.options.aide"), largeur - 24)) {
 			context.drawTextWithShadow(textRenderer, l, x0 + 12, y, 0xFFB8B4B0);
 			y += 10;

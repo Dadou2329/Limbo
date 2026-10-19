@@ -144,21 +144,10 @@ public final class LimbesCommands {
 						.then(CommandManager.argument("pos", BlockPosArgumentType.blockPos()).executes(ctx -> placerStructure(ctx, BlockPosArgumentType.getLoadedBlockPos(ctx, "pos"))))))
 				.then(CommandManager.literal("arrivee")
 						.then(CommandManager.literal("liste").executes(LimbesCommands::listerArrivees))
-						.then(CommandManager.literal("declencher").then(CommandManager.argument("id", StringArgumentType.word()).executes(ctx -> {
-							String id = StringArgumentType.getString(ctx, "id");
-							fr.leslimbes.arrivee.ArriveeDefinition def = fr.leslimbes.arrivee.ArriveeLoader.get(id);
-							if (def == null) {
-								ctx.getSource().sendError(Text.literal("Arrivée inconnue : " + id + " (" + String.join(", ", fr.leslimbes.arrivee.ArriveeLoader.definitions().keySet()) + ")"));
-								return 0;
-							}
-							var e = fr.leslimbes.arrivee.ArriveeManager.declencher(ctx.getSource().getServer(), def, null);
-							if (e.isEmpty()) {
-								ctx.getSource().sendError(Text.literal("Aucun site libre ou vérifié pour cette Arrivée."));
-								return 0;
-							}
-							ctx.getSource().sendFeedback(() -> Text.literal("Arrivée « " + def.titre() + " » en " + e.get().pos.toShortString()), false);
-							return 1;
-						})))
+						.then(CommandManager.literal("declencher").then(CommandManager.argument("id", StringArgumentType.word())
+								.executes(ctx -> declencherArrivee(ctx, null))
+								.then(CommandManager.argument("site", StringArgumentType.word())
+										.executes(ctx -> declencherArrivee(ctx, StringArgumentType.getString(ctx, "site"))))))
 						.then(CommandManager.literal("resoudre").then(CommandManager.argument("id", StringArgumentType.word()).executes(ctx -> {
 							boolean ok = fr.leslimbes.arrivee.ArriveeManager.resoudre(ctx.getSource().getServer(), StringArgumentType.getString(ctx, "id"));
 							ctx.getSource().sendFeedback(() -> Text.literal(ok ? "Arrivée résolue." : "Aucune Arrivée active de ce type."), false);
@@ -257,6 +246,27 @@ public final class LimbesCommands {
 			sb.append("- ").append(id).append(" : ").append(etat).append('\n');
 		}
 		ctx.getSource().sendFeedback(() -> Text.literal(sb.toString().trim()), false);
+		return 1;
+	}
+
+	/** limbes arrivee declencher <id> [site] : déclenche une Arrivée sans ses prérequis, sur un site donné ou le premier site libre. */
+	private static int declencherArrivee(com.mojang.brigadier.context.CommandContext<ServerCommandSource> ctx, @org.jetbrains.annotations.Nullable String site) {
+		String id = StringArgumentType.getString(ctx, "id");
+		fr.leslimbes.arrivee.ArriveeDefinition def = fr.leslimbes.arrivee.ArriveeLoader.get(id);
+		if (def == null) {
+			ctx.getSource().sendError(Text.literal("Arrivée inconnue : " + id + " (" + String.join(", ", fr.leslimbes.arrivee.ArriveeLoader.definitions().keySet()) + ")"));
+			return 0;
+		}
+		if (site != null && !fr.leslimbes.arrivee.ArriveeLoader.sites().containsKey(site)) {
+			ctx.getSource().sendError(Text.literal("Site d'Arrivée inconnu : " + site + " (" + String.join(", ", fr.leslimbes.arrivee.ArriveeLoader.sites().keySet()) + ")"));
+			return 0;
+		}
+		var e = fr.leslimbes.arrivee.ArriveeManager.declencher(ctx.getSource().getServer(), def, site);
+		if (e.isEmpty()) {
+			ctx.getSource().sendError(Text.literal("Aucun site libre ou vérifié pour cette Arrivée."));
+			return 0;
+		}
+		ctx.getSource().sendFeedback(() -> Text.literal("Arrivée « " + def.titre() + " » en " + e.get().pos.toShortString()), false);
 		return 1;
 	}
 

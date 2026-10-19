@@ -1,0 +1,61 @@
+{
+  "titre": "Les lanternes du pont",
+  "acte": 2,
+  "description": "Brann veut éclairer le grand pont du Sanctuaire pour ceux qui arrivent de nuit : six lanternes nacrées, qu'il montera lui-même sur les piles.",
+  "etapes": [
+    {
+      "id": "lanternes",
+      "resume": "Réunir six lanternes nacrées pour Brann (cristal de nacre et fibres).",
+      "lieu": {
+        "nom": "Clairval",
+        "pos": [
+          0,
+          66,
+          140
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "lanternes",
+          "type": "collecter",
+          "cible": "les_limbes:lanterne_nacree",
+          "nombre": 6,
+          "texte": "Réunir six lanternes nacrées"
+        }
+      ]
+    },
+    {
+      "id": "retour",
+      "resume": "Rapporter les lanternes à Brann, à la forge de Clairval.",
+      "lieu": {
+        "nom": "Clairval",
+        "pos": [
+          0,
+          66,
+          140
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "retour",
+          "type": "parler",
+          "cible": "brann",
+          "manuel": true,
+          "texte": "Rapporter les lanternes à Brann"
+        }
+      ]
+    }
+  ],
+  "fin": [
+    {
+      "type": "experience",
+      "niveaux": 2
+    },
+    {
+      "type": "drapeau",
+      "nom": "les_lanternes_du_pont_terminee"
+    }
+  ]
+}

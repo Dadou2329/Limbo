@@ -2,7 +2,7 @@
 
 Ordre conseillé par le cahier des charges : 1 socle → 2 Prairies/Clairval/manoir/première quête/premiers pouvoirs → 3 tranche de qualité (mini-aventure, monture, Arrivée, combat) → 4 domaine/journal/passages → 5 régions restantes → 6 prétendants/campagne/couronnement → 7 pouvoirs supérieurs/règne → 8 complétion/optimisation.
 
-État : étapes 1 à 7 réalisées (tranche « Le Passage » ; monture, Arrivées, mini-aventures ; domaine ; six régions ; prétendants, campagne des actes II à IV, duels, capitale, couronnement et premier acte royal ; trente-trois techniques royales en sept branches et le règne de l'acte V) ; étape 8 (complétion, optimisation, validation finale) à suivre.
+État : les huit étapes sont réalisées (version 1.0.0). Ce qui reste relève de la vérification « en main » par de vrais joueurs et de l'enrichissement au-delà du cahier des charges.
 
 ## Prochaines actions exécutables (par priorité)
 
@@ -20,32 +20,32 @@ Ordre conseillé par le cahier des charges : 1 socle → 2 Prairies/Clairval/man
 - [x] Mini-aventures : « Le moulin immobilisé » et le Lac du Crépuscule (dalles de rosée horaires).
 - [x] Fragment de couronne visible par tous (attachement synchronisé `etat_public`).
 - [x] Modèles d'entités pilotés par données (JSON + textures peintes par cube) pour toutes les créatures à venir.
-- [ ] Musiques originales (ou libres documentées) à la place des pistes vanilla (étape 8).
+- [x] Musiques originales synthétisées (six pièces régionales) à la place des pistes vanilla.
 
 ### C. Domaine (étape 4) — réalisée
 - [x] Dix projets (aile ouest, forge royale, écuries, serres, maison des explorateurs, galerie, salle des passages, chambres, jardin, marché) : aperçu d'emprise, détection des constructions du joueur, construction autour des blocs occupés, inventaires rendus.
 - [x] Recrutement par rencontres : Sabine, Loïc, Hanna, Théo, Marguerite, Ysolde (+ Émile) ; installation dans l'annexe bâtie ; affûtage de l'épée.
 - [x] Salle des passages : portes de relais, découverte en voyage, voyage vérifié.
 - [x] Journal : onglets Domaine, Carte, Options ; indications discrètes ; indices de tutoriel.
-- [ ] Rendu des nouveaux éléments (vitrine, porte de relais, écrans de chantier et de relais, carte) à vérifier en captures client (prévu à la fin de l'étape suivante).
-- [ ] Scènes de vie des compagnons (horaires, gestes) et services des marchands (échanges) : étape 8.
-- [ ] Multijoueur : le domaine est partagé par le monde (un manoir commun) ; domaines par groupe et permissions : étape 8.
+- [x] Rendu des nouveaux éléments vérifié par la campagne de captures de fin de projet (voir `docs/captures/`).
+- [ ] Scènes de vie des compagnons (horaires, gestes) et services des marchands (échanges) : au-delà du cahier des charges.
+- [ ] Multijoueur : le domaine est partagé par le monde (un manoir commun) ; domaines par groupe et permissions : au-delà du cahier des charges.
 
 ### D. Régions (étape 5) — réalisée
 - [x] Source de biomes régionale (Voronoï pondéré, transitions), relief par région, 18 biomes, matériaux et blocs scénarisés (sève ascendante, cadran des heures, pavé horaire, pont de verre, cristal résonnant), Mer suspendue à volume d'eau stable, routes pavées sur le relief.
 - [x] Villes : Port-Nacre, Sylvécime, Méridiane, Verréole, Haute-Garde ; quinze lieux forts (phare, marché flottant, navire perdu, sanctuaire des bancs, quai, serre, pépinière, arbre creux, clairière, observatoire des heures, jardin des heures, bains, atelier, pont qui chante, quartier des portes) ; 63 personnages ; 9 relais.
 - [x] Cinq prétendants introduits avec une aventure chacun ; 30 créatures dont 6 montures (pacte, saut, nage, vol, sifflet des montures).
-- [ ] Vérifier en captures client le rendu des 26 modèles (proportions, animations de marche et d'annonce), des villes et des biomes (prévu en fin de projet).
+- [x] Villes et biomes des régions capturés en fin de projet ; animations non jugées à l'œil (images fixes).
 - [ ] Capitale et palais sur le plateau réservé (−900/86/−900) : étape 6.
-- [ ] Mécanismes temporels de Méridiane à étendre (quartier figé qui s'anime selon l'heure) et plongée outillée dans la Mer (respiration, lumière) : étape 8.
+- [ ] Mécanismes temporels de Méridiane à étendre (quartier figé qui s'anime selon l'heure) et plongée outillée dans la Mer (respiration, lumière) : au-delà du cahier des charges.
 
 ### E. Prétendants, campagne, couronnement (étape 6) — réalisée
 - [x] Système de duels en données (arène, boss, renforts, phases à seuils, actions de victoire et d'échec, barre de boss, blocs temporaires toujours retirés, échec sans mort en épreuve amicale, reprise libre) et boss à phases pour les cinq prétendants et le champion des heures.
 - [x] Reconnaissances différentes : Aélis (négociation si l'eau a été partagée, sinon danse des racines), Kaël (expédition de l'archipel ou pont du Vent-Debout), Orsane (duel rituel de la salle des miroirs), Sahir (tournoi des heures en trois épreuves) ; tous les duels restent jouables ensuite en épreuves amicales.
 - [x] Campagne : actes II (Le seigneur de Clairval), III (Le Prétendant, Les routes éteintes), IV (La Couronne : palais ouvert, vérité sur le roi, conflit puis duel final contre Vaëron à trois phases, conclusion où il garde Haute-Garde), couronnement jouable (délégations réellement aidées, ville illuminée, ponts reformés, couronne assemblée, contrôle rendu aussitôt) et premier acte royal (fragment du belvédère attiré, sceau du roi).
 - [x] Capitale endormie : place des cérémonies, palais (trône, conseil, archives, cuisines, appartements, jardin, tours), marché, ambassades, archives, ateliers, résidences ; éveil par niveaux ; quinze personnages.
-- [ ] Vérifier en captures client le rendu des boss, des arènes, de la capitale et de la cérémonie (fin de projet).
-- [ ] Scènes de vie des délégations et dialogues de félicitations plus nombreux (étape 8).
+- [x] Boss, arènes et capitale capturés en fin de projet.
+- [ ] Scènes de vie des délégations et dialogues de félicitations plus nombreux : au-delà du cahier des charges.
 
 ### F. Pouvoirs et règne (étape 7) — réalisée
 - [x] Arsenal : parade royale, lance (allonge) et charge, arc sans flèches (éclats de lumière, tension), marque royale, bouclier (rempart), changement d'arme en combo, armes satellites.
@@ -55,17 +55,27 @@ Ordre conseillé par le cahier des charges : 1 socle → 2 Prairies/Clairval/man
 - [x] Emblématiques : Jugement des constellations (sept étoiles), Marche du Palais (Portes libres), Audience du Roi (tout ce qui menace traîné devant le souverain), Avènement (trente secondes : couronne et manteau visibles de tous, majesté quadruplée, recharges divisées par deux, lames satellites ; état public niveau 3).
 - [x] Quatre emplacements (R, V, G, B), sélection radiale (X) par branches, onglet Pouvoirs du journal par branche avec défilement ; déblocages progressifs par la campagne (forge de Sabine, reconnaissances, actes, couronnement, sceau, frontières).
 - [x] Acte V : la cité arrivée (Brumeval, Arrivée majeure avec maire et habitants, porte de relais), le grand tournoi (cinq épreuves), le navire royal (chantier naval, structure posée par dialogue, porte de relais à bord, île des ruines et baleine des hauteurs), les frontières (lisière des brumes, l'ancien roi, vagues, choix) ; Lisbeth prépare une Arrivée.
-- [ ] Vérifier en captures client le rendu des armes royales, de la garde, des effets des décrets et de l'Avènement (couronne, manteau), de la sélection radiale (fin de projet).
-- [ ] Tutoriel progressif plus guidé (une indication par nouvelle technique) : étape 8.
+- [x] Garde astrale, pont de lumière, sélection radiale et Avènement capturés en fin de projet.
+- [ ] Tutoriel progressif plus guidé (une indication par nouvelle technique) : au-delà du message de déblocage et du journal.
+
+### H. Complétion (étape 8) — réalisée
+- [x] Quarante quêtes secondaires (vingt-sept nouvelles, une par habitant notable des régions et de la capitale), générées depuis une spécification lisible (`tools/datagen/gen_quetes_secondaires.py`).
+- [x] Treize types d'Arrivées sur onze sites réservés dans les six régions (huit nouvelles : charrette, puits, kiosque, radeau et Siméon, serre, tente, cloche, bibliothèque).
+- [x] Blocs de décor (tapis, vase, guirlande) avec recettes.
+- [x] Six musiques originales par région (synthèse), en flux.
+- [x] Budgets serveur configurables (`config/les_limbes.json`) et profil graphique client.
+- [x] Validation finale : JUnit, GameTests, AutoTest, campagne de captures client (34 images).
 
 ### G. Technique
-- [ ] Budgets explicites (PNJ actifs, invocations, pathfinding) et profils graphiques.
+- [x] Budgets explicites (Arrivées simultanées, gardes et durée, éclats par monde, rayon de surveillance) et profil graphique (bas, normal, élevé).
 - [ ] Sauvegarde versionnée des structures de données avec migrations (version 1 posée).
 - [ ] Option de destruction de terrain réversible pour les zones sauvages.
 - [ ] Datagen Fabric pour remplacer une partie du script Python (facultatif).
 
 ## Dette connue / limites honnêtes
-- Rendu client et interface : observés uniquement par captures fixes (Xvfb, rendu logiciel) ; les animations, les particules en mouvement et les sons n'ont pas été jugés à l'œil ni à l'oreille.
+- Rendu client et interface : observés uniquement par captures fixes (Xvfb, rendu logiciel) ; les animations, les particules en mouvement, les sons et les musiques n'ont pas été jugés à l'œil ni à l'oreille.
+- Musiques : synthèse procédurale (nappes, cloches, basse) ; des compositions humaines les remplaceraient avantageusement, le branchement par région est en place.
+- Le navire royal ne navigue pas : il est bâti au chantier et relie l'archipel par sa porte de relais.
 - Le vestige Overworld est localisé par l'auto-test sur serveur dédié (structure réellement générée), mais son intégration au relief n'a pas été regardée.
 - Textures d'entités : régénérées à l'identique désormais (les générateurs utilisaient `hash()` de Python, aléatoire d'une exécution à l'autre ; remplacé par crc32).
 - Les chemins hors plateaux (vers le manoir et le relais) ne sont pas encore tracés sur le relief ; les marqueurs de quête guident.

@@ -1,0 +1,68 @@
+{
+  "titre": "Les sentinelles d'Ayoub",
+  "acte": 3,
+  "description": "Ayoub, le guide des dunes, ne peut plus mener personne : sentinelles de sable et scorpions tiennent la route de l'ouest.",
+  "etapes": [
+    {
+      "id": "dunes",
+      "resume": "Abattre trois sentinelles de sable et trois scorpions des heures dans les dunes.",
+      "lieu": {
+        "nom": "Méridiane",
+        "pos": [
+          150,
+          66,
+          1250
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "sentinelles",
+          "type": "vaincre",
+          "cible": "les_limbes:sentinelle_de_sable",
+          "nombre": 3,
+          "texte": "Vaincre trois sentinelles de sable"
+        },
+        {
+          "id": "scorpions",
+          "type": "vaincre",
+          "cible": "les_limbes:scorpion_des_heures",
+          "nombre": 3,
+          "texte": "Vaincre trois scorpions des heures"
+        }
+      ]
+    },
+    {
+      "id": "retour",
+      "resume": "Revenir à Méridiane rendre compte à Ayoub.",
+      "lieu": {
+        "nom": "Méridiane",
+        "pos": [
+          150,
+          66,
+          1250
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "retour",
+          "type": "parler",
+          "cible": "guide_des_dunes",
+          "manuel": true,
+          "texte": "Rendre compte à Ayoub"
+        }
+      ]
+    }
+  ],
+  "fin": [
+    {
+      "type": "experience",
+      "niveaux": 3
+    },
+    {
+      "type": "drapeau",
+      "nom": "les_sentinelles_d_ayoub_terminee"
+    }
+  ]
+}

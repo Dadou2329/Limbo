@@ -1,0 +1,68 @@
+{
+  "titre": "Les rouages de l'horloger",
+  "acte": 3,
+  "description": "L'horloger de Méridiane répare la grande horloge : il lui faut des éclats résonnants des Montagnes et du cristal de nacre.",
+  "etapes": [
+    {
+      "id": "pieces",
+      "resume": "Réunir quatre éclats résonnants et deux cristaux de nacre pour l'horloger.",
+      "lieu": {
+        "nom": "Méridiane",
+        "pos": [
+          150,
+          66,
+          1250
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "eclats",
+          "type": "collecter",
+          "cible": "les_limbes:eclat_resonnant",
+          "nombre": 4,
+          "texte": "Réunir quatre éclats résonnants"
+        },
+        {
+          "id": "cristaux",
+          "type": "collecter",
+          "cible": "les_limbes:cristal_de_nacre",
+          "nombre": 2,
+          "texte": "Réunir deux cristaux de nacre"
+        }
+      ]
+    },
+    {
+      "id": "retour",
+      "resume": "Apporter les pièces à l'horloger de Méridiane.",
+      "lieu": {
+        "nom": "Méridiane",
+        "pos": [
+          150,
+          66,
+          1250
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "retour",
+          "type": "parler",
+          "cible": "horloger",
+          "manuel": true,
+          "texte": "Apporter les pièces à l'horloger"
+        }
+      ]
+    }
+  ],
+  "fin": [
+    {
+      "type": "experience",
+      "niveaux": 3
+    },
+    {
+      "type": "drapeau",
+      "nom": "les_rouages_de_l_horloger_terminee"
+    }
+  ]
+}

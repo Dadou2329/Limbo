@@ -2,6 +2,27 @@
   "nom": "Rolande",
   "debut": [
     {
+      "noeud": "la_patrouille_de_rolande_fin",
+      "si": [
+        {
+          "quete_active": "la_patrouille_de_rolande"
+        },
+        {
+          "quete_etape": {
+            "la_patrouille_de_rolande": "=1"
+          }
+        }
+      ]
+    },
+    {
+      "noeud": "la_patrouille_de_rolande_cours",
+      "si": [
+        {
+          "quete_active": "la_patrouille_de_rolande"
+        }
+      ]
+    },
+    {
       "noeud": "accueil"
     }
   ],
@@ -12,7 +33,62 @@
       ],
       "choix": [
         {
+          "texte": "Besoin d'une épée de plus, sergente ?",
+          "si": [
+            {
+              "quete_inconnue": "la_patrouille_de_rolande"
+            }
+          ],
+          "actions": [
+            {
+              "type": "demarrer_quete",
+              "quete": "la_patrouille_de_rolande"
+            }
+          ],
+          "suivant": "la_patrouille_de_rolande_cours"
+        },
+        {
           "texte": "Merci."
+        }
+      ]
+    },
+    "la_patrouille_de_rolande_cours": {
+      "texte": [
+        "Toujours. Les sentinelles de la Couronne ne reconnaissent plus personne et les spectres de la cour rôdent sur les anneaux. Trois sentinelles, deux spectres, et mes patrouilles repartent."
+      ],
+      "choix": [
+        {
+          "texte": "J'y vais."
+        }
+      ]
+    },
+    "la_patrouille_de_rolande_fin": {
+      "texte": [
+        "Rapport entendu. Les patrouilles repartent à l'aube. Prenez ces lanternes royales : on les a reprises aux sentinelles, elles vous reviennent."
+      ],
+      "choix": [
+        {
+          "texte": "Les anneaux sont nettoyés.",
+          "actions": [
+            {
+              "type": "donner",
+              "objet": "les_limbes:lanterne_royale",
+              "nombre": 2
+            },
+            {
+              "type": "donner",
+              "objet": "les_limbes:pain_de_la_cour",
+              "nombre": 2
+            },
+            {
+              "type": "objectif",
+              "quete": "la_patrouille_de_rolande",
+              "objectif": "retour"
+            }
+          ]
+        },
+        {
+          "texte": "Pas tout de suite."
         }
       ]
     }

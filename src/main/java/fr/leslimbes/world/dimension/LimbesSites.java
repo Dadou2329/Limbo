@@ -89,6 +89,9 @@ public final class LimbesSites {
 	public static final BlockPos ILE_DES_RUINES = new BlockPos(1300, 70, -1000);
 	public static final BlockPos LISIERE_DES_BRUMES = new BlockPos(-900, 86, -1380);
 	public static final BlockPos BRUMEVAL = new BlockPos(-1060, 86, -700);
+	/** Étape 8 : sites d'Arrivée des régions (îlot de la Mer, Couronne). */
+	public static final BlockPos ARRIVEE_MER = new BlockPos(900, 66, -650);
+	public static final BlockPos ARRIVEE_COURONNE = new BlockPos(-720, 82, -760);
 
 	/** Rayon (blocs) des zones aplanies ; cohérent avec les fichiers de densité. */
 	public static final int RAYON_APLANI_VILLAGE = 70;

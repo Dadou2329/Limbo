@@ -1,9 +1,48 @@
 {
   "nom": "Gaspard",
   "debut": [
-    {"noeud": "apres", "si": [{"drapeau": "gaspard_sauve"}]},
-    {"noeud": "sauvetage", "si": [{"quete_etape": {"l_etranger": "=4"}}]},
-    {"noeud": "perdu"}
+    {
+      "noeud": "la_patrouille_de_gaspard_fin",
+      "si": [
+        {
+          "quete_active": "la_patrouille_de_gaspard"
+        },
+        {
+          "quete_etape": {
+            "la_patrouille_de_gaspard": "=1"
+          }
+        }
+      ]
+    },
+    {
+      "noeud": "la_patrouille_de_gaspard_cours",
+      "si": [
+        {
+          "quete_active": "la_patrouille_de_gaspard"
+        }
+      ]
+    },
+    {
+      "noeud": "apres",
+      "si": [
+        {
+          "drapeau": "gaspard_sauve"
+        }
+      ]
+    },
+    {
+      "noeud": "sauvetage",
+      "si": [
+        {
+          "quete_etape": {
+            "l_etranger": "=4"
+          }
+        }
+      ]
+    },
+    {
+      "noeud": "perdu"
+    }
   ],
   "noeuds": {
     "perdu": {
@@ -11,7 +50,9 @@
         "Chut... Ils sont encore là, dehors. Les grands de pierre. Chassez-les d'abord, je vous en prie."
       ],
       "choix": [
-        {"texte": "Restez caché, je m'en occupe."}
+        {
+          "texte": "Restez caché, je m'en occupe."
+        }
       ]
     },
     "sauvetage": {
@@ -21,13 +62,30 @@
         "Tenez. J'ai trouvé ça dans les décombres, sous le relais. Ça brille quand vous approchez. Je crois que c'est à vous, maintenant."
       ],
       "actions": [
-        {"type": "donner", "objet": "les_limbes:fragment_de_couronne", "nombre": 1, "une_fois": "fragment_couronne_recu"},
-        {"type": "drapeau", "nom": "gaspard_sauve"},
-        {"type": "objectif", "quete": "l_etranger", "objectif": "gaspard"}
+        {
+          "type": "donner",
+          "objet": "les_limbes:fragment_de_couronne",
+          "nombre": 1,
+          "une_fois": "fragment_couronne_recu"
+        },
+        {
+          "type": "drapeau",
+          "nom": "gaspard_sauve"
+        },
+        {
+          "type": "objectif",
+          "quete": "l_etranger",
+          "objectif": "gaspard"
+        }
       ],
       "choix": [
-        {"texte": "Vous devriez aller à Clairval. Thibault vous accueillera.", "suivant": "clairval"},
-        {"texte": "Prenez soin de vous, Gaspard."}
+        {
+          "texte": "Vous devriez aller à Clairval. Thibault vous accueillera.",
+          "suivant": "clairval"
+        },
+        {
+          "texte": "Prenez soin de vous, Gaspard."
+        }
       ]
     },
     "clairval": {
@@ -35,7 +93,24 @@
         "Oui. Je vais y aller dès que mes jambes voudront bien. Peut-être que l'auberge a besoin d'un boulanger."
       ],
       "choix": [
-        {"texte": "Bonne route."}
+        {
+          "texte": "Vous dormez mal, Gaspard ?",
+          "si": [
+            {
+              "quete_inconnue": "la_patrouille_de_gaspard"
+            }
+          ],
+          "actions": [
+            {
+              "type": "demarrer_quete",
+              "quete": "la_patrouille_de_gaspard"
+            }
+          ],
+          "suivant": "la_patrouille_de_gaspard_cours"
+        },
+        {
+          "texte": "Bonne route."
+        }
       ]
     },
     "apres": {
@@ -43,7 +118,64 @@
         "Je me remets doucement. Le pain sera prêt demain. Enfin, je l'espère. Il faut d'abord que je trouve de la farine, ici."
       ],
       "choix": [
-        {"texte": "À bientôt, Gaspard."}
+        {
+          "texte": "Vous dormez mal, Gaspard ?",
+          "si": [
+            {
+              "quete_inconnue": "la_patrouille_de_gaspard"
+            }
+          ],
+          "actions": [
+            {
+              "type": "demarrer_quete",
+              "quete": "la_patrouille_de_gaspard"
+            }
+          ],
+          "suivant": "la_patrouille_de_gaspard_cours"
+        },
+        {
+          "texte": "À bientôt, Gaspard."
+        }
+      ]
+    },
+    "la_patrouille_de_gaspard_cours": {
+      "texte": [
+        "Ils reviennent la nuit, les grands de pierre. Pas jusqu'ici, mais sur la route. Cinq de moins et je recommencerai à porter le pain à Clairval."
+      ],
+      "choix": [
+        {
+          "texte": "J'y vais."
+        }
+      ]
+    },
+    "la_patrouille_de_gaspard_fin": {
+      "texte": [
+        "Cinq ? Vous avez compté ? Alors je repars demain avec ma charrette. Prenez cette lanterne royale : elle vient du relais d'avant, elle ne s'éteint jamais."
+      ],
+      "choix": [
+        {
+          "texte": "La route est sûre.",
+          "actions": [
+            {
+              "type": "donner",
+              "objet": "les_limbes:lanterne_royale",
+              "nombre": 1
+            },
+            {
+              "type": "donner",
+              "objet": "les_limbes:pain_d_emile",
+              "nombre": 2
+            },
+            {
+              "type": "objectif",
+              "quete": "la_patrouille_de_gaspard",
+              "objectif": "retour"
+            }
+          ]
+        },
+        {
+          "texte": "Pas tout de suite."
+        }
       ]
     }
   }

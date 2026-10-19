@@ -1,0 +1,75 @@
+{
+  "titre": "Les cuisines du palais",
+  "acte": 4,
+  "description": "Sidonie, l'intendante, veut rallumer les cuisines du palais pour la cour qui revient : pain de la cour, poissons-lanternes et ragoût du domaine.",
+  "etapes": [
+    {
+      "id": "vivres",
+      "resume": "Apporter quatre pains de la cour, quatre poissons-lanternes et deux ragoûts du domaine à Sidonie.",
+      "lieu": {
+        "nom": "Palais royal",
+        "pos": [
+          -900,
+          86,
+          -960
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "pain",
+          "type": "collecter",
+          "cible": "les_limbes:pain_de_la_cour",
+          "nombre": 4,
+          "texte": "Réunir quatre pains de la cour"
+        },
+        {
+          "id": "poissons",
+          "type": "collecter",
+          "cible": "les_limbes:poisson_lanterne",
+          "nombre": 4,
+          "texte": "Réunir quatre poissons-lanternes"
+        },
+        {
+          "id": "ragout",
+          "type": "collecter",
+          "cible": "les_limbes:ragout_du_domaine",
+          "nombre": 2,
+          "texte": "Préparer deux ragoûts du domaine"
+        }
+      ]
+    },
+    {
+      "id": "retour",
+      "resume": "Livrer les vivres aux cuisines du palais.",
+      "lieu": {
+        "nom": "Palais royal",
+        "pos": [
+          -900,
+          86,
+          -960
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "retour",
+          "type": "parler",
+          "cible": "intendante_du_palais",
+          "manuel": true,
+          "texte": "Livrer les vivres à Sidonie"
+        }
+      ]
+    }
+  ],
+  "fin": [
+    {
+      "type": "experience",
+      "niveaux": 3
+    },
+    {
+      "type": "drapeau",
+      "nom": "les_cuisines_du_palais_terminee"
+    }
+  ]
+}

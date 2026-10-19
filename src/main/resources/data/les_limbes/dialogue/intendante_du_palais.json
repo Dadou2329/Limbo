@@ -2,6 +2,27 @@
   "nom": "Sidonie",
   "debut": [
     {
+      "noeud": "les_cuisines_du_palais_fin",
+      "si": [
+        {
+          "quete_active": "les_cuisines_du_palais"
+        },
+        {
+          "quete_etape": {
+            "les_cuisines_du_palais": "=1"
+          }
+        }
+      ]
+    },
+    {
+      "noeud": "les_cuisines_du_palais_cours",
+      "si": [
+        {
+          "quete_active": "les_cuisines_du_palais"
+        }
+      ]
+    },
+    {
       "noeud": "couronne",
       "si": [
         {
@@ -20,6 +41,24 @@
       ],
       "choix": [
         {
+          "texte": "Les cuisines tournent pour qui, Sidonie ?",
+          "si": [
+            {
+              "quete_inconnue": "les_cuisines_du_palais"
+            },
+            {
+              "drapeau_monde": "capitale_niveau_2"
+            }
+          ],
+          "actions": [
+            {
+              "type": "demarrer_quete",
+              "quete": "les_cuisines_du_palais"
+            }
+          ],
+          "suivant": "les_cuisines_du_palais_cours"
+        },
+        {
           "texte": "Ça sent bon."
         }
       ]
@@ -30,6 +69,24 @@
       ],
       "choix": [
         {
+          "texte": "Les cuisines tournent pour qui, Sidonie ?",
+          "si": [
+            {
+              "quete_inconnue": "les_cuisines_du_palais"
+            },
+            {
+              "drapeau_monde": "capitale_niveau_2"
+            }
+          ],
+          "actions": [
+            {
+              "type": "demarrer_quete",
+              "quete": "les_cuisines_du_palais"
+            }
+          ],
+          "suivant": "les_cuisines_du_palais_cours"
+        },
+        {
           "texte": "Merci, Sidonie.",
           "actions": [
             {
@@ -39,6 +96,81 @@
               "une_fois": "pain_sidonie"
             }
           ]
+        }
+      ]
+    },
+    "les_cuisines_du_palais_cours": {
+      "texte": [
+        "Pour personne, et ça me rend folle. Quatre pains de la cour de Haute-Garde, quatre poissons-lanternes de la Mer, deux ragoûts du domaine de Clairval : trois régions dans une marmite, et la cour aura faim."
+      ],
+      "choix": [
+        {
+          "texte": "J'y vais."
+        }
+      ]
+    },
+    "les_cuisines_du_palais_fin": {
+      "texte": [
+        "Trois régions dans une marmite. Sentez ça. Les ambassadeurs en redemanderont. Prenez ces miches, les premières du nouveau four."
+      ],
+      "choix": [
+        {
+          "texte": "Voici les vivres.",
+          "si": [
+            {
+              "objet": {
+                "id": "les_limbes:pain_de_la_cour",
+                "nombre": 4
+              }
+            },
+            {
+              "objet": {
+                "id": "les_limbes:poisson_lanterne",
+                "nombre": 4
+              }
+            },
+            {
+              "objet": {
+                "id": "les_limbes:ragout_du_domaine",
+                "nombre": 2
+              }
+            }
+          ],
+          "actions": [
+            {
+              "type": "retirer",
+              "objet": "les_limbes:pain_de_la_cour",
+              "nombre": 4
+            },
+            {
+              "type": "retirer",
+              "objet": "les_limbes:poisson_lanterne",
+              "nombre": 4
+            },
+            {
+              "type": "retirer",
+              "objet": "les_limbes:ragout_du_domaine",
+              "nombre": 2
+            },
+            {
+              "type": "donner",
+              "objet": "les_limbes:pain_de_la_cour",
+              "nombre": 6
+            },
+            {
+              "type": "donner",
+              "objet": "les_limbes:ragout_du_domaine",
+              "nombre": 2
+            },
+            {
+              "type": "objectif",
+              "quete": "les_cuisines_du_palais",
+              "objectif": "retour"
+            }
+          ]
+        },
+        {
+          "texte": "Pas tout de suite."
         }
       ]
     }

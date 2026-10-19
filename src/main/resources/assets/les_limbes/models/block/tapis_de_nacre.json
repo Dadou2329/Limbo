@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/carpet",
+  "textures": {
+    "wool": "les_limbes:block/tapis_de_nacre"
+  }
+}

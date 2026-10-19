@@ -1,0 +1,17 @@
+{
+  "titre": "Le radeau des naufragés",
+  "description": "Un radeau de rondins échoué sur un îlot de la Mer suspendue, une tente, un feu, et Siméon, naufragé d'une mer d'en bas, bien vivant.",
+  "echelle": "moyenne",
+  "gabarit": "les_limbes:arrivees/radeau_des_naufrages",
+  "ancre": [
+    4,
+    1,
+    4
+  ],
+  "sites": "mer",
+  "poids": 12,
+  "unique": true,
+  "duree": 0,
+  "prerequis": [],
+  "annonce": "Quelque chose de grand s'échoue sur la Mer"
+}

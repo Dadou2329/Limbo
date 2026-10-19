@@ -1,0 +1,61 @@
+{
+  "titre": "Les filets de Maude",
+  "acte": 3,
+  "description": "Maude, la poissonnière de Port-Nacre, manque de poissons-lanternes pour la criée : huit, pêchés dans les lagons.",
+  "etapes": [
+    {
+      "id": "poissons",
+      "resume": "Pêcher huit poissons-lanternes dans la Mer suspendue.",
+      "lieu": {
+        "nom": "Port-Nacre",
+        "pos": [
+          950,
+          66,
+          -750
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "poissons",
+          "type": "collecter",
+          "cible": "les_limbes:poisson_lanterne",
+          "nombre": 8,
+          "texte": "Pêcher huit poissons-lanternes"
+        }
+      ]
+    },
+    {
+      "id": "retour",
+      "resume": "Livrer les poissons à Maude, à la criée de Port-Nacre.",
+      "lieu": {
+        "nom": "Port-Nacre",
+        "pos": [
+          950,
+          66,
+          -750
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "retour",
+          "type": "parler",
+          "cible": "poissonniere",
+          "manuel": true,
+          "texte": "Livrer les poissons à Maude"
+        }
+      ]
+    }
+  ],
+  "fin": [
+    {
+      "type": "experience",
+      "niveaux": 2
+    },
+    {
+      "type": "drapeau",
+      "nom": "les_filets_de_maude_terminee"
+    }
+  ]
+}

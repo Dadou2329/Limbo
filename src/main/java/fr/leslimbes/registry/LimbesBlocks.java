@@ -176,6 +176,10 @@ public final class LimbesBlocks {
 			AbstractBlock.Settings.create().mapColor(MapColor.GOLD).strength(-1.0F, 3600000.0F).dropsNothing().nonOpaque().sounds(BlockSoundGroup.AMETHYST_BLOCK)
 					.luminance(state -> state.get(fr.leslimbes.block.PaveHoraireBlock.VISIBLE) ? 9 : 2).suffocates(LimbesBlocks::never).blockVision(LimbesBlocks::never)
 					.pistonBehavior(PistonBehavior.BLOCK)));
+	// Décor (étape 8) : tapis de nacre, vase de nacre, guirlande de fête.
+	public static final Block TAPIS_DE_NACRE = register("tapis_de_nacre", new net.minecraft.block.CarpetBlock(AbstractBlock.Settings.create().mapColor(MapColor.WHITE_GRAY).strength(0.1F).sounds(BlockSoundGroup.WOOL)));
+	public static final Block VASE_DE_NACRE = register("vase_de_nacre", new fr.leslimbes.block.VaseDeNacreBlock(AbstractBlock.Settings.create().mapColor(MapColor.WHITE_GRAY).strength(0.4F).nonOpaque().sounds(BlockSoundGroup.GLASS)));
+	public static final Block GUIRLANDE_DE_FETE = register("guirlande_de_fete", new fr.leslimbes.block.GuirlandeDeFeteBlock(AbstractBlock.Settings.create().mapColor(MapColor.GOLD).strength(0.2F).nonOpaque().luminance(state -> 11).sounds(BlockSoundGroup.LANTERN).noCollision()));
 	public static final Block PONT_DE_LUMIERE = register("pont_de_lumiere", new fr.leslimbes.block.PontDeLumiereBlock(
 			AbstractBlock.Settings.create().mapColor(MapColor.GOLD).strength(-1.0F, 3600000.0F).dropsNothing().nonOpaque().noBlockBreakParticles().sounds(BlockSoundGroup.GLASS)
 					.luminance(state -> 13).suffocates(LimbesBlocks::never).blockVision(LimbesBlocks::never).pistonBehavior(PistonBehavior.BLOCK)));

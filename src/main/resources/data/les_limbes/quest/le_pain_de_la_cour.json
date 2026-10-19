@@ -1,0 +1,68 @@
+{
+  "titre": "Le pain de la cour",
+  "acte": 3,
+  "description": "Le boulanger de Haute-Garde veut refaire le pain de la cour tel qu'autrefois : de la farine de Clairval et du miel de rosée.",
+  "etapes": [
+    {
+      "id": "ingredients",
+      "resume": "Apporter six farines et deux miels de rosée au boulanger de Haute-Garde.",
+      "lieu": {
+        "nom": "Haute-Garde",
+        "pos": [
+          -610,
+          82,
+          -610
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "farine",
+          "type": "collecter",
+          "cible": "les_limbes:farine",
+          "nombre": 6,
+          "texte": "Moudre six farines"
+        },
+        {
+          "id": "miel",
+          "type": "collecter",
+          "cible": "les_limbes:miel_de_rosee",
+          "nombre": 2,
+          "texte": "Réunir deux miels de rosée"
+        }
+      ]
+    },
+    {
+      "id": "retour",
+      "resume": "Apporter les ingrédients au boulanger de Haute-Garde.",
+      "lieu": {
+        "nom": "Haute-Garde",
+        "pos": [
+          -610,
+          82,
+          -610
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "retour",
+          "type": "parler",
+          "cible": "boulanger_garde",
+          "manuel": true,
+          "texte": "Apporter les ingrédients au boulanger"
+        }
+      ]
+    }
+  ],
+  "fin": [
+    {
+      "type": "experience",
+      "niveaux": 2
+    },
+    {
+      "type": "drapeau",
+      "nom": "le_pain_de_la_cour_terminee"
+    }
+  ]
+}

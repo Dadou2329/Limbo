@@ -1,0 +1,17 @@
+{
+  "titre": "Le kiosque à musique",
+  "description": "Un kiosque de place publique, colonnes et toit, avec ses blocs de note et un phonographe qui joue encore une musique d'ailleurs.",
+  "echelle": "petite",
+  "gabarit": "les_limbes:arrivees/kiosque_a_musique",
+  "ancre": [
+    4,
+    1,
+    4
+  ],
+  "sites": "prairies",
+  "poids": 10,
+  "unique": false,
+  "duree": 72000,
+  "prerequis": [],
+  "annonce": "Une musique descend du ciel"
+}

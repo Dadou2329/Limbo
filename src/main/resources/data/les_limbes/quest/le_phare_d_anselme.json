@@ -1,0 +1,61 @@
+{
+  "titre": "Le phare d'Anselme",
+  "acte": 3,
+  "description": "Anselme garde le phare du Dessous, mais des gardiens des épaves montent sur le rebord la nuit. Trois de moins, et la lampe tiendra.",
+  "etapes": [
+    {
+      "id": "gardiens",
+      "resume": "Abattre trois gardiens des épaves autour du phare du Dessous.",
+      "lieu": {
+        "nom": "Phare du Dessous",
+        "pos": [
+          1440,
+          84,
+          -750
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "gardiens",
+          "type": "vaincre",
+          "cible": "les_limbes:gardien_des_epaves",
+          "nombre": 3,
+          "texte": "Vaincre trois gardiens des épaves"
+        }
+      ]
+    },
+    {
+      "id": "retour",
+      "resume": "Revenir au phare rassurer Anselme.",
+      "lieu": {
+        "nom": "Phare du Dessous",
+        "pos": [
+          1440,
+          84,
+          -750
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "retour",
+          "type": "parler",
+          "cible": "anselme",
+          "manuel": true,
+          "texte": "Rassurer Anselme"
+        }
+      ]
+    }
+  ],
+  "fin": [
+    {
+      "type": "experience",
+      "niveaux": 3
+    },
+    {
+      "type": "drapeau",
+      "nom": "le_phare_d_anselme_terminee"
+    }
+  ]
+}

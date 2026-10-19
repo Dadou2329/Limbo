@@ -690,6 +690,10 @@ def gen_blocks_regions() -> None:
     save(tex_pont_royal(False), out_path("block", "pont_royal"))
     save(tex_pont_royal(True), out_path("block", "pont_royal_trame"))
     save(tex_pont_de_lumiere(), out_path("block", "pont_de_lumiere"))
+    save(tex_tapis_de_nacre(), out_path("block", "tapis_de_nacre"))
+    save(tex_vase_de_nacre(), out_path("block", "vase_de_nacre"))
+    save(tex_guirlande_de_fete(), out_path("block", "guirlande_de_fete"))
+    save(tex_guirlande_de_fete(), out_path("item", "guirlande_de_fete"))
     save(tex_item_sceau_royal(), out_path("item", "sceau_royal"))
 
 
@@ -923,6 +927,47 @@ def tex_pont_de_lumiere() -> Image.Image:
             raie = (x + y) % 6 == 0
             c = P["or_clair"] if bord else (P["blanc"] if raie else P["or"])
             put(img, x, y, (c[0], c[1], c[2], 235 if bord else (150 if raie else 110)))
+    return img
+
+
+def tex_tapis_de_nacre() -> Image.Image:
+    """Tapis de nacre : tissage de fibres claires à motif de losanges bleus."""
+    img = new()
+    fill_noise(img, P["fibre"], palette=[P["fibre_sombre"], P["fibre"], P["fibre"], P["blanc"]], scale=3, seed=81)
+    for y in range(16):
+        for x in range(16):
+            if (x + y) % 8 == 0 or (x - y) % 8 == 0:
+                put(img, x, y, P["bleu_clair"])
+    for x in range(16):
+        put(img, x, 0, P["or"]); put(img, x, 15, P["or"])
+    return img
+
+
+def tex_vase_de_nacre() -> Image.Image:
+    """Vase de nacre : panse claire irisée, col bleu nuit, filet d'or (UV découpées par le modèle)."""
+    img = new()
+    fill_noise(img, P["lueur"], palette=[P["fibre"], P["lueur"], P["blanc"]], scale=3, seed=82)
+    for y in range(0, 6):
+        for x in range(16):
+            put(img, x, y, P["bleu"] if y < 2 else P["bleu_clair"])
+    for x in range(16):
+        put(img, x, 6, P["or"]); put(img, x, 13, P["or"])
+    for (x, y) in [(5, 9), (10, 10), (7, 11), (12, 8)]:
+        put(img, x, y, P["bleu_clair"])
+    return img
+
+
+def tex_guirlande_de_fete() -> Image.Image:
+    """Guirlande de fête : cordon d'or sur la première ligne, lanternes de couleur en dessous ; fond transparent."""
+    img = new()
+    for x in range(16):
+        put(img, x, 0, P["or_sombre"] if x % 3 else P["or"])
+    for i, c in enumerate(("B23A48", "E3C97E", "3C57A0")):
+        x0 = 1 + i * 3
+        for y in range(2, 7):
+            for x in range(x0, x0 + 2):
+                put(img, x, y, hex_to_rgba(c) if 3 <= y <= 5 else P["or"])
+    put(img, 4, 2, P["or"]); put(img, 5, 2, P["or"])
     return img
 
 
@@ -1357,6 +1402,7 @@ SKINS = {
     "brumevaloise_2": {'seed': 123, 'peau': 'F2D6C2', 'cheveux': 'D9A066', 'haut': '5E8A6E', 'bas': '6A5A4A', 'accent': 'F0CBD8', 'longueur_cheveux': 4, 'cheveux_longs': True, 'col': 'E9E3DA'},
     "enfant_de_brumeval": {'seed': 124, 'peau': 'E8C4A8', 'cheveux': '8E5A2E', 'haut': 'A33E3E', 'bas': '4F4A3E', 'accent': 'E3C97E', 'longueur_cheveux': 2},
     "charpentier_royal": {'seed': 125, 'peau': 'B5805C', 'cheveux': '2B1E12', 'haut': '3C7FA8', 'bas': '4F3B2E', 'accent': 'FFF8E2', 'longueur_cheveux': 1, 'barbe': '2B1E12', 'tablier': '7A5A42', 'manches': 'E9DCC8'},
+    "naufrage": {'seed': 127, 'peau': 'D9A77C', 'cheveux': '5A3A26', 'haut': '8A6A4E', 'bas': '2A3A4E', 'accent': 'FFF8E2', 'longueur_cheveux': 2, 'barbe': '5A3A26'},
     "ancien_roi": {'seed': 126, 'peau': 'E6C7A8', 'cheveux': 'F2F4FA', 'haut': '22305E', 'bas': '151E3D', 'accent': 'E3C97E', 'longueur_cheveux': 3, 'barbe': 'F2F4FA', 'manteau': '2E3A6E', 'col': 'FFE08A', 'broderie': True, 'epaulettes': 'C9A227', 'ceinture': 'B4934A'},
     # --- Capitale et épreuves (étape 6) ---
     "chambellan": {'seed': 101, 'peau': 'E6C7A8', 'cheveux': 'C9C9C9', 'haut': '2E3A6E', 'bas': '1C2447', 'accent': 'C9A227', 'longueur_cheveux': 2, 'manteau': '3A4A8A', 'col': 'FFE08A', 'broderie': True, 'epaulettes': 'C9A227'},

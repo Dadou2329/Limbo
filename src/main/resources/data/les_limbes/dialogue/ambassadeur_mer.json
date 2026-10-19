@@ -2,6 +2,27 @@
   "nom": "Teodor",
   "debut": [
     {
+      "noeud": "les_presents_des_regions_fin",
+      "si": [
+        {
+          "quete_active": "les_presents_des_regions"
+        },
+        {
+          "quete_etape": {
+            "les_presents_des_regions": "=1"
+          }
+        }
+      ]
+    },
+    {
+      "noeud": "les_presents_des_regions_cours",
+      "si": [
+        {
+          "quete_active": "les_presents_des_regions"
+        }
+      ]
+    },
+    {
       "noeud": "couronne",
       "si": [
         {
@@ -20,6 +41,24 @@
       ],
       "choix": [
         {
+          "texte": "L'ambassade manque de quelque chose ?",
+          "si": [
+            {
+              "quete_inconnue": "les_presents_des_regions"
+            },
+            {
+              "drapeau_monde": "capitale_niveau_1"
+            }
+          ],
+          "actions": [
+            {
+              "type": "demarrer_quete",
+              "quete": "les_presents_des_regions"
+            }
+          ],
+          "suivant": "les_presents_des_regions_cours"
+        },
+        {
           "texte": "Enchanté."
         }
       ]
@@ -30,7 +69,95 @@
       ],
       "choix": [
         {
+          "texte": "L'ambassade manque de quelque chose ?",
+          "si": [
+            {
+              "quete_inconnue": "les_presents_des_regions"
+            },
+            {
+              "drapeau_monde": "capitale_niveau_1"
+            }
+          ],
+          "actions": [
+            {
+              "type": "demarrer_quete",
+              "quete": "les_presents_des_regions"
+            }
+          ],
+          "suivant": "les_presents_des_regions_cours"
+        },
+        {
           "texte": "Merci."
+        }
+      ]
+    },
+    "les_presents_des_regions_cours": {
+      "texte": [
+        "De tout, mais surtout de présents à offrir aux autres ambassades : trois perles de la Mer, trois fruits des Jardins, trois thés des Montagnes. La diplomatie commence par une table."
+      ],
+      "choix": [
+        {
+          "texte": "J'y vais."
+        }
+      ]
+    },
+    "les_presents_des_regions_fin": {
+      "texte": [
+        "Lune a pleuré sur les fruits et Hadrien a bu le thé sans un mot, ce qui chez lui est un éloge. Prenez ces lanternes royales : un présent pour un présent."
+      ],
+      "choix": [
+        {
+          "texte": "Voici les présents.",
+          "si": [
+            {
+              "objet": {
+                "id": "les_limbes:perle_de_nacre",
+                "nombre": 3
+              }
+            },
+            {
+              "objet": {
+                "id": "les_limbes:fruit_de_geant",
+                "nombre": 3
+              }
+            },
+            {
+              "objet": {
+                "id": "les_limbes:the_des_cimes",
+                "nombre": 3
+              }
+            }
+          ],
+          "actions": [
+            {
+              "type": "retirer",
+              "objet": "les_limbes:perle_de_nacre",
+              "nombre": 3
+            },
+            {
+              "type": "retirer",
+              "objet": "les_limbes:fruit_de_geant",
+              "nombre": 3
+            },
+            {
+              "type": "retirer",
+              "objet": "les_limbes:the_des_cimes",
+              "nombre": 3
+            },
+            {
+              "type": "donner",
+              "objet": "les_limbes:lanterne_royale",
+              "nombre": 3
+            },
+            {
+              "type": "objectif",
+              "quete": "les_presents_des_regions",
+              "objectif": "retour"
+            }
+          ]
+        },
+        {
+          "texte": "Pas tout de suite."
         }
       ]
     }

@@ -1,0 +1,68 @@
+{
+  "titre": "La patrouille de Rolande",
+  "acte": 3,
+  "description": "Rolande, sergente de Haute-Garde, veut nettoyer les anneaux : sentinelles de la Couronne déréglées et spectres de la cour.",
+  "etapes": [
+    {
+      "id": "anneaux",
+      "resume": "Abattre trois sentinelles de la Couronne et deux spectres de la cour sur les anneaux.",
+      "lieu": {
+        "nom": "Haute-Garde",
+        "pos": [
+          -610,
+          82,
+          -610
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "sentinelles",
+          "type": "vaincre",
+          "cible": "les_limbes:sentinelle_de_la_couronne",
+          "nombre": 3,
+          "texte": "Vaincre trois sentinelles de la Couronne"
+        },
+        {
+          "id": "spectres",
+          "type": "vaincre",
+          "cible": "les_limbes:spectre_de_la_cour",
+          "nombre": 2,
+          "texte": "Vaincre deux spectres de la cour"
+        }
+      ]
+    },
+    {
+      "id": "retour",
+      "resume": "Revenir à la place d'armes rendre compte à Rolande.",
+      "lieu": {
+        "nom": "Haute-Garde",
+        "pos": [
+          -610,
+          82,
+          -610
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "retour",
+          "type": "parler",
+          "cible": "sergent",
+          "manuel": true,
+          "texte": "Rendre compte à Rolande"
+        }
+      ]
+    }
+  ],
+  "fin": [
+    {
+      "type": "experience",
+      "niveaux": 4
+    },
+    {
+      "type": "drapeau",
+      "nom": "la_patrouille_de_rolande_terminee"
+    }
+  ]
+}

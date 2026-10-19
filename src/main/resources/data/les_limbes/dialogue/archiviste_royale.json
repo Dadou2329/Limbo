@@ -15,6 +15,27 @@
       ]
     },
     {
+      "noeud": "la_chronique_de_maud_fin",
+      "si": [
+        {
+          "quete_active": "la_chronique_de_maud"
+        },
+        {
+          "quete_etape": {
+            "la_chronique_de_maud": "=1"
+          }
+        }
+      ]
+    },
+    {
+      "noeud": "la_chronique_de_maud_cours",
+      "si": [
+        {
+          "quete_active": "la_chronique_de_maud"
+        }
+      ]
+    },
+    {
       "noeud": "accueil"
     }
   ],
@@ -25,6 +46,24 @@
         "Lisez le lutrin, si vous avez le temps. Les gens d'ici n'aiment pas ce qu'il raconte."
       ],
       "choix": [
+        {
+          "texte": "Votre chronique avance ?",
+          "si": [
+            {
+              "quete_inconnue": "la_chronique_de_maud"
+            },
+            {
+              "drapeau_monde": "capitale_niveau_1"
+            }
+          ],
+          "actions": [
+            {
+              "type": "demarrer_quete",
+              "quete": "la_chronique_de_maud"
+            }
+          ],
+          "suivant": "la_chronique_de_maud_cours"
+        },
         {
           "texte": "Je lirai."
         }
@@ -52,6 +91,41 @@
         },
         {
           "texte": "Merci, Maud."
+        }
+      ]
+    },
+    "la_chronique_de_maud_cours": {
+      "texte": [
+        "Elle bute sur les lieux. Le roi est passé par le navire perdu, la serre ancienne, l'observatoire des heures et le pont qui chante, et personne ne sait plus les décrire. Allez les voir pour moi."
+      ],
+      "choix": [
+        {
+          "texte": "J'y vais."
+        }
+      ]
+    },
+    "la_chronique_de_maud_fin": {
+      "texte": [
+        "Quatre pages de plus, et les bonnes. La chronique sera reliée avant l'hiver. Prenez ces perles : les archives les gardaient pour rien."
+      ],
+      "choix": [
+        {
+          "texte": "J'ai revu les quatre lieux.",
+          "actions": [
+            {
+              "type": "donner",
+              "objet": "les_limbes:perle_de_nacre",
+              "nombre": 3
+            },
+            {
+              "type": "objectif",
+              "quete": "la_chronique_de_maud",
+              "objectif": "retour"
+            }
+          ]
+        },
+        {
+          "texte": "Pas tout de suite."
         }
       ]
     }

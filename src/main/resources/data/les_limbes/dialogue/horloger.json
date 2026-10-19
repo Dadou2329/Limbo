@@ -2,6 +2,27 @@
   "nom": "Horloger",
   "debut": [
     {
+      "noeud": "les_rouages_de_l_horloger_fin",
+      "si": [
+        {
+          "quete_active": "les_rouages_de_l_horloger"
+        },
+        {
+          "quete_etape": {
+            "les_rouages_de_l_horloger": "=1"
+          }
+        }
+      ]
+    },
+    {
+      "noeud": "les_rouages_de_l_horloger_cours",
+      "si": [
+        {
+          "quete_active": "les_rouages_de_l_horloger"
+        }
+      ]
+    },
+    {
       "noeud": "accueil"
     }
   ],
@@ -12,7 +33,81 @@
       ],
       "choix": [
         {
+          "texte": "L'horloge est arrêtée ?",
+          "si": [
+            {
+              "quete_inconnue": "les_rouages_de_l_horloger"
+            }
+          ],
+          "actions": [
+            {
+              "type": "demarrer_quete",
+              "quete": "les_rouages_de_l_horloger"
+            }
+          ],
+          "suivant": "les_rouages_de_l_horloger_cours"
+        },
+        {
           "texte": "Merci."
+        }
+      ]
+    },
+    "les_rouages_de_l_horloger_cours": {
+      "texte": [
+        "Depuis que le roi est parti, à la minute près. Il me faut quatre éclats résonnants des Montagnes pour l'échappement, deux cristaux de nacre pour le balancier. Je remonterai le reste."
+      ],
+      "choix": [
+        {
+          "texte": "J'y vais."
+        }
+      ]
+    },
+    "les_rouages_de_l_horloger_fin": {
+      "texte": [
+        "Écoutez. Vous entendez ? Elle repart. Je vous dois une heure de ma vie, au moins. Prenez ces perles, et ce sablier que j'avais en trop."
+      ],
+      "choix": [
+        {
+          "texte": "Voici les pièces.",
+          "si": [
+            {
+              "objet": {
+                "id": "les_limbes:eclat_resonnant",
+                "nombre": 4
+              }
+            },
+            {
+              "objet": {
+                "id": "les_limbes:cristal_de_nacre",
+                "nombre": 2
+              }
+            }
+          ],
+          "actions": [
+            {
+              "type": "retirer",
+              "objet": "les_limbes:eclat_resonnant",
+              "nombre": 4
+            },
+            {
+              "type": "retirer",
+              "objet": "les_limbes:cristal_de_nacre",
+              "nombre": 2
+            },
+            {
+              "type": "donner",
+              "objet": "les_limbes:perle_de_nacre",
+              "nombre": 3
+            },
+            {
+              "type": "objectif",
+              "quete": "les_rouages_de_l_horloger",
+              "objectif": "retour"
+            }
+          ]
+        },
+        {
+          "texte": "Pas tout de suite."
         }
       ]
     }

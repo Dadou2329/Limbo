@@ -1,0 +1,68 @@
+{
+  "titre": "Les jarres de Naïma",
+  "acte": 3,
+  "description": "Naïma, la potière, veut tourner des jarres pour les archives : du sable d'opale et du grès des heures, pris loin de la ville.",
+  "etapes": [
+    {
+      "id": "terre",
+      "resume": "Réunir huit sables d'opale et quatre grès des heures pour Naïma.",
+      "lieu": {
+        "nom": "Méridiane",
+        "pos": [
+          150,
+          66,
+          1250
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "sable",
+          "type": "collecter",
+          "cible": "les_limbes:sable_d_opale",
+          "nombre": 8,
+          "texte": "Ramasser huit sables d'opale"
+        },
+        {
+          "id": "gres",
+          "type": "collecter",
+          "cible": "les_limbes:gres_des_heures",
+          "nombre": 4,
+          "texte": "Tailler quatre grès des heures"
+        }
+      ]
+    },
+    {
+      "id": "retour",
+      "resume": "Apporter le sable et le grès à Naïma.",
+      "lieu": {
+        "nom": "Méridiane",
+        "pos": [
+          150,
+          66,
+          1250
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "retour",
+          "type": "parler",
+          "cible": "potiere",
+          "manuel": true,
+          "texte": "Apporter la terre à Naïma"
+        }
+      ]
+    }
+  ],
+  "fin": [
+    {
+      "type": "experience",
+      "niveaux": 2
+    },
+    {
+      "type": "drapeau",
+      "nom": "les_jarres_de_naima_terminee"
+    }
+  ]
+}

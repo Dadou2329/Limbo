@@ -246,7 +246,7 @@ public class GardeAstraleEntity extends PathAwareEntity implements EntiteAnimee,
 
 	@Override
 	public void shootAt(LivingEntity cible, float pullProgress) {
-		if (!estEnnemi(cible)) {
+		if (!estEnnemi(cible) || !(this.getWorld() instanceof ServerWorld monde) || !fr.leslimbes.LimbesConfig.peutLancerEclat(monde)) {
 			return;
 		}
 		EclatProjectileEntity eclat = new EclatProjectileEntity(this.getWorld(), this, (float) espece().degatsProjectile, null, 0, 0.2);

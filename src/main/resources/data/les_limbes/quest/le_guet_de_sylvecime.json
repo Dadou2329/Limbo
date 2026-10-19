@@ -1,0 +1,61 @@
+{
+  "titre": "Le guet de Sylvécime",
+  "acte": 3,
+  "description": "Le guetteur de Sylvécime voit des rôdeurs des racines monter vers la ville la nuit. Quatre de moins, et les enfants redescendront jouer.",
+  "etapes": [
+    {
+      "id": "rodeurs",
+      "resume": "Chasser quatre rôdeurs des racines sous Sylvécime.",
+      "lieu": {
+        "nom": "Sylvécime",
+        "pos": [
+          1050,
+          72,
+          350
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "rodeurs",
+          "type": "vaincre",
+          "cible": "les_limbes:rodeur_des_racines",
+          "nombre": 4,
+          "texte": "Vaincre quatre rôdeurs des racines"
+        }
+      ]
+    },
+    {
+      "id": "retour",
+      "resume": "Revenir au guet annoncer que les racines sont calmes.",
+      "lieu": {
+        "nom": "Sylvécime",
+        "pos": [
+          1050,
+          72,
+          350
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "retour",
+          "type": "parler",
+          "cible": "guetteur_sylve",
+          "manuel": true,
+          "texte": "Rendre compte au guetteur"
+        }
+      ]
+    }
+  ],
+  "fin": [
+    {
+      "type": "experience",
+      "niveaux": 3
+    },
+    {
+      "type": "drapeau",
+      "nom": "le_guet_de_sylvecime_terminee"
+    }
+  ]
+}

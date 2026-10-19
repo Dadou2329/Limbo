@@ -2,6 +2,27 @@
   "nom": "Ayoub",
   "debut": [
     {
+      "noeud": "les_sentinelles_d_ayoub_fin",
+      "si": [
+        {
+          "quete_active": "les_sentinelles_d_ayoub"
+        },
+        {
+          "quete_etape": {
+            "les_sentinelles_d_ayoub": "=1"
+          }
+        }
+      ]
+    },
+    {
+      "noeud": "les_sentinelles_d_ayoub_cours",
+      "si": [
+        {
+          "quete_active": "les_sentinelles_d_ayoub"
+        }
+      ]
+    },
+    {
       "noeud": "accueil"
     }
   ],
@@ -12,7 +33,57 @@
       ],
       "choix": [
         {
+          "texte": "Vous ne guidez plus, Ayoub ?",
+          "si": [
+            {
+              "quete_inconnue": "les_sentinelles_d_ayoub"
+            }
+          ],
+          "actions": [
+            {
+              "type": "demarrer_quete",
+              "quete": "les_sentinelles_d_ayoub"
+            }
+          ],
+          "suivant": "les_sentinelles_d_ayoub_cours"
+        },
+        {
           "texte": "Merci."
+        }
+      ]
+    },
+    "les_sentinelles_d_ayoub_cours": {
+      "texte": [
+        "Plus depuis les sentinelles. Elles se lèvent du sable et tirent, et les scorpions finissent le travail. Trois de chaque, et je reprends le bâton."
+      ],
+      "choix": [
+        {
+          "texte": "J'y vais."
+        }
+      ]
+    },
+    "les_sentinelles_d_ayoub_fin": {
+      "texte": [
+        "Les dunes respirent mieux. Je reprends le bâton demain, et je raconterai qui a nettoyé la route. Prenez ces perles, des caravanes d'avant."
+      ],
+      "choix": [
+        {
+          "texte": "La route de l'ouest est libre.",
+          "actions": [
+            {
+              "type": "donner",
+              "objet": "les_limbes:perle_de_nacre",
+              "nombre": 3
+            },
+            {
+              "type": "objectif",
+              "quete": "les_sentinelles_d_ayoub",
+              "objectif": "retour"
+            }
+          ]
+        },
+        {
+          "texte": "Pas tout de suite."
         }
       ]
     }

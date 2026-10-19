@@ -2,6 +2,27 @@
   "nom": "Maître des bains",
   "debut": [
     {
+      "noeud": "les_bains_de_verreole_fin",
+      "si": [
+        {
+          "quete_active": "les_bains_de_verreole"
+        },
+        {
+          "quete_etape": {
+            "les_bains_de_verreole": "=1"
+          }
+        }
+      ]
+    },
+    {
+      "noeud": "les_bains_de_verreole_cours",
+      "si": [
+        {
+          "quete_active": "les_bains_de_verreole"
+        }
+      ]
+    },
+    {
       "noeud": "accueil"
     }
   ],
@@ -12,7 +33,86 @@
       ],
       "choix": [
         {
+          "texte": "Le grand bassin est fermé ?",
+          "si": [
+            {
+              "quete_inconnue": "les_bains_de_verreole"
+            }
+          ],
+          "actions": [
+            {
+              "type": "demarrer_quete",
+              "quete": "les_bains_de_verreole"
+            }
+          ],
+          "suivant": "les_bains_de_verreole_cours"
+        },
+        {
           "texte": "Merci."
+        }
+      ]
+    },
+    "les_bains_de_verreole_cours": {
+      "texte": [
+        "Fissuré, et sans thé pour les baigneurs. Six pierres de verre taillées pour la margelle, quatre thés des cimes pour la salle de repos. Rouvrir un bain, c'est rouvrir une ville."
+      ],
+      "choix": [
+        {
+          "texte": "J'y vais."
+        }
+      ]
+    },
+    "les_bains_de_verreole_fin": {
+      "texte": [
+        "Le bassin fume à nouveau. Vous êtes le premier à y tremper les pieds, c'est la règle. Prenez du thé pour la route."
+      ],
+      "choix": [
+        {
+          "texte": "Voici le thé et la pierre.",
+          "si": [
+            {
+              "objet": {
+                "id": "les_limbes:the_des_cimes",
+                "nombre": 4
+              }
+            },
+            {
+              "objet": {
+                "id": "les_limbes:pierre_de_verre_taillee",
+                "nombre": 6
+              }
+            }
+          ],
+          "actions": [
+            {
+              "type": "retirer",
+              "objet": "les_limbes:the_des_cimes",
+              "nombre": 4
+            },
+            {
+              "type": "retirer",
+              "objet": "les_limbes:pierre_de_verre_taillee",
+              "nombre": 6
+            },
+            {
+              "type": "donner",
+              "objet": "les_limbes:the_des_cimes",
+              "nombre": 3
+            },
+            {
+              "type": "donner",
+              "objet": "les_limbes:perle_de_nacre",
+              "nombre": 1
+            },
+            {
+              "type": "objectif",
+              "quete": "les_bains_de_verreole",
+              "objectif": "retour"
+            }
+          ]
+        },
+        {
+          "texte": "Pas tout de suite."
         }
       ]
     }

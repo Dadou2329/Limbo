@@ -1,0 +1,17 @@
+{
+  "titre": "La cloche de verre",
+  "description": "Une cloche de bronze suspendue entre quatre colonnes de verre de montagne : qui la sonne est entendu d'ailleurs.",
+  "echelle": "petite",
+  "gabarit": "les_limbes:arrivees/cloche_de_verre",
+  "ancre": [
+    2,
+    1,
+    2
+  ],
+  "sites": "montagnes",
+  "poids": 12,
+  "unique": false,
+  "duree": 60000,
+  "prerequis": [],
+  "annonce": "Une cloche sonne une fois dans les Montagnes"
+}

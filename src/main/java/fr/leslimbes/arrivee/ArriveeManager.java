@@ -5,6 +5,7 @@ import fr.leslimbes.npc.dialogue.Conditions;
 import fr.leslimbes.power.Abilities;
 import fr.leslimbes.registry.LimbesBlocks;
 import fr.leslimbes.registry.LimbesSounds;
+import fr.leslimbes.registry.LimbesTags;
 import fr.leslimbes.world.dimension.LimbesDimension;
 import fr.leslimbes.world.state.LimbesWorldState;
 import fr.leslimbes.world.structure.MarqueursDeStructure;
@@ -55,7 +56,7 @@ public final class ArriveeManager {
 		if (limbes.getPlayers().isEmpty()) {
 			return;
 		}
-		if (etat.arriveesActives().size() >= MAX_SIMULTANES) {
+		if (etat.arriveesActives().size() >= fr.leslimbes.LimbesConfig.get().arriveesSimultanees) {
 			return;
 		}
 		if (limbes.getTime() - etat.derniereArrivee() < INTERVALLE_MIN) {
@@ -144,6 +145,13 @@ public final class ArriveeManager {
 	}
 
 	private static void placer(ServerWorld world, StructureTemplate template, BlockPos origine) {
+		// Les trouvailles de la génération (lanternes perdues) tombent en objets plutôt que d'être écrasées.
+		Vec3i taille = template.getSize();
+		for (BlockPos p : BlockPos.iterate(origine, origine.add(taille.getX() - 1, taille.getY() - 1, taille.getZ() - 1))) {
+			if (world.getBlockState(p).isIn(LimbesTags.TROUVAILLES)) {
+				world.breakBlock(p, true);
+			}
+		}
 		StructurePlacementData placement = new StructurePlacementData().setIgnoreEntities(false)
 				.addProcessor(BlockIgnoreStructureProcessor.IGNORE_STRUCTURE_BLOCKS);
 		template.place(world, origine, origine, placement, world.getRandom(), 2);
@@ -177,7 +185,8 @@ public final class ArriveeManager {
 	public static boolean naturel(BlockState s) {
 		return s.isAir() || s.isReplaceable() || !s.getFluidState().isEmpty() || s.isIn(BlockTags.LEAVES) || s.isIn(BlockTags.LOGS)
 				|| s.isIn(BlockTags.DIRT) || s.isIn(BlockTags.FLOWERS) || s.isIn(BlockTags.SAPLINGS) || s.isOf(LimbesBlocks.PIERRE_NACREE)
-				|| s.isOf(LimbesBlocks.CRISTAL_DE_NACRE) || s.isOf(Blocks.STONE) || s.isOf(Blocks.GRAVEL) || s.isOf(Blocks.SAND)
+				|| s.isOf(LimbesBlocks.CRISTAL_DE_NACRE) || s.isOf(Blocks.STONE) || s.isOf(Blocks.GRAVEL) || s.isIn(BlockTags.SAND)
+				|| s.isIn(LimbesTags.TERRAIN_NATUREL) || s.isIn(LimbesTags.TROUVAILLES)
 				|| s.isOf(Blocks.BARRIER); // jamais naturel en jeu ; présent autour des zones de test
 	}
 

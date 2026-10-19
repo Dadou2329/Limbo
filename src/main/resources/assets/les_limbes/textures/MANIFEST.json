@@ -39,6 +39,9 @@
     "pont_royal",
     "pont_royal_trame",
     "pont_de_lumiere",
+    "tapis_de_nacre",
+    "vase_de_nacre",
+    "guirlande_de_fete",
     "vitrine",
     "vitrine_socle",
     "porte_de_relais",
@@ -73,6 +76,7 @@
     "porte_d_aube_bottom"
   ],
   "item": [
+    "guirlande_de_fete",
     "sceau_royal",
     "poisson_lanterne",
     "perle_de_nacre",
@@ -193,6 +197,7 @@
     "brumevaloise_2",
     "enfant_de_brumeval",
     "charpentier_royal",
+    "naufrage",
     "ancien_roi",
     "chambellan",
     "heraut",

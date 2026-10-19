@@ -2,6 +2,27 @@
   "nom": "Colombe",
   "debut": [
     {
+      "noeud": "le_four_de_colombe_fin",
+      "si": [
+        {
+          "quete_active": "le_four_de_colombe"
+        },
+        {
+          "quete_etape": {
+            "le_four_de_colombe": "=1"
+          }
+        }
+      ]
+    },
+    {
+      "noeud": "le_four_de_colombe_cours",
+      "si": [
+        {
+          "quete_active": "le_four_de_colombe"
+        }
+      ]
+    },
+    {
       "noeud": "accueil"
     }
   ],
@@ -12,7 +33,86 @@
       ],
       "choix": [
         {
+          "texte": "Qu'est-ce qui cuit, Colombe ?",
+          "si": [
+            {
+              "quete_inconnue": "le_four_de_colombe"
+            }
+          ],
+          "actions": [
+            {
+              "type": "demarrer_quete",
+              "quete": "le_four_de_colombe"
+            }
+          ],
+          "suivant": "le_four_de_colombe_cours"
+        },
+        {
           "texte": "Merci."
+        }
+      ]
+    },
+    "le_four_de_colombe_cours": {
+      "texte": [
+        "Rien de nouveau depuis dix ans, voilà le problème. On m'a parlé d'un moulin à Clairval. Quatre farines, trois fruits de géant, et je tente un pain qui ferait rougir Aélis."
+      ],
+      "choix": [
+        {
+          "texte": "J'y vais."
+        }
+      ]
+    },
+    "le_four_de_colombe_fin": {
+      "texte": [
+        "Il a monté ! Il a monté comme un arbre. Goûtez, et prenez du miel pour le manger : c'est ma façon de dire merci."
+      ],
+      "choix": [
+        {
+          "texte": "Voici la farine et les fruits.",
+          "si": [
+            {
+              "objet": {
+                "id": "les_limbes:farine",
+                "nombre": 4
+              }
+            },
+            {
+              "objet": {
+                "id": "les_limbes:fruit_de_geant",
+                "nombre": 3
+              }
+            }
+          ],
+          "actions": [
+            {
+              "type": "retirer",
+              "objet": "les_limbes:farine",
+              "nombre": 4
+            },
+            {
+              "type": "retirer",
+              "objet": "les_limbes:fruit_de_geant",
+              "nombre": 3
+            },
+            {
+              "type": "donner",
+              "objet": "les_limbes:miel_de_rosee",
+              "nombre": 4
+            },
+            {
+              "type": "donner",
+              "objet": "les_limbes:pain_d_emile",
+              "nombre": 2
+            },
+            {
+              "type": "objectif",
+              "quete": "le_four_de_colombe",
+              "objectif": "retour"
+            }
+          ]
+        },
+        {
+          "texte": "Pas tout de suite."
         }
       ]
     }

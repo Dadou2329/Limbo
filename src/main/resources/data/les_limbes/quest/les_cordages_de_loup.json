@@ -1,0 +1,68 @@
+{
+  "titre": "Les cordages de Loup",
+  "acte": 3,
+  "description": "Loup, le second de Kaël, regrée le Vent-Debout : il lui manque des fibres nacrées et des planches d'aube.",
+  "etapes": [
+    {
+      "id": "materiaux",
+      "resume": "Réunir seize fibres nacrées et huit planches d'aube pour Loup.",
+      "lieu": {
+        "nom": "Port-Nacre",
+        "pos": [
+          950,
+          66,
+          -750
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "fibres",
+          "type": "collecter",
+          "cible": "les_limbes:fibres_nacrees",
+          "nombre": 16,
+          "texte": "Réunir seize fibres nacrées"
+        },
+        {
+          "id": "planches",
+          "type": "collecter",
+          "cible": "les_limbes:planches_d_aube",
+          "nombre": 8,
+          "texte": "Réunir huit planches d'aube"
+        }
+      ]
+    },
+    {
+      "id": "retour",
+      "resume": "Livrer les cordages et les planches à Loup, à la capitainerie.",
+      "lieu": {
+        "nom": "Port-Nacre",
+        "pos": [
+          950,
+          66,
+          -750
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "retour",
+          "type": "parler",
+          "cible": "second_de_kael",
+          "manuel": true,
+          "texte": "Livrer les matériaux à Loup"
+        }
+      ]
+    }
+  ],
+  "fin": [
+    {
+      "type": "experience",
+      "niveaux": 2
+    },
+    {
+      "type": "drapeau",
+      "nom": "les_cordages_de_loup_terminee"
+    }
+  ]
+}

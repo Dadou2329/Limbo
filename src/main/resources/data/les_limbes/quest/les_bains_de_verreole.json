@@ -1,0 +1,68 @@
+{
+  "titre": "Les bains de Verréole",
+  "acte": 3,
+  "description": "Le maître des bains manque de thé des cimes et de pierre taillée pour rouvrir le grand bassin.",
+  "etapes": [
+    {
+      "id": "bains",
+      "resume": "Apporter quatre thés des cimes et six pierres de verre taillées au maître des bains.",
+      "lieu": {
+        "nom": "Bains des sources",
+        "pos": [
+          -1000,
+          90,
+          380
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "the",
+          "type": "collecter",
+          "cible": "les_limbes:the_des_cimes",
+          "nombre": 4,
+          "texte": "Réunir quatre thés des cimes"
+        },
+        {
+          "id": "pierre",
+          "type": "collecter",
+          "cible": "les_limbes:pierre_de_verre_taillee",
+          "nombre": 6,
+          "texte": "Tailler six pierres de verre"
+        }
+      ]
+    },
+    {
+      "id": "retour",
+      "resume": "Apporter le tout aux bains des sources.",
+      "lieu": {
+        "nom": "Bains des sources",
+        "pos": [
+          -1000,
+          90,
+          380
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "retour",
+          "type": "parler",
+          "cible": "baigneur",
+          "manuel": true,
+          "texte": "Apporter le thé et la pierre au maître des bains"
+        }
+      ]
+    }
+  ],
+  "fin": [
+    {
+      "type": "experience",
+      "niveaux": 2
+    },
+    {
+      "type": "drapeau",
+      "nom": "les_bains_de_verreole_terminee"
+    }
+  ]
+}

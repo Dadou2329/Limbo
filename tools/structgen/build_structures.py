@@ -34,6 +34,7 @@ from regions_couronne import COURONNE  # noqa: E402
 from arenes import ARENES  # noqa: E402
 from capitale import CAPITALE  # noqa: E402
 from regne import REGNE  # noqa: E402
+from arrivees import ARRIVEES  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 DATA = os.path.join(ROOT, "src", "main", "resources", "data", "les_limbes")
@@ -1493,7 +1494,7 @@ def main() -> None:
         "rencontres/cabane_loic": build_cabane_loic(),
         "rencontres/jardin_hanna": build_jardin_hanna(),
         }
-    for module in (MER, JARDINS, DESERT, MONTAGNES, COURONNE, ARENES, CAPITALE, REGNE):
+    for module in (MER, JARDINS, DESERT, MONTAGNES, COURONNE, ARENES, CAPITALE, REGNE, ARRIVEES):
         for cle, fabrique in module.items():
             canvases[cle] = fabrique()
     lignes = ["# Rapport des structures\n"]

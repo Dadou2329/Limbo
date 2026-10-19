@@ -1,0 +1,24 @@
+{
+  "nom": "Siméon",
+  "debut": [
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Siméon, de la mer d'en bas. On a chaviré dans une tempête qui n'avait pas de vent, et le radeau est remonté. Remonté ! Jusqu'ici, sur une mer qui tient toute seule dans le ciel.",
+        "Vous avez une ville, par là ? Avec des quais ? Alors je ne suis pas si naufragé que ça."
+      ],
+      "choix": [
+        {
+          "texte": "Port-Nacre, au sud-est. Kaël vous accueillera."
+        },
+        {
+          "texte": "Reposez-vous d'abord."
+        }
+      ]
+    }
+  }
+}

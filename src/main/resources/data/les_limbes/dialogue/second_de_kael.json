@@ -2,6 +2,27 @@
   "nom": "Loup",
   "debut": [
     {
+      "noeud": "les_cordages_de_loup_fin",
+      "si": [
+        {
+          "quete_active": "les_cordages_de_loup"
+        },
+        {
+          "quete_etape": {
+            "les_cordages_de_loup": "=1"
+          }
+        }
+      ]
+    },
+    {
+      "noeud": "les_cordages_de_loup_cours",
+      "si": [
+        {
+          "quete_active": "les_cordages_de_loup"
+        }
+      ]
+    },
+    {
       "noeud": "accueil"
     }
   ],
@@ -12,7 +33,81 @@
       ],
       "choix": [
         {
+          "texte": "Le Vent-Debout a besoin de quelque chose ?",
+          "si": [
+            {
+              "quete_inconnue": "les_cordages_de_loup"
+            }
+          ],
+          "actions": [
+            {
+              "type": "demarrer_quete",
+              "quete": "les_cordages_de_loup"
+            }
+          ],
+          "suivant": "les_cordages_de_loup_cours"
+        },
+        {
           "texte": "Merci."
+        }
+      ]
+    },
+    "les_cordages_de_loup_cours": {
+      "texte": [
+        "De cordages, toujours. Seize fibres nacrées des Prairies pour les tresser, huit planches d'aube pour le pont. Kaël commande, moi je grée."
+      ],
+      "choix": [
+        {
+          "texte": "J'y vais."
+        }
+      ]
+    },
+    "les_cordages_de_loup_fin": {
+      "texte": [
+        "Des fibres des Prairies et du bois d'aube : le Vent-Debout tiendra une saison de plus. Prenez ces perles, Kaël ne regarde jamais la caisse."
+      ],
+      "choix": [
+        {
+          "texte": "Voici les fibres et les planches.",
+          "si": [
+            {
+              "objet": {
+                "id": "les_limbes:fibres_nacrees",
+                "nombre": 16
+              }
+            },
+            {
+              "objet": {
+                "id": "les_limbes:planches_d_aube",
+                "nombre": 8
+              }
+            }
+          ],
+          "actions": [
+            {
+              "type": "retirer",
+              "objet": "les_limbes:fibres_nacrees",
+              "nombre": 16
+            },
+            {
+              "type": "retirer",
+              "objet": "les_limbes:planches_d_aube",
+              "nombre": 8
+            },
+            {
+              "type": "donner",
+              "objet": "les_limbes:perle_de_nacre",
+              "nombre": 2
+            },
+            {
+              "type": "objectif",
+              "quete": "les_cordages_de_loup",
+              "objectif": "retour"
+            }
+          ]
+        },
+        {
+          "texte": "Pas tout de suite."
         }
       ]
     }

@@ -2,6 +2,27 @@
   "nom": "Maude",
   "debut": [
     {
+      "noeud": "les_filets_de_maude_fin",
+      "si": [
+        {
+          "quete_active": "les_filets_de_maude"
+        },
+        {
+          "quete_etape": {
+            "les_filets_de_maude": "=1"
+          }
+        }
+      ]
+    },
+    {
+      "noeud": "les_filets_de_maude_cours",
+      "si": [
+        {
+          "quete_active": "les_filets_de_maude"
+        }
+      ]
+    },
+    {
       "noeud": "accueil"
     }
   ],
@@ -12,7 +33,70 @@
       ],
       "choix": [
         {
+          "texte": "La criée est bien vide, Maude.",
+          "si": [
+            {
+              "quete_inconnue": "les_filets_de_maude"
+            }
+          ],
+          "actions": [
+            {
+              "type": "demarrer_quete",
+              "quete": "les_filets_de_maude"
+            }
+          ],
+          "suivant": "les_filets_de_maude_cours"
+        },
+        {
           "texte": "Merci."
+        }
+      ]
+    },
+    "les_filets_de_maude_cours": {
+      "texte": [
+        "Les bancs se sont éloignés depuis que les routes dorment. Huit poissons-lanternes, et je rouvre la criée. Une ligne, un peu de patience, et de l'eau qui brille."
+      ],
+      "choix": [
+        {
+          "texte": "J'y vais."
+        }
+      ]
+    },
+    "les_filets_de_maude_fin": {
+      "texte": [
+        "Huit ! Et des beaux. La criée rouvre demain. Prenez des perles, c'est ce qu'on trouve dans les plus gros."
+      ],
+      "choix": [
+        {
+          "texte": "Voici les poissons.",
+          "si": [
+            {
+              "objet": {
+                "id": "les_limbes:poisson_lanterne",
+                "nombre": 8
+              }
+            }
+          ],
+          "actions": [
+            {
+              "type": "retirer",
+              "objet": "les_limbes:poisson_lanterne",
+              "nombre": 8
+            },
+            {
+              "type": "donner",
+              "objet": "les_limbes:perle_de_nacre",
+              "nombre": 3
+            },
+            {
+              "type": "objectif",
+              "quete": "les_filets_de_maude",
+              "objectif": "retour"
+            }
+          ]
+        },
+        {
+          "texte": "Pas tout de suite."
         }
       ]
     }

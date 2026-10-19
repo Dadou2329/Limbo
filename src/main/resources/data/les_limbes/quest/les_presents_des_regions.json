@@ -1,0 +1,75 @@
+{
+  "titre": "Les présents des régions",
+  "acte": 4,
+  "description": "Teodor, ambassadeur de la Mer, veut réunir des présents des trois régions voisines pour l'ambassade : perles, fruits de géant et thé des cimes.",
+  "etapes": [
+    {
+      "id": "presents",
+      "resume": "Réunir trois perles de nacre, trois fruits de géant et trois thés des cimes.",
+      "lieu": {
+        "nom": "Ambassades",
+        "pos": [
+          -845,
+          86,
+          -880
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "perles",
+          "type": "collecter",
+          "cible": "les_limbes:perle_de_nacre",
+          "nombre": 3,
+          "texte": "Réunir trois perles de nacre"
+        },
+        {
+          "id": "fruits",
+          "type": "collecter",
+          "cible": "les_limbes:fruit_de_geant",
+          "nombre": 3,
+          "texte": "Réunir trois fruits de géant"
+        },
+        {
+          "id": "the",
+          "type": "collecter",
+          "cible": "les_limbes:the_des_cimes",
+          "nombre": 3,
+          "texte": "Réunir trois thés des cimes"
+        }
+      ]
+    },
+    {
+      "id": "retour",
+      "resume": "Apporter les présents à l'ambassade de la Mer.",
+      "lieu": {
+        "nom": "Ambassades",
+        "pos": [
+          -845,
+          86,
+          -880
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "retour",
+          "type": "parler",
+          "cible": "ambassadeur_mer",
+          "manuel": true,
+          "texte": "Apporter les présents à Teodor"
+        }
+      ]
+    }
+  ],
+  "fin": [
+    {
+      "type": "experience",
+      "niveaux": 4
+    },
+    {
+      "type": "drapeau",
+      "nom": "les_presents_des_regions_terminee"
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": {
+        "type": "minecraft:uniform",
+        "min": 2,
+        "max": 4
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:wheat_seeds",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 3,
+                "max": 6
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:carrot",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 2,
+                "max": 5
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:potato",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 2,
+                "max": 5
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:bone_meal",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 2,
+                "max": 4
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "les_limbes:fleur_de_rosee",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1,
+                "max": 2
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "titre": "Les fils d'Aude",
+  "acte": 3,
+  "description": "Aude, la tisserande, veut tisser une bannière pour la salle d'Aélis : des fibres nacrées et des pétales des deux couleurs.",
+  "etapes": [
+    {
+      "id": "fils",
+      "resume": "Réunir dix fibres nacrées, quatre pétales roses et quatre pétales bleus.",
+      "lieu": {
+        "nom": "Sylvécime",
+        "pos": [
+          1050,
+          72,
+          350
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "fibres",
+          "type": "collecter",
+          "cible": "les_limbes:fibres_nacrees",
+          "nombre": 10,
+          "texte": "Réunir dix fibres nacrées"
+        },
+        {
+          "id": "roses",
+          "type": "collecter",
+          "cible": "les_limbes:petale_rose",
+          "nombre": 4,
+          "texte": "Cueillir quatre pétales roses"
+        },
+        {
+          "id": "bleus",
+          "type": "collecter",
+          "cible": "les_limbes:petale_bleu",
+          "nombre": 4,
+          "texte": "Cueillir quatre pétales bleus"
+        }
+      ]
+    },
+    {
+      "id": "retour",
+      "resume": "Apporter les fils et les pétales à Aude.",
+      "lieu": {
+        "nom": "Sylvécime",
+        "pos": [
+          1050,
+          72,
+          350
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "retour",
+          "type": "parler",
+          "cible": "tisserande",
+          "manuel": true,
+          "texte": "Apporter les fils à Aude"
+        }
+      ]
+    }
+  ],
+  "fin": [
+    {
+      "type": "experience",
+      "niveaux": 2
+    },
+    {
+      "type": "drapeau",
+      "nom": "les_fils_d_aude_terminee"
+    }
+  ]
+}

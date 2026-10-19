@@ -42,7 +42,8 @@ public final class GardeAstrale {
 		}
 		List<GardeAstraleEntity> gardes = gardesDe(player, 96.0);
 		gardes.sort(Comparator.comparingInt(g -> -g.age));
-		while (gardes.size() >= BUDGET) {
+		int budget = fr.leslimbes.LimbesConfig.get().gardesParJoueur;
+		while (gardes.size() >= budget) {
 			GardeAstraleEntity ancienne = gardes.remove(0);
 			ancienne.dissiper();
 		}
@@ -52,12 +53,12 @@ public final class GardeAstrale {
 			return false;
 		}
 		garde.refreshPositionAndAngles(pos.x, pos.y, pos.z, player.getYaw(), 0.0F);
-		garde.lier(player, DUREE_TICKS);
+		garde.lier(player, fr.leslimbes.LimbesConfig.get().dureeGardeTicks);
 		garde.setOrdre(PlayerLimbesData.of(player).compteur(COMPTEUR_ORDRE) % 3, player.getBlockPos());
 		world.spawnEntity(garde);
 		world.playSound(null, garde.getBlockPos(), LimbesSounds.POUVOIR_GARDE, SoundCategory.PLAYERS, 1.0F, 1.0F);
 		Abilities.effet(world, "garde_invocation", pos.add(0, 1.0, 0), player.getRotationVector(), 0);
-		player.sendMessage(Text.translatable("message.les_limbes.garde.invoquee", garde.getDisplayName(), gardes.size() + 1, BUDGET).formatted(Formatting.GOLD), true);
+		player.sendMessage(Text.translatable("message.les_limbes.garde.invoquee", garde.getDisplayName(), gardes.size() + 1, budget).formatted(Formatting.GOLD), true);
 		return true;
 	}
 

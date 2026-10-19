@@ -114,6 +114,53 @@ Les duels sont des épreuves amicales (à bout de forces, retour à l'entrée) s
 
 Lisbeth, à l'observatoire, permet ensuite de préparer une Arrivée (la caisse tombée) à la demande du souverain.
 
+## Quêtes secondaires des régions (étape 8)
+
+Chaque donneur propose sa quête dans son dialogue (premier choix) dès qu'on lui parle ; le journal la suit ; la remise vérifie les objets et donne la récompense.
+
+| Région | Donneur (lieu) | Quête | À faire | Récompense |
+|---|---|---|---|---|
+| Prairies | Brann (forge de Clairval) | Les lanternes du pont | 6 lanternes nacrées | 4 cristaux de nacre |
+| Prairies | Gaspard (relais royal) | La patrouille de Gaspard | vaincre 5 Veilleurs égarés | lanterne royale, pains d'Émile |
+| Prairies | Lisbeth (observatoire) | Les trois ciels | observatoire des heures, phare du Dessous, atelier d'instruments | 3 perles |
+| Prairies | Ysolde (manoir) | Les cartes d'Ysolde | quai des Falaises, sanctuaire des bancs, navire perdu | 3 perles |
+| Mer | Maude (criée) | Les filets de Maude | 8 poissons-lanternes | 3 perles |
+| Mer | Isaure (Port-Nacre) | La plongée d'Isaure | sanctuaire des bancs + 4 coraux de nacre | 4 coraux d'azur |
+| Mer | Anselme (phare) | Le phare d'Anselme | vaincre 3 gardiens des épaves | 6 lanternes nacrées, perle |
+| Mer | Loup (capitainerie) | Les cordages de Loup | 16 fibres nacrées, 8 planches d'aube | 2 perles |
+| Jardins | Colombe (Sylvécime) | Le four de Colombe | 4 farines, 3 fruits de géant | miel, pains |
+| Jardins | Aude (Sylvécime) | Les fils d'Aude | 10 fibres, 4 pétales roses, 4 bleus | 3 cristaux |
+| Jardins | Perrin (Sylvécime) | Les simples de Perrin | 8 herbes de l'aube, 4 fleurs de rosée | 3 bouillons |
+| Jardins | Guetteur (Sylvécime) | Le guet de Sylvécime | vaincre 4 rôdeurs des racines | fruits, perles |
+| Désert | Horloger (Méridiane) | Les rouages de l'horloger | 4 éclats résonnants, 2 cristaux | 3 perles |
+| Désert | Idir (Méridiane) | La caravane d'Idir | observatoire des heures, jardin fertile, cour des heures | 6 dattes, perle |
+| Désert | Naïma (Méridiane) | Les jarres de Naïma | 8 sables d'opale, 4 grès des heures | dattes, perles |
+| Désert | Ayoub (Méridiane) | Les sentinelles d'Ayoub | vaincre 3 sentinelles de sable, 3 scorpions | 3 perles |
+| Montagnes | Gunnar (forge de Verréole) | Le métal de Gunnar | 8 pierres de verre, 4 éclats résonnants | 4 cristaux |
+| Montagnes | Luthière (atelier) | L'accord de la luthière | pont qui chante + 6 éclats résonnants | perles, thé |
+| Montagnes | Maître des bains | Les bains de Verréole | 4 thés des cimes, 6 pierres de verre taillées | thé, perle |
+| Montagnes | Garde (palais des miroirs) | La garde de verre | vaincre 2 colosses, 3 échos résonnants | 4 cristaux, perle |
+| Couronne | Boulanger (Haute-Garde) | Le pain de la cour | 6 farines, 2 miels de rosée | 6 pains de la cour |
+| Couronne | Maîtresse d'école | L'école de Haute-Garde | Sanctuaire, marché flottant, serre ancienne | perles, pains |
+| Couronne | Rolande (place d'armes) | La patrouille de Rolande | vaincre 3 sentinelles de la Couronne, 2 spectres | 2 lanternes royales, pains |
+| Couronne | Elouan (quartier des portes) | Les lanternes du quartier | 4 lanternes royales (quartiers ouverts) | 3 perles |
+| Capitale | Sidonie (palais) | Les cuisines du palais | 4 pains de la cour, 4 poissons-lanternes, 2 ragoûts (palais ouvert) | pains, ragoûts |
+| Capitale | Teodor (ambassades) | Les présents des régions | 3 perles, 3 fruits de géant, 3 thés | 3 lanternes royales |
+| Capitale | Maud (archives) | La chronique de Maud | navire perdu, serre ancienne, observatoire des heures, pont qui chante | 3 perles |
+
+## Arrivées (13 types)
+
+| Arrivée | Échelle | Sites | Particularité |
+|---|---|---|---|
+| La maison égarée, La caisse tombée, La charrette renversée, Le puits d'ailleurs, Le kiosque à musique | petite / moyenne | Prairies (3 sites) | Émile et son four ; coffres de voyage ; phonographe d'ailleurs |
+| La barque échouée | moyenne | rive du lac | Ysolde, recrutable |
+| Le radeau des naufragés | moyenne | îlot de la Mer (900 / −650) | Siméon, naufragé d'une mer d'en bas |
+| La serre tombée | petite | Jardins (960 / 400) | légumes d'ailleurs |
+| La tente du voyageur | petite | Désert (260 / 1150) | carnet de route |
+| La cloche de verre | petite | Montagnes (−1060 / 560) | cloche à sonner |
+| La bibliothèque perdue | moyenne | Couronne (−720 / −760) | chronique d'une ville sans nom, traité des plis du ciel |
+| Le fragment du belvédère, La cité arrivée (Brumeval) | majeure | royaume (deux sites) | premier acte royal ; acte V |
+
 ## Six régions (étape 5)
 
 | Région | Centre (x/z) | Ville et prétendant | Première aventure | Monture | Matière |

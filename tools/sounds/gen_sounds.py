@@ -113,6 +113,79 @@ def sweep(f0: float, f1: float, dur: float, vol: float = 0.4) -> np.ndarray:
     return vol * np.sin(phase)
 
 
+def note_freq(midi: float) -> float:
+    return 440.0 * 2 ** ((midi - 69) / 12.0)
+
+
+def pad(midis, dur: float, vol: float = 0.18) -> np.ndarray:
+    """Nappe d'accord : sinus empilés avec battement léger et enveloppe lente."""
+    n = int(SR * dur)
+    t = np.arange(n) / SR
+    out = np.zeros(n)
+    for m in midis:
+        f = note_freq(m)
+        out += np.sin(2 * math.pi * f * t) + 0.5 * np.sin(2 * math.pi * f * 1.003 * t) + 0.25 * np.sin(2 * math.pi * 2 * f * t)
+    return vol * out / max(1, len(midis)) * env(n, 0.35, 0.3, 0.75, 0.3)
+
+
+def cloche(midi: float, dur: float, vol: float = 0.3) -> np.ndarray:
+    """Note de cloche : fondamentale et partiels inharmoniques décroissants."""
+    n = int(SR * dur)
+    t = np.arange(n) / SR
+    f = note_freq(midi)
+    out = np.sin(2 * math.pi * f * t) + 0.5 * np.sin(2 * math.pi * f * 2.76 * t) * np.exp(-3 * t) + 0.3 * np.sin(2 * math.pi * f * 5.4 * t) * np.exp(-6 * t)
+    return vol * out * np.exp(-2.2 * t) * env(n, 0.005, 0.9)
+
+
+def place(piste: np.ndarray, son: np.ndarray, debut: float) -> None:
+    i = int(debut * SR)
+    fin = min(len(piste), i + len(son))
+    if fin > i:
+        piste[i:fin] += son[: fin - i]
+
+
+def musique(nom: str, gamme, accords, tempo: float, graine: int, duree: float = 72.0, timbre: str = "cloche", grave: int = 0) -> None:
+    """Pièce courte et bouclable : nappe d'accords, mélodie pentatonique tirée au sort (déterministe), basse légère."""
+    rng = np.random.default_rng(graine)
+    n = int(SR * duree)
+    piste = np.zeros(n)
+    battement = 60.0 / tempo
+    mesure = battement * 4
+    nb_mesures = int(duree / mesure)
+    for k in range(nb_mesures):
+        acc = accords[k % len(accords)]
+        place(piste, pad([m + grave for m in acc], mesure * 1.05, 0.16), k * mesure)
+        basse = tone(note_freq(acc[0] + grave - 12), mesure * 0.9, 0.12, harmonics=((1, 1.0), (2, 0.3)))
+        place(piste, basse * env(len(basse), 0.05, 0.6), k * mesure)
+        temps = 0.0
+        while temps < mesure - 0.01:
+            longueur = battement * rng.choice([0.5, 1.0, 1.0, 2.0])
+            if rng.random() < 0.72:
+                degre = int(rng.integers(0, len(gamme)))
+                midi = gamme[degre] + 12 * int(rng.integers(0, 2))
+                if timbre == "cloche":
+                    son = cloche(midi, min(2.5, longueur * 1.8), 0.22)
+                else:
+                    corps = tone(note_freq(midi), longueur * 0.95, 0.2, harmonics=((1, 1.0), (2, 0.2), (3, 0.08)), vibrato=0.01)
+                    son = corps * env(len(corps), 0.04, 0.5, 0.5, 0.3)
+                place(piste, son, k * mesure + temps)
+            temps += longueur
+    # queue : dernier accord tenu, pour une boucle douce
+    place(piste, pad([m + grave for m in accords[0]], 4.0, 0.14), duree - 4.0)
+    save("musique/" + nom, piste)
+
+
+def musiques() -> None:
+    """Six thèmes régionaux (gammes et accords propres), joués par les biomes à la place des pistes vanilla."""
+    print("Génération des musiques :")
+    musique("prairies", [60, 62, 64, 67, 69], [[60, 64, 67], [65, 69, 72], [57, 60, 64], [67, 71, 74]], 66, 1)
+    musique("mer", [62, 64, 65, 67, 69, 71], [[62, 65, 69], [60, 64, 67], [65, 69, 72], [57, 62, 65]], 58, 2, timbre="voix", grave=-2)
+    musique("jardins", [65, 67, 69, 72, 74], [[65, 69, 72], [67, 71, 74], [62, 65, 69], [60, 65, 67]], 76, 3)
+    musique("desert", [64, 65, 68, 71, 72], [[64, 68, 71], [60, 64, 67], [65, 68, 72], [59, 64, 67]], 54, 4, timbre="voix", grave=-5)
+    musique("montagnes", [69, 72, 74, 76, 79], [[69, 72, 76], [65, 69, 72], [67, 71, 74], [62, 65, 69]], 62, 5)
+    musique("couronne", [55, 57, 59, 62, 64], [[55, 59, 62], [50, 55, 57], [52, 55, 59], [53, 57, 60]], 50, 6, timbre="voix", grave=-7)
+
+
 def main() -> None:
     if shutil.which("ffmpeg") is None:
         print("ffmpeg introuvable : impossible d'encoder les sons.", file=sys.stderr)
@@ -120,6 +193,7 @@ def main() -> None:
     if os.path.isdir(OUT):
         shutil.rmtree(OUT)
     print("Génération des sons :")
+    musiques()
     # Porte : réveil = carillon ascendant + souffle ; passage = souffle + accord ; ambiance = bourdon doux
     save("bloc/porte_eveil", mix(chime([523.25, 659.25, 783.99, 1046.5, 1318.5], 1.2, 0.18, 0.45),
                                  noise(1.8, 0.12, 40, 3) * env(int(SR * 1.8), 0.3, 0.6)))

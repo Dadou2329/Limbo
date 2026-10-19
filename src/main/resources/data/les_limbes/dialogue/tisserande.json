@@ -2,6 +2,27 @@
   "nom": "Aude",
   "debut": [
     {
+      "noeud": "les_fils_d_aude_fin",
+      "si": [
+        {
+          "quete_active": "les_fils_d_aude"
+        },
+        {
+          "quete_etape": {
+            "les_fils_d_aude": "=1"
+          }
+        }
+      ]
+    },
+    {
+      "noeud": "les_fils_d_aude_cours",
+      "si": [
+        {
+          "quete_active": "les_fils_d_aude"
+        }
+      ]
+    },
+    {
       "noeud": "accueil"
     }
   ],
@@ -12,7 +33,92 @@
       ],
       "choix": [
         {
+          "texte": "Que tissez-vous, Aude ?",
+          "si": [
+            {
+              "quete_inconnue": "les_fils_d_aude"
+            }
+          ],
+          "actions": [
+            {
+              "type": "demarrer_quete",
+              "quete": "les_fils_d_aude"
+            }
+          ],
+          "suivant": "les_fils_d_aude_cours"
+        },
+        {
           "texte": "Merci."
+        }
+      ]
+    },
+    "les_fils_d_aude_cours": {
+      "texte": [
+        "Une bannière pour la salle d'Aélis, si je trouve de quoi. Dix fibres nacrées pour la trame, quatre pétales roses et quatre bleus pour la couleur. Les pétales des grandes fleurs, pas les petites."
+      ],
+      "choix": [
+        {
+          "texte": "J'y vais."
+        }
+      ]
+    },
+    "les_fils_d_aude_fin": {
+      "texte": [
+        "Regardez la couleur que ça donne, mouillé. Je la tends ce soir. Prenez du cristal de nacre : j'en garde pour les fuseaux, mais vous en ferez mieux."
+      ],
+      "choix": [
+        {
+          "texte": "Voici les fils et les pétales.",
+          "si": [
+            {
+              "objet": {
+                "id": "les_limbes:fibres_nacrees",
+                "nombre": 10
+              }
+            },
+            {
+              "objet": {
+                "id": "les_limbes:petale_rose",
+                "nombre": 4
+              }
+            },
+            {
+              "objet": {
+                "id": "les_limbes:petale_bleu",
+                "nombre": 4
+              }
+            }
+          ],
+          "actions": [
+            {
+              "type": "retirer",
+              "objet": "les_limbes:fibres_nacrees",
+              "nombre": 10
+            },
+            {
+              "type": "retirer",
+              "objet": "les_limbes:petale_rose",
+              "nombre": 4
+            },
+            {
+              "type": "retirer",
+              "objet": "les_limbes:petale_bleu",
+              "nombre": 4
+            },
+            {
+              "type": "donner",
+              "objet": "les_limbes:cristal_de_nacre",
+              "nombre": 3
+            },
+            {
+              "type": "objectif",
+              "quete": "les_fils_d_aude",
+              "objectif": "retour"
+            }
+          ]
+        },
+        {
+          "texte": "Pas tout de suite."
         }
       ]
     }

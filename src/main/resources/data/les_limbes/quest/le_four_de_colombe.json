@@ -1,0 +1,68 @@
+{
+  "titre": "Le four de Colombe",
+  "acte": 3,
+  "description": "Colombe, la boulangère de Sylvécime, veut essayer un pain aux fruits de géant : de la farine du moulin de Clairval et des fruits des grands arbres.",
+  "etapes": [
+    {
+      "id": "ingredients",
+      "resume": "Apporter quatre farines et trois fruits de géant à Colombe.",
+      "lieu": {
+        "nom": "Sylvécime",
+        "pos": [
+          1050,
+          72,
+          350
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "farine",
+          "type": "collecter",
+          "cible": "les_limbes:farine",
+          "nombre": 4,
+          "texte": "Moudre quatre farines"
+        },
+        {
+          "id": "fruits",
+          "type": "collecter",
+          "cible": "les_limbes:fruit_de_geant",
+          "nombre": 3,
+          "texte": "Cueillir trois fruits de géant"
+        }
+      ]
+    },
+    {
+      "id": "retour",
+      "resume": "Apporter les ingrédients à Colombe, dans la canopée de Sylvécime.",
+      "lieu": {
+        "nom": "Sylvécime",
+        "pos": [
+          1050,
+          72,
+          350
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "retour",
+          "type": "parler",
+          "cible": "boulangere_sylve",
+          "manuel": true,
+          "texte": "Apporter les ingrédients à Colombe"
+        }
+      ]
+    }
+  ],
+  "fin": [
+    {
+      "type": "experience",
+      "niveaux": 2
+    },
+    {
+      "type": "drapeau",
+      "nom": "le_four_de_colombe_terminee"
+    }
+  ]
+}
