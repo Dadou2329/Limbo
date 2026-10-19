@@ -1,8 +1,30 @@
 {
   "nom": "Lisbeth",
   "debut": [
-    {"noeud": "veille", "si": [{"drapeau": "lisbeth_rencontree"}]},
-    {"noeud": "accueil"}
+    {
+      "noeud": "routes_eteintes",
+      "si": [
+        {
+          "quete_active": "les_routes_eteintes"
+        },
+        {
+          "quete_etape": {
+            "les_routes_eteintes": "=1"
+          }
+        }
+      ]
+    },
+    {
+      "noeud": "veille",
+      "si": [
+        {
+          "drapeau": "lisbeth_rencontree"
+        }
+      ]
+    },
+    {
+      "noeud": "accueil"
+    }
   ],
   "noeuds": {
     "accueil": {
@@ -11,12 +33,37 @@
         "Mon travail ? Regarder le ciel. Parfois il se plisse, et quelque chose arrive. Une caisse, une barque, une maison entière avec son chat. On appelle ça les Arrivées.",
         "En ce moment : {arrivees}"
       ],
-      "actions": [{"type": "drapeau", "nom": "lisbeth_rencontree"}],
+      "actions": [
+        {
+          "type": "drapeau",
+          "nom": "lisbeth_rencontree"
+        }
+      ],
       "choix": [
-        {"texte": "Une maison est tombée ? Je vais voir.", "si": [{"arrivee_active": "maison_egaree"}, {"quete_inconnue": "la_maison_egaree"}],
-         "actions": [{"type": "demarrer_quete", "quete": "la_maison_egaree"}]},
-        {"texte": "Comment savez-vous où les choses tombent ?", "suivant": "methode"},
-        {"texte": "Merci, Lisbeth."}
+        {
+          "texte": "Une maison est tombée ? Je vais voir.",
+          "si": [
+            {
+              "arrivee_active": "maison_egaree"
+            },
+            {
+              "quete_inconnue": "la_maison_egaree"
+            }
+          ],
+          "actions": [
+            {
+              "type": "demarrer_quete",
+              "quete": "la_maison_egaree"
+            }
+          ]
+        },
+        {
+          "texte": "Comment savez-vous où les choses tombent ?",
+          "suivant": "methode"
+        },
+        {
+          "texte": "Merci, Lisbeth."
+        }
       ]
     },
     "methode": {
@@ -24,16 +71,55 @@
         "La lumière. Une Arrivée laisse une colonne de lumière pendant un moment, et le ciel garde comme un pli au-dessus. Avec la lunette, je note la direction et la distance.",
         "Revenez quand vous voulez : je vous dirai ce qui est tombé et où."
       ],
-      "choix": [{"texte": "Je reviendrai."}]
+      "choix": [
+        {
+          "texte": "Je reviendrai."
+        }
+      ]
     },
     "veille": {
       "texte": [
         "Le ciel, en ce moment : {arrivees}"
       ],
       "choix": [
-        {"texte": "Une maison est tombée ? Je vais voir.", "si": [{"arrivee_active": "maison_egaree"}, {"quete_inconnue": "la_maison_egaree"}],
-         "actions": [{"type": "demarrer_quete", "quete": "la_maison_egaree"}]},
-        {"texte": "Merci, Lisbeth."}
+        {
+          "texte": "Une maison est tombée ? Je vais voir.",
+          "si": [
+            {
+              "arrivee_active": "maison_egaree"
+            },
+            {
+              "quete_inconnue": "la_maison_egaree"
+            }
+          ],
+          "actions": [
+            {
+              "type": "demarrer_quete",
+              "quete": "la_maison_egaree"
+            }
+          ]
+        },
+        {
+          "texte": "Merci, Lisbeth."
+        }
+      ]
+    },
+    "routes_eteintes": {
+      "texte": [
+        "À chaque Arrivée, le ciel se plisse et, une seconde, six traits de lumière se dessinent entre la capitale et les régions. Comme si quelque chose essayait de rallumer les routes et n'y arrivait pas.",
+        "Les archives royales, dans la capitale, gardent la chronique de la nuit où elles se sont éteintes. Si Elouan vous a ouvert les quartiers, allez lire."
+      ],
+      "choix": [
+        {
+          "texte": "J'irai aux archives.",
+          "actions": [
+            {
+              "type": "objectif",
+              "quete": "les_routes_eteintes",
+              "objectif": "lisbeth"
+            }
+          ]
+        }
       ]
     }
   }

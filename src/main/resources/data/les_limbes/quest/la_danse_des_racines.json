@@ -1,0 +1,56 @@
+{
+  "titre": "La danse des racines",
+  "acte": 3,
+  "description": "Aélis reconnaît ceux qui ont choisi l'eau pour tous ; aux autres, elle propose la danse des racines dans le jardin de l'épreuve.",
+  "etapes": [
+    {
+      "id": "aelis",
+      "resume": "Demander à Aélis, à Sylvécime, sa reconnaissance.",
+      "lieu": {
+        "nom": "Sylvécime",
+        "pos": [
+          1050,
+          72,
+          350
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "aelis",
+          "type": "parler",
+          "cible": "aelis",
+          "manuel": true,
+          "texte": "Demander la reconnaissance d'Aélis"
+        }
+      ]
+    },
+    {
+      "id": "epreuve",
+      "resume": "Être reconnu par Aélis : par la négociation, ou en tenant la danse des racines au jardin de l'épreuve.",
+      "lieu": {
+        "nom": "Jardin de l'épreuve",
+        "pos": [
+          1150,
+          72,
+          300
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "reconnue",
+          "type": "drapeau",
+          "cible": "aelis_reconnue",
+          "texte": "Obtenir la reconnaissance d'Aélis"
+        }
+      ]
+    }
+  ],
+  "fin": [
+    {
+      "type": "experience",
+      "niveaux": 2
+    }
+  ]
+}

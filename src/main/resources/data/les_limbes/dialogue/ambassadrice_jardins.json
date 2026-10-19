@@ -1,0 +1,38 @@
+{
+  "nom": "Lune",
+  "debut": [
+    {
+      "noeud": "couronne",
+      "si": [
+        {
+          "drapeau": "couronne"
+        }
+      ]
+    },
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Lune, ambassadrice des Jardins. Aélis m'écrit chaque semaine ; elle veut savoir si les lanternes se sont rallumées. Pas encore, lui réponds-je. Pas encore."
+      ],
+      "choix": [
+        {
+          "texte": "Enchanté."
+        }
+      ]
+    },
+    "couronne": {
+      "texte": [
+        "Majesté. Je peux enfin lui écrire : oui."
+      ],
+      "choix": [
+        {
+          "texte": "Merci."
+        }
+      ]
+    }
+  }
+}

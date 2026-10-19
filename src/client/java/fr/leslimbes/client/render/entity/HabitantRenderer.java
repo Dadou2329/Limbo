@@ -9,12 +9,9 @@ import net.minecraft.client.render.entity.model.PlayerEntityModel;
 import net.minecraft.util.Identifier;
 
 import java.util.Map;
-import java.util.Set;
 
 /** Rendu des habitants : modèle de joueur et skin propre à chaque rôle. */
 public class HabitantRenderer extends MobEntityRenderer<HabitantEntity, PlayerEntityModel<HabitantEntity>> {
-	private static final Set<String> SKINS = Set.of("maelle", "thibault", "orielle", "brann", "vaeron", "gaspard", "habitant_1", "habitant_2", "habitant_3", "emile", "lisbeth", "rosalie",
-			"sabine", "loic", "hanna", "theo", "marguerite", "ysolde", "marchand_1", "marchand_2");
 	private static final Map<String, Identifier> CACHE = new java.util.concurrent.ConcurrentHashMap<>();
 
 	public HabitantRenderer(EntityRendererFactory.Context ctx) {
@@ -24,7 +21,12 @@ public class HabitantRenderer extends MobEntityRenderer<HabitantEntity, PlayerEn
 	@Override
 	public Identifier getTexture(HabitantEntity entity) {
 		String role = entity.getRole();
-		return CACHE.computeIfAbsent(role, r -> LesLimbes.id("textures/entity/habitant/" + (SKINS.contains(r) ? r : "habitant_1") + ".png"));
+		// Chaque rôle a son apparence si sa texture existe dans les ressources ; sinon l'apparence commune.
+		return CACHE.computeIfAbsent(role, r -> {
+			Identifier propre = LesLimbes.id("textures/entity/habitant/" + r + ".png");
+			boolean existe = net.minecraft.client.MinecraftClient.getInstance().getResourceManager().getResource(propre).isPresent();
+			return existe ? propre : LesLimbes.id("textures/entity/habitant/habitant_1.png");
+		});
 	}
 
 	@Override

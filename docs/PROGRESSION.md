@@ -16,7 +16,7 @@ ACTE IV — LA COURONNE          COURONNEMENT JOUABLE                  ACTE V �
  avec Vaëron, épreuve finale    Cérémonie courte, premier acte royal  navire royal, frontières
 ```
 
-**État** : l'acte I est jouable de bout en bout (quêtes `le_passage` et `l_etranger`) ; le début de l'acte II (domaine) et les premières aventures régionales de l'acte III (une par prétendant) sont jouables. La campagne des prétendants, les duels et le couronnement sont décrits dans `BACKLOG.md`.
+**État** : les actes I à IV sont jouables de bout en bout, jusqu'au couronnement et au premier acte royal (quête `le_couronnement`). L'acte V (le règne) est décrit dans `BACKLOG.md`.
 
 ## Quêtes de l'acte I
 
@@ -54,6 +54,22 @@ Orielle (manoir) ouvre l'écran des **projets du domaine** une fois la clé reç
 Recrutements (quêtes secondaires) : Sabine à la forge de Clairval (5 cristaux de nacre), Loïc à la cabane du lac, Hanna au jardin à l'est de Clairval, Théo au pied du pont, Marguerite à l'auberge, Ysolde avec l'Arrivée « La barque échouée ». Après recrutement, chacun attend que son installation soit bâtie, puis y vit et propose de nouveaux services (affûtage de l'épée chez Sabine).
 
 Réseau des passages : touchez les portes de relais (Sanctuaire, place de Clairval, relais royal) pour les apprendre ; la salle des passages du manoir éveille le réseau et chaque porte mène alors à n'importe quel relais connu.
+
+## Campagne des actes II à IV (étape 6)
+
+| Quête | Acte | Ce qu'il faut faire |
+|---|---|---|
+| Le seigneur de Clairval | II | Restaurer l'aile ouest, la forge royale et la salle des passages ; recruter Sabine, Loïc et Hanna ; atteindre Port-Nacre et Sylvécime ; rencontrer les cinq prétendants ; Elouan ouvre les quartiers extérieurs de la capitale. |
+| Le Prétendant | III | Mener les cinq aventures régionales ; comprendre les routes éteintes (Théo → Lisbeth → archives royales) ; obtenir quatre reconnaissances ; relier les cinq villes au réseau des passages. |
+| Les routes éteintes | III | Théo (cartes), Lisbeth (ciel), Maud à la tour des archives : les routes répondaient à la couronne. |
+| La danse des racines | III | Aélis reconnaît ceux qui ont partagé l'eau ; sinon, duel amical au jardin de l'épreuve (racines, chevaliers de bois blanc, fleurs de vie, envolées). |
+| Le pont du Vent-Debout / L'expédition de l'archipel | III | Secourir l'expédition du capitaine Lio (trois gardiens des épaves) ou tenir le pont du navire volant de Kaël (portes dans le dos, escales sur les îlots). |
+| La salle des miroirs | III | Duel rituel d'Orsane : reflets (la vraie laisse une traînée), puis armure colossale aux trois points de rupture. |
+| Le tournoi des heures | III | Trois épreuves dans la cour des heures (Rachid) : scorpion et sentinelle, sentinelles, champion des heures ; Sahir reconnaît le champion. Son duel rituel (salves suspendues, fenêtres) reste proposé. |
+| La Couronne | IV | Aldric ouvre le palais ; Bertrand révèle le sort du roi (il tient la lumière des frontières, les Arrivées sont la fonction du trône) ; Aubin envoie vers Vaëron sur la place ; duel final (légions et bannières, forteresse, épée solaire) ; Maëlle prépare le couronnement. |
+| Le couronnement | IV | Tiphaine ouvre la cérémonie (délégations présentes, lanternes rallumées, ponts reformés, couronne assemblée, +60 de majesté) ; premier acte royal : attirer le fragment du belvédère et y retrouver le sceau du roi. |
+
+Les duels sont des épreuves amicales (à bout de forces, retour à l'entrée) sauf le duel final, où la défaite ramène aussi à l'entrée : tout duel peut être repris. Chaque boss annonce ses coups ; les phases sont annoncées en clair.
 
 ## Six régions (étape 5)
 
@@ -98,5 +114,7 @@ Montures : approcher la bête avec son appât en main, la nourrir trois fois ; c
 | Verréole (palais des miroirs) | −1150 / 96 / 500 ; porte −1150 / 96 / 487 |
 | Haute-Garde (place d'armes) | −610 / 82 / −610 ; porte −622 / 82 / −610 |
 | Quartier des portes | −900 / 78 / −720 |
-| Plateau de la capitale (réservé) | −900 / 86 / −900 |
+| Place des cérémonies (capitale) | −900 / 86 / −900 ; palais au nord (grande porte −900 / 88 / −941) ; marché −955 / −880 ; ambassades −845 / −880 ; archives −955 / −945 ; ateliers −900 / −840 ; résidences −838 / −945 |
+| Arènes | jardin de l'épreuve 1150 / 72 / 300 ; Vent-Debout 1000 / 90 / −850 ; salle des miroirs −1230 / 96 / 500 ; cour des heures 230 / 66 / 1330 ; campement de l'archipel 1250 / 66 / −650 |
+| Sites d'Arrivée du royaume | −700 / 86 / −1060 ; −1060 / 86 / −700 |
 | Palais (silhouette céleste) | cap nord-ouest, non chargé |

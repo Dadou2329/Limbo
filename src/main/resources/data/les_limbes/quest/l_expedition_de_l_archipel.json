@@ -1,0 +1,123 @@
+{
+  "titre": "L'expédition de l'archipel",
+  "acte": 3,
+  "description": "Le capitaine Lio et son équipage sont coincés sur un îlot de l'archipel, encerclés par des gardiens des épaves. Kaël vous confie leur secours.",
+  "etapes": [
+    {
+      "id": "campement",
+      "resume": "Rejoindre le campement de l'expédition, à l'est de Port-Nacre dans l'archipel des épaves.",
+      "lieu": {
+        "nom": "Campement de l'archipel",
+        "pos": [
+          1250,
+          66,
+          -650
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "campement",
+          "type": "atteindre",
+          "pos": [
+            1250,
+            66,
+            -650
+          ],
+          "rayon": 12,
+          "dimension": "les_limbes:limbes",
+          "texte": "Atteindre le campement de l'archipel"
+        }
+      ]
+    },
+    {
+      "id": "gardiens",
+      "resume": "Abattre les trois gardiens des épaves qui encerclent le campement.",
+      "lieu": {
+        "nom": "Campement de l'archipel",
+        "pos": [
+          1250,
+          66,
+          -650
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "debut": [
+        {
+          "type": "apparition",
+          "entite": "les_limbes:gardien_des_epaves",
+          "nombre": 3,
+          "pos": [
+            1250,
+            66,
+            -650
+          ],
+          "rayon": 9
+        }
+      ],
+      "objectifs": [
+        {
+          "id": "gardiens",
+          "type": "vaincre",
+          "cible": "les_limbes:gardien_des_epaves",
+          "nombre": 3,
+          "texte": "Vaincre les gardiens des épaves"
+        }
+      ]
+    },
+    {
+      "id": "lio",
+      "resume": "Parler au capitaine Lio.",
+      "lieu": {
+        "nom": "Campement de l'archipel",
+        "pos": [
+          1250,
+          66,
+          -650
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "lio",
+          "type": "parler",
+          "cible": "capitaine_lio",
+          "manuel": true,
+          "texte": "Parler au capitaine Lio"
+        }
+      ]
+    },
+    {
+      "id": "retour",
+      "resume": "Annoncer à Kaël que l'expédition est libre.",
+      "lieu": {
+        "nom": "Port-Nacre",
+        "pos": [
+          950,
+          66,
+          -750
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "kael",
+          "type": "parler",
+          "cible": "kael",
+          "manuel": true,
+          "texte": "Annoncer la nouvelle à Kaël"
+        }
+      ]
+    }
+  ],
+  "fin": [
+    {
+      "type": "experience",
+      "niveaux": 4
+    },
+    {
+      "type": "drapeau",
+      "nom": "expedition_sauvee"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "placement": {
+    "type": "les_limbes:fixed",
+    "salt": 1034,
+    "chunks": [
+      [
+        -53,
+        -55
+      ]
+    ]
+  },
+  "structures": [
+    {
+      "structure": "les_limbes:capitale_ambassades",
+      "weight": 1
+    }
+  ]
+}

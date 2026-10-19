@@ -2,6 +2,28 @@
   "nom": "Sahir",
   "debut": [
     {
+      "noeud": "tournoi",
+      "si": [
+        {
+          "drapeau": "sahir_allie"
+        },
+        {
+          "sans_drapeau": "sahir_reconnu"
+        },
+        {
+          "quete_active": "le_tournoi_des_heures"
+        }
+      ]
+    },
+    {
+      "noeud": "reconnu",
+      "si": [
+        {
+          "drapeau": "sahir_reconnu"
+        }
+      ]
+    },
+    {
       "noeud": "revu",
       "si": [
         {
@@ -91,6 +113,48 @@
         "Sans rien casser. Bien. Vous avez le temps pour vous, maintenant : les archives vous sont ouvertes, et je parlerai de vous aux autres gardiens du passé."
       ],
       "choix": [
+        {
+          "texte": "Merci, Sahir."
+        }
+      ]
+    },
+    "tournoi": {
+      "texte": [
+        "Je ne juge pas en duel ; je regarde. Le tournoi des heures, dans la cour à l'est de la ville : Rachid vous inscrira. Trois épreuves, et je serai dans les gradins.",
+        "Si vous voulez tout de même croiser le fer avec un vieil homme, j'ai gardé quelques heures en suspens pour ça."
+      ],
+      "choix": [
+        {
+          "texte": "Je vais à la cour des heures."
+        },
+        {
+          "texte": "Un duel rituel, alors.",
+          "actions": [
+            {
+              "type": "duel",
+              "id": "duel_rituel_de_sahir"
+            }
+          ]
+        },
+        {
+          "texte": "Plus tard."
+        }
+      ]
+    },
+    "reconnu": {
+      "texte": [
+        "Champion des heures. Les gardiens du passé vous reconnaissent, et moi aussi. Les heures suspendues restent à votre disposition si vous voulez vous y mesurer."
+      ],
+      "choix": [
+        {
+          "texte": "Un duel rituel.",
+          "actions": [
+            {
+              "type": "duel",
+              "id": "duel_rituel_de_sahir"
+            }
+          ]
+        },
         {
           "texte": "Merci, Sahir."
         }

@@ -29,7 +29,7 @@ import java.util.Optional;
 public record QuestDefinition(String id, String titre, String description, int acte, List<Etape> etapes, List<JsonObject> fin, boolean cachee) {
 
 	public enum TypeObjectif {
-		PARLER, ATTEINDRE, VAINCRE, COLLECTER, INTERAGIR, POUVOIR, DRAPEAU
+		PARLER, ATTEINDRE, VAINCRE, COLLECTER, INTERAGIR, POUVOIR, DRAPEAU, DRAPEAU_MONDE
 	}
 
 	/** Un objectif d'étape. {@code cible} dépend du type (rôle de PNJ, identifiant d'entité, d'objet, de bloc, de pouvoir ou nom de drapeau). */

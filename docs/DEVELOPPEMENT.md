@@ -26,7 +26,9 @@
 | `npc` | entité Habitant, réapparition des personnages essentiels, dialogues (`npc/dialogue`) |
 | `quest` | définitions, chargeur, progression, gestionnaire, signaux |
 | `power` | techniques royales (registre, arsenal, portes, décrets), majesté, recharges |
-| `entity` | créatures des Prairies (poisson-lune, cerf-lanterne, Veilleur égaré, raie céleste) ; `entity/region` : archétypes des espèces régionales (paisible, volant, aquatique, ennemi annoncé, ennemi tireur, monture) et projectile « éclat » |
+| `entity` | créatures des Prairies ; `entity/region` : archétypes des espèces régionales (paisible, volant, aquatique, ennemi annoncé, ennemi tireur, monture, soutien) et projectile « éclat » ; `entity/duel` : boss des prétendants (`PretendantEntity`, `StyleDuel`) |
+| `duel` | définitions de duels (JSON), gestionnaire (phases, participants, barre de boss, échec et reprise), blocs temporaires |
+| `capitale` | éveil de la capitale par niveaux, couronnement et délégations |
 | `event` | branchement des événements serveur, première connexion |
 | `command` | `/limbes` (administration et diagnostic) |
 | `network` | paquets (intentions client → serveur ; affichage serveur → client) |
@@ -39,6 +41,7 @@ Règles : aucune classe cliente n'est chargée sur un serveur dédié (sourceset
 ## Données (`src/main/resources`)
 
 - `data/les_limbes/quest/*.json` : quêtes (étapes, objectifs, lieu, actions `debut`/`fin`). Types d'objectifs : `parler`, `atteindre`, `vaincre`, `collecter`, `interagir`, `pouvoir`, `drapeau`. Format documenté dans `QuestDefinition.java`.
+- `data/les_limbes/duel/<id>.json` : duels et épreuves (titre, prétendant, boss, renforts, arène, entrée, apparition, amical, phases à seuils avec invocations et blocs temporaires, actions de victoire et d'échec). Format dans `DuelDefinition.java`.
 - `data/les_limbes/dialogue/<role>.json` : graphes de dialogue (règles de début conditionnelles, nœuds, choix, actions). Format dans `DialogueGraph.java` ; conditions dans `Conditions.java` ; actions dans `Actions.java`.
 - `data/les_limbes/worldgen/` : dimension, type de dimension, réglages de bruit, fonctions de densité, biomes, features, structures composées et ensembles de structures.
 - `data/les_limbes/structure/**/*.nbt` : gabarits produits par `tools/structgen/build_structures.py`.
@@ -70,6 +73,8 @@ Ordre recommandé après modification : textures → sons → données → struc
 - **Un lieu d'intérêt** : `lieu/<id>.json` (nom, pos, rayon, région, dimension, éventuellement `relais`) ; découverte automatique (drapeau `lieu:<id>`), carte du journal. Un relais : `relais/<id>.json` (nom, pos = point d'arrivée devant la porte) **et** une porte de relais dans un gabarit (`les_limbes:porte_de_relais` avec `{"relais": "<id>"}` dans le bloc-entité).
 - **Une créature régionale** : une fiche dans `LimbesEspeces` (archétype, taille, statistiques, sons, appât, combat, couleurs d'œuf), un modèle du même identifiant dans `tools/models/modeles_regions.py` (gabarits `quadrupede`, `bipede`, `insecte`, `oiseau`, `poisson` ou os libres), une texture d'œuf dans `gen_textures.py`, l'identifiant dans `ESPECES_REGIONALES` et une table de butin dans `BUTINS_ENTITES` (`gen_data.py`), des apparitions dans `SPAWNS_REGIONAUX` (le groupe doit correspondre au `SpawnGroup` de l'archétype : paisibles et montures `creature`, volants `ambient`, ennemis `monster`, aquatiques `water_creature`), les clés `entity.les_limbes.<id>` et `item.les_limbes.oeuf_<id>`. Le rendu client est automatique (`RenduDonneesRenderer` sous le même identifiant). La fiche est lue depuis le type d'entité (`LimbesEspeces.especeDe`) parce que le constructeur parent appelle `initGoals()` avant l'affectation des champs.
 - **Une région ou un sous-biome** : relief dans `LimbesRegions` (hauteur, pente, règle de sous-biome), biome dans `BIOMES_PAR_REGION` et appel `biome(...)` de `gen_data.py` (règles de surface par biome, végétation triée selon `ORDRE_VEGETAL`), sites aplanis dans `SITES`, gabarits dans `regions_<region>.py` et appels `site(...)` de `build_structures.py`, lieux `lieu/*.json`, relais `relais/*.json` (la porte posée par `relais(c, ...)` dans le gabarit), dialogues et noms des personnages.
+- **Un duel** : un fichier `duel/<id>.json` ; le boss est un type de `LimbesPretendants` (fiche + `StyleDuel`, modèle du même identifiant dans `modeles_regions.py`) ou une espèce ordinaire (épreuves de tournoi) ; l'arène est une structure à position fixe (voir `arenes.py`), l'entrée et l'apparition sont dans l'arène ; un dialogue lance le duel par `{"type": "duel", "id": "<id>"}` ; la victoire pose `duel_<id>_gagne` et exécute les actions `victoire` (drapeaux de reconnaissance...). Les motifs de blocs temporaires des phases sont `racines`, `forteresse`, `miroirs`, `sables` ; ils ne remplacent que de l'air et sont toujours retirés.
+- **Un quartier de la capitale** : une toile dans `capitale.py` avec lanternes `lanterne_royale_eteinte`, portes `porte_royale[niveau=n]` et ponts `pont_royal`, un `site()` sur le plateau (−900/−900, rayon 90), un lieu `lieu/*.json`, des personnages (apparence, nom, dialogue).
 - **Une action ou condition de dialogue** : `Actions.java` / `Conditions.java` ; toute action accepte `"si": [conditions]` et `"une_fois": "<drapeau>"`.
 
 ## Commandes d'administration (`/limbes`, niveau 2)
@@ -95,6 +100,16 @@ Ordre recommandé après modification : textures → sons → données → struc
 - **Respiration et chute** : `LivingEntity.canBreatheInWater()` est finale et lit l'étiquette `minecraft:can_breathe_under_water` ; l'immunité à la chute passe par `minecraft:fall_damage_immune` (les deux sont écrites par `gen_data.py`).
 - **Tables de butin 1.21** : la fonction de pillage s'appelle `minecraft:enchanted_count_increase` (avec `enchantment: minecraft:looting`), plus `looting_enchant`.
 - **GameTests et créatures** : le monde de test n'a aucun joueur à moins de 128 blocs des structures : une créature non persistante est retirée dès son premier tick (`setPersistent()` dans les tests) ; plus de 24 entités au même point déclenchent les dégâts d'entassement de vanilla.
+
+## Duels et capitale : leçons apprises (étape 6)
+
+- **Dégâts d'un boss** : plafonnés par coup (14) sauf pour les sources qui ignorent l'invulnérabilité (commande `kill`, vide) ; sinon un seul coup de l'Épée affûtée raccourcirait l'épreuve.
+- **Phases** : évaluées par le gestionnaire à chaque tick sur la fraction de vie, chaque seuil une seule fois ; le boss reçoit `entrerPhase` et interprète selon son style. Les renforts et soutiens sont rattachés au duel et retirés à la fin, quelle qu'elle soit.
+- **Épreuve amicale** : un participant à 3 PV ou moins est soigné, renvoyé à l'entrée, et le duel se termine en échec (le boss disparaît) ; la mort d'un joueur termine aussi le duel ; quitter l'arène dix secondes vaut abandon. Tout duel se relance par le dialogue.
+- **Boss ordinaires** : un boss qui n'est pas un prétendant (tournoi) compte sa victoire quand `isDead()` passe à vrai (l'entité reste vingt ticks après sa mort).
+- **Blocs de la capitale** : les gabarits ne déclenchent pas `onBlockAdded`, donc les portes, lanternes et ponts lisent le niveau d'éveil à leurs ticks aléatoires (`ticksRandomly`) ; `CapitaleManager.eveiller` applique en plus le niveau tout de suite dans les chunks chargés.
+- **Délégations** : des exemplaires temporaires d'`HabitantEntity` (`setDelegation`), ignorés par la réapparition des essentiels, qui repartent d'eux-mêmes.
+- **Apparences** : le rendu choisit la texture `textures/entity/habitant/<role>.png` si elle existe, sinon l'apparence commune (plus de liste figée côté client).
 
 ## Rendu client : leçons apprises (vérifiées par captures)
 

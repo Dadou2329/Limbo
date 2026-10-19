@@ -2,6 +2,28 @@
   "nom": "Aélis",
   "debut": [
     {
+      "noeud": "reconnaissance",
+      "si": [
+        {
+          "drapeau": "aelis_alliee"
+        },
+        {
+          "sans_drapeau": "aelis_reconnue"
+        },
+        {
+          "quete_active": "la_danse_des_racines"
+        }
+      ]
+    },
+    {
+      "noeud": "reconnue",
+      "si": [
+        {
+          "drapeau": "aelis_reconnue"
+        }
+      ]
+    },
+    {
       "noeud": "revu",
       "si": [
         {
@@ -83,6 +105,73 @@
       "choix": [
         {
           "texte": "Merci, Aélis."
+        }
+      ]
+    },
+    "reconnaissance": {
+      "texte": [
+        "Ma reconnaissance se gagne de deux façons. Ceux qui ont choisi l'eau pour tous l'ont déjà : je l'ai vu de mes racines.",
+        "Les autres dansent avec moi au jardin de l'épreuve, à l'est de la ville : la danse des racines. Rien n'y est mortel ; tout y est vrai."
+      ],
+      "choix": [
+        {
+          "texte": "Vous avez vu mon choix pour l'eau.",
+          "si": [
+            {
+              "drapeau": "eau_partagee"
+            }
+          ],
+          "actions": [
+            {
+              "type": "objectif",
+              "quete": "la_danse_des_racines",
+              "objectif": "aelis"
+            },
+            {
+              "type": "drapeau",
+              "nom": "aelis_reconnue"
+            },
+            {
+              "type": "message",
+              "texte": "Aélis vous reconnaît : les Jardins vous suivront."
+            }
+          ]
+        },
+        {
+          "texte": "Je danserai avec les racines.",
+          "actions": [
+            {
+              "type": "objectif",
+              "quete": "la_danse_des_racines",
+              "objectif": "aelis"
+            },
+            {
+              "type": "duel",
+              "id": "epreuve_d_aelis"
+            }
+          ]
+        },
+        {
+          "texte": "Plus tard."
+        }
+      ]
+    },
+    "reconnue": {
+      "texte": [
+        "Les Jardins vous suivent. Si vous voulez danser encore avec les racines, pour le plaisir de la danse, le jardin est à vous."
+      ],
+      "choix": [
+        {
+          "texte": "Dansons.",
+          "actions": [
+            {
+              "type": "duel",
+              "id": "epreuve_d_aelis"
+            }
+          ]
+        },
+        {
+          "texte": "À bientôt, Aélis."
         }
       ]
     }

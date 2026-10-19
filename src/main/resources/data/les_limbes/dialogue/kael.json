@@ -2,6 +2,41 @@
   "nom": "Kaël",
   "debut": [
     {
+      "noeud": "expedition_retour",
+      "si": [
+        {
+          "quete_active": "l_expedition_de_l_archipel"
+        },
+        {
+          "quete_etape": {
+            "l_expedition_de_l_archipel": "=3"
+          }
+        }
+      ]
+    },
+    {
+      "noeud": "reconnaissance",
+      "si": [
+        {
+          "drapeau": "kael_allie"
+        },
+        {
+          "sans_drapeau": "kael_reconnu"
+        },
+        {
+          "quete_active": "le_pont_du_vent_debout"
+        }
+      ]
+    },
+    {
+      "noeud": "reconnu",
+      "si": [
+        {
+          "drapeau": "kael_reconnu"
+        }
+      ]
+    },
+    {
       "noeud": "revu",
       "si": [
         {
@@ -102,6 +137,90 @@
       "choix": [
         {
           "texte": "Merci, Kaël."
+        }
+      ]
+    },
+    "expedition_retour": {
+      "texte": [
+        "Lio est libre ? Et vous l'avez sorti de là sans perdre un homme... C'est ça, relier les territoires : aller chercher ceux qui restent coincés entre deux îles.",
+        "Je vous reconnais. Les ports, les routes et le Vent-Debout vous suivront."
+      ],
+      "choix": [
+        {
+          "texte": "Merci, Kaël.",
+          "actions": [
+            {
+              "type": "objectif",
+              "quete": "l_expedition_de_l_archipel",
+              "objectif": "kael"
+            },
+            {
+              "type": "drapeau",
+              "nom": "kael_reconnu"
+            },
+            {
+              "type": "message",
+              "texte": "Kaël vous reconnaît : les routes de la Mer sont à vous."
+            }
+          ]
+        }
+      ]
+    },
+    "reconnaissance": {
+      "texte": [
+        "Ma reconnaissance ? Elle ne se donne pas dans un bureau. Deux chemins : une expédition de Lio est coincée dans l'archipel mobile, à l'est, encerclée par des gardiens des épaves. Allez la chercher.",
+        "Ou bien montez sur le Vent-Debout et tenez le pont contre moi. Amicalement. Enfin, presque."
+      ],
+      "choix": [
+        {
+          "texte": "Je pars secourir l'expédition.",
+          "actions": [
+            {
+              "type": "objectif",
+              "quete": "le_pont_du_vent_debout",
+              "objectif": "kael"
+            },
+            {
+              "type": "demarrer_quete",
+              "quete": "l_expedition_de_l_archipel"
+            }
+          ]
+        },
+        {
+          "texte": "Je tiendrai votre pont.",
+          "actions": [
+            {
+              "type": "objectif",
+              "quete": "le_pont_du_vent_debout",
+              "objectif": "kael"
+            },
+            {
+              "type": "duel",
+              "id": "epreuve_de_kael"
+            }
+          ]
+        },
+        {
+          "texte": "Plus tard."
+        }
+      ]
+    },
+    "reconnu": {
+      "texte": [
+        "Les routes sont à vous, et le Vent-Debout aussi quand vous voulez. Une passe d'armes sur le pont, pour garder la main ?"
+      ],
+      "choix": [
+        {
+          "texte": "Une passe d'armes.",
+          "actions": [
+            {
+              "type": "duel",
+              "id": "epreuve_de_kael"
+            }
+          ]
+        },
+        {
+          "texte": "À bientôt, Kaël."
         }
       ]
     }

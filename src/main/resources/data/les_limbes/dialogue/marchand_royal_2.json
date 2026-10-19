@@ -1,0 +1,43 @@
+{
+  "nom": "Nadia",
+  "debut": [
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Épices des Heures, miel des Jardins, thé des cimes. Trois dattes des heures contre deux pains de la cour tout chauds."
+      ],
+      "choix": [
+        {
+          "texte": "Trois dattes contre deux pains.",
+          "si": [
+            {
+              "objet": {
+                "id": "les_limbes:dattes_des_heures",
+                "nombre": 3
+              }
+            }
+          ],
+          "actions": [
+            {
+              "type": "retirer",
+              "objet": "les_limbes:dattes_des_heures",
+              "nombre": 3
+            },
+            {
+              "type": "donner",
+              "objet": "les_limbes:pain_de_la_cour",
+              "nombre": 2
+            }
+          ]
+        },
+        {
+          "texte": "Une autre fois."
+        }
+      ]
+    }
+  }
+}

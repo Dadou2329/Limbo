@@ -1,0 +1,18 @@
+{
+  "placement": {
+    "type": "les_limbes:fixed",
+    "salt": 1030,
+    "chunks": [
+      [
+        78,
+        -41
+      ]
+    ]
+  },
+  "structures": [
+    {
+      "structure": "les_limbes:campement_de_l_archipel",
+      "weight": 1
+    }
+  ]
+}

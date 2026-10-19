@@ -1,0 +1,38 @@
+{
+  "nom": "Hadrien",
+  "debut": [
+    {
+      "noeud": "couronne",
+      "si": [
+        {
+          "drapeau": "couronne"
+        }
+      ]
+    },
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Hadrien, de Verréole. Orsane m'a demandé un rapport sur l'état des murs de la capitale. Il est prêt depuis trois ans : impeccables, dit-il. Elle n'en croira pas un mot."
+      ],
+      "choix": [
+        {
+          "texte": "Enchanté."
+        }
+      ]
+    },
+    "couronne": {
+      "texte": [
+        "Majesté. Verréole enverra ses meilleurs tailleurs pour le palais. Orsane y tiendra."
+      ],
+      "choix": [
+        {
+          "texte": "Merci."
+        }
+      ]
+    }
+  }
+}

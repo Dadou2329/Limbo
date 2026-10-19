@@ -102,6 +102,7 @@ public final class Conditions {
 				case "sans_drapeau_monde" -> !LimbesWorldState.get(player.server).aDrapeau(v.getAsString());
 				case "arrivee_active" -> fr.leslimbes.arrivee.ArriveeManager.plusProche(player.server, player.getBlockPos(), v.getAsString()) != null;
 				case "monture" -> data.montures.containsKey(v.getAsString());
+				case "compteur" -> compteur(data, v.getAsJsonObject());
 				case "tout" -> {
 					for (JsonElement e : v.getAsJsonArray()) {
 						if (!verifier(player, e.getAsJsonObject())) {
@@ -132,6 +133,14 @@ public final class Conditions {
 			LesLimbes.LOGGER.warn("Condition inconnue ignorée : {}", c);
 		}
 		return true;
+	}
+
+	/** {@code {"compteur": {"nom": "relation_kael", "min": 2}}} (bornes {@code min} et {@code max} facultatives). */
+	private static boolean compteur(PlayerLimbesData data, com.google.gson.JsonObject o) {
+		int valeur = data.compteur(fr.leslimbes.util.JsonUtil.requireString(o, "nom", "compteur"));
+		int min = fr.leslimbes.util.JsonUtil.integer(o, "min", Integer.MIN_VALUE);
+		int max = fr.leslimbes.util.JsonUtil.integer(o, "max", Integer.MAX_VALUE);
+		return valeur >= min && valeur <= max;
 	}
 
 	private static boolean queteEtape(PlayerLimbesData data, JsonObject spec) {

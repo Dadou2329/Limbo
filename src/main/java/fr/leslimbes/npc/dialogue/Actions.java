@@ -156,6 +156,10 @@ public final class Actions {
 			}
 			case "decouvrir_relais" -> fr.leslimbes.domaine.RelaisManager.decouvrir(player, JsonUtil.requireString(a, "id", type), JsonUtil.bool(a, "annoncer", true));
 			case "compteur" -> data.compteurs.merge(JsonUtil.requireString(a, "nom", type), JsonUtil.integer(a, "valeur", 1), Integer::sum);
+			case "duel" -> fr.leslimbes.duel.DuelManager.commencer(player, JsonUtil.requireString(a, "id", type));
+			case "capitale" -> fr.leslimbes.capitale.CapitaleManager.eveiller(player.server, JsonUtil.integer(a, "niveau", 1), true);
+			case "couronner" -> fr.leslimbes.capitale.Couronnement.couronner(player);
+			case "delegation" -> fr.leslimbes.capitale.Couronnement.delegation(player, a);
 			default -> LesLimbes.LOGGER.warn("Action inconnue ignorée : {}", type);
 		}
 		if (uneFois != null) {

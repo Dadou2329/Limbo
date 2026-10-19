@@ -12,6 +12,7 @@ import net.fabricmc.fabric.api.entity.FakePlayer;
 import net.fabricmc.fabric.api.gametest.v1.FabricGameTest;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
@@ -492,6 +493,47 @@ public final class LesLimbesGameTests implements FabricGameTest {
 			context.assertTrue(scorpion.etatAnimation() == 2, "le scorpion récupère après le coup");
 			scorpion.discard();
 			mouton.discard();
+			context.complete();
+		});
+	}
+	@GameTest(templateName = EMPTY_STRUCTURE, tickLimit = 400)
+	public void unDuelSeDerouleAvecSesPhasesEtSaVictoire(TestContext context) {
+		ServerWorld world = context.getWorld();
+		net.minecraft.server.network.ServerPlayerEntity player = context.createMockCreativeServerPlayerInWorld();
+		BlockPos pos = context.getAbsolutePos(new BlockPos(2, 0, 2));
+		player.refreshPositionAndAngles(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, 0, 0);
+		PlayerLimbesData data = PlayerLimbesData.of(player);
+		// Un duel défini pour l'arène de test (en plus de ceux du jeu) : boss Aélis, une phase avec renfort et racines.
+		String json = "{\"titre\": \"Duel de test\", \"pretendant\": \"aelis\", \"boss\": \"les_limbes:aelis_duel\", \"amical\": true,"
+				+ "\"arene\": {\"centre\": [" + pos.getX() + "," + pos.getY() + "," + pos.getZ() + "], \"rayon\": 12, \"dimension\": \"" + world.getRegistryKey().getValue() + "\"},"
+				+ "\"entree\": [" + pos.getX() + "," + pos.getY() + "," + (pos.getZ() + 4) + "], \"apparition\": [" + pos.getX() + "," + pos.getY() + "," + (pos.getZ() - 3) + "],"
+				+ "\"phases\": [{\"seuil\": 0.6, \"message\": \"phase\", \"invocations\": [{\"entite\": \"les_limbes:fleur_de_vie\", \"nombre\": 1}], \"blocs\": \"racines\", \"duree_blocs\": 0}],"
+				+ "\"victoire\": [{\"type\": \"drapeau\", \"nom\": \"test_duel_victoire\"}], \"echec\": []}";
+		java.util.Map<String, String> defs = new java.util.LinkedHashMap<>();
+		defs.put("test_duel", json);
+		fr.leslimbes.duel.DuelLoader.chargerDepuisJson(defs);
+		context.assertTrue(fr.leslimbes.duel.DuelManager.commencer(player, "test_duel"), "le duel commence");
+		fr.leslimbes.duel.Duel duel = fr.leslimbes.duel.DuelManager.duelDe("test_duel");
+		context.assertTrue(duel != null && duel.participants.contains(player.getUuid()), "le joueur participe au duel");
+		Entity boss = world.getEntity(duel.boss);
+		context.assertTrue(boss instanceof fr.leslimbes.entity.duel.PretendantEntity p && p.isAlive() && p.style() == fr.leslimbes.entity.duel.StyleDuel.AELIS, "le boss Aélis est apparu");
+		context.assertTrue(player.getBlockPos().isWithinDistance(pos.add(0, 0, 4), 2.5), "le joueur est placé à l'entrée de l'arène");
+		LivingEntity vivant = (LivingEntity) boss;
+		vivant.setHealth(vivant.getMaxHealth() * 0.5F);
+		context.runAtTick(6, () -> {
+			context.assertTrue(duel.phase == 1, "la phase 1 est franchie (phase=" + duel.phase + ")");
+			context.assertTrue(!duel.renforts.isEmpty(), "un renfort a été invoqué");
+			context.assertTrue(duel.blocs.nombre() > 0, "des racines temporaires ont été posées (" + duel.blocs.nombre() + ")");
+			context.assertTrue(duel.barre.getPercent() < 0.6F, "la barre de boss suit la vie");
+			vivant.kill();
+		});
+		context.runAtTick(40, () -> {
+			context.assertTrue(fr.leslimbes.duel.DuelManager.duelDe("test_duel") == null, "le duel est terminé");
+			context.assertTrue(data.aDrapeau("duel_test_duel_gagne") && data.aDrapeau("test_duel_victoire"), "les drapeaux de victoire sont posés");
+			context.assertTrue(duel.blocs.nombre() == 0, "les blocs temporaires sont retirés");
+			List<fr.leslimbes.entity.region.SoutienEntity> restes = world.getEntitiesByClass(fr.leslimbes.entity.region.SoutienEntity.class, new Box(pos).expand(24), e -> e.isAlive());
+			context.assertTrue(restes.isEmpty(), "les renforts sont retirés (" + restes.size() + ")");
+			world.getServer().getPlayerManager().remove(player);
 			context.complete();
 		});
 	}

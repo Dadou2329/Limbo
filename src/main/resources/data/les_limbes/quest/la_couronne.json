@@ -1,0 +1,149 @@
+{
+  "titre": "La Couronne",
+  "acte": 4,
+  "description": "Les derniers accès de la capitale s'ouvrent, la vérité sur le roi disparu se lit dans son palais, et Vaëron réclame le trône : le conflit devient ouvert. Après l'épreuve finale, Maëlle prépare le couronnement.",
+  "etapes": [
+    {
+      "id": "palais",
+      "resume": "Demander à Aldric, le chambellan, sur la place des cérémonies, l'ouverture du palais.",
+      "lieu": {
+        "nom": "Place des cérémonies",
+        "pos": [
+          -900,
+          86,
+          -900
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "aldric",
+          "type": "parler",
+          "cible": "chambellan",
+          "manuel": true,
+          "texte": "Parler au chambellan Aldric"
+        }
+      ]
+    },
+    {
+      "id": "verite",
+      "resume": "Entrer dans la salle du trône et écouter Bertrand, le conseiller royal : ce qu'il sait de la disparition du roi.",
+      "lieu": {
+        "nom": "Palais royal",
+        "pos": [
+          -900,
+          86,
+          -940
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "trone",
+          "type": "atteindre",
+          "pos": [
+            -900,
+            87,
+            -940
+          ],
+          "rayon": 10,
+          "dimension": "les_limbes:limbes",
+          "texte": "Entrer dans la salle du trône"
+        },
+        {
+          "id": "bertrand",
+          "type": "parler",
+          "cible": "conseiller_royal",
+          "manuel": true,
+          "texte": "Parler à Bertrand, le conseiller royal"
+        }
+      ]
+    },
+    {
+      "id": "vaeron",
+      "resume": "Retrouver Vaëron à Haute-Garde : Aubin sait où il est. Le désaccord est devenu rivalité ; il faudra la trancher sur la place des cérémonies.",
+      "lieu": {
+        "nom": "Haute-Garde",
+        "pos": [
+          -610,
+          82,
+          -610
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "aubin",
+          "type": "parler",
+          "cible": "intendant_garde",
+          "manuel": true,
+          "texte": "Demander à Aubin où est Vaëron"
+        },
+        {
+          "id": "vaeron",
+          "type": "parler",
+          "cible": "vaeron",
+          "manuel": true,
+          "texte": "Affronter Vaëron en paroles"
+        }
+      ]
+    },
+    {
+      "id": "duel",
+      "resume": "Remporter le duel final contre Vaëron sur la place des cérémonies : légions, bannières, forteresse et épée solaire.",
+      "lieu": {
+        "nom": "Place des cérémonies",
+        "pos": [
+          -900,
+          86,
+          -900
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "vaincu",
+          "type": "drapeau",
+          "cible": "vaeron_vaincu",
+          "texte": "Vaincre Vaëron"
+        }
+      ]
+    },
+    {
+      "id": "preparation",
+      "resume": "Revenir au Sanctuaire : Maëlle prépare le couronnement.",
+      "lieu": {
+        "nom": "Sanctuaire de l'Arrivée",
+        "pos": [
+          0,
+          82,
+          0
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "maelle",
+          "type": "parler",
+          "cible": "maelle",
+          "manuel": true,
+          "texte": "Parler à Maëlle du couronnement"
+        }
+      ]
+    }
+  ],
+  "fin": [
+    {
+      "type": "experience",
+      "niveaux": 8
+    },
+    {
+      "type": "drapeau",
+      "nom": "acte_4_termine"
+    },
+    {
+      "type": "demarrer_quete",
+      "quete": "le_couronnement"
+    }
+  ]
+}

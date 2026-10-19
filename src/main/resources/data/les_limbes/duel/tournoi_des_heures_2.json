@@ -1,0 +1,57 @@
+{
+  "titre": "Tournoi des heures — deuxième épreuve",
+  "pretendant": "maitre_des_jeux",
+  "boss": "les_limbes:sentinelle_de_sable",
+  "renforts": [
+    {
+      "entite": "les_limbes:sentinelle_de_sable",
+      "nombre": 1
+    },
+    {
+      "entite": "les_limbes:scorpion_des_heures",
+      "nombre": 1
+    }
+  ],
+  "arene": {
+    "centre": [
+      230,
+      66,
+      1330
+    ],
+    "rayon": 17,
+    "dimension": "les_limbes:limbes"
+  },
+  "entree": [
+    230,
+    66,
+    1346
+  ],
+  "yaw": 180,
+  "apparition": [
+    230,
+    66,
+    1320
+  ],
+  "amical": true,
+  "phases": [],
+  "victoire": [
+    {
+      "type": "drapeau",
+      "nom": "tournoi_heures_2"
+    },
+    {
+      "type": "experience",
+      "niveaux": 2
+    },
+    {
+      "type": "message",
+      "texte": "Deuxième épreuve remportée. Il reste le champion des heures."
+    }
+  ],
+  "echec": [
+    {
+      "type": "message",
+      "texte": "Le maître des jeux siffle la fin de l'épreuve. Vous pourrez la retenter."
+    }
+  ]
+}

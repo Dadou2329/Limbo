@@ -2,7 +2,7 @@
 
 Ordre conseillé par le cahier des charges : 1 socle → 2 Prairies/Clairval/manoir/première quête/premiers pouvoirs → 3 tranche de qualité (mini-aventure, monture, Arrivée, combat) → 4 domaine/journal/passages → 5 régions restantes → 6 prétendants/campagne/couronnement → 7 pouvoirs supérieurs/règne → 8 complétion/optimisation.
 
-État : étapes 1 à 5 réalisées (tranche « Le Passage » ; monture, Arrivées, mini-aventures ; domaine, recrutement, salle des passages, journal/carte/options ; six régions, villes, lieux, créatures et montures) ; étape 6 (prétendants, campagne, couronnement) à suivre.
+État : étapes 1 à 6 réalisées (tranche « Le Passage » ; monture, Arrivées, mini-aventures ; domaine ; six régions ; prétendants, campagne des actes II à IV, duels, capitale, couronnement et premier acte royal) ; étape 7 (pouvoirs supérieurs et règne) à suivre.
 
 ## Prochaines actions exécutables (par priorité)
 
@@ -39,10 +39,13 @@ Ordre conseillé par le cahier des charges : 1 socle → 2 Prairies/Clairval/man
 - [ ] Capitale et palais sur le plateau réservé (−900/86/−900) : étape 6.
 - [ ] Mécanismes temporels de Méridiane à étendre (quartier figé qui s'anime selon l'heure) et plongée outillée dans la Mer (respiration, lumière) : étape 8.
 
-### E. Prétendants, campagne, couronnement (étape 6)
-- [ ] Aélis, Kaël, Orsane, Sahir : rencontres, aventures communes, duels (arènes maîtrisées), reconnaissances alternatives (tournoi, négociation, expédition, duel rituel).
-- [ ] Vaëron : cité fortifiée visitable, collaboration puis rivalité, duel final à plusieurs phases, conclusion.
-- [ ] Actes II–IV, explication de la disparition du roi, couronnement jouable, premier acte royal (fragment attiré, nouveau territoire).
+### E. Prétendants, campagne, couronnement (étape 6) — réalisée
+- [x] Système de duels en données (arène, boss, renforts, phases à seuils, actions de victoire et d'échec, barre de boss, blocs temporaires toujours retirés, échec sans mort en épreuve amicale, reprise libre) et boss à phases pour les cinq prétendants et le champion des heures.
+- [x] Reconnaissances différentes : Aélis (négociation si l'eau a été partagée, sinon danse des racines), Kaël (expédition de l'archipel ou pont du Vent-Debout), Orsane (duel rituel de la salle des miroirs), Sahir (tournoi des heures en trois épreuves) ; tous les duels restent jouables ensuite en épreuves amicales.
+- [x] Campagne : actes II (Le seigneur de Clairval), III (Le Prétendant, Les routes éteintes), IV (La Couronne : palais ouvert, vérité sur le roi, conflit puis duel final contre Vaëron à trois phases, conclusion où il garde Haute-Garde), couronnement jouable (délégations réellement aidées, ville illuminée, ponts reformés, couronne assemblée, contrôle rendu aussitôt) et premier acte royal (fragment du belvédère attiré, sceau du roi).
+- [x] Capitale endormie : place des cérémonies, palais (trône, conseil, archives, cuisines, appartements, jardin, tours), marché, ambassades, archives, ateliers, résidences ; éveil par niveaux ; quinze personnages.
+- [ ] Vérifier en captures client le rendu des boss, des arènes, de la capitale et de la cérémonie (fin de projet).
+- [ ] Scènes de vie des délégations et dialogues de félicitations plus nombreux (étape 8).
 
 ### F. Pouvoirs (étape 7)
 - [ ] Arsenal : lance, arc, bouclier, parade, changement d'arme en combo, armes satellites.

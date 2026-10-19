@@ -77,6 +77,8 @@ public final class LimbesItems {
 	public static final Item OEUF_CERF_LANTERNE = register("oeuf_cerf_lanterne", new SpawnEggItem(LimbesEntities.CERF_LANTERNE, 0xB99C86, 0xE3C97E, new Item.Settings()));
 	public static final Item OEUF_VEILLEUR_EGARE = register("oeuf_veilleur_egare", new SpawnEggItem(LimbesEntities.VEILLEUR_EGARE, 0x4A4858, 0xA9D2EC, new Item.Settings()));
 	public static final Item OEUF_RAIE_CELESTE = register("oeuf_raie_celeste", new SpawnEggItem(LimbesEntities.RAIE_CELESTE, 0x8FB5DE, 0xFFF3C8, new Item.Settings()));
+	/** Sceau du roi disparu, retrouvé dans le fragment attiré par le premier acte royal. */
+	public static final Item SCEAU_ROYAL = register("sceau_royal", new Item(new Item.Settings().maxCount(1).rarity(net.minecraft.util.Rarity.EPIC)));
 
 	private static <I extends Item> I register(String path, I item) {
 		Registry.register(Registries.ITEM, LesLimbes.id(path), item);

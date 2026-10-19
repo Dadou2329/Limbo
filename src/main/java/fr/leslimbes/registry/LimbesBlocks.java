@@ -203,6 +203,17 @@ public final class LimbesBlocks {
 	public static final Block LANTERNE_ROYALE = register("lanterne_royale", new LanternBlock(
 			AbstractBlock.Settings.create().mapColor(MapColor.GOLD).solid().requiresTool().strength(3.5F)
 					.sounds(BlockSoundGroup.LANTERN).luminance(state -> 15).nonOpaque().pistonBehavior(PistonBehavior.DESTROY)));
+	public static final Block LANTERNE_ROYALE_ETEINTE = register("lanterne_royale_eteinte", new fr.leslimbes.block.LanterneRoyaleEteinteBlock(
+			AbstractBlock.Settings.create().mapColor(MapColor.GOLD).solid().requiresTool().strength(3.5F)
+					.sounds(BlockSoundGroup.LANTERN).nonOpaque().ticksRandomly().pistonBehavior(PistonBehavior.DESTROY)));
+	public static final Block PORTE_ROYALE = register("porte_royale", new fr.leslimbes.block.PorteRoyaleBlock(
+			AbstractBlock.Settings.create().mapColor(MapColor.GOLD).strength(-1.0F, 3600000.0F).dropsNothing().nonOpaque().ticksRandomly().sounds(BlockSoundGroup.AMETHYST_BLOCK)
+					.luminance(state -> state.get(fr.leslimbes.block.PorteRoyaleBlock.OUVERTE) ? 0 : 10).suffocates(LimbesBlocks::never).blockVision(LimbesBlocks::never)
+					.pistonBehavior(PistonBehavior.BLOCK)));
+	public static final Block PONT_ROYAL = register("pont_royal", new fr.leslimbes.block.PontRoyalBlock(
+			AbstractBlock.Settings.create().mapColor(MapColor.GOLD).strength(-1.0F, 3600000.0F).dropsNothing().nonOpaque().ticksRandomly().sounds(BlockSoundGroup.GLASS)
+					.luminance(state -> state.get(fr.leslimbes.block.PontRoyalBlock.FORME) ? 12 : 0).suffocates(LimbesBlocks::never).blockVision(LimbesBlocks::never)
+					.pistonBehavior(PistonBehavior.BLOCK)));
 
 	private static AbstractBlock.Settings couronne() {
 		return AbstractBlock.Settings.create().mapColor(MapColor.WHITE).instrument(NoteBlockInstrument.BASEDRUM)

@@ -1,0 +1,56 @@
+{
+  "titre": "La salle des miroirs",
+  "acte": 3,
+  "description": "Orsane ne reconnaît que ce qu'elle a vu : le duel rituel de la salle des miroirs, à l'ouest de Verréole.",
+  "etapes": [
+    {
+      "id": "orsane",
+      "resume": "Demander à Orsane, au palais des miroirs de Verréole, le duel rituel.",
+      "lieu": {
+        "nom": "Verréole",
+        "pos": [
+          -1150,
+          96,
+          500
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "orsane",
+          "type": "parler",
+          "cible": "orsane",
+          "manuel": true,
+          "texte": "Demander le duel rituel à Orsane"
+        }
+      ]
+    },
+    {
+      "id": "epreuve",
+      "resume": "Tenir le duel de la salle des miroirs : trouver la vraie Orsane parmi ses reflets, briser les points de rupture de son armure.",
+      "lieu": {
+        "nom": "Salle des miroirs",
+        "pos": [
+          -1230,
+          96,
+          500
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "reconnue",
+          "type": "drapeau",
+          "cible": "orsane_reconnue",
+          "texte": "Obtenir la reconnaissance d'Orsane"
+        }
+      ]
+    }
+  ],
+  "fin": [
+    {
+      "type": "experience",
+      "niveaux": 2
+    }
+  ]
+}

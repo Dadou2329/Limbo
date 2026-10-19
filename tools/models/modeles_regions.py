@@ -575,6 +575,214 @@ def cerf_royal():
     return m.build()
 
 
+
+# ----------------------------------------------------------------------------- duels (étape 6)
+
+def _robe(m, peau, largeur=10, hauteur=8, profondeur=6):
+    m.os("robe", (0, 0, 0), [m.cube((-largeur / 2, -1, -profondeur / 2), (largeur, hauteur, profondeur), peau)], parent="corps")
+
+
+def _cape(m, peau, largeur=8, hauteur=14):
+    m.os("cape", (0, -12, 2.5), [m.cube((-largeur / 2, 0, 0), (largeur, hauteur, 1), peau)], parent="corps", rotation=(0.12, 0, 0))
+    m.anim("cape", "rx", "marche", 0.3, 0.6)
+
+
+def _arme(m, nom, peau, longueur=14, pointe=None):
+    cubes = [m.cube((-0.5, -longueur + 4, -0.5), (1, longueur, 1), peau)]
+    if pointe:
+        cubes.append(m.cube((-1, -longueur + 1, -1), (2, 3, 2), pointe))
+    m.os(nom, (0, 11, 0), cubes, parent="bras_d")
+    m.anim("bras_d", "rx", "etat", -1.6, valeur=2)
+    m.anim("bras_g", "rx", "etat", -1.2, valeur=2)
+
+
+def _boss(m, corps, tete, bras, jambe, **kw):
+    bipede(m, corps, tete, bras, jambe, **kw)
+    m.anim("corps", "ry", "etat", 0.5, valeur=3)
+    m.anim("bras_g", "rx", "etat", -0.8, valeur=4)
+    m.anim("bras_d", "rx", "etat", -0.8, valeur=4)
+    m.anim("bras_g", "rz", "etat", 0.5, valeur=4)
+    m.anim("bras_d", "rz", "etat", -0.5, valeur=4)
+    m.anim("bras_g", "rx", "etat", 0.5, valeur=5)
+    m.anim("bras_d", "rx", "etat", 0.5, valeur=5)
+    return m
+
+
+def aelis_duel():
+    m = Modele(128, 1.0, 0.6)
+    _boss(m, (8, 12, 4), (8, 8, 8), (3, 12), (4, 12), peau="robe", peau_tete="peau", peau_bras="robe", peau_jambes="robe_sombre")
+    _robe(m, "robe_sombre", 10, 8, 6)
+    m.os("cheveux", (0, -8, 0), [m.cube((-4.5, -0.5, -4.5), (9, 4, 9), "cheveux"), m.cube((-4, 3, 2), (8, 6, 2), "cheveux")], parent="tete")
+    m.os("couronne_fleurs", (0, -8, 0), [m.cube((-3, -1, -3), (6, 1, 6), "fleurs")], parent="tete")
+    _arme(m, "lance", "bois_blanc", 18, pointe="fleurs")
+    m.peint("robe", "DDEBD2", sombre="A9C49A", clair="FFFFFF", motif="uni", variation=0.04)
+    m.peint("robe_sombre", "5F9A4E", sombre="3E6B33", clair="8FC779", variation=0.06)
+    m.peint("peau", "E6C7A8", sombre="C9A98A", clair="FFE6D0", variation=0.03, yeux={"face": "front", "positions": [[2, 4], [5, 4]], "couleur": "3F7A58"})
+    m.peint("cheveux", "7A4A2A", sombre="4F2E18", clair="A9704A", motif="fourrure", variation=0.06)
+    m.peint("fleurs", "F2A5C8", sombre="C9719F", clair="FFE1F0", motif="taches", variation=0.1, lueur=True)
+    m.peint("bois_blanc", "EDE6D6", sombre="C9BFA8", clair="FFFFFF", motif="bois", variation=0.05)
+    return m.build()
+
+
+def kael_duel():
+    m = Modele(128, 1.0, 0.6)
+    _boss(m, (8, 12, 4), (8, 8, 8), (3, 12), (4, 12), peau="veste", peau_tete="peau", peau_bras="veste", peau_jambes="pantalon")
+    _cape(m, "cape", 8, 14)
+    m.os("cheveux", (0, -8, 0), [m.cube((-4.5, -0.5, -4.5), (9, 3, 9), "cheveux"), m.cube((-4.5, 2, -4.5), (9, 1, 9), "bandeau")], parent="tete")
+    _arme(m, "lame", "lame", 14, pointe=None)
+    m.peint("veste", "2E5283", sombre="1E3660", clair="4F7FB8", variation=0.05)
+    m.peint("pantalon", "4A3A2E", sombre="2E2219", variation=0.06)
+    m.peint("cape", "B23A48", sombre="7A2430", clair="E06A78", variation=0.06)
+    m.peint("peau", "C98B5A", sombre="A86E42", clair="E0A878", variation=0.03, yeux={"face": "front", "positions": [[2, 4], [5, 4]], "couleur": "1F2A4D"})
+    m.peint("cheveux", "2B1E12", sombre="1A120A", clair="4A3521", motif="fourrure", variation=0.05)
+    m.peint("bandeau", "E3C97E", clair="FFF2B0", variation=0.04)
+    m.peint("lame", "AEE6F8", sombre="6FB6D6", clair="FFFFFF", motif="cristal", variation=0.04, lueur=True)
+    return m.build()
+
+
+def orsane_duel():
+    m = Modele(128, 1.0, 0.7)
+    _boss(m, (9, 13, 5), (8, 8, 8), (4, 13), (4, 13), peau="armure", peau_tete="peau", peau_bras="armure", peau_jambes="armure")
+    m.os("plaques", (0, -13, 0), [m.cube((-6, 0, -3.5), (12, 5, 7), "verre", gonflement=0.4), m.cube((-7, 0, -1), (3, 4, 2), "verre"), m.cube((4, 0, -1), (3, 4, 2), "verre")], parent="corps")
+    m.anim("plaques", "echelle", "etat", 0.25, valeur=4)
+    m.os("couronne", (0, -8, 0), [m.cube((-4, -2, -4), (8, 2, 8), "verre"), m.cube((-1, -5, -1), (2, 3, 2), "verre")], parent="tete")
+    m.os("cheveux", (0, -8, 0), [m.cube((-4.5, -0.5, -4.5), (9, 4, 9), "cheveux"), m.cube((-4, 3, 3), (8, 10, 1), "cheveux")], parent="tete")
+    _arme(m, "lame_de_verre", "verre", 15, pointe=None)
+    m.peint("armure", "D8DDE6", sombre="9BA4B3", clair="FFFFFF", motif="pierre", variation=0.04)
+    m.peint("verre", "BFE6F2", sombre="7FB7CC", clair="FFFFFF", motif="cristal", variation=0.05, lueur=True)
+    m.peint("peau", "F2E3D5", sombre="D4C0A5", clair="FFFFFF", variation=0.03, yeux={"face": "front", "positions": [[2, 4], [5, 4]], "couleur": "7FC8E6"})
+    m.peint("cheveux", "F2F4FA", sombre="BFC6D8", clair="FFFFFF", motif="fourrure", variation=0.04)
+    return m.build()
+
+
+def sahir_duel():
+    m = Modele(128, 1.0, 0.6)
+    _boss(m, (8, 12, 4), (8, 8, 8), (3, 12), (4, 12), peau="robe", peau_tete="peau", peau_bras="robe", peau_jambes="robe")
+    _robe(m, "robe_sombre", 10, 9, 6)
+    m.os("turban", (0, -8, 0), [m.cube((-4.5, -2, -4.5), (9, 3, 9), "turban"), m.cube((-1.5, -3, -1.5), (3, 1, 3), "or")], parent="tete")
+    m.os("barbe", (0, 0, -4), [m.cube((-2.5, -3, -1), (5, 5, 1), "barbe")], parent="tete")
+    m.os("sablier", (0, 11, 0), [m.cube((-1.5, -2, -1.5), (3, 1, 3), "or"), m.cube((-1, -1, -1), (2, 3, 2), "verre"), m.cube((-1.5, 2, -1.5), (3, 1, 3), "or")], parent="bras_g")
+    m.anim("bras_g", "rx", "etat", -1.6, valeur=2)
+    m.anim("bras_d", "rx", "etat", -1.6, valeur=2)
+    m.peint("robe", "C9A96E", sombre="8E7A4F", clair="F2E3B8", motif="rayures", variation=0.05)
+    m.peint("robe_sombre", "6E4A2E", sombre="4A2E18", clair="A8744A", variation=0.06)
+    m.peint("turban", "F2E3B8", sombre="C9B07E", clair="FFFFFF", variation=0.04)
+    m.peint("or", "E3C97E", sombre="B8952E", clair="FFF2B0", variation=0.04, lueur=True)
+    m.peint("verre", "BFE6F2", sombre="7FB7CC", clair="FFFFFF", motif="cristal", variation=0.05)
+    m.peint("peau", "A86E42", sombre="7A4A2A", clair="C98B5A", variation=0.03, yeux={"face": "front", "positions": [[2, 4], [5, 4]], "couleur": "2B1E12"})
+    m.peint("barbe", "D9D9D9", sombre="9A9A9A", clair="FFFFFF", motif="fourrure", variation=0.05)
+    return m.build()
+
+
+def vaeron_duel():
+    m = Modele(128, 1.0, 0.8)
+    _boss(m, (10, 14, 6), (8, 8, 8), (4, 14), (5, 14), peau="armure", peau_tete="peau", peau_bras="armure", peau_jambes="armure", ecart_jambes=3)
+    _cape(m, "cape", 10, 16)
+    m.os("epaulettes", (0, -14, 0), [m.cube((-8, -1, -4), (4, 3, 8), "or"), m.cube((4, -1, -4), (4, 3, 8), "or")], parent="corps")
+    m.os("cheveux", (0, -8, 0), [m.cube((-4.5, -0.5, -4.5), (9, 3, 9), "cheveux")], parent="tete")
+    m.os("barbe", (0, 0, -4), [m.cube((-3, -3, -1), (6, 4, 1), "cheveux")], parent="tete")
+    _arme(m, "epee_solaire", "solaire", 20, pointe=None)
+    m.os("garde", (0, 11, 0), [m.cube((-2.5, 3, -0.5), (5, 1, 1), "or")], parent="bras_d")
+    m.peint("armure", "2E3A6E", sombre="1C2447", clair="4F5FA0", motif="pierre", variation=0.04)
+    m.peint("or", "C9A227", sombre="8E7119", clair="FFE08A", variation=0.04)
+    m.peint("cape", "6E2E3A", sombre="471C25", clair="A04A5A", variation=0.05)
+    m.peint("peau", "D9A77C", sombre="B88660", clair="F0C8A0", variation=0.03, yeux={"face": "front", "positions": [[2, 4], [5, 4]], "couleur": "7FC8E6"})
+    m.peint("cheveux", "5A3A26", sombre="3A2416", clair="7A5236", motif="fourrure", variation=0.05)
+    m.peint("solaire", "FFE08A", sombre="E3C97E", clair="FFFFFF", motif="uni", variation=0.03, lueur=True)
+    return m.build()
+
+
+def champion_des_heures_modele():
+    m = Modele(128, 1.0, 0.7)
+    _boss(m, (10, 13, 6), (8, 8, 8), (4, 13), (5, 13), peau="cuir", peau_tete="casque", peau_bras="cuir", peau_jambes="cuir", ecart_jambes=3)
+    m.os("casque_pointe", (0, -8, 0), [m.cube((-4.5, -1, -4.5), (9, 2, 9), "or"), m.cube((-1, -4, -1), (2, 3, 2), "or")], parent="tete")
+    _arme(m, "masse", "cuir", 12, pointe="or")
+    m.peint("cuir", "8E5C22", sombre="5E3B14", clair="C98B3C", variation=0.06)
+    m.peint("casque", "C9B07E", sombre="8E7A4F", clair="F2E3B8", motif="pierre", variation=0.05, yeux={"face": "front", "positions": [[2, 4], [5, 4]], "couleur": "2B1E12"})
+    m.peint("or", "E3C97E", sombre="B8952E", clair="FFF2B0", variation=0.04)
+    return m.build()
+
+
+def chevalier_de_bois_blanc():
+    m = Modele(64, 1.0, 0.6)
+    bipede(m, (8, 12, 4), (7, 7, 7), (3, 12), (4, 12), peau="bois", peau_tete="bois", peau_bras="bois", peau_jambes="bois_sombre")
+    m.os("heaume", (0, -7, 0), [m.cube((-4, -1, -4), (8, 2, 8), "bois_sombre")], parent="tete")
+    _arme(m, "lance", "bois_sombre", 16, pointe="fleur")
+    m.peint("bois", "EDE6D6", sombre="C9BFA8", clair="FFFFFF", motif="bois", variation=0.05, yeux={"face": "front", "positions": [[1, 3], [5, 3]], "couleur": "5F9A4E"})
+    m.peint("bois_sombre", "C9BFA8", sombre="9A8E74", variation=0.06)
+    m.peint("fleur", "F2A5C8", clair="FFE1F0", variation=0.06, lueur=True)
+    return m.build()
+
+
+def reflet_de_verre():
+    m = Modele(64, 1.0, 0.5)
+    bipede(m, (8, 12, 4), (7, 7, 7), (3, 12), (4, 12), peau="verre", peau_tete="verre", peau_bras="verre", peau_jambes="verre")
+    m.anim("corps", "y", "temps", 0.4, 0.15)
+    m.peint("verre", "D8F2FF", sombre="9FD6EE", clair="FFFFFF", motif="cristal", variation=0.04, lueur=True,
+            yeux={"face": "front", "positions": [[1, 3], [5, 3]], "couleur": "2B2E3A"})
+    return m.build()
+
+
+def double_des_heures():
+    m = Modele(64, 1.0, 0.5)
+    bipede(m, (8, 12, 4), (7, 7, 7), (3, 12), (4, 12), peau="robe", peau_tete="voile", peau_bras="robe", peau_jambes="robe")
+    _robe(m, "robe", 10, 8, 6)
+    m.anim("corps", "y", "temps", 0.3, 0.2)
+    m.peint("robe", "C9A96E", sombre="8E7A4F", clair="F2E3B8", motif="rayures", variation=0.07)
+    m.peint("voile", "F2E3B8", sombre="C9B07E", clair="FFFFFF", variation=0.04, yeux={"face": "front", "positions": [[1, 3], [5, 3]], "couleur": "E3C97E"})
+    return m.build()
+
+
+def legionnaire_astral():
+    m = Modele(64, 1.0, 0.6)
+    bipede(m, (8, 12, 4), (7, 7, 7), (3, 12), (4, 12), peau="armure", peau_tete="casque", peau_bras="armure", peau_jambes="armure")
+    m.os("cimier", (0, -7, 0), [m.cube((-0.5, -4, -3), (1, 4, 6), "plume")], parent="tete")
+    m.os("bouclier", (-2, 6, 0), [m.cube((-1, -4, -3), (1, 8, 6), "bouclier")], parent="bras_g")
+    _arme(m, "glaive", "or", 12, pointe=None)
+    m.peint("armure", "2E3A6E", sombre="1C2447", clair="4F5FA0", motif="pierre", variation=0.05)
+    m.peint("casque", "C9A227", sombre="8E7119", clair="FFE08A", variation=0.05, yeux={"face": "front", "positions": [[1, 3], [5, 3]], "couleur": "7FE6FF"})
+    m.peint("plume", "B23A48", clair="E06A78", variation=0.06)
+    m.peint("bouclier", "2E3A6E", sombre="1C2447", clair="C9A227", variation=0.05)
+    m.peint("or", "FFE08A", sombre="C9A227", clair="FFFFFF", variation=0.04, lueur=True)
+    return m.build()
+
+
+def fleur_de_vie():
+    m = Modele(64, 1.0, 0.4)
+    m.os("tige", (0, 24, 0), [m.cube((-1, -10, -1), (2, 10, 2), "tige")])
+    m.os("coeur", (0, -10, 0), [m.cube((-2, -3, -2), (4, 3, 4), "coeur")], parent="tige")
+    m.anim("coeur", "echelle", "temps", 0.08, 0.12)
+    for i, (dx, dz) in enumerate(((1, 0), (-1, 0), (0, 1), (0, -1))):
+        m.os(f"petale_{i}", (dx * 2, -2, dz * 2), [m.cube((-3 if dx else -1.5, -1, -3 if dz else -1.5), (6 if dx else 3, 1, 6 if dz else 3), "petale")], parent="coeur",
+             rotation=(dz * 0.5, 0, -dx * 0.5))
+        m.anim(f"petale_{i}", "rx" if dz else "rz", "temps", (0.15 * dz) if dz else (-0.15 * dx), 0.1, i)
+    m.peint("tige", "5F9A4E", sombre="3E6B33", clair="8FC779", variation=0.06)
+    m.peint("coeur", "FFF3B0", clair="FFFFFF", variation=0.03, lueur=True)
+    m.peint("petale", "F2A5C8", sombre="C9719F", clair="FFE1F0", variation=0.06)
+    return m.build()
+
+
+def point_de_rupture():
+    m = Modele(32, 1.0, 0.3)
+    m.os("cristal", (0, 16, 0), [m.cube((-2, -3, -2), (4, 6, 4), "cristal"), m.cube((-1, -5, -1), (2, 2, 2), "cristal"), m.cube((-1, 3, -1), (2, 2, 2), "cristal")])
+    m.anim("cristal", "ry", "temps", 3.14, 0.08)
+    m.anim("cristal", "y", "temps", 0.6, 0.14)
+    m.peint("cristal", "AEE6F8", sombre="6FB6D6", clair="FFFFFF", motif="cristal", variation=0.05, lueur=True)
+    return m.build()
+
+
+def banniere_astrale():
+    m = Modele(64, 1.0, 0.4)
+    m.os("hampe", (0, 24, 0), [m.cube((-0.5, -32, -0.5), (1, 32, 1), "or"), m.cube((-1, -34, -1), (2, 2, 2), "or")])
+    m.os("toile", (0, -31, 0), [m.cube((0.5, 0, -0.5), (10, 14, 1), "toile")], parent="hampe")
+    m.anim("toile", "ry", "temps", 0.2, 0.1)
+    m.os("etoile", (5.5, -24, 0), [m.cube((-1.5, -1.5, -1), (3, 3, 2), "etoile")], parent="hampe")
+    m.peint("or", "C9A227", sombre="8E7119", clair="FFE08A", variation=0.04)
+    m.peint("toile", "2E3A6E", sombre="1C2447", clair="4F5FA0", variation=0.05)
+    m.peint("etoile", "FFF3C8", clair="FFFFFF", variation=0.02, lueur=True)
+    return m.build()
+
+
 MODELES_REGIONS = {
     "crabe_de_nacre": crabe_de_nacre(),
     "meduse_celeste": meduse_celeste(),
@@ -601,4 +809,19 @@ MODELES_REGIONS = {
     "sentinelle_de_la_couronne": sentinelle_de_la_couronne(),
     "spectre_de_la_cour": spectre_de_la_cour(),
     "cerf_royal": cerf_royal(),
+    # Duels (étape 6)
+    "aelis_duel": aelis_duel(),
+    "kael_duel": kael_duel(),
+    "orsane_duel": orsane_duel(),
+    "sahir_duel": sahir_duel(),
+    "vaeron_duel": vaeron_duel(),
+    "champion_des_heures_duel": champion_des_heures_modele(),
+    "champion_des_heures": champion_des_heures_modele(),
+    "chevalier_de_bois_blanc": chevalier_de_bois_blanc(),
+    "reflet_de_verre": reflet_de_verre(),
+    "double_des_heures": double_des_heures(),
+    "legionnaire_astral": legionnaire_astral(),
+    "fleur_de_vie": fleur_de_vie(),
+    "point_de_rupture": point_de_rupture(),
+    "banniere_astrale": banniere_astrale(),
 }

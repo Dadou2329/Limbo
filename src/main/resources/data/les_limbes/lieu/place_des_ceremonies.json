@@ -1,0 +1,11 @@
+{
+  "nom": "Place des cérémonies",
+  "pos": [
+    -900,
+    86,
+    -900
+  ],
+  "rayon": 32,
+  "region": "couronne",
+  "description": "Le cœur de la capitale endormie : dallage royal, estrade du trône, allées de lumière."
+}

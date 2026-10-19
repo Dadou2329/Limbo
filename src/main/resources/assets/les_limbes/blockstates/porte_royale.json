@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "niveau=1,ouverte=false": {
+      "model": "les_limbes:block/porte_royale"
+    },
+    "niveau=2,ouverte=false": {
+      "model": "les_limbes:block/porte_royale"
+    },
+    "niveau=3,ouverte=false": {
+      "model": "les_limbes:block/porte_royale"
+    },
+    "niveau=1,ouverte=true": {
+      "model": "les_limbes:block/porte_royale_ouverte"
+    },
+    "niveau=2,ouverte=true": {
+      "model": "les_limbes:block/porte_royale_ouverte"
+    },
+    "niveau=3,ouverte=true": {
+      "model": "les_limbes:block/porte_royale_ouverte"
+    }
+  }
+}

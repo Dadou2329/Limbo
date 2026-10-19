@@ -160,6 +160,19 @@ public class EnnemiAnnonceEntity extends HostileEntity implements EntiteAnimee {
 		}
 	}
 
+	/** Un légionnaire astral ne peut être blessé tant qu'une bannière se dresse à moins de dix blocs. */
+	@Override
+	public boolean damage(DamageSource source, float amount) {
+		if (espece().protegeParBanniere && this.getWorld() instanceof ServerWorld world && !source.isIn(net.minecraft.registry.tag.DamageTypeTags.BYPASSES_INVULNERABILITY)
+				&& SoutienEntity.protegee(world, this.getPos())) {
+			if (this.age % 5 == 0) {
+				world.playSound(null, this.getBlockPos(), LimbesSounds.POUVOIR_REFUS, SoundCategory.HOSTILE, 0.6F, 1.4F);
+			}
+			return false;
+		}
+		return super.damage(source, amount);
+	}
+
 	@Nullable
 	@Override
 	protected SoundEvent getAmbientSound() {

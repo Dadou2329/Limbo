@@ -1,0 +1,38 @@
+{
+  "nom": "Teodor",
+  "debut": [
+    {
+      "noeud": "couronne",
+      "si": [
+        {
+          "drapeau": "couronne"
+        }
+      ]
+    },
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Teodor, ambassadeur de la Mer suspendue. Kaël m'a envoyé ici il y a dix ans et m'a oublié. Je ne lui en veux pas : il oublie tout ce qui ne bouge pas."
+      ],
+      "choix": [
+        {
+          "texte": "Enchanté."
+        }
+      ]
+    },
+    "couronne": {
+      "texte": [
+        "Majesté ! Port-Nacre fera sonner ses cloches. Kaël aussi, s'il y pense."
+      ],
+      "choix": [
+        {
+          "texte": "Merci."
+        }
+      ]
+    }
+  }
+}

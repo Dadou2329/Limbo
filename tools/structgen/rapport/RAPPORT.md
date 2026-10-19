@@ -8849,3 +8849,375 @@ Capitale endormie, quartier des portes et des jardins : porte monumentale close,
 - taille : [51, 24, 41]
 - blocs : 3755 ; entités de bloc : 4 ; entités : 0
 - palette : les_limbes:pierre_de_couronne_taillee (2086), les_limbes:pierre_de_couronne_polie (649), minecraft:air (249), les_limbes:pierre_de_couronne (210), les_limbes:terre_des_limbes (180), minecraft:quartz_stairs (130), les_limbes:planches_d_aube (63), les_limbes:pierre_de_couronne_sculptee (60), minecraft:quartz_block (50), les_limbes:buche_d_aube (36), minecraft:quartz_slab (13), minecraft:soul_lantern (10)
+
+## arenes/jardin_de_l_epreuve
+
+Jardin de l'épreuve (Aélis) : clairière circulaire, piliers-racines, parterres, arche d'entrée au sud. Les racines du duel sont posées par le boss.
+
+- taille : [41, 16, 41]
+- blocs : 1319 ; entités de bloc : 1 ; entités : 0
+- palette : les_limbes:herbe_des_geants (810), les_limbes:petale_rose (152), les_limbes:pierre_nacree_polie (89), les_limbes:petale_bleu (72), les_limbes:terre_des_limbes (54), les_limbes:buche_de_geant (32), les_limbes:fleur_de_rosee (30), les_limbes:pierre_nacree_sculptee (24), les_limbes:herbe_de_l_aube (24), les_limbes:barriere_d_aube (12), les_limbes:feuilles_de_geant (8), les_limbes:lanterne_nacree (6)
+
+## arenes/pont_du_vent_debout
+
+Le Vent-Debout, navire volant de Kaël : coque, pont, mât et voiles, cabine arrière ; deux îlots d'escale (est +3, ouest +5). Tout flotte au-dessus de la Mer.
+
+- taille : [81, 20, 61]
+- blocs : 2150 ; entités de bloc : 2 ; entités : 0
+- palette : les_limbes:buche_d_aube (1028), les_limbes:planches_d_aube (570), minecraft:air (133), les_limbes:sable_de_nacre (114), les_limbes:pierre_nacree (100), minecraft:white_wool (96), les_limbes:barriere_d_aube (88), les_limbes:lanterne_nacree (5), les_limbes:pierre_nacree_sculptee (4), minecraft:glass_pane (4), les_limbes:porte_d_aube_door (2), minecraft:white_carpet (2)
+
+## arenes/salle_des_miroirs
+
+Salle des miroirs de Verréole (Orsane) : rotonde de pierre de verre, alcôves de miroirs, piliers, verrière ; entrée au sud.
+
+- taille : [41, 16, 41]
+- blocs : 3581 ; entités de bloc : 1 ; entités : 0
+- palette : les_limbes:verre_de_montagne (1431), les_limbes:pierre_de_verre_taillee (1286), les_limbes:pierre_de_verre (794), les_limbes:pierre_nacree_polie (28), minecraft:air (24), les_limbes:lanterne_nacree (10), les_limbes:cristal_resonnant (7), minecraft:birch_wall_sign (1)
+
+## arenes/cour_des_heures
+
+Cour des heures de Méridiane (Sahir) : sable d'opale, cadrans aux quatre points, colonnade, gradins avec le maître des jeux et des spectateurs.
+
+- taille : [41, 12, 41]
+- blocs : 1390 ; entités de bloc : 5 ; entités : 0
+- palette : les_limbes:sable_d_opale (989), les_limbes:gres_des_heures (189), les_limbes:gres_des_heures_taille (170), les_limbes:pierre_des_heures (21), les_limbes:lanterne_nacree (12), les_limbes:cadran_des_heures (4), minecraft:structure_block (4), minecraft:birch_wall_sign (1)
+
+## arenes/campement_de_l_archipel
+
+Campement de l'expédition coincée dans l'archipel : deux tentes, feu, caisses, le capitaine Lio et Mina ; des gardiens des épaves rôdent.
+
+- taille : [21, 12, 21]
+- blocs : 444 ; entités de bloc : 6 ; entités : 0
+- palette : les_limbes:sable_de_nacre (293), les_limbes:planches_d_aube (46), minecraft:white_wool (41), minecraft:blue_wool (41), les_limbes:barriere_d_aube (5), minecraft:structure_block (5), minecraft:white_bed (4), minecraft:barrel (3), minecraft:white_carpet (2), minecraft:campfire (1), minecraft:chest (1), les_limbes:escalier_d_aube (1)
+
+```
+--- y=0 ---
+                     
+       #######       
+     ###########     
+    #############    
+   ###############   
+  #################  
+  #################  
+ ################### 
+ ################### 
+ ################### 
+ ################### 
+ ################### 
+ ################### 
+ ################### 
+  #################  
+  #################  
+   ###############   
+    #############    
+     ###########     
+       #######       
+                     
+--- y=1 ---
+                     
+                     
+                     
+                  %  
+   &&&&&     &&&&&   
+   &&@&&     &&@&&   
+   &&@&&     &&@&&   
+   &&&&&     &&&&&   
+   &&&&&     &&&&&   
+            %        
+          +          
+        %            
+                     
+      ==      **     
+     :        *;     
+                     
+          =          
+  %                  
+                  %  
+                     
+                     
+--- y=2 ---
+                     
+                     
+                     
+                     
+   ,,,,,     .....   
+   ,         .       
+   ,         .       
+   ,         .       
+   ,,,,,     .....   
+                     
+                     
+                     
+                     
+      --             
+                     
+                     
+          =          
+                     
+                     
+                     
+                     
+--- y=3 ---
+                     
+                     
+                     
+                     
+   ,,,,,     .....   
+   ,         .       
+   ,         .       
+   ,         .       
+   ,,,,,     .....   
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+          =          
+                     
+                     
+                     
+                     
+--- y=4 ---
+                     
+                     
+                     
+                     
+    ,,,       ...    
+    ,,,       ...    
+    ,,,       ...    
+    ,,,       ...    
+    ,,,       ...    
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+          ~          
+                     
+                     
+                     
+                     
+--- y=5 ---
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+--- y=6 ---
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+--- y=7 ---
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+--- y=8 ---
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+--- y=9 ---
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+--- y=10 ---
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+--- y=11 ---
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+Légende : #=les_limbes:sable_de_nacre, %=minecraft:structure_block, &=les_limbes:planches_d_aube, @=minecraft:white_bed, +=minecraft:campfire, ==les_limbes:barriere_d_aube, *=minecraft:barrel, :=les_limbes:escalier_d_aube, ;=minecraft:chest, ,=minecraft:white_wool, .=minecraft:blue_wool, -=minecraft:white_carpet, ~=les_limbes:lanterne_nacree
+```
+
+## arrivees/fragment_belvedere
+
+Fragment du belvédère : terrasse royale arrachée au palais d'autrefois, colonnes brisées, oratoire du sceau, lanternes éteintes, deux Veilleurs. Attiré par le premier acte royal.
+
+- taille : [33, 22, 33]
+- blocs : 2169 ; entités de bloc : 4 ; entités : 0
+- palette : les_limbes:pierre_de_couronne (1075), les_limbes:pierre_de_couronne_taillee (772), les_limbes:pierre_de_couronne_polie (180), minecraft:air (104), les_limbes:pierre_de_couronne_sculptee (24), les_limbes:lanterne_royale_eteinte (6), minecraft:blue_banner (4), minecraft:structure_block (2), minecraft:chest (1), minecraft:lectern (1)
+
+## capitale/place
+
+Place des cérémonies : dallage royal, allées de pont royal (s'illuminent au couronnement), bassin sec, estrade et trône, quatre arches de quartier, héraut et chambellan.
+
+- taille : [61, 16, 61]
+- blocs : 4122 ; entités de bloc : 4 ; entités : 0
+- palette : les_limbes:pierre_de_couronne_taillee (1951), les_limbes:pierre_de_couronne (1678), les_limbes:pierre_de_couronne_polie (273), les_limbes:porte_royale (80), les_limbes:pont_royal (76), les_limbes:pierre_de_couronne_sculptee (24), les_limbes:lanterne_royale_eteinte (14), minecraft:quartz_stairs (13), minecraft:quartz_pillar (4), minecraft:structure_block (4), minecraft:gold_block (3), minecraft:blue_banner (2)
+
+## capitale/palais
+
+Palais royal : façade monumentale et grande porte royale (niveau 2), salle du trône, salle du conseil, archives, cuisines et service, appartements sur deux étages, jardin intérieur, deux tours.
+
+- taille : [81, 36, 51]
+- blocs : 40293 ; entités de bloc : 4 ; entités : 0
+- palette : minecraft:air (23316), les_limbes:pierre_de_couronne_taillee (10581), les_limbes:pierre_de_couronne_polie (3405), les_limbes:planches_d_aube (1785), les_limbes:herbe_argentee (217), minecraft:blue_carpet (208), minecraft:bookshelf (192), minecraft:quartz_pillar (90), les_limbes:feuilles_d_aube (88), minecraft:red_carpet (63), minecraft:ladder (55), minecraft:light_blue_stained_glass_pane (50)
+
+## capitale/marche_royal
+
+Grand marché de la capitale : deux comptoirs couverts, six étals, lampadaires royaux éteints.
+
+- taille : [41, 16, 41]
+- blocs : 4328 ; entités de bloc : 5 ; entités : 0
+- palette : les_limbes:pierre_de_couronne_taillee (2433), minecraft:air (986), minecraft:quartz_stairs (360), les_limbes:planches_d_aube (198), minecraft:quartz_block (144), les_limbes:pierre_de_couronne_polie (56), minecraft:quartz_slab (30), minecraft:oak_fence (30), minecraft:red_wool (27), minecraft:blue_wool (18), minecraft:glass_pane (16), les_limbes:dalle_de_pierre_nacree (15)
+
+## capitale/ambassades
+
+Quartier des ambassades : trois maisons des régions (Mer, Jardins, Verre) autour d'une cour, bannières et lanternes éteintes.
+
+- taille : [41, 18, 41]
+- blocs : 6538 ; entités de bloc : 6 ; entités : 0
+- palette : les_limbes:pierre_de_couronne_taillee (2755), minecraft:air (2100), minecraft:quartz_stairs (612), les_limbes:planches_d_aube (351), minecraft:quartz_block (216), les_limbes:sable_de_nacre (108), les_limbes:pierre_de_verre_taillee (108), les_limbes:planches_de_geant (108), les_limbes:pierre_de_couronne_polie (84), minecraft:quartz_slab (51), minecraft:glass_pane (24), les_limbes:porte_d_aube_door (6)
+
+## capitale/archives
+
+Tour des archives royales : trois niveaux de rayonnages, lutrins, la chronique du roi disparu ; l'archiviste royale veille.
+
+- taille : [31, 24, 31]
+- blocs : 5363 ; entités de bloc : 2 ; entités : 0
+- palette : minecraft:air (2105), les_limbes:pierre_de_couronne_taillee (2026), les_limbes:pierre_de_couronne_polie (454), minecraft:bookshelf (420), les_limbes:planches_d_aube (328), minecraft:ladder (16), minecraft:glass_pane (6), les_limbes:porte_d_aube_door (2), les_limbes:lanterne_nacree (2), les_limbes:lanterne_royale_eteinte (2), minecraft:structure_block (1), minecraft:lectern (1)
+
+## capitale/ateliers
+
+Quartier des ateliers : forge royale de la capitale, atelier de cristal, auvent de travail, lampadaires éteints.
+
+- taille : [41, 18, 41]
+- blocs : 4837 ; entités de bloc : 4 ; entités : 0
+- palette : les_limbes:pierre_de_couronne_taillee (2525), minecraft:air (1166), minecraft:quartz_stairs (408), les_limbes:planches_d_aube (349), les_limbes:pierre_de_couronne_polie (160), minecraft:quartz_block (144), minecraft:quartz_slab (34), minecraft:glass_pane (16), les_limbes:buche_d_aube (16), les_limbes:porte_d_aube_door (4), minecraft:birch_wall_sign (2), minecraft:structure_block (2)
+
+## capitale/residences
+
+Quartier des résidences : six maisons de pierre de couronne, jardins, lampadaires éteints.
+
+- taille : [41, 16, 41]
+- blocs : 5876 ; entités de bloc : 3 ; entités : 0
+- palette : les_limbes:pierre_de_couronne_taillee (2712), minecraft:air (1167), minecraft:quartz_stairs (660), minecraft:quartz_block (300), les_limbes:planches_d_aube (294), les_limbes:herbe_argentee (259), les_limbes:pierre_de_couronne_polie (104), les_limbes:terre_des_limbes (90), les_limbes:fleur_de_rosee (68), minecraft:quartz_slab (66), les_limbes:feuilles_d_aube (58), minecraft:glass_pane (48)

@@ -1,0 +1,68 @@
+{
+  "titre": "Le tournoi des heures",
+  "acte": 3,
+  "description": "Sahir reconnaît les champions du tournoi des heures : trois épreuves dans la cour des heures, sous le regard des gradins.",
+  "etapes": [
+    {
+      "id": "inscription",
+      "resume": "S'inscrire auprès de Rachid, le maître des jeux, dans la cour des heures à l'est de Méridiane.",
+      "lieu": {
+        "nom": "Cour des heures",
+        "pos": [
+          230,
+          66,
+          1330
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "rachid",
+          "type": "parler",
+          "cible": "maitre_des_jeux",
+          "manuel": true,
+          "texte": "S'inscrire au tournoi des heures"
+        }
+      ]
+    },
+    {
+      "id": "epreuves",
+      "resume": "Remporter les trois épreuves du tournoi : le scorpion et la sentinelle, les sentinelles, puis le champion des heures.",
+      "lieu": {
+        "nom": "Cour des heures",
+        "pos": [
+          230,
+          66,
+          1330
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "une",
+          "type": "drapeau",
+          "cible": "tournoi_heures_1",
+          "texte": "Première épreuve"
+        },
+        {
+          "id": "deux",
+          "type": "drapeau",
+          "cible": "tournoi_heures_2",
+          "texte": "Deuxième épreuve"
+        },
+        {
+          "id": "trois",
+          "type": "drapeau",
+          "cible": "sahir_reconnu",
+          "texte": "Vaincre le champion des heures"
+        }
+      ]
+    }
+  ],
+  "fin": [
+    {
+      "type": "experience",
+      "niveaux": 3
+    }
+  ]
+}

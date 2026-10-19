@@ -1,0 +1,59 @@
+{
+  "nom": "Maud",
+  "debut": [
+    {
+      "noeud": "routes",
+      "si": [
+        {
+          "quete_active": "les_routes_eteintes"
+        },
+        {
+          "quete_etape": {
+            "les_routes_eteintes": "=2"
+          }
+        }
+      ]
+    },
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Les archives royales. Trois étages de registres, et une chronique que personne n'a voulu croire.",
+        "Lisez le lutrin, si vous avez le temps. Les gens d'ici n'aiment pas ce qu'il raconte."
+      ],
+      "choix": [
+        {
+          "texte": "Je lirai."
+        }
+      ]
+    },
+    "routes": {
+      "texte": [
+        "Vous cherchez les routes éteintes ? Tout est au lutrin : elles répondaient à la couronne. Pas à un mécanisme, pas à une magie des régions : à la couronne, et à celui qui la portait.",
+        "La nuit où le roi est parti tenir les frontières, elles se sont éteintes. Elles ne sont pas mortes. Elles attendent."
+      ],
+      "choix": [
+        {
+          "texte": "Alors elles attendent un souverain.",
+          "actions": [
+            {
+              "type": "objectif",
+              "quete": "les_routes_eteintes",
+              "objectif": "maud"
+            },
+            {
+              "type": "message",
+              "texte": "Les routes royales attendent une couronne portée."
+            }
+          ]
+        },
+        {
+          "texte": "Merci, Maud."
+        }
+      ]
+    }
+  }
+}

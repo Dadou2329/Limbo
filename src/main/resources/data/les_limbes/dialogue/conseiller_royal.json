@@ -1,0 +1,78 @@
+{
+  "nom": "Bertrand",
+  "debut": [
+    {
+      "noeud": "verite",
+      "si": [
+        {
+          "quete_active": "la_couronne"
+        },
+        {
+          "quete_etape": {
+            "la_couronne": "=1"
+          }
+        }
+      ]
+    },
+    {
+      "noeud": "couronne",
+      "si": [
+        {
+          "drapeau": "couronne"
+        }
+      ]
+    },
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Bertrand, conseiller du roi. Du roi disparu, dirait-on ; je dis : du roi parti."
+      ],
+      "choix": [
+        {
+          "texte": "Parti où ?"
+        }
+      ]
+    },
+    "verite": {
+      "texte": [
+        "Vous êtes dans sa salle. Alors écoutez ce que personne ne voulait entendre.",
+        "Les Arrivées ne sont pas un hasard. Ce trône recueille ce qui se perd ailleurs : maisons, navires, peuples. La couronne les appelle. C'est sa fonction, et c'était la sienne.",
+        "Quand les brumes ont gagné les frontières, les Arrivées ont commencé à s'y perdre. Le roi est parti les tenir, avec le sceau pour seule escorte : une lumière à la lisière, pour que ce qui tombe tombe ici et pas dans le vide.",
+        "Il n'est pas mort. Il tient. Mais il ne reviendra pas : quelqu'un doit porter la couronne ici, et appeler sans briser. Vaëron le sait, et il croit que ce doit être lui."
+      ],
+      "choix": [
+        {
+          "texte": "Je porterai la couronne. Sans briser.",
+          "actions": [
+            {
+              "type": "objectif",
+              "quete": "la_couronne",
+              "objectif": "bertrand"
+            },
+            {
+              "type": "message",
+              "texte": "La disparition du roi a un sens : il tient la lumière des frontières. La couronne attend quelqu'un qui appelle sans briser."
+            }
+          ]
+        },
+        {
+          "texte": "Laissez-moi y réfléchir."
+        }
+      ]
+    },
+    "couronne": {
+      "texte": [
+        "Majesté. Il aurait aimé vous voir là. Appelez, et ne brisez rien : c'est tout ce qu'il demandait."
+      ],
+      "choix": [
+        {
+          "texte": "Je m'en souviendrai."
+        }
+      ]
+    }
+  }
+}

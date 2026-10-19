@@ -1,8 +1,40 @@
 {
   "nom": "Maëlle",
   "debut": [
-    {"noeud": "apres", "si": [{"quete_etape": {"l_etranger": ">=1"}}]},
-    {"noeud": "accueil"}
+    {
+      "noeud": "couronnement",
+      "si": [
+        {
+          "quete_active": "la_couronne"
+        },
+        {
+          "quete_etape": {
+            "la_couronne": "=4"
+          }
+        }
+      ]
+    },
+    {
+      "noeud": "souverain",
+      "si": [
+        {
+          "drapeau": "couronne"
+        }
+      ]
+    },
+    {
+      "noeud": "apres",
+      "si": [
+        {
+          "quete_etape": {
+            "l_etranger": ">=1"
+          }
+        }
+      ]
+    },
+    {
+      "noeud": "accueil"
+    }
   ],
   "noeuds": {
     "accueil": {
@@ -12,9 +44,17 @@
         "Au sud, le grand pont descend vers Clairval. Thibault, à l'auberge, aide tous les nouveaux venus. Dites-lui que je vous envoie."
       ],
       "choix": [
-        {"texte": "Qu'est-ce que cet endroit, exactement ?", "suivant": "limbes"},
-        {"texte": "Comment est-ce que je rentre chez moi ?", "suivant": "retour"},
-        {"texte": "Merci. Je descends à Clairval."}
+        {
+          "texte": "Qu'est-ce que cet endroit, exactement ?",
+          "suivant": "limbes"
+        },
+        {
+          "texte": "Comment est-ce que je rentre chez moi ?",
+          "suivant": "retour"
+        },
+        {
+          "texte": "Merci. Je descends à Clairval."
+        }
       ]
     },
     "limbes": {
@@ -23,9 +63,17 @@
         "Beaucoup d'entre nous sont nés dans les Limbes et n'ont jamais connu d'autre monde. Nous réparons ce qui arrive et nous construisons avec."
       ],
       "choix": [
-        {"texte": "Et le palais, au loin ?", "suivant": "palais"},
-        {"texte": "Comment est-ce que je rentre chez moi ?", "suivant": "retour"},
-        {"texte": "Je vais à Clairval."}
+        {
+          "texte": "Et le palais, au loin ?",
+          "suivant": "palais"
+        },
+        {
+          "texte": "Comment est-ce que je rentre chez moi ?",
+          "suivant": "retour"
+        },
+        {
+          "texte": "Je vais à Clairval."
+        }
       ]
     },
     "palais": {
@@ -34,7 +82,9 @@
         "Personne ne peut plus entrer dans la capitale. Pour l'instant. Vous verrez sa silhouette presque partout : elle ne bouge jamais."
       ],
       "choix": [
-        {"texte": "Je comprends. Je vais à Clairval."}
+        {
+          "texte": "Je comprends. Je vais à Clairval."
+        }
       ]
     },
     "retour": {
@@ -42,7 +92,9 @@
         "L'arche derrière moi vous ramène exactement là d'où vous venez. Elle restera ouverte, toujours. Vous pouvez partir et revenir autant que vous voulez."
       ],
       "choix": [
-        {"texte": "Bon à savoir. Je vais à Clairval."}
+        {
+          "texte": "Bon à savoir. Je vais à Clairval."
+        }
       ]
     },
     "apres": {
@@ -51,7 +103,41 @@
         "Si jamais vous tombez, ne craignez rien : les brumes vous ramènent toujours."
       ],
       "choix": [
-        {"texte": "Merci, Maëlle."}
+        {
+          "texte": "Merci, Maëlle."
+        }
+      ]
+    },
+    "couronnement": {
+      "texte": [
+        "Vaëron a plié le genou. Les cinq régions vous reconnaissent. Il reste une chose à faire, et c'est la plus simple : être couronné.",
+        "Allez sur la place des cérémonies ; Tiphaine, le héraut, attend votre mot. Les délégations sont déjà en route. Je serai là."
+      ],
+      "choix": [
+        {
+          "texte": "Merci, Maëlle.",
+          "actions": [
+            {
+              "type": "objectif",
+              "quete": "la_couronne",
+              "objectif": "maelle"
+            },
+            {
+              "type": "message",
+              "texte": "Rendez-vous sur la place des cérémonies : le héraut ouvrira la cérémonie."
+            }
+          ]
+        }
+      ]
+    },
+    "souverain": {
+      "texte": [
+        "Majesté. Je vous ai accueilli à l'arche quand vous ne saviez pas où vous étiez. Je continuerai d'accueillir ceux qui arrivent : c'est à ça que sert ce Sanctuaire."
+      ],
+      "choix": [
+        {
+          "texte": "Merci pour tout, Maëlle."
+        }
       ]
     }
   }

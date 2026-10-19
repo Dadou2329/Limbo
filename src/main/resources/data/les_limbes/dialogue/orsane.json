@@ -2,6 +2,28 @@
   "nom": "Orsane",
   "debut": [
     {
+      "noeud": "reconnaissance",
+      "si": [
+        {
+          "drapeau": "orsane_alliee"
+        },
+        {
+          "sans_drapeau": "orsane_reconnue"
+        },
+        {
+          "quete_active": "la_salle_des_miroirs"
+        }
+      ]
+    },
+    {
+      "noeud": "reconnue",
+      "si": [
+        {
+          "drapeau": "orsane_reconnue"
+        }
+      ]
+    },
+    {
       "noeud": "revu",
       "si": [
         {
@@ -90,6 +112,50 @@
       "choix": [
         {
           "texte": "Merci, Orsane."
+        }
+      ]
+    },
+    "reconnaissance": {
+      "texte": [
+        "Je ne reconnais que ce que j'ai vu. La salle des miroirs, à l'ouest de la ville : vous y trouverez mes reflets, puis mon armure. Trouvez la vraie, brisez les points de rupture.",
+        "C'est un rituel, pas une exécution. Mais ne comptez pas sur ma douceur."
+      ],
+      "choix": [
+        {
+          "texte": "Je suis prêt pour la salle des miroirs.",
+          "actions": [
+            {
+              "type": "objectif",
+              "quete": "la_salle_des_miroirs",
+              "objectif": "orsane"
+            },
+            {
+              "type": "duel",
+              "id": "epreuve_d_orsane"
+            }
+          ]
+        },
+        {
+          "texte": "Plus tard."
+        }
+      ]
+    },
+    "reconnue": {
+      "texte": [
+        "Verréole vous suit. Les miroirs restent ouverts si vous voulez vous y mesurer encore : on ne reste pas exigeant sans entraînement."
+      ],
+      "choix": [
+        {
+          "texte": "Encore une fois.",
+          "actions": [
+            {
+              "type": "duel",
+              "id": "epreuve_d_orsane"
+            }
+          ]
+        },
+        {
+          "texte": "Majesté."
         }
       ]
     }

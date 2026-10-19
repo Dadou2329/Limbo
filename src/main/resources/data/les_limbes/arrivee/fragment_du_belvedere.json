@@ -1,0 +1,21 @@
+{
+  "titre": "Le fragment du belvédère",
+  "echelle": "majeure",
+  "gabarit": "les_limbes:arrivees/fragment_belvedere",
+  "ancre": [
+    16,
+    3,
+    16
+  ],
+  "sites": "royaume",
+  "poids": 1,
+  "unique": true,
+  "duree": 0,
+  "description": "Une terrasse du palais d'autrefois, arrachée aux brumes et attirée par la couronne : colonnes brisées, oratoire du sceau, lanternes éteintes, deux Veilleurs qui montent encore la garde.",
+  "prerequis": [
+    {
+      "drapeau_monde": "couronnement_fait"
+    }
+  ],
+  "annonce": "Le ciel se plisse au-dessus de la Couronne : un fragment du palais revient"
+}

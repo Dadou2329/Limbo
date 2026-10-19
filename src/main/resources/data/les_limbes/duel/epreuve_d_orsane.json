@@ -1,0 +1,70 @@
+{
+  "titre": "La salle des miroirs",
+  "pretendant": "orsane",
+  "boss": "les_limbes:orsane_duel",
+  "arene": {
+    "centre": [
+      -1230,
+      96,
+      500
+    ],
+    "rayon": 18,
+    "dimension": "les_limbes:limbes"
+  },
+  "entree": [
+    -1230,
+    96,
+    517
+  ],
+  "yaw": 180,
+  "apparition": [
+    -1230,
+    96,
+    490
+  ],
+  "amical": true,
+  "phases": [
+    {
+      "seuil": 0.66,
+      "message": "Des reflets d'Orsane se lèvent ; la vraie laisse une traînée de lumière.",
+      "invocations": [
+        {
+          "entite": "les_limbes:reflet_de_verre",
+          "nombre": 3
+        }
+      ],
+      "blocs": "miroirs",
+      "duree_blocs": 500
+    },
+    {
+      "seuil": 0.4,
+      "message": "L'armure colossale se forme : brisez les trois points de rupture qui tournent autour d'elle.",
+      "invocations": [
+        {
+          "entite": "les_limbes:point_de_rupture",
+          "nombre": 3
+        }
+      ]
+    }
+  ],
+  "victoire": [
+    {
+      "type": "drapeau",
+      "nom": "orsane_reconnue"
+    },
+    {
+      "type": "experience",
+      "niveaux": 4
+    },
+    {
+      "type": "message",
+      "texte": "Orsane relève sa visière : « Vous lisez les reflets. Verréole vous suivra. »"
+    }
+  ],
+  "echec": [
+    {
+      "type": "message",
+      "texte": "Orsane rappelle ses reflets : « Pas encore. Mais vous reviendrez, je le vois. »"
+    }
+  ]
+}

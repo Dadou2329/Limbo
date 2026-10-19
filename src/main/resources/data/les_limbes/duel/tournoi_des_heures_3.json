@@ -1,0 +1,52 @@
+{
+  "titre": "Tournoi des heures — le champion",
+  "pretendant": "maitre_des_jeux",
+  "boss": "les_limbes:champion_des_heures_duel",
+  "arene": {
+    "centre": [
+      230,
+      66,
+      1330
+    ],
+    "rayon": 17,
+    "dimension": "les_limbes:limbes"
+  },
+  "entree": [
+    230,
+    66,
+    1346
+  ],
+  "yaw": 180,
+  "apparition": [
+    230,
+    66,
+    1320
+  ],
+  "amical": true,
+  "phases": [
+    {
+      "seuil": 0.5,
+      "message": "Le champion des heures redouble ses coups. Reculez quand il lève sa masse."
+    }
+  ],
+  "victoire": [
+    {
+      "type": "drapeau",
+      "nom": "sahir_reconnu"
+    },
+    {
+      "type": "experience",
+      "niveaux": 5
+    },
+    {
+      "type": "message",
+      "texte": "Le champion s'incline. Sahir, depuis les gradins, incline la tête : les gardiens du passé vous reconnaissent."
+    }
+  ],
+  "echec": [
+    {
+      "type": "message",
+      "texte": "Le champion vous relève lui-même. « Reviens quand tu veux, petit. »"
+    }
+  ]
+}

@@ -1,0 +1,190 @@
+{
+  "nom": "Tiphaine",
+  "debut": [
+    {
+      "noeud": "apres",
+      "si": [
+        {
+          "drapeau": "couronne"
+        }
+      ]
+    },
+    {
+      "noeud": "ceremonie",
+      "si": [
+        {
+          "quete_active": "le_couronnement"
+        },
+        {
+          "quete_etape": {
+            "le_couronnement": "=0"
+          }
+        }
+      ]
+    },
+    {
+      "noeud": "attente"
+    }
+  ],
+  "noeuds": {
+    "attente": {
+      "texte": [
+        "Je suis Tiphaine, héraut de la Couronne. Mon office : annoncer le souverain. Je n'ai rien annoncé depuis trente ans."
+      ],
+      "choix": [
+        {
+          "texte": "Patience."
+        }
+      ]
+    },
+    "ceremonie": {
+      "texte": [
+        "Tout est prêt. Les délégations des régions sont en route ; ceux que vous avez aidés veulent être là. Les ponts se reformeront, la ville s'illuminera.",
+        "La cérémonie est courte : on ne fait pas attendre un roi. Dites un mot et je l'annonce."
+      ],
+      "choix": [
+        {
+          "texte": "Que la cérémonie commence.",
+          "actions": [
+            {
+              "type": "delegation",
+              "pos": [
+                -900,
+                86,
+                -900
+              ],
+              "rayon": 9,
+              "duree": 12000,
+              "roles": [
+                {
+                  "role": "kael",
+                  "si": [
+                    {
+                      "drapeau": "kael_allie"
+                    }
+                  ]
+                },
+                {
+                  "role": "aelis",
+                  "si": [
+                    {
+                      "drapeau": "aelis_alliee"
+                    }
+                  ]
+                },
+                {
+                  "role": "sahir",
+                  "si": [
+                    {
+                      "drapeau": "sahir_allie"
+                    }
+                  ]
+                },
+                {
+                  "role": "orsane",
+                  "si": [
+                    {
+                      "drapeau": "orsane_alliee"
+                    }
+                  ]
+                },
+                {
+                  "role": "vaeron",
+                  "si": [
+                    {
+                      "drapeau": "vaeron_vaincu"
+                    }
+                  ]
+                },
+                {
+                  "role": "thibault"
+                },
+                {
+                  "role": "maelle"
+                },
+                {
+                  "role": "orielle"
+                },
+                {
+                  "role": "sabine",
+                  "si": [
+                    {
+                      "drapeau": "sabine_recrutee"
+                    }
+                  ]
+                },
+                {
+                  "role": "theo",
+                  "si": [
+                    {
+                      "drapeau": "theo_recrute"
+                    }
+                  ]
+                },
+                {
+                  "role": "lisbeth"
+                },
+                {
+                  "role": "intendant_garde",
+                  "si": [
+                    {
+                      "drapeau": "haute_garde_aidee"
+                    }
+                  ]
+                },
+                {
+                  "role": "elouan"
+                },
+                {
+                  "role": "capitaine_lio",
+                  "si": [
+                    {
+                      "drapeau": "expedition_sauvee"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "son",
+              "id": "les_limbes:monde.arrivee"
+            },
+            {
+              "type": "couronner"
+            },
+            {
+              "type": "objectif",
+              "quete": "le_couronnement",
+              "objectif": "tiphaine"
+            }
+          ],
+          "suivant": "annonce"
+        },
+        {
+          "texte": "Un instant encore."
+        }
+      ]
+    },
+    "annonce": {
+      "texte": [
+        "Peuples des Limbes ! Prairies, Mer, Jardins, Heures, Verre et Couronne : voici votre souverain !",
+        "La couronne s'assemble. La ville s'illumine. Le contrôle vous est rendu, Majesté : c'est votre cité, parcourez-la."
+      ],
+      "choix": [
+        {
+          "texte": "Merci, Tiphaine."
+        }
+      ]
+    },
+    "apres": {
+      "texte": [
+        "Longue vie au souverain ! Les délégations resteront un moment sur la place : allez leur parler, ils ont des choses à vous dire."
+      ],
+      "choix": [
+        {
+          "texte": "J'y vais."
+        }
+      ]
+    }
+  }
+}

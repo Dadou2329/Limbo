@@ -1,0 +1,241 @@
+{
+  "nom": "Aldric",
+  "debut": [
+    {
+      "noeud": "regne",
+      "si": [
+        {
+          "drapeau": "regne_commence"
+        }
+      ]
+    },
+    {
+      "noeud": "sceau",
+      "si": [
+        {
+          "quete_active": "le_couronnement"
+        },
+        {
+          "quete_etape": {
+            "le_couronnement": "=4"
+          }
+        }
+      ]
+    },
+    {
+      "noeud": "fragment",
+      "si": [
+        {
+          "quete_active": "le_couronnement"
+        },
+        {
+          "un_de": [
+            {
+              "quete_etape": {
+                "le_couronnement": "=2"
+              }
+            },
+            {
+              "quete_etape": {
+                "le_couronnement": "=3"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "noeud": "premier_acte",
+      "si": [
+        {
+          "quete_active": "le_couronnement"
+        },
+        {
+          "quete_etape": {
+            "le_couronnement": "=1"
+          }
+        }
+      ]
+    },
+    {
+      "noeud": "couronne",
+      "si": [
+        {
+          "drapeau": "couronne"
+        }
+      ]
+    },
+    {
+      "noeud": "palais",
+      "si": [
+        {
+          "quete_active": "la_couronne"
+        },
+        {
+          "quete_etape": {
+            "la_couronne": "=0"
+          }
+        }
+      ]
+    },
+    {
+      "noeud": "ouvert",
+      "si": [
+        {
+          "drapeau_monde": "capitale_niveau_2"
+        }
+      ]
+    },
+    {
+      "noeud": "quartiers",
+      "si": [
+        {
+          "drapeau_monde": "capitale_niveau_1"
+        }
+      ]
+    },
+    {
+      "noeud": "ferme"
+    }
+  ],
+  "noeuds": {
+    "ferme": {
+      "texte": [
+        "Je suis Aldric, chambellan de ce palais depuis trente ans, et gardien d'une porte que personne ne franchit plus.",
+        "La capitale dort. Elle se réveillera quand les routes auront parlé de quelqu'un."
+      ],
+      "choix": [
+        {
+          "texte": "Je reviendrai."
+        }
+      ]
+    },
+    "quartiers": {
+      "texte": [
+        "Les quartiers sont ouverts : marché, ambassades, archives, ateliers. Le palais, lui, reste scellé. Il attend celui ou celle que les cinq régions reconnaîtront."
+      ],
+      "choix": [
+        {
+          "texte": "Je comprends."
+        }
+      ]
+    },
+    "palais": {
+      "texte": [
+        "Les régions ont parlé. Les prétendants aussi. Vous portez le fragment et, d'ici, je vois qu'il brille plus fort qu'avant.",
+        "Le palais est scellé depuis la nuit où le roi est parti. Mais ses portes connaissent la couronne : elles vous obéiront. Entrez, et écoutez Bertrand dans la salle du trône."
+      ],
+      "choix": [
+        {
+          "texte": "Ouvrez le palais.",
+          "actions": [
+            {
+              "type": "capitale",
+              "niveau": 2
+            },
+            {
+              "type": "objectif",
+              "quete": "la_couronne",
+              "objectif": "aldric"
+            },
+            {
+              "type": "message",
+              "texte": "Les portes du palais royal s'ouvrent devant vous."
+            }
+          ]
+        },
+        {
+          "texte": "Pas encore."
+        }
+      ]
+    },
+    "ouvert": {
+      "texte": [
+        "Le palais est ouvert. Bertrand vous attend dans la salle du trône ; il sait ce qu'il est advenu du roi."
+      ],
+      "choix": [
+        {
+          "texte": "Merci, Aldric."
+        }
+      ]
+    },
+    "premier_acte": {
+      "texte": [
+        "Majesté. Le premier acte d'un souverain des Limbes a toujours été le même : attirer vers lui ce qui s'est perdu.",
+        "Un fragment du palais d'autrefois dérive dans les brumes, au nord-est : le belvédère du roi, avec son oratoire. Si vous l'appelez, il se posera sur le site réservé, là où rien ni personne ne risque rien."
+      ],
+      "choix": [
+        {
+          "texte": "Attirez le belvédère.",
+          "actions": [
+            {
+              "type": "arrivee_declencher",
+              "id": "fragment_du_belvedere",
+              "site": "royaume_1"
+            },
+            {
+              "type": "objectif",
+              "quete": "le_couronnement",
+              "objectif": "aldric"
+            },
+            {
+              "type": "message",
+              "texte": "Le ciel se plisse au nord-est : le belvédère revient. Allez-y."
+            }
+          ]
+        },
+        {
+          "texte": "Laissez-moi un instant."
+        }
+      ]
+    },
+    "fragment": {
+      "texte": [
+        "Le belvédère s'est posé au nord-est. Deux Veilleurs y montent encore la garde ; le sceau du roi est dans l'oratoire. Rapportez-le-moi."
+      ],
+      "choix": [
+        {
+          "texte": "J'y vais."
+        }
+      ]
+    },
+    "sceau": {
+      "texte": [
+        "Le sceau... Il était à son doigt le jour où il est parti. Il vous revient : gardez-le, il ouvrira ce que la couronne ne suffit pas à ouvrir.",
+        "Le règne commence, Majesté. La cour, les tournois, le navire royal : tout cela vous attend. Et aux frontières, la lumière du roi tient encore."
+      ],
+      "choix": [
+        {
+          "texte": "Que le règne commence.",
+          "actions": [
+            {
+              "type": "objectif",
+              "quete": "le_couronnement",
+              "objectif": "aldric"
+            }
+          ]
+        }
+      ]
+    },
+    "couronne": {
+      "texte": [
+        "Majesté. La capitale est éveillée ; les lanternes n'avaient pas brûlé depuis trente ans."
+      ],
+      "choix": [
+        {
+          "texte": "Merci, Aldric."
+        }
+      ]
+    },
+    "regne": {
+      "texte": [
+        "Majesté, le palais est à vos ordres. Les ambassadeurs attendent audience quand vous le voudrez."
+      ],
+      "choix": [
+        {
+          "texte": "Plus tard, Aldric."
+        }
+      ]
+    }
+  }
+}

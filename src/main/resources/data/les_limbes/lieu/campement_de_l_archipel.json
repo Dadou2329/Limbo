@@ -1,0 +1,11 @@
+{
+  "nom": "Campement de l'archipel",
+  "pos": [
+    1250,
+    66,
+    -650
+  ],
+  "rayon": 14,
+  "region": "mer",
+  "description": "L'expédition du capitaine Lio, coincée entre les récifs."
+}

@@ -197,6 +197,12 @@ public final class QuestManager {
 						progress.faits.add(o.id());
 						local = true;
 					}
+				} else if (o.type() == TypeObjectif.DRAPEAU && data.aDrapeau(o.cible())) {
+					progress.faits.add(o.id());
+					local = true;
+				} else if (o.type() == TypeObjectif.DRAPEAU_MONDE && fr.leslimbes.world.state.LimbesWorldState.get(player.server).aDrapeau(o.cible())) {
+					progress.faits.add(o.id());
+					local = true;
 				} else if (o.type() == TypeObjectif.COLLECTER) {
 					int count = compterObjets(player, o.cible());
 					int avant = progress.compteur(o.id());

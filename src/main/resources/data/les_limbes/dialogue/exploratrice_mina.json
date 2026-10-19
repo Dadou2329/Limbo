@@ -1,0 +1,28 @@
+{
+  "nom": "Mina",
+  "debut": [
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Les îles de l'archipel se déplacent de quelques blocs par nuit. J'en tiens le relevé ; personne ne me croit. Tenez, une perle : les récifs en sont pleins, si on sait regarder."
+      ],
+      "choix": [
+        {
+          "texte": "Merci, Mina.",
+          "actions": [
+            {
+              "type": "donner",
+              "objet": "les_limbes:perle_de_nacre",
+              "nombre": 1,
+              "une_fois": "perle_mina"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

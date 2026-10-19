@@ -1,0 +1,43 @@
+{
+  "nom": "Ferrand",
+  "debut": [
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Comptoir des routes : tout ce qui vient des six régions, quand les routes le laissent passer. Deux perles de nacre contre une lanterne royale, c'est mon tarif."
+      ],
+      "choix": [
+        {
+          "texte": "Deux perles contre une lanterne royale.",
+          "si": [
+            {
+              "objet": {
+                "id": "les_limbes:perle_de_nacre",
+                "nombre": 2
+              }
+            }
+          ],
+          "actions": [
+            {
+              "type": "retirer",
+              "objet": "les_limbes:perle_de_nacre",
+              "nombre": 2
+            },
+            {
+              "type": "donner",
+              "objet": "les_limbes:lanterne_royale",
+              "nombre": 1
+            }
+          ]
+        },
+        {
+          "texte": "Je regarde."
+        }
+      ]
+    }
+  }
+}

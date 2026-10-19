@@ -1,0 +1,173 @@
+{
+  "titre": "Le Prétendant",
+  "acte": 3,
+  "description": "Gagner le soutien des régions par leurs aventures, comprendre pourquoi les routes royales se sont éteintes, puis obtenir la reconnaissance des quatre prétendants : négociation, expédition, duel rituel ou tournoi.",
+  "etapes": [
+    {
+      "id": "soutiens",
+      "resume": "Mener les aventures des régions : la cargaison perdue (Kaël), la source tarie (Aélis), le jardin des heures (Sahir), le pont qui chante (Orsane), les murs de Haute-Garde (Aubin).",
+      "objectifs": [
+        {
+          "id": "kael",
+          "type": "drapeau",
+          "cible": "kael_allie",
+          "texte": "Rapporter le journal du navire perdu à Kaël"
+        },
+        {
+          "id": "aelis",
+          "type": "drapeau",
+          "cible": "aelis_alliee",
+          "texte": "Rendre son eau à la serre ancienne pour Aélis"
+        },
+        {
+          "id": "sahir",
+          "type": "drapeau",
+          "cible": "sahir_allie",
+          "texte": "Rendre le sablier au jardin des heures pour Sahir"
+        },
+        {
+          "id": "orsane",
+          "type": "drapeau",
+          "cible": "orsane_alliee",
+          "texte": "Rapporter trois éclats résonnants à Orsane"
+        },
+        {
+          "id": "aubin",
+          "type": "drapeau",
+          "cible": "haute_garde_aidee",
+          "texte": "Ravitailler les patrouilles de Haute-Garde"
+        }
+      ]
+    },
+    {
+      "id": "routes",
+      "resume": "Comprendre pourquoi les routes royales se sont éteintes : Théo, Lisbeth, puis les archives royales.",
+      "debut": [
+        {
+          "type": "demarrer_quete",
+          "quete": "les_routes_eteintes"
+        }
+      ],
+      "objectifs": [
+        {
+          "id": "routes",
+          "type": "drapeau",
+          "cible": "routes_eteintes_comprises",
+          "texte": "Terminer « Les routes éteintes »"
+        }
+      ]
+    },
+    {
+      "id": "reconnaissances",
+      "resume": "Obtenir la reconnaissance des quatre prétendants : Aélis (négociation ou danse des racines), Kaël (expédition ou pont du Vent-Debout), Orsane (salle des miroirs), Sahir (tournoi des heures).",
+      "debut": [
+        {
+          "type": "demarrer_quete",
+          "quete": "la_danse_des_racines"
+        },
+        {
+          "type": "demarrer_quete",
+          "quete": "le_pont_du_vent_debout"
+        },
+        {
+          "type": "demarrer_quete",
+          "quete": "la_salle_des_miroirs"
+        },
+        {
+          "type": "demarrer_quete",
+          "quete": "le_tournoi_des_heures"
+        }
+      ],
+      "objectifs": [
+        {
+          "id": "aelis",
+          "type": "drapeau",
+          "cible": "aelis_reconnue",
+          "texte": "Être reconnu par Aélis"
+        },
+        {
+          "id": "kael",
+          "type": "drapeau",
+          "cible": "kael_reconnu",
+          "texte": "Être reconnu par Kaël"
+        },
+        {
+          "id": "orsane",
+          "type": "drapeau",
+          "cible": "orsane_reconnue",
+          "texte": "Être reconnu par Orsane"
+        },
+        {
+          "id": "sahir",
+          "type": "drapeau",
+          "cible": "sahir_reconnu",
+          "texte": "Être reconnu par Sahir"
+        }
+      ]
+    },
+    {
+      "id": "relais",
+      "resume": "Relier les cinq villes au réseau des passages : touchez leurs portes de relais ou laissez leurs maîtres vous les ouvrir.",
+      "lieu": {
+        "nom": "Salle des passages",
+        "pos": [
+          -120,
+          66,
+          174
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "port",
+          "type": "drapeau",
+          "cible": "relais:port_nacre",
+          "texte": "Relais de Port-Nacre"
+        },
+        {
+          "id": "sylve",
+          "type": "drapeau",
+          "cible": "relais:sylvecime",
+          "texte": "Relais de Sylvécime"
+        },
+        {
+          "id": "meri",
+          "type": "drapeau",
+          "cible": "relais:meridiane",
+          "texte": "Relais de Méridiane"
+        },
+        {
+          "id": "verre",
+          "type": "drapeau",
+          "cible": "relais:verreole",
+          "texte": "Relais de Verréole"
+        },
+        {
+          "id": "garde",
+          "type": "drapeau",
+          "cible": "relais:haute_garde",
+          "texte": "Relais de Haute-Garde"
+        }
+      ]
+    }
+  ],
+  "fin": [
+    {
+      "type": "experience",
+      "niveaux": 6
+    },
+    {
+      "type": "drapeau",
+      "nom": "acte_3_termine"
+    },
+    {
+      "type": "titre",
+      "titre": "Acte IV",
+      "sous_titre": "La Couronne"
+    },
+    {
+      "type": "demarrer_quete",
+      "quete": "la_couronne"
+    }
+  ]
+}

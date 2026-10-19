@@ -1,0 +1,11 @@
+{
+  "nom": "Salle des miroirs",
+  "pos": [
+    -1230,
+    96,
+    500
+  ],
+  "rayon": 20,
+  "region": "montagnes",
+  "description": "La rotonde de verre où Orsane juge les prétendants."
+}

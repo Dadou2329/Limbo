@@ -2,6 +2,22 @@
   "nom": "Aubin",
   "debut": [
     {
+      "noeud": "ou_est_vaeron",
+      "si": [
+        {
+          "quete_active": "la_couronne"
+        },
+        {
+          "quete_etape": {
+            "la_couronne": "=2"
+          }
+        },
+        {
+          "sans_drapeau": "vaeron_place"
+        }
+      ]
+    },
+    {
       "noeud": "revu",
       "si": [
         {
@@ -112,6 +128,41 @@
       "choix": [
         {
           "texte": "J'y vais."
+        }
+      ]
+    },
+    "ou_est_vaeron": {
+      "texte": [
+        "Vaëron ? Il est parti pour la capitale ce matin, avec sa garde. Il a dit : « Si le porteur du fragment me cherche, qu'il vienne sur la place des cérémonies. »",
+        "Il n'était pas en colère. Il était... décidé. Faites attention à vous."
+      ],
+      "choix": [
+        {
+          "texte": "J'y vais.",
+          "actions": [
+            {
+              "type": "deplacer_pnj",
+              "role": "vaeron",
+              "pos": [
+                -900,
+                86,
+                -888
+              ]
+            },
+            {
+              "type": "drapeau",
+              "nom": "vaeron_place"
+            },
+            {
+              "type": "objectif",
+              "quete": "la_couronne",
+              "objectif": "aubin"
+            },
+            {
+              "type": "message",
+              "texte": "Vaëron vous attend sur la place des cérémonies de la capitale."
+            }
+          ]
         }
       ]
     }

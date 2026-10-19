@@ -1,0 +1,18 @@
+{
+  "placement": {
+    "type": "les_limbes:fixed",
+    "salt": 1029,
+    "chunks": [
+      [
+        14,
+        83
+      ]
+    ]
+  },
+  "structures": [
+    {
+      "structure": "les_limbes:cour_des_heures",
+      "weight": 1
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "nom": "Cour des heures",
+  "pos": [
+    230,
+    66,
+    1330
+  ],
+  "rayon": 20,
+  "region": "desert",
+  "description": "L'arène du tournoi des heures, sous les cadrans de Méridiane."
+}

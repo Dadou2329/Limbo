@@ -1,0 +1,11 @@
+{
+  "nom": "Jardin de l'épreuve",
+  "pos": [
+    1150,
+    72,
+    300
+  ],
+  "rayon": 20,
+  "region": "jardins",
+  "description": "La clairière où Aélis éprouve ceux qui portent un fragment."
+}

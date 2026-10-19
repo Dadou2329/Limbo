@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "hanging=false": {
+      "model": "les_limbes:block/lanterne_royale_eteinte"
+    },
+    "hanging=true": {
+      "model": "les_limbes:block/lanterne_royale_eteinte_suspendue"
+    }
+  }
+}

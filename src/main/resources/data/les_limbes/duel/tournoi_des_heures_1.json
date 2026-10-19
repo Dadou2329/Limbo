@@ -1,0 +1,53 @@
+{
+  "titre": "Tournoi des heures — première épreuve",
+  "pretendant": "maitre_des_jeux",
+  "boss": "les_limbes:scorpion_des_heures",
+  "renforts": [
+    {
+      "entite": "les_limbes:sentinelle_de_sable",
+      "nombre": 1
+    }
+  ],
+  "arene": {
+    "centre": [
+      230,
+      66,
+      1330
+    ],
+    "rayon": 17,
+    "dimension": "les_limbes:limbes"
+  },
+  "entree": [
+    230,
+    66,
+    1346
+  ],
+  "yaw": 180,
+  "apparition": [
+    230,
+    66,
+    1320
+  ],
+  "amical": true,
+  "phases": [],
+  "victoire": [
+    {
+      "type": "drapeau",
+      "nom": "tournoi_heures_1"
+    },
+    {
+      "type": "experience",
+      "niveaux": 2
+    },
+    {
+      "type": "message",
+      "texte": "Première épreuve remportée. Le maître des jeux lève la main : la deuxième vous attend."
+    }
+  ],
+  "echec": [
+    {
+      "type": "message",
+      "texte": "Le maître des jeux siffle la fin de l'épreuve. Vous pourrez la retenter."
+    }
+  ]
+}

@@ -33,7 +33,7 @@ public final class EssentialNpcs {
 				continue;
 			}
 			Box zone = new Box(domicile).expand(64.0, 32.0, 64.0);
-			List<HabitantEntity> presents = world.getEntitiesByClass(HabitantEntity.class, zone, h -> h.getRole().equals(role) && h.isAlive());
+			List<HabitantEntity> presents = world.getEntitiesByClass(HabitantEntity.class, zone, h -> h.getRole().equals(role) && h.isAlive() && !h.estDelegation());
 			if (!presents.isEmpty()) {
 				continue;
 			}

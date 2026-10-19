@@ -1,0 +1,11 @@
+{
+  "nom": "Palais royal",
+  "pos": [
+    -900,
+    86,
+    -960
+  ],
+  "rayon": 40,
+  "region": "couronne",
+  "description": "Le palais des rois des Limbes : salle du trône, conseil, archives, cuisines, appartements, jardin."
+}

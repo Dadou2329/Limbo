@@ -1,0 +1,145 @@
+{
+  "titre": "Le couronnement",
+  "acte": 4,
+  "description": "Les délégations arrivent, la ville s'illumine, la couronne s'assemble. Puis le premier acte royal : attirer un fragment perdu du palais vers un emplacement sûr et aller y chercher le sceau du roi.",
+  "etapes": [
+    {
+      "id": "ceremonie",
+      "resume": "Rejoindre Tiphaine, le héraut, sur la place des cérémonies : la cérémonie commence quand vous le dites.",
+      "lieu": {
+        "nom": "Place des cérémonies",
+        "pos": [
+          -900,
+          86,
+          -900
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "tiphaine",
+          "type": "parler",
+          "cible": "heraut",
+          "manuel": true,
+          "texte": "Parler au héraut pour ouvrir la cérémonie"
+        }
+      ]
+    },
+    {
+      "id": "premier_acte",
+      "resume": "Premier acte royal : demander au chambellan d'attirer le fragment du belvédère vers le site réservé au nord-est de la capitale.",
+      "lieu": {
+        "nom": "Place des cérémonies",
+        "pos": [
+          -900,
+          86,
+          -900
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "aldric",
+          "type": "parler",
+          "cible": "chambellan",
+          "manuel": true,
+          "texte": "Ordonner le premier acte royal au chambellan"
+        }
+      ]
+    },
+    {
+      "id": "fragment",
+      "resume": "Rejoindre le fragment du belvédère, arrivé au nord-est de la capitale.",
+      "lieu": {
+        "nom": "Fragment du belvédère",
+        "pos": [
+          -700,
+          86,
+          -1060
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "belvedere",
+          "type": "atteindre",
+          "pos": [
+            -700,
+            88,
+            -1060
+          ],
+          "rayon": 14,
+          "dimension": "les_limbes:limbes",
+          "texte": "Atteindre le fragment du belvédère"
+        }
+      ]
+    },
+    {
+      "id": "sceau",
+      "resume": "Retrouver le sceau du roi disparu dans l'oratoire du belvédère, gardé par deux Veilleurs.",
+      "lieu": {
+        "nom": "Fragment du belvédère",
+        "pos": [
+          -700,
+          86,
+          -1060
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "sceau",
+          "type": "collecter",
+          "cible": "les_limbes:sceau_royal",
+          "nombre": 1,
+          "texte": "Retrouver le sceau du roi disparu"
+        }
+      ]
+    },
+    {
+      "id": "retour",
+      "resume": "Rapporter le sceau au chambellan : le règne commence.",
+      "lieu": {
+        "nom": "Place des cérémonies",
+        "pos": [
+          -900,
+          86,
+          -900
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "aldric",
+          "type": "parler",
+          "cible": "chambellan",
+          "manuel": true,
+          "texte": "Rapporter le sceau au chambellan"
+        }
+      ]
+    }
+  ],
+  "fin": [
+    {
+      "type": "experience",
+      "niveaux": 10
+    },
+    {
+      "type": "drapeau",
+      "nom": "acte_4_termine"
+    },
+    {
+      "type": "drapeau",
+      "nom": "regne_commence"
+    },
+    {
+      "type": "titre",
+      "titre": "Acte V",
+      "sous_titre": "Le Règne"
+    },
+    {
+      "type": "message",
+      "texte": "Le sceau du roi est à votre doigt. Le règne commence : la cour, les tournois, le navire royal et les frontières vous attendent."
+    }
+  ]
+}

@@ -1,9 +1,64 @@
 {
   "nom": "Vaëron",
   "debut": [
-    {"noeud": "apres", "si": [{"drapeau": "vaeron_rencontre"}]},
-    {"noeud": "rencontre", "si": [{"quete_etape": {"l_etranger": "=7"}}]},
-    {"noeud": "avant"}
+    {
+      "noeud": "apres_duel",
+      "si": [
+        {
+          "drapeau": "vaeron_vaincu"
+        }
+      ]
+    },
+    {
+      "noeud": "duel",
+      "si": [
+        {
+          "quete_active": "la_couronne"
+        },
+        {
+          "quete_etape": {
+            "la_couronne": "=3"
+          }
+        }
+      ]
+    },
+    {
+      "noeud": "conflit",
+      "si": [
+        {
+          "quete_active": "la_couronne"
+        },
+        {
+          "quete_etape": {
+            "la_couronne": "=2"
+          }
+        },
+        {
+          "drapeau": "vaeron_place"
+        }
+      ]
+    },
+    {
+      "noeud": "apres",
+      "si": [
+        {
+          "drapeau": "vaeron_rencontre"
+        }
+      ]
+    },
+    {
+      "noeud": "rencontre",
+      "si": [
+        {
+          "quete_etape": {
+            "l_etranger": "=7"
+          }
+        }
+      ]
+    },
+    {
+      "noeud": "avant"
+    }
   ],
   "noeuds": {
     "avant": {
@@ -11,7 +66,9 @@
         "Bonjour. Je passe à Clairval chaque semaine, pour les routes. Si vous cherchez du travail, parlez à Thibault."
       ],
       "choix": [
-        {"texte": "Merci."}
+        {
+          "texte": "Merci."
+        }
       ]
     },
     "rencontre": {
@@ -21,11 +78,24 @@
         "Un fragment de couronne qui choisit un étranger... C'est intéressant. Venez me voir dans ma cité, un jour. Nous aurons des choses à nous dire."
       ],
       "choix": [
-        {"texte": "Qui étiez-vous, pour l'ancien roi ?", "suivant": "roi"},
-        {"texte": "À bientôt, Vaëron.", "actions": [
-          {"type": "drapeau", "nom": "vaeron_rencontre"},
-          {"type": "objectif", "quete": "l_etranger", "objectif": "vaeron"}
-        ]}
+        {
+          "texte": "Qui étiez-vous, pour l'ancien roi ?",
+          "suivant": "roi"
+        },
+        {
+          "texte": "À bientôt, Vaëron.",
+          "actions": [
+            {
+              "type": "drapeau",
+              "nom": "vaeron_rencontre"
+            },
+            {
+              "type": "objectif",
+              "quete": "l_etranger",
+              "objectif": "vaeron"
+            }
+          ]
+        }
       ]
     },
     "roi": {
@@ -34,10 +104,20 @@
         "Les gens disent que je veux le trône. Ce que je veux, c'est que les routes restent ouvertes. Si le trône sert à ça, alors oui."
       ],
       "choix": [
-        {"texte": "À bientôt, Vaëron.", "actions": [
-          {"type": "drapeau", "nom": "vaeron_rencontre"},
-          {"type": "objectif", "quete": "l_etranger", "objectif": "vaeron"}
-        ]}
+        {
+          "texte": "À bientôt, Vaëron.",
+          "actions": [
+            {
+              "type": "drapeau",
+              "nom": "vaeron_rencontre"
+            },
+            {
+              "type": "objectif",
+              "quete": "l_etranger",
+              "objectif": "vaeron"
+            }
+          ]
+        }
       ]
     },
     "apres": {
@@ -45,7 +125,78 @@
         "Clairval a de la chance de vous avoir. Ne laissez pas ce manoir s'écrouler. Et ne laissez pas ce fragment vous monter à la tête."
       ],
       "choix": [
-        {"texte": "Bonne route, Vaëron."}
+        {
+          "texte": "Bonne route, Vaëron."
+        }
+      ]
+    },
+    "conflit": {
+      "texte": [
+        "Vous voilà. Bertrand vous a raconté la fable du roi qui tient la lumière ? Moi, j'ai tenu les murs. Trente ans. Pendant que le trône attendait un signe, j'ai bâti des routes et des greniers.",
+        "Je vous respecte. Vous avez fait pour ces régions ce que je n'ai pas eu le temps de faire. Mais la couronne va à qui la mérite, et je l'ai méritée.",
+        "Alors tranchons comme on tranche ici : sur la place des cérémonies, devant le palais. Mes légions, ma forteresse, mon épée. Votre fragment. Si vous tenez, je plie le genou."
+      ],
+      "choix": [
+        {
+          "texte": "Que la place en décide.",
+          "actions": [
+            {
+              "type": "objectif",
+              "quete": "la_couronne",
+              "objectif": "vaeron"
+            },
+            {
+              "type": "message",
+              "texte": "Vaëron vous attend sur la place des cérémonies pour le duel final."
+            }
+          ]
+        },
+        {
+          "texte": "Laissez-moi un instant."
+        }
+      ]
+    },
+    "duel": {
+      "texte": [
+        "La place est vide, le dallage est propre. Quand vous serez prêt, levez votre lame."
+      ],
+      "choix": [
+        {
+          "texte": "Je suis prêt.",
+          "actions": [
+            {
+              "type": "duel",
+              "id": "duel_de_vaeron"
+            }
+          ]
+        },
+        {
+          "texte": "Un instant."
+        }
+      ]
+    },
+    "apres_duel": {
+      "texte": [
+        "Vous avez tenu. Je plie le genou, et je le dis devant la place : les routes resteront ouvertes, et je les garderai pour vous.",
+        "Gardez-moi Haute-Garde et les patrouilles. Un roi a besoin d'un capitaine qui lui dit non, de temps en temps."
+      ],
+      "choix": [
+        {
+          "texte": "Gardez-les, Vaëron.",
+          "actions": [
+            {
+              "type": "drapeau",
+              "nom": "vaeron_capitaine"
+            },
+            {
+              "type": "message",
+              "texte": "Vaëron reste le gardien des routes et de Haute-Garde."
+            }
+          ]
+        },
+        {
+          "texte": "Nous en reparlerons."
+        }
       ]
     }
   }

@@ -31,6 +31,8 @@ from regions_jardins import JARDINS  # noqa: E402
 from regions_desert import DESERT  # noqa: E402
 from regions_montagnes import MONTAGNES  # noqa: E402
 from regions_couronne import COURONNE  # noqa: E402
+from arenes import ARENES  # noqa: E402
+from capitale import CAPITALE  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 DATA = os.path.join(ROOT, "src", "main", "resources", "data", "les_limbes")
@@ -1490,7 +1492,7 @@ def main() -> None:
         "rencontres/cabane_loic": build_cabane_loic(),
         "rencontres/jardin_hanna": build_jardin_hanna(),
         }
-    for module in (MER, JARDINS, DESERT, MONTAGNES, COURONNE):
+    for module in (MER, JARDINS, DESERT, MONTAGNES, COURONNE, ARENES, CAPITALE):
         for cle, fabrique in module.items():
             canvases[cle] = fabrique()
     lignes = ["# Rapport des structures\n"]
@@ -1569,6 +1571,19 @@ def main() -> None:
     site("pont_qui_chante", (-1150, 680), 104, [("les_limbes:montagnes/pont_qui_chante", (-1154, 100, 653))], 1023)
     site("haute_garde", (-610, -610), 82, [("les_limbes:couronne/haute_garde", (-644, 81, -644))], 1024)
     site("quartier_des_portes", (-900, -720), 78, [("les_limbes:couronne/quartier_des_portes", (-925, 77, -740))], 1025)
+    # --- Étape 6 : arènes des épreuves, campement, capitale ---
+    site("jardin_de_l_epreuve", (1150, 300), 72, [("les_limbes:arenes/jardin_de_l_epreuve", (1130, 71, 280))], 1026)
+    site("pont_du_vent_debout", (1000, -850), 90, [("les_limbes:arenes/pont_du_vent_debout", (960, 86, -880))], 1027)
+    site("salle_des_miroirs", (-1230, 500), 96, [("les_limbes:arenes/salle_des_miroirs", (-1250, 95, 480))], 1028)
+    site("cour_des_heures", (230, 1330), 66, [("les_limbes:arenes/cour_des_heures", (210, 65, 1310))], 1029)
+    site("campement_de_l_archipel", (1250, -650), 66, [("les_limbes:arenes/campement_de_l_archipel", (1240, 65, -660))], 1030)
+    site("capitale_place", (-900, -900), 86, [("les_limbes:capitale/place", (-930, 85, -930))], 1031)
+    site("capitale_palais", (-900, -960), 86, [("les_limbes:capitale/palais", (-940, 85, -985))], 1032)
+    site("capitale_marche", (-955, -880), 86, [("les_limbes:capitale/marche_royal", (-975, 85, -900))], 1033)
+    site("capitale_ambassades", (-845, -880), 86, [("les_limbes:capitale/ambassades", (-865, 85, -900))], 1034)
+    site("capitale_archives", (-955, -945), 86, [("les_limbes:capitale/archives", (-970, 85, -960))], 1035)
+    site("capitale_ateliers", (-900, -840), 86, [("les_limbes:capitale/ateliers", (-920, 85, -860))], 1036)
+    site("capitale_residences", (-838, -945), 86, [("les_limbes:capitale/residences", (-858, 85, -965))], 1037)
     with open(os.path.join(RAPPORT_DIR, "RAPPORT.md"), "w", encoding="utf-8") as fh:
         fh.write("\n".join(lignes))
     print(f"{len(canvases)} gabarits écrits ; rapport : {os.path.relpath(RAPPORT_DIR, ROOT)}/RAPPORT.md")

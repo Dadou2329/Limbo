@@ -328,6 +328,72 @@ class DonneesTest {
 	}
 
 	@Test
+	void lesDuelsSontValidesEtReferences() throws IOException {
+		java.util.Map<String, String> fichiers = new java.util.LinkedHashMap<>();
+		for (Path p : fichiers(DATA.resolve("duel"), ".json")) {
+			fichiers.put(p.getFileName().toString().replace(".json", ""), Files.readString(p, StandardCharsets.UTF_8));
+		}
+		assertFalse(fichiers.isEmpty(), "aucun duel trouvé");
+		fr.leslimbes.duel.DuelLoader.chargerDepuisJson(fichiers);
+		assertTrue(fr.leslimbes.duel.DuelLoader.tous().size() >= 8, "au moins huit duels et épreuves");
+		Set<String> actionsConnues = Set.of("message", "drapeau", "drapeau_monde", "deplacer_pnj", "donner", "pouvoir", "decouvrir_relais", "decouvrir_lieu", "titre", "son",
+				"experience", "compteur", "modifier_bloc", "demarrer_quete", "objectif", "majeste_max", "apparition", "retirer", "duel", "capitale", "couronner", "delegation");
+		List<String> erreurs = new ArrayList<>();
+		for (fr.leslimbes.duel.DuelDefinition d : fr.leslimbes.duel.DuelLoader.tous().values()) {
+			if (!lang.containsKey("entity.les_limbes." + d.boss().getPath())) {
+				erreurs.add(d.id() + " : boss sans nom " + d.boss());
+			}
+			if (!d.pretendant().isBlank() && !lang.containsKey("pnj.les_limbes." + d.pretendant())) {
+				erreurs.add(d.id() + " : prétendant sans nom " + d.pretendant());
+			}
+			float precedent = 1.0F;
+			for (fr.leslimbes.duel.DuelDefinition.Phase ph : d.phases()) {
+				if (ph.seuil() >= precedent || ph.seuil() <= 0.0F) {
+					erreurs.add(d.id() + " : seuils de phases non décroissants");
+				}
+				precedent = ph.seuil();
+				for (fr.leslimbes.duel.DuelDefinition.Renfort r : ph.invocations()) {
+					if (!lang.containsKey("entity.les_limbes." + r.type().getPath())) {
+						erreurs.add(d.id() + " : invocation inconnue " + r.type());
+					}
+				}
+				if (!ph.blocs().isBlank() && !Set.of("racines", "forteresse", "miroirs", "sables").contains(ph.blocs())) {
+					erreurs.add(d.id() + " : motif de blocs inconnu " + ph.blocs());
+				}
+			}
+			for (fr.leslimbes.duel.DuelDefinition.Renfort r : d.renforts()) {
+				if (!lang.containsKey("entity.les_limbes." + r.type().getPath())) {
+					erreurs.add(d.id() + " : renfort inconnu " + r.type());
+				}
+			}
+			for (JsonObject a : d.victoire()) {
+				if (!actionsConnues.contains(a.get("type").getAsString())) {
+					erreurs.add(d.id() + " : action de victoire inconnue " + a.get("type"));
+				}
+			}
+			for (JsonObject a : d.echec()) {
+				if (!actionsConnues.contains(a.get("type").getAsString())) {
+					erreurs.add(d.id() + " : action d'échec inconnue " + a.get("type"));
+				}
+			}
+			if (d.rayon() < 8 || d.rayon() > 40) {
+				erreurs.add(d.id() + " : rayon d'arène déraisonnable " + d.rayon());
+			}
+		}
+		// Tout duel lancé par un dialogue existe.
+		java.util.regex.Pattern motif = java.util.regex.Pattern.compile("\\\"type\\\": *\\\"duel\\\", *\\\"id\\\": *\\\"(\\w+)\\\"");
+		for (Path p : fichiers(DATA.resolve("dialogue"), ".json")) {
+			java.util.regex.Matcher m = motif.matcher(Files.readString(p, StandardCharsets.UTF_8));
+			while (m.find()) {
+				if (fr.leslimbes.duel.DuelLoader.get(m.group(1)) == null) {
+					erreurs.add(p.getFileName() + " : duel inconnu " + m.group(1));
+				}
+			}
+		}
+		assertTrue(erreurs.isEmpty(), String.join("\n", erreurs));
+	}
+
+	@Test
 	void lesModelesDEntitesPilotesParDonneesSontCoherents() throws IOException {
 		List<Path> modeles = fichiers(ASSETS.resolve("models/entite"), ".json");
 		assertFalse(modeles.isEmpty(), "aucun modèle d'entité");

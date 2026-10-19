@@ -43,12 +43,15 @@ import java.util.Set;
 public class HabitantEntity extends PathAwareEntity {
 	public static final Set<String> ROLES_ESSENTIELS = Set.of("maelle", "thibault", "orielle", "brann", "vaeron", "gaspard", "emile", "lisbeth", "rosalie",
 			"sabine", "loic", "hanna", "theo", "marguerite", "ysolde", "marchand_1", "marchand_2",
-			"kael", "aelis", "oriane", "sahir", "ismael", "nerine", "orsane", "intendant_garde", "elouan", "anselme");
+			"kael", "aelis", "oriane", "sahir", "ismael", "nerine", "orsane", "intendant_garde", "elouan", "anselme",
+			"chambellan", "heraut", "archiviste_royale", "intendante_du_palais", "conseiller_royal", "maitre_des_jeux", "capitaine_lio", "exploratrice_mina");
 	private static final TrackedData<String> ROLE = DataTracker.registerData(HabitantEntity.class, TrackedDataHandlerRegistry.STRING);
 	private static final TrackedData<Boolean> EN_CONVERSATION = DataTracker.registerData(HabitantEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
 	@Nullable
 	private BlockPos domicile;
+	/** Ticks restants d'une délégation (0 = personnage ordinaire). */
+	private int delegation;
 	@Nullable
 	private PlayerEntity interlocuteur;
 	private boolean ancrageEnregistre;
@@ -90,7 +93,16 @@ public class HabitantEntity extends PathAwareEntity {
 	}
 
 	public boolean estEssentiel() {
-		return ROLES_ESSENTIELS.contains(getRole());
+		return delegation == 0 && ROLES_ESSENTIELS.contains(getRole());
+	}
+
+	/** Un délégué est un exemplaire temporaire d'un personnage (couronnement) : il n'est pas ancré et repart de lui-même. */
+	public boolean estDelegation() {
+		return delegation > 0;
+	}
+
+	public void setDelegation(int dureeTicks) {
+		this.delegation = Math.max(1, dureeTicks);
 	}
 
 	public boolean estEnConversation() {
@@ -141,6 +153,10 @@ public class HabitantEntity extends PathAwareEntity {
 	@Override
 	public void tick() {
 		super.tick();
+		if (delegation > 0 && !this.getWorld().isClient && --delegation == 0) {
+			this.discard();
+			return;
+		}
 		if (!this.getWorld().isClient && !ancrageEnregistre && estEssentiel() && this.getWorld() instanceof ServerWorld sw) {
 			ancrageEnregistre = true;
 			if (domicile == null) {
@@ -161,7 +177,7 @@ public class HabitantEntity extends PathAwareEntity {
 		if (source.isOf(DamageTypes.OUT_OF_WORLD) || source.isOf(DamageTypes.GENERIC_KILL)) {
 			return false;
 		}
-		return estEssentiel() || super.isInvulnerableTo(source);
+		return estEssentiel() || delegation > 0 || super.isInvulnerableTo(source);
 	}
 
 	@Override
@@ -188,6 +204,9 @@ public class HabitantEntity extends PathAwareEntity {
 	public void writeCustomDataToNbt(NbtCompound nbt) {
 		super.writeCustomDataToNbt(nbt);
 		nbt.putString("Role", getRole());
+		if (delegation > 0) {
+			nbt.putInt("Delegation", delegation);
+		}
 		if (domicile != null) {
 			nbt.put("Domicile", NbtHelper.fromBlockPos(domicile));
 		}
@@ -196,6 +215,7 @@ public class HabitantEntity extends PathAwareEntity {
 	@Override
 	public void readCustomDataFromNbt(NbtCompound nbt) {
 		super.readCustomDataFromNbt(nbt);
+		delegation = nbt.getInt("Delegation");
 		if (nbt.contains("Role")) {
 			setRole(nbt.getString("Role"));
 		}

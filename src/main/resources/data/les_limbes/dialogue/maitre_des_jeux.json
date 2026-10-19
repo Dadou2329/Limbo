@@ -1,0 +1,166 @@
+{
+  "nom": "Rachid",
+  "debut": [
+    {
+      "noeud": "champion",
+      "si": [
+        {
+          "drapeau": "sahir_reconnu"
+        }
+      ]
+    },
+    {
+      "noeud": "troisieme",
+      "si": [
+        {
+          "drapeau": "tournoi_heures_2"
+        }
+      ]
+    },
+    {
+      "noeud": "deuxieme",
+      "si": [
+        {
+          "drapeau": "tournoi_heures_1"
+        }
+      ]
+    },
+    {
+      "noeud": "inscrit",
+      "si": [
+        {
+          "quete_active": "le_tournoi_des_heures"
+        },
+        {
+          "quete_etape": {
+            "le_tournoi_des_heures": "=1"
+          }
+        }
+      ]
+    },
+    {
+      "noeud": "inscription",
+      "si": [
+        {
+          "quete_active": "le_tournoi_des_heures"
+        }
+      ]
+    },
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Rachid, maître des jeux de la cour des heures. Le tournoi est réservé à ceux qui portent un fragment et que Sahir a jugés dignes d'être jugés."
+      ],
+      "choix": [
+        {
+          "texte": "Je reviendrai."
+        }
+      ]
+    },
+    "inscription": {
+      "texte": [
+        "Un prétendant au tournoi des heures ! Trois épreuves, un vainqueur, et Sahir dans les gradins. Les combats sont amicaux : à bout de forces, on vous ramène ici."
+      ],
+      "choix": [
+        {
+          "texte": "Je m'inscris.",
+          "actions": [
+            {
+              "type": "objectif",
+              "quete": "le_tournoi_des_heures",
+              "objectif": "rachid"
+            },
+            {
+              "type": "message",
+              "texte": "Inscrit au tournoi des heures. Première épreuve quand vous voulez."
+            }
+          ],
+          "suivant": "inscrit"
+        },
+        {
+          "texte": "Pas aujourd'hui."
+        }
+      ]
+    },
+    "inscrit": {
+      "texte": [
+        "Première épreuve : un scorpion des heures et une sentinelle de sable. Reculez quand ils lèvent, avancez quand ils récupèrent."
+      ],
+      "choix": [
+        {
+          "texte": "Première épreuve !",
+          "actions": [
+            {
+              "type": "duel",
+              "id": "tournoi_des_heures_1"
+            }
+          ]
+        },
+        {
+          "texte": "Un instant."
+        }
+      ]
+    },
+    "deuxieme": {
+      "texte": [
+        "Deuxième épreuve : deux sentinelles de sable et un scorpion. Les éclats annoncent leur trajectoire : un pas de côté."
+      ],
+      "choix": [
+        {
+          "texte": "Deuxième épreuve !",
+          "actions": [
+            {
+              "type": "duel",
+              "id": "tournoi_des_heures_2"
+            }
+          ]
+        },
+        {
+          "texte": "Un instant."
+        }
+      ]
+    },
+    "troisieme": {
+      "texte": [
+        "Dernière épreuve : le champion des heures. Il n'a jamais été battu. Sa masse se lève, et tout le sable tremble."
+      ],
+      "choix": [
+        {
+          "texte": "Le champion !",
+          "actions": [
+            {
+              "type": "duel",
+              "id": "tournoi_des_heures_3"
+            }
+          ]
+        },
+        {
+          "texte": "Un instant."
+        }
+      ]
+    },
+    "champion": {
+      "texte": [
+        "Champion des heures ! Sahir a hoché la tête, et il ne hoche jamais la tête. Vous voulez remettre votre titre en jeu contre le champion, pour le plaisir ?"
+      ],
+      "choix": [
+        {
+          "texte": "Pour le plaisir.",
+          "actions": [
+            {
+              "type": "duel",
+              "id": "tournoi_des_heures_3"
+            }
+          ]
+        },
+        {
+          "texte": "Une autre fois."
+        }
+      ]
+    }
+  }
+}

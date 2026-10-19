@@ -1,0 +1,23 @@
+{
+  "type": "les_limbes:composee",
+  "biomes": "#les_limbes:limbes",
+  "step": "surface_structures",
+  "terrain_adaptation": "none",
+  "spawn_overrides": {},
+  "ancre": [
+    0,
+    0,
+    0
+  ],
+  "y": 86,
+  "pieces": [
+    {
+      "gabarit": "les_limbes:capitale/ambassades",
+      "decalage": [
+        -17,
+        -1,
+        -20
+      ]
+    }
+  ]
+}

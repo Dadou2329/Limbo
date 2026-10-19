@@ -2,6 +2,19 @@
   "nom": "Théo",
   "debut": [
     {
+      "noeud": "routes_eteintes",
+      "si": [
+        {
+          "quete_active": "les_routes_eteintes"
+        },
+        {
+          "quete_etape": {
+            "les_routes_eteintes": "=0"
+          }
+        }
+      ]
+    },
+    {
       "noeud": "domaine",
       "si": [
         {
@@ -108,6 +121,24 @@
       "choix": [
         {
           "texte": "Merci, Théo."
+        }
+      ]
+    },
+    "routes_eteintes": {
+      "texte": [
+        "Les routes royales ? J'ai copié les cartes anciennes : six traits de lumière partaient de la capitale, un par région. Aucun mécanisme dessiné, aucune source. Juste la couronne, au centre.",
+        "Lisbeth les a vues s'allumer dans le ciel, une seconde, à chaque Arrivée. Allez lui demander."
+      ],
+      "choix": [
+        {
+          "texte": "J'y vais.",
+          "actions": [
+            {
+              "type": "objectif",
+              "quete": "les_routes_eteintes",
+              "objectif": "theo"
+            }
+          ]
         }
       ]
     }

@@ -1,0 +1,66 @@
+{
+  "titre": "Les heures suspendues",
+  "pretendant": "sahir",
+  "boss": "les_limbes:sahir_duel",
+  "arene": {
+    "centre": [
+      230,
+      66,
+      1330
+    ],
+    "rayon": 17,
+    "dimension": "les_limbes:limbes"
+  },
+  "entree": [
+    230,
+    66,
+    1346
+  ],
+  "yaw": 180,
+  "apparition": [
+    230,
+    66,
+    1320
+  ],
+  "amical": true,
+  "phases": [
+    {
+      "seuil": 0.66,
+      "message": "Des doubles du passé reprennent ses gestes. Frappez-le dans les fenêtres, quand il brille.",
+      "invocations": [
+        {
+          "entite": "les_limbes:double_des_heures",
+          "nombre": 2
+        }
+      ],
+      "blocs": "sables",
+      "duree_blocs": 400
+    },
+    {
+      "seuil": 0.33,
+      "message": "La salve s'allonge. Avancez pendant qu'elle reste suspendue.",
+      "invocations": [
+        {
+          "entite": "les_limbes:double_des_heures",
+          "nombre": 1
+        }
+      ]
+    }
+  ],
+  "victoire": [
+    {
+      "type": "experience",
+      "niveaux": 3
+    },
+    {
+      "type": "message",
+      "texte": "Sahir range son sablier : « Vous avez le temps pour vous. C'est rare. »"
+    }
+  ],
+  "echec": [
+    {
+      "type": "message",
+      "texte": "Sahir arrête les heures : « Rien ne presse. Revenez quand vous voudrez. »"
+    }
+  ]
+}

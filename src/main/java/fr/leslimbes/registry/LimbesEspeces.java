@@ -9,6 +9,7 @@ import fr.leslimbes.entity.region.EnnemiAnnonceEntity;
 import fr.leslimbes.entity.region.EnnemiTireurEntity;
 import fr.leslimbes.entity.region.Espece;
 import fr.leslimbes.entity.region.MontureEntity;
+import fr.leslimbes.entity.region.SoutienEntity;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
@@ -81,6 +82,15 @@ public final class LimbesEspeces {
 		ennemi("sentinelle_de_la_couronne").taille(0.9F, 2.3F).yeux(2.0F).vie(50).vitesse(0.23).combat(8, 8, 0.7).annonce(20, 24, 3.0, 0.9).xp(14).oeuf(0xD8DDE6, 0xC9A227);
 		tireur("spectre_de_la_cour").taille(0.7F, 2.0F).yeux(1.7F).vie(28).vitesse(0.26).combat(2, 0, 0.3).tir(18, 55, 14, 3, 0.3).effet(StatusEffects.WEAKNESS, 100).xp(10).oeuf(0xC9D0E8, 0x7FE6FF);
 		monture("cerf_royal").taille(1.1F, 1.8F).yeux(1.6F).passager(1.5F).vie(40).vitesse(0.3).pas(1.0, 6).appat(LimbesItems.PAIN_DE_LA_COUR, 3).sons(LimbesSounds.CERF_APPEL, null, null).oeuf(0xF2EBDD, 0xE6C76A);
+		// --- Renforts et soutiens des duels (étape 6) ---
+		ennemi("chevalier_de_bois_blanc").taille(0.7F, 2.1F).yeux(1.8F).vie(30).vitesse(0.3).combat(5, 4, 0.6).annonce(14, 20, 2.8, 0.8).xp(8).oeuf(0xEDE6D6, 0x5F9A4E);
+		ennemi("reflet_de_verre").taille(0.6F, 1.9F).yeux(1.7F).vie(12).vitesse(0.32).combat(3, 0, 0.2).annonce(12, 16, 2.6, 0.4).xp(4).oeuf(0xC8F0FF, 0xFFFFFF);
+		ennemi("double_des_heures").taille(0.6F, 1.9F).yeux(1.7F).vie(24).vitesse(0.28).combat(4, 2, 0.4).annonce(16, 20, 2.8, 0.6).xp(6).oeuf(0xD9C08C, 0x3A2A1A);
+		ennemi("legionnaire_astral").taille(0.7F, 2.1F).yeux(1.8F).vie(34).vitesse(0.3).combat(6, 6, 0.7).annonce(16, 22, 2.8, 0.9).protegeParBanniere().xp(10).oeuf(0x2E3A6E, 0xC9A227);
+		ennemi("champion_des_heures").taille(0.8F, 2.2F).yeux(1.9F).vie(80).vitesse(0.3).combat(8, 6, 0.9).annonce(18, 22, 3.2, 1.0).xp(20).oeuf(0xC98B3C, 0xFFE08A);
+		soutien("fleur_de_vie").taille(0.8F, 0.9F).vie(10).soin(3.0F).xp(2).oeuf(0xF2A5C8, 0xDFFFB0);
+		soutien("point_de_rupture").taille(0.5F, 0.5F).vie(6).rupture().xp(2).oeuf(0xAEE6F8, 0x6B7A8A);
+		soutien("banniere_astrale").taille(0.6F, 2.0F).vie(20).banniere().xp(3).oeuf(0x2E3A6E, 0xFFF3C8);
 	}
 
 	private static Espece declarer(Espece e) {
@@ -110,6 +120,10 @@ public final class LimbesEspeces {
 
 	private static Espece monture(String id) {
 		return declarer(new Espece(id, Espece.Archetype.MONTURE));
+	}
+
+	private static Espece soutien(String id) {
+		return declarer(new Espece(id, Espece.Archetype.SOUTIEN));
 	}
 
 	public static void init() {
@@ -165,6 +179,8 @@ public final class LimbesEspeces {
 					EnnemiAnnonceEntity.creerAttributs(e), SpawnLocationTypes.ON_GROUND, HostileEntity::canSpawnIgnoreLightLevel);
 			case ENNEMI_TIREUR -> enregistrer(e, SpawnGroup.MONSTER, (EntityType<EnnemiTireurEntity> type, net.minecraft.world.World world) -> new EnnemiTireurEntity(type, world, e),
 					EnnemiTireurEntity.creerAttributs(e), SpawnLocationTypes.ON_GROUND, HostileEntity::canSpawnIgnoreLightLevel);
+			case SOUTIEN -> enregistrer(e, SpawnGroup.MISC, (EntityType<SoutienEntity> type, net.minecraft.world.World world) -> new SoutienEntity(type, world, e),
+					SoutienEntity.creerAttributs(e), null, null);
 			case MONTURE -> {
 				if (e.vol) {
 					enregistrer(e, SpawnGroup.CREATURE, (EntityType<MontureEntity> type, net.minecraft.world.World world) -> new MontureEntity(type, world, e),
@@ -178,7 +194,7 @@ public final class LimbesEspeces {
 	}
 
 	private static <T extends MobEntity> void enregistrer(Espece e, SpawnGroup groupe, EntityType.EntityFactory<T> fabrique, DefaultAttributeContainer.Builder attributs,
-														  SpawnLocation lieu, SpawnRestriction.SpawnPredicate<T> predicat) {
+														  @Nullable SpawnLocation lieu, @Nullable SpawnRestriction.SpawnPredicate<T> predicat) {
 		EntityType.Builder<T> builder = EntityType.Builder.create(fabrique, groupe).dimensions(e.largeur, e.hauteur).maxTrackingRange(10);
 		if (e.yeux > 0.0F) {
 			builder.eyeHeight(e.yeux);
@@ -189,7 +205,9 @@ public final class LimbesEspeces {
 		EntityType<T> type = Registry.register(Registries.ENTITY_TYPE, LesLimbes.id(e.id), builder.build(e.id));
 		PAR_TYPE.put(type, e);
 		FabricDefaultAttributeRegistry.register(type, attributs);
-		SpawnRestriction.register(type, lieu, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, predicat);
+		if (lieu != null && predicat != null) {
+			SpawnRestriction.register(type, lieu, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, predicat);
+		}
 		TYPES.put(e.id, type);
 		Item oeuf = Registry.register(Registries.ITEM, LesLimbes.id("oeuf_" + e.id), new SpawnEggItem(type, e.couleurOeuf1, e.couleurOeuf2, new Item.Settings()));
 		OEUFS.add(oeuf);

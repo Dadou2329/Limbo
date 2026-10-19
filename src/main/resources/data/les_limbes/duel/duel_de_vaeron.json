@@ -1,0 +1,82 @@
+{
+  "titre": "Le roi sans couronne",
+  "pretendant": "vaeron",
+  "boss": "les_limbes:vaeron_duel",
+  "arene": {
+    "centre": [
+      -900,
+      86,
+      -900
+    ],
+    "rayon": 24,
+    "dimension": "les_limbes:limbes"
+  },
+  "entree": [
+    -900,
+    86,
+    -878
+  ],
+  "yaw": 180,
+  "apparition": [
+    -900,
+    86,
+    -914
+  ],
+  "amical": false,
+  "phases": [
+    {
+      "seuil": 0.75,
+      "message": "Les légions astrales répondent à Vaëron. Abattez les bannières pour pouvoir les atteindre.",
+      "invocations": [
+        {
+          "entite": "les_limbes:legionnaire_astral",
+          "nombre": 3
+        },
+        {
+          "entite": "les_limbes:banniere_astrale",
+          "nombre": 2
+        }
+      ]
+    },
+    {
+      "seuil": 0.5,
+      "message": "La forteresse se dresse autour de vous ; ses brèches sont vos portes.",
+      "blocs": "forteresse",
+      "duree_blocs": 700,
+      "invocations": [
+        {
+          "entite": "les_limbes:banniere_astrale",
+          "nombre": 1
+        },
+        {
+          "entite": "les_limbes:legionnaire_astral",
+          "nombre": 2
+        }
+      ]
+    },
+    {
+      "seuil": 0.25,
+      "message": "L'épée solaire s'embrase : ses coups portent plus fort. Tenez vos annonces."
+    }
+  ],
+  "victoire": [
+    {
+      "type": "drapeau",
+      "nom": "vaeron_vaincu"
+    },
+    {
+      "type": "experience",
+      "niveaux": 10
+    },
+    {
+      "type": "message",
+      "texte": "Vaëron plante son épée dans le dallage et s'agenouille. « Les routes resteront ouvertes. Je les garderai pour vous. »"
+    }
+  ],
+  "echec": [
+    {
+      "type": "message",
+      "texte": "Vaëron baisse sa garde : « Relevez-vous. Un roi ne se juge pas à une chute. » Le duel peut être repris sur la place."
+    }
+  ]
+}

@@ -40,7 +40,8 @@ public final class AutoTest {
 			LimbesSites.LAC_DU_CREPUSCULE, LimbesSites.ARRIVEE_PRAIRIES_1,
 			// Villes et lieux des régions dont l'auto-test vérifie les personnages ou les créatures (rayon de deux chunks : les toiles font jusqu'à 71 blocs).
 			LimbesSites.PORT_NACRE, LimbesSites.MARCHE_FLOTTANT, LimbesSites.SYLVECIME, LimbesSites.SERRE_ANCIENNE, LimbesSites.CLAIRIERE_DU_GEANT,
-			LimbesSites.MERIDIANE, LimbesSites.JARDIN_FERTILE, LimbesSites.VERREOLE, LimbesSites.HAUTE_GARDE, LimbesSites.QUARTIER_DES_PORTES);
+			LimbesSites.MERIDIANE, LimbesSites.JARDIN_FERTILE, LimbesSites.VERREOLE, LimbesSites.HAUTE_GARDE, LimbesSites.QUARTIER_DES_PORTES,
+			LimbesSites.PLACE_DES_CEREMONIES, LimbesSites.PALAIS, LimbesSites.ARENE_AELIS, LimbesSites.ARENE_KAEL, LimbesSites.ARENE_ORSANE, LimbesSites.ARENE_SAHIR, LimbesSites.CAMPEMENT_DE_L_ARCHIPEL);
 	private static int phase;
 	private static long tickDepart;
 	private static long debutGeneration;
@@ -161,7 +162,9 @@ public final class AutoTest {
 		for (String[] r : new String[][]{{"maelle", "0", "82", "0"}, {"thibault", "14", "66", "128"}, {"brann", "16", "66", "146"}, {"vaeron", "3", "66", "142"},
 				{"orielle", "-120", "66", "157"}, {"gaspard", "150", "66", "60"},
 				{"kael", "950", "66", "-750"}, {"aelis", "1050", "72", "350"}, {"sahir", "150", "66", "1250"}, {"orsane", "-1150", "96", "500"}, {"intendant_garde", "-610", "82", "-610"},
-				{"oriane", "900", "72", "520"}, {"ismael", "380", "66", "1130"}, {"nerine", "800", "63", "-600"}, {"elouan", "-900", "78", "-720"}}) {
+				{"oriane", "900", "72", "520"}, {"ismael", "380", "66", "1130"}, {"nerine", "800", "63", "-600"}, {"elouan", "-900", "78", "-720"},
+				{"chambellan", "-900", "86", "-900"}, {"heraut", "-900", "86", "-900"}, {"conseiller_royal", "-900", "86", "-960"}, {"archiviste_royale", "-955", "86", "-945"},
+				{"maitre_des_jeux", "230", "66", "1330"}, {"capitaine_lio", "1250", "66", "-650"}}) {
 			BlockPos centre = new BlockPos(Integer.parseInt(r[1]), Integer.parseInt(r[2]), Integer.parseInt(r[3]));
 			// Grande hauteur : Aélis siège au sommet de Sylvécime (y 110), Kaël à la capitainerie, Orsane au palais.
 			List<HabitantEntity> l = limbes.getEntitiesByClass(HabitantEntity.class, new Box(centre).expand(32, 64, 32), h -> h.getRole().equals(r[0]));
@@ -324,6 +327,33 @@ public final class AutoTest {
 		List<fr.leslimbes.entity.region.CreaturePaisibleEntity> geants = limbes.getEntitiesByClass(fr.leslimbes.entity.region.CreaturePaisibleEntity.class,
 				new Box(LimbesSites.CLAIRIERE_DU_GEANT).expand(24, 16, 24), c -> c.espece().id.equals("geant_des_jardins"));
 		verifier(!geants.isEmpty(), "le géant des jardins dort dans sa clairière (trouvé " + geants.size() + ")");
+		// Capitale et arènes : la place, la grande porte du palais (fermée, niveau 2), les arènes des prétendants et le navire de Kaël sont générés.
+		verifier(limbes.getBlockState(new BlockPos(-900, 85, -900)).isOf(LimbesBlocks.PIERRE_DE_COURONNE_POLIE), "dallage de la place des cérémonies en -900/85/-900 (trouvé " + limbes.getBlockState(new BlockPos(-900, 85, -900)) + ")");
+		BlockState porte = limbes.getBlockState(new BlockPos(-900, 88, -941));
+		verifier(porte.isOf(LimbesBlocks.PORTE_ROYALE) && !porte.get(fr.leslimbes.block.PorteRoyaleBlock.OUVERTE) && porte.get(fr.leslimbes.block.PorteRoyaleBlock.NIVEAU) == 2,
+				"grande porte royale du palais fermée (niveau 2) en -900/88/-941 (trouvé " + porte + ")");
+		verifier(limbes.getBlockState(new BlockPos(1150, 71, 300)).isOf(LimbesBlocks.PIERRE_NACREE_POLIE), "jardin de l'épreuve généré (sol " + limbes.getBlockState(new BlockPos(1150, 71, 300)) + ")");
+		verifier(limbes.getBlockState(new BlockPos(1002, 89, -850)).isOf(LimbesBlocks.PLANCHES_D_AUBE), "pont du Vent-Debout généré en l'air (" + limbes.getBlockState(new BlockPos(1002, 89, -850)) + ")");
+		verifier(limbes.getBlockState(new BlockPos(1016, 92, -850)).isOf(LimbesBlocks.SABLE_DE_NACRE), "îlot d'escale est du Vent-Debout (" + limbes.getBlockState(new BlockPos(1016, 92, -850)) + ")");
+		verifier(limbes.getBlockState(new BlockPos(-1230, 95, 500)).isOf(LimbesBlocks.PIERRE_DE_VERRE_TAILLEE), "salle des miroirs générée (" + limbes.getBlockState(new BlockPos(-1230, 95, 500)) + ")");
+		verifier(limbes.getBlockState(new BlockPos(230, 65, 1330)).isOf(LimbesBlocks.PIERRE_DES_HEURES), "cour des heures générée (" + limbes.getBlockState(new BlockPos(230, 65, 1330)) + ")");
+		// Éveil de la capitale : niveau 2 ouvre la grande porte du palais tout de suite (chunks chargés).
+		fr.leslimbes.capitale.CapitaleManager.eveiller(server, 2, false);
+		BlockState porteOuverte = limbes.getBlockState(new BlockPos(-900, 88, -941));
+		verifier(porteOuverte.isOf(LimbesBlocks.PORTE_ROYALE) && porteOuverte.get(fr.leslimbes.block.PorteRoyaleBlock.OUVERTE), "la porte du palais s'ouvre au niveau 2 (" + porteOuverte + ")");
+		verifier(fr.leslimbes.capitale.CapitaleManager.niveau(server) == 2, "niveau d'éveil de la capitale mémorisé (" + fr.leslimbes.capitale.CapitaleManager.niveau(server) + ")");
+		// Duel réel : l'épreuve d'Aélis commence (boss et barre), puis la victoire pose les drapeaux et nettoie l'arène.
+		verifier(fr.leslimbes.duel.DuelLoader.tous().size() >= 8, "duels chargés (" + fr.leslimbes.duel.DuelLoader.tous().size() + ")");
+		boolean commence = fr.leslimbes.duel.DuelManager.commencer(joueur, "epreuve_d_aelis");
+		fr.leslimbes.duel.Duel duelAelis = fr.leslimbes.duel.DuelManager.duelDe("epreuve_d_aelis");
+		verifier(commence && duelAelis != null && limbes.getEntity(duelAelis.boss) instanceof fr.leslimbes.entity.duel.PretendantEntity, "l'épreuve d'Aélis commence au jardin de l'épreuve");
+		if (duelAelis != null && limbes.getEntity(duelAelis.boss) instanceof fr.leslimbes.entity.duel.PretendantEntity aelis) {
+			verifier(joueur.getBlockPos().isWithinDistance(new BlockPos(1150, 72, 318), 3.0), "le joueur est placé à l'entrée de l'arène (" + joueur.getBlockPos().toShortString() + ")");
+			aelis.kill();
+			verifier(fr.leslimbes.duel.DuelManager.duelDe("epreuve_d_aelis") == null, "le duel se termine à la mort du boss");
+			fr.leslimbes.world.state.PlayerLimbesData dj = fr.leslimbes.world.state.PlayerLimbesData.of(joueur);
+			verifier(dj.aDrapeau("duel_epreuve_d_aelis_gagne") && dj.aDrapeau("aelis_reconnue"), "la victoire pose les drapeaux (duel gagné, Aélis reconnue)");
+		}
 		int routes = 0;
 		for (int x = -8; x <= 8; x++) {
 			for (int z = 140; z <= 160; z++) {

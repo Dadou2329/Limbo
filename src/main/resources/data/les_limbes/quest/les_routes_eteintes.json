@@ -1,0 +1,99 @@
+{
+  "titre": "Les routes éteintes",
+  "acte": 3,
+  "description": "Les routes de lumière qui reliaient les régions se sont éteintes la nuit où le roi a disparu. Théo a des cartes, Lisbeth des observations, et les archives royales la chronique.",
+  "etapes": [
+    {
+      "id": "theo",
+      "resume": "Montrer les cartes anciennes à Théo, au domaine ou au pied du pont.",
+      "lieu": {
+        "nom": "Pied du pont",
+        "pos": [
+          0,
+          66,
+          56
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "theo",
+          "type": "parler",
+          "cible": "theo",
+          "manuel": true,
+          "texte": "Parler des routes royales à Théo"
+        }
+      ]
+    },
+    {
+      "id": "lisbeth",
+      "resume": "Demander à Lisbeth, à l'observatoire, ce qu'elle a vu dans le ciel à chaque Arrivée.",
+      "lieu": {
+        "nom": "Observatoire",
+        "pos": [
+          30,
+          66,
+          112
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "lisbeth",
+          "type": "parler",
+          "cible": "lisbeth",
+          "manuel": true,
+          "texte": "Interroger Lisbeth à l'observatoire"
+        }
+      ]
+    },
+    {
+      "id": "archives",
+      "resume": "Lire la chronique du roi disparu aux archives royales de la capitale (quartier ouvert par Elouan) et en parler à l'archiviste.",
+      "lieu": {
+        "nom": "Archives royales",
+        "pos": [
+          -955,
+          86,
+          -945
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "tour",
+          "type": "atteindre",
+          "pos": [
+            -955,
+            87,
+            -945
+          ],
+          "rayon": 10,
+          "dimension": "les_limbes:limbes",
+          "texte": "Entrer dans la tour des archives royales"
+        },
+        {
+          "id": "maud",
+          "type": "parler",
+          "cible": "archiviste_royale",
+          "manuel": true,
+          "texte": "Parler à Maud, l'archiviste royale"
+        }
+      ]
+    }
+  ],
+  "fin": [
+    {
+      "type": "experience",
+      "niveaux": 3
+    },
+    {
+      "type": "drapeau",
+      "nom": "routes_eteintes_comprises"
+    },
+    {
+      "type": "message",
+      "texte": "Les routes répondaient à la couronne ; depuis que le roi est parti tenir les frontières avec son sceau, elles attendent un souverain."
+    }
+  ]
+}

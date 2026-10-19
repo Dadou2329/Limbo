@@ -293,6 +293,22 @@ def gen_blocks() -> None:
     asset("models/block", "pont_de_verre_trame", {"textures": {"particle": lb("block/pont_de_verre_trame"), "r": lb("block/pont_de_verre_trame")},
                                                   "elements": [{"from": [0, 0, 0], "to": [16, 1, 16], "faces": {f: {"texture": "#r"} for f in ["north", "south", "east", "west", "up", "down"]}}]})
     asset("models/item", "pont_de_verre", {"parent": lb("block/pont_de_verre")})
+    # Capitale (étape 6) : lanterne éteinte, porte royale (voile fermé / passage ouvert invisible), pont royal.
+    asset("blockstates", "lanterne_royale_eteinte", {"variants": {
+        "hanging=false": {"model": lb("block/lanterne_royale_eteinte")}, "hanging=true": {"model": lb("block/lanterne_royale_eteinte_suspendue")}}})
+    asset("models/block", "lanterne_royale_eteinte", {"parent": mc("block/template_lantern"), "textures": {"lantern": lb("block/lanterne_royale_eteinte")}})
+    asset("models/block", "lanterne_royale_eteinte_suspendue", {"parent": mc("block/template_hanging_lantern"), "textures": {"lantern": lb("block/lanterne_royale_eteinte")}})
+    asset("models/item", "lanterne_royale_eteinte", {"parent": mc("item/generated"), "textures": {"layer0": lb("block/lanterne_royale_eteinte")}})
+    asset("blockstates", "porte_royale", {"variants": {**{f"niveau={n},ouverte=false": {"model": lb("block/porte_royale")} for n in (1, 2, 3)},
+                                                      **{f"niveau={n},ouverte=true": {"model": lb("block/porte_royale_ouverte")} for n in (1, 2, 3)}}})
+    asset("models/block", "porte_royale", {"parent": mc("block/cube_all"), "textures": {"all": lb("block/porte_royale")}})
+    asset("models/block", "porte_royale_ouverte", {"textures": {"particle": lb("block/porte_royale")}, "elements": []})
+    asset("models/item", "porte_royale", {"parent": lb("block/porte_royale")})
+    asset("blockstates", "pont_royal", {"variants": {"forme=true": {"model": lb("block/pont_royal")}, "forme=false": {"model": lb("block/pont_royal_trame")}}})
+    asset("models/block", "pont_royal", {"parent": mc("block/cube_all"), "textures": {"all": lb("block/pont_royal")}})
+    asset("models/block", "pont_royal_trame", {"textures": {"particle": lb("block/pont_royal_trame"), "r": lb("block/pont_royal_trame")},
+                                               "elements": [{"from": [0, 0, 0], "to": [16, 1, 16], "faces": {f: {"texture": "#r"} for f in ["north", "south", "east", "west", "up", "down"]}}]})
+    asset("models/item", "pont_royal", {"parent": lb("block/pont_royal")})
 
 
 # ----------------------------------------------------------------------------- objets
@@ -304,7 +320,9 @@ ITEMS_GENERATED = ["fragment_de_nacre", "boussole_nacree", "fibres_nacrees", "he
 
 # Espèces régionales (étape 5) : un œuf d'apparition par espèce, texture oeuf_<id>.
 ESPECES_REGIONALES = ["crabe_de_nacre", "meduse_celeste", "poisson_lanterne", "gardien_des_epaves", "tortue_des_lagons", "geant_des_jardins", "libellule_de_rosee", "escargot_des_racines", "rodeur_des_racines", "scarabee_de_seve", "fennec_des_dunes", "scorpion_des_heures", "lezard_cadran", "sentinelle_de_sable", "gazelle_d_opale", "bouquetin_de_verre", "papillon_de_cristal", "colosse_de_cristal", "echo_resonnant", "griffon_de_verre", "colombe_astrale", "chat_de_palais", "sentinelle_de_la_couronne", "spectre_de_la_cour", "cerf_royal"]
-ITEMS_GENERATED += ["oeuf_" + e for e in ESPECES_REGIONALES]
+# Renforts et soutiens des duels (étape 6)
+ESPECES_REGIONALES += ["chevalier_de_bois_blanc", "reflet_de_verre", "double_des_heures", "legionnaire_astral", "champion_des_heures", "fleur_de_vie", "point_de_rupture", "banniere_astrale"]
+ITEMS_GENERATED += ["oeuf_" + e for e in ESPECES_REGIONALES] + ["sceau_royal"]
 
 
 def gen_items() -> None:
@@ -479,6 +497,8 @@ BUTINS_ENTITES = {
     "fennec_des_dunes": [], "lezard_cadran": [], "escargot_des_racines": [], "chat_de_palais": [], "bouquetin_de_verre": [], "geant_des_jardins": [],
     "meduse_celeste": [], "libellule_de_rosee": [], "papillon_de_cristal": [], "colombe_astrale": [],
     "tortue_des_lagons": [], "scarabee_de_seve": [], "gazelle_d_opale": [], "griffon_de_verre": [], "cerf_royal": [],
+    "chevalier_de_bois_blanc": [], "reflet_de_verre": [(lb("eclat_resonnant"), 0, 1, 1.0)], "double_des_heures": [], "legionnaire_astral": [(lb("pierre_de_couronne"), 0, 1, 1.0)],
+    "champion_des_heures": [(lb("dattes_des_heures"), 1, 3, 1.0)], "fleur_de_vie": [], "point_de_rupture": [], "banniere_astrale": [],
 }
 
 
@@ -494,8 +514,9 @@ def gen_loot() -> None:
               "pierre_de_verre", "pierre_de_verre_taillee", "verre_de_montagne", "courant_cristallin",
               "pierre_de_couronne", "pierre_de_couronne_taillee", "pierre_de_couronne_polie", "pierre_de_couronne_sculptee", "lanterne_royale"]:
         data("loot_table/blocks", b, self_drop(b))
-    for b in ["pave_horaire", "pont_de_verre"]:
+    for b in ["pave_horaire", "pont_de_verre", "porte_royale", "pont_royal"]:
         data("loot_table/blocks", b, {"type": "minecraft:block", "pools": []})
+    data("loot_table/blocks", "lanterne_royale_eteinte", self_drop("lanterne_royale_eteinte"))
     data("loot_table/blocks", "feuilles_de_geant", {"type": "minecraft:block", "pools": [{"rolls": 1, "entries": [{"type": "minecraft:item", "name": lb("fruit_de_geant"),
         "conditions": [{"condition": "minecraft:random_chance", "chance": 0.08}]}]}]})
     data("loot_table/blocks", "dalle_de_rosee", {"type": "minecraft:block", "pools": []})
@@ -563,6 +584,7 @@ def gen_loot() -> None:
     coffre("sylvecime", [(lb("fruit_de_geant"), 4, 2, 4), (lb("miel_de_rosee"), 3, 1, 2), ("minecraft:bone_meal", 2, 2, 4), (lb("planches_de_geant"), 2, 4, 8), ("minecraft:shears", 1, 0, 0)])
     coffre("meridiane", [(lb("dattes_des_heures"), 4, 2, 5), ("minecraft:clock", 1, 0, 0), (lb("gres_des_heures_taille"), 2, 4, 8), ("minecraft:gold_nugget", 3, 2, 6), ("minecraft:lantern", 1, 1, 2)])
     coffre("verreole", [(lb("eclat_resonnant"), 4, 1, 3), (lb("the_des_cimes"), 3, 1, 2), ("minecraft:iron_ingot", 3, 1, 3), (lb("cristal_resonnant"), 1, 0, 0), ("minecraft:glass", 2, 3, 6)])
+    coffre("belvedere", [("minecraft:gold_ingot", 3, 2, 4), (lb("pierre_de_couronne_sculptee"), 2, 2, 4), (lb("lanterne_royale"), 2, 1, 2), ("minecraft:emerald", 2, 1, 3)], rolls=(2, 3), garanti=[lb("sceau_royal")])
     coffre("haute_garde", [(lb("pain_de_la_cour"), 4, 1, 3), ("minecraft:iron_ingot", 3, 2, 4), (lb("pierre_de_couronne_taillee"), 2, 4, 8), ("minecraft:shield", 1, 0, 0), (lb("lanterne_royale"), 1, 1, 2)])
     data("loot_table/chests", "manoir", {"type": "minecraft:chest", "pools": [
         {"rolls": {"type": "minecraft:uniform", "min": 2, "max": 4}, "entries": [
@@ -759,6 +781,13 @@ SITES = [
     {"x": -610, "z": -610, "y": 82, "rayon": 70, "transition": 30},  # Haute-Garde (cité de Vaëron)
     {"x": -900, "z": -720, "y": 78, "rayon": 50, "transition": 26},  # Quartier des portes et des jardins
     {"x": -900, "z": -900, "y": 86, "rayon": 90, "transition": 40},  # Capitale et palais
+    # --- Étape 6 : arènes des épreuves, campement de l'archipel ---
+    {"x": 1150, "z": 300, "y": 72, "rayon": 24, "transition": 16},    # Jardin de l'épreuve (Aélis)
+    {"x": -1230, "z": 500, "y": 96, "rayon": 24, "transition": 16},   # Salle des miroirs (Orsane)
+    {"x": 230, "z": 1330, "y": 66, "rayon": 24, "transition": 16},    # Cour des heures (Sahir)
+    {"x": 1250, "z": -650, "y": 66, "rayon": 14, "transition": 12},   # Campement de l'archipel (expédition de Kaël)
+    {"x": -700, "z": -1060, "y": 86, "rayon": 20, "transition": 16},  # Site d'Arrivée du royaume 1 (belvédère)
+    {"x": -1060, "z": -700, "y": 86, "rayon": 20, "transition": 16},  # Site d'Arrivée du royaume 2
 ]
 
 

@@ -1,0 +1,11 @@
+{
+  "nom": "Le Vent-Debout",
+  "pos": [
+    1000,
+    90,
+    -850
+  ],
+  "rayon": 24,
+  "region": "mer",
+  "description": "Le navire volant de Kaël, à l'ancre dans le ciel de la Mer suspendue."
+}

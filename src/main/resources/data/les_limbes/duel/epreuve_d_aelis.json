@@ -1,0 +1,70 @@
+{
+  "titre": "La danse des racines",
+  "pretendant": "aelis",
+  "boss": "les_limbes:aelis_duel",
+  "arene": {
+    "centre": [
+      1150,
+      72,
+      300
+    ],
+    "rayon": 18,
+    "dimension": "les_limbes:limbes"
+  },
+  "entree": [
+    1150,
+    72,
+    318
+  ],
+  "yaw": 180,
+  "apparition": [
+    1150,
+    72,
+    290
+  ],
+  "amical": true,
+  "phases": [
+    {
+      "seuil": 0.66,
+      "message": "Les racines se lèvent ! Passez entre elles, ses chevaliers de bois blanc arrivent.",
+      "invocations": [
+        {
+          "entite": "les_limbes:chevalier_de_bois_blanc",
+          "nombre": 2
+        }
+      ],
+      "blocs": "racines",
+      "duree_blocs": 400
+    },
+    {
+      "seuil": 0.33,
+      "message": "Les fleurs de vie la soignent : coupez-les, puis tenez-vous prêt à être soulevé.",
+      "invocations": [
+        {
+          "entite": "les_limbes:fleur_de_vie",
+          "nombre": 3
+        }
+      ]
+    }
+  ],
+  "victoire": [
+    {
+      "type": "drapeau",
+      "nom": "aelis_reconnue"
+    },
+    {
+      "type": "experience",
+      "niveaux": 4
+    },
+    {
+      "type": "message",
+      "texte": "Aélis baisse sa lance et sourit : « Les Jardins vous reconnaissent. »"
+    }
+  ],
+  "echec": [
+    {
+      "type": "message",
+      "texte": "Aélis arrête la danse : « Reprenez souffle. Les racines attendront. »"
+    }
+  ]
+}

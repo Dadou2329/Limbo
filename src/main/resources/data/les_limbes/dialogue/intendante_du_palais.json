@@ -1,0 +1,46 @@
+{
+  "nom": "Sidonie",
+  "debut": [
+    {
+      "noeud": "couronne",
+      "si": [
+        {
+          "drapeau": "couronne"
+        }
+      ]
+    },
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Les cuisines du palais tournent encore. Pour qui ? Pour les ambassadeurs, les archivistes, et pour l'espoir, je suppose. Il y a toujours du pain de la cour au four."
+      ],
+      "choix": [
+        {
+          "texte": "Ça sent bon."
+        }
+      ]
+    },
+    "couronne": {
+      "texte": [
+        "Majesté ! Trente ans que je cuis du pain pour un trône vide. Prenez : les premières miches d'un règne, ça se partage."
+      ],
+      "choix": [
+        {
+          "texte": "Merci, Sidonie.",
+          "actions": [
+            {
+              "type": "donner",
+              "objet": "les_limbes:pain_de_la_cour",
+              "nombre": 4,
+              "une_fois": "pain_sidonie"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -2,6 +2,27 @@
   "nom": "Elouan",
   "debut": [
     {
+      "noeud": "ouvrir",
+      "si": [
+        {
+          "quete_active": "le_seigneur_de_clairval"
+        },
+        {
+          "quete_etape": {
+            "le_seigneur_de_clairval": "=4"
+          }
+        }
+      ]
+    },
+    {
+      "noeud": "ouverts",
+      "si": [
+        {
+          "drapeau_monde": "capitale_niveau_1"
+        }
+      ]
+    },
+    {
       "noeud": "accueil"
     }
   ],
@@ -21,6 +42,42 @@
       "choix": [
         {
           "texte": "Je reviendrai."
+        }
+      ]
+    },
+    "ouvrir": {
+      "texte": [
+        "Vous les avez tous rencontrés : le prince des routes, la dame des jardins, le gardien des heures, la reine de verre, et Vaëron. Alors les quartiers extérieurs de la capitale vous sont ouverts.",
+        "Marché, ambassades, archives, ateliers. Le palais reste scellé ; ça, c'est l'affaire du chambellan et des régions."
+      ],
+      "choix": [
+        {
+          "texte": "Ouvrez les quartiers.",
+          "actions": [
+            {
+              "type": "capitale",
+              "niveau": 1
+            },
+            {
+              "type": "objectif",
+              "quete": "le_seigneur_de_clairval",
+              "objectif": "elouan"
+            },
+            {
+              "type": "message",
+              "texte": "Les portes des quartiers extérieurs s'ouvrent. Suivez l'allée vers la place des cérémonies."
+            }
+          ]
+        }
+      ]
+    },
+    "ouverts": {
+      "texte": [
+        "Les quartiers sont ouverts. Aldric, le chambellan, garde la porte du palais sur la place des cérémonies."
+      ],
+      "choix": [
+        {
+          "texte": "Merci, Elouan."
         }
       ]
     }

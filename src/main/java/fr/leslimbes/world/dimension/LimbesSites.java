@@ -73,6 +73,17 @@ public final class LimbesSites {
 	public static final BlockPos QUARTIER_DES_PORTES = new BlockPos(-900, 78, -720);
 	/** Centre de la capitale et du palais (structures des étapes suivantes). */
 	public static final BlockPos CAPITALE = new BlockPos(-900, 86, -900);
+	/** Place des cérémonies, au cœur de la capitale (couronnement, duel final). */
+	public static final BlockPos PLACE_DES_CEREMONIES = new BlockPos(-900, 86, -900);
+	/** Palais royal, au nord de la place. */
+	public static final BlockPos PALAIS = new BlockPos(-900, 86, -960);
+	/** Arènes des épreuves des prétendants. */
+	public static final BlockPos ARENE_AELIS = new BlockPos(1150, 72, 300);
+	public static final BlockPos ARENE_KAEL = new BlockPos(1000, 90, -850);
+	public static final BlockPos ARENE_ORSANE = new BlockPos(-1230, 96, 500);
+	public static final BlockPos ARENE_SAHIR = new BlockPos(230, 66, 1330);
+	/** Campement de l'expédition coincée dans l'archipel (épreuve de Kaël). */
+	public static final BlockPos CAMPEMENT_DE_L_ARCHIPEL = new BlockPos(1250, 66, -650);
 
 	/** Rayon (blocs) des zones aplanies ; cohérent avec les fichiers de densité. */
 	public static final int RAYON_APLANI_VILLAGE = 70;

@@ -1,0 +1,69 @@
+{
+  "nom": "Lio",
+  "debut": [
+    {
+      "noeud": "sauve",
+      "si": [
+        {
+          "drapeau": "expedition_sauvee"
+        }
+      ]
+    },
+    {
+      "noeud": "libres",
+      "si": [
+        {
+          "quete_active": "l_expedition_de_l_archipel"
+        },
+        {
+          "quete_etape": {
+            "l_expedition_de_l_archipel": "=2"
+          }
+        }
+      ]
+    },
+    {
+      "noeud": "assiege"
+    }
+  ],
+  "noeuds": {
+    "assiege": {
+      "texte": [
+        "Restez baissé ! Ils tournent autour du camp depuis trois jours. Les gardiens des épaves : lents, mais ils annoncent leurs coups. Si vous les abattez, on pourra lever le camp."
+      ],
+      "choix": [
+        {
+          "texte": "Je m'en occupe."
+        }
+      ]
+    },
+    "libres": {
+      "texte": [
+        "Ils sont tombés ! Capitaine Lio, expédition de Kaël vers l'archipel mobile. Les îles bougent, les cartes mentent, et on s'est retrouvés coincés ici.",
+        "Dites à Kaël qu'on rentre. Et dites-lui que la prochaine fois, il vient avec nous."
+      ],
+      "choix": [
+        {
+          "texte": "Je lui dirai.",
+          "actions": [
+            {
+              "type": "objectif",
+              "quete": "l_expedition_de_l_archipel",
+              "objectif": "lio"
+            }
+          ]
+        }
+      ]
+    },
+    "sauve": {
+      "texte": [
+        "On lève le camp dès que Mina a fini ses relevés. Merci, encore. Kaël a de la chance de vous avoir."
+      ],
+      "choix": [
+        {
+          "texte": "Bon vent, capitaine."
+        }
+      ]
+    }
+  }
+}

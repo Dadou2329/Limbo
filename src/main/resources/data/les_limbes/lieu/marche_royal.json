@@ -1,0 +1,11 @@
+{
+  "nom": "Grand marché",
+  "pos": [
+    -955,
+    86,
+    -880
+  ],
+  "rayon": 20,
+  "region": "couronne",
+  "description": "Le marché de la capitale, ses comptoirs et ses étals endormis."
+}

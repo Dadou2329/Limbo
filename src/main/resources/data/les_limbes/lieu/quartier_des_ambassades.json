@@ -1,0 +1,11 @@
+{
+  "nom": "Ambassades",
+  "pos": [
+    -845,
+    86,
+    -880
+  ],
+  "rayon": 20,
+  "region": "couronne",
+  "description": "Les maisons des régions auprès du trône."
+}

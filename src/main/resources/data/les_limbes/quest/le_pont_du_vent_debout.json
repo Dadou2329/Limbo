@@ -1,0 +1,56 @@
+{
+  "titre": "Le pont du Vent-Debout",
+  "acte": 3,
+  "description": "Kaël ne connaît que deux façons de juger quelqu'un : une expédition partagée, ou une passe d'armes sur le pont de son navire volant.",
+  "etapes": [
+    {
+      "id": "kael",
+      "resume": "Demander à Kaël, à Port-Nacre, sa reconnaissance.",
+      "lieu": {
+        "nom": "Port-Nacre",
+        "pos": [
+          950,
+          66,
+          -750
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "kael",
+          "type": "parler",
+          "cible": "kael",
+          "manuel": true,
+          "texte": "Demander la reconnaissance de Kaël"
+        }
+      ]
+    },
+    {
+      "id": "epreuve",
+      "resume": "Être reconnu par Kaël : secourir l'expédition de l'archipel, ou tenir le pont du Vent-Debout.",
+      "lieu": {
+        "nom": "Le Vent-Debout",
+        "pos": [
+          1000,
+          90,
+          -850
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "reconnu",
+          "type": "drapeau",
+          "cible": "kael_reconnu",
+          "texte": "Obtenir la reconnaissance de Kaël"
+        }
+      ]
+    }
+  ],
+  "fin": [
+    {
+      "type": "experience",
+      "niveaux": 2
+    }
+  ]
+}

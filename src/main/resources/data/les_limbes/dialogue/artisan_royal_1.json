@@ -1,0 +1,20 @@
+{
+  "nom": "Gauthier",
+  "debut": [
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "La forge de la capitale. Je ferre les chevaux des ambassadeurs et je rêve d'armes royales. Un jour, peut-être, quelqu'un m'en commandera."
+      ],
+      "choix": [
+        {
+          "texte": "Peut-être bientôt."
+        }
+      ]
+    }
+  }
+}

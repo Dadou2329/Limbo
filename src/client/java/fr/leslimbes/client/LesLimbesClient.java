@@ -45,6 +45,8 @@ public final class LesLimbesClient implements ClientModInitializer {
 		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getTranslucent(), LimbesBlocks.PORTE_DES_LIMBES, LimbesBlocks.CRISTAL_DE_NACRE, LimbesBlocks.DALLE_DE_ROSEE);
 		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), LimbesBlocks.AILES_DE_MOULIN, LimbesBlocks.PORTE_DE_RELAIS);
 		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getTranslucent(), LimbesBlocks.VITRINE);
+		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), LimbesBlocks.LANTERNE_ROYALE_ETEINTE, LimbesBlocks.PORTE_ROYALE);
+		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getTranslucent(), LimbesBlocks.PONT_ROYAL);
 		net.minecraft.client.render.block.entity.BlockEntityRendererFactories.register(fr.leslimbes.registry.LimbesBlockEntities.AILES_DE_MOULIN, fr.leslimbes.client.render.block.MoulinRenderer::new);
 		net.minecraft.client.render.block.entity.BlockEntityRendererFactories.register(fr.leslimbes.registry.LimbesBlockEntities.VITRINE, fr.leslimbes.client.render.block.VitrineRenderer::new);
 
@@ -58,6 +60,7 @@ public final class LesLimbesClient implements ClientModInitializer {
 		ModeleDonneesRegistry.init();
 		EntityRendererRegistry.register(LimbesEntities.RAIE_CELESTE, ctx -> new RenduDonneesRenderer<>(ctx, "raie_celeste"));
 		fr.leslimbes.registry.LimbesEspeces.types().forEach(LesLimbesClient::enregistrerModeleDonnees);
+		fr.leslimbes.registry.LimbesPretendants.types().forEach(LesLimbesClient::enregistrerModeleDonnees);
 		EntityRendererRegistry.register(fr.leslimbes.registry.LimbesEspeces.ECLAT_PROJECTILE, net.minecraft.client.render.entity.FlyingItemEntityRenderer::new);
 		LivingEntityFeatureRendererRegistrationCallback.EVENT.register((entityType, entityRenderer, registrationHelper, context) -> {
 			if (entityType == EntityType.PLAYER && entityRenderer instanceof PlayerEntityRenderer playerRenderer) {

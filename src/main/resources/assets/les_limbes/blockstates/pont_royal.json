@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "forme=true": {
+      "model": "les_limbes:block/pont_royal"
+    },
+    "forme=false": {
+      "model": "les_limbes:block/pont_royal_trame"
+    }
+  }
+}

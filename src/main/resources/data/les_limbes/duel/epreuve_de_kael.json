@@ -1,0 +1,60 @@
+{
+  "titre": "Le pont du Vent-Debout",
+  "pretendant": "kael",
+  "boss": "les_limbes:kael_duel",
+  "arene": {
+    "centre": [
+      1000,
+      90,
+      -850
+    ],
+    "rayon": 22,
+    "dimension": "les_limbes:limbes"
+  },
+  "entree": [
+    1000,
+    90,
+    -832
+  ],
+  "yaw": 180,
+  "apparition": [
+    1000,
+    90,
+    -862
+  ],
+  "amical": true,
+  "phases": [
+    {
+      "seuil": 0.66,
+      "message": "Escale ! Kaël ouvre une porte vers l'îlot est : tenez la rambarde."
+    },
+    {
+      "seuil": 0.33,
+      "message": "Deuxième escale, l'îlot ouest. Ses lames passent derrière vous : tournez-vous vite."
+    },
+    {
+      "seuil": 0.12,
+      "message": "Retour au mât pour la dernière passe !"
+    }
+  ],
+  "victoire": [
+    {
+      "type": "drapeau",
+      "nom": "kael_reconnu"
+    },
+    {
+      "type": "experience",
+      "niveaux": 4
+    },
+    {
+      "type": "message",
+      "texte": "Kaël éclate de rire : « Personne ne tient mon pont comme ça. Les routes sont à vous aussi. »"
+    }
+  ],
+  "echec": [
+    {
+      "type": "message",
+      "texte": "Kaël vous rattrape par le col : « Le Vent-Debout ne lâche personne. On remet ça quand vous voulez. »"
+    }
+  ]
+}

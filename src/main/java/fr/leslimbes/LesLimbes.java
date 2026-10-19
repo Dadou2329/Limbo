@@ -46,6 +46,7 @@ public final class LesLimbes implements ModInitializer {
 		LimbesBlockEntities.init();
 		LimbesEntities.init();
 		fr.leslimbes.registry.LimbesEspeces.init();
+		fr.leslimbes.registry.LimbesPretendants.init();
 		LimbesItemGroups.init();
 		LimbesAttachments.init();
 		LimbesWorldgen.init();
@@ -54,6 +55,8 @@ public final class LesLimbes implements ModInitializer {
 		QuestLoader.init();
 		fr.leslimbes.arrivee.ArriveeLoader.init();
 		fr.leslimbes.domaine.DomaineLoader.init();
+		fr.leslimbes.duel.DuelLoader.init();
+		fr.leslimbes.duel.DuelManager.init();
 		fr.leslimbes.domaine.ProjetManager.init();
 		LimbesNetworking.init();
 		LimbesServerEvents.init();

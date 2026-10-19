@@ -38,6 +38,13 @@ Vous venez de créer une partie de survie avec Les Limbes. Voici de quoi commenc
 - Les ennemis des régions, comme les Veilleurs, **annoncent** leurs coups ; les tireurs se préparent avant de lancer un éclat : un pas de côté suffit.
 - Dans la Mer suspendue, le sable de nacre cache des perles ; les crabes aussi. Dans les Jardins, la **sève ascendante** vous porte vers la canopée. Dans le Désert, les cadrans et les pavés horaires suivent l'heure du jour. Dans les Montagnes, les ponts de verre n'apparaissent qu'à votre approche et les cristaux chantent sous les pas.
 
+## La campagne et les prétendants
+
+- Le journal (J) suit toujours la quête principale de l'acte en cours : le domaine et Clairval (acte II), les régions et les prétendants (acte III), la capitale (acte IV).
+- Chaque prétendant a sa manière de vous reconnaître : une conversation, une expédition, un duel rituel ou un tournoi. Les **duels** sont annoncés comme tels, amicaux : à bout de forces, vous êtes ramené à l'entrée, et vous pouvez recommencer quand vous voulez. Chaque phase est annoncée en clair à l'écran.
+- La **capitale** (nord-ouest, au bout de la route de la Couronne) dort : ses portes royales s'ouvrent au fil de la campagne. Parlez à Elouan, puis au chambellan.
+- Les duels contre les prétendants et Vaëron restent disponibles après votre victoire, pour l'entraînement.
+
 ## Conseils
 
 - Les fibres nacrées des prairies font de bonnes cordes ; l'herbe de l'aube et un bol donnent un bouillon réconfortant.

@@ -1,0 +1,186 @@
+{
+  "titre": "Le seigneur de Clairval",
+  "acte": 2,
+  "description": "Faire du manoir un domaine, de Clairval un bourg, et des Limbes un pays connu : restaurer, recruter, découvrir deux régions, rencontrer les cinq prétendants et frapper aux portes de la capitale.",
+  "etapes": [
+    {
+      "id": "restaurer",
+      "resume": "Restaurer l'aile ouest, la forge royale et la salle des passages du manoir avec Orielle.",
+      "lieu": {
+        "nom": "Manoir",
+        "pos": [
+          -120,
+          66,
+          150
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "aile",
+          "type": "drapeau_monde",
+          "cible": "domaine_aile_ouest",
+          "texte": "Réparer l'aile ouest"
+        },
+        {
+          "id": "forge",
+          "type": "drapeau_monde",
+          "cible": "domaine_forge_royale",
+          "texte": "Bâtir la forge royale"
+        },
+        {
+          "id": "passages",
+          "type": "drapeau_monde",
+          "cible": "domaine_passages",
+          "texte": "Bâtir la salle des passages"
+        }
+      ]
+    },
+    {
+      "id": "recruter",
+      "resume": "Recruter trois compagnons des Prairies : Sabine la forgeronne, Loïc l'éleveur et Hanna la jardinière.",
+      "lieu": {
+        "nom": "Clairval",
+        "pos": [
+          0,
+          66,
+          140
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "sabine",
+          "type": "drapeau",
+          "cible": "sabine_recrutee",
+          "texte": "Recruter Sabine (forge de Clairval)"
+        },
+        {
+          "id": "loic",
+          "type": "drapeau",
+          "cible": "loic_recrute",
+          "texte": "Recruter Loïc (cabane du lac)"
+        },
+        {
+          "id": "hanna",
+          "type": "drapeau",
+          "cible": "hanna_recrutee",
+          "texte": "Recruter Hanna (jardin à l'est de Clairval)"
+        }
+      ]
+    },
+    {
+      "id": "regions",
+      "resume": "Suivre les routes pavées jusqu'à deux autres régions : Port-Nacre sur la Mer suspendue et Sylvécime dans les Jardins des Géants.",
+      "lieu": {
+        "nom": "Port-Nacre",
+        "pos": [
+          950,
+          66,
+          -750
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "mer",
+          "type": "drapeau",
+          "cible": "lieu:port_nacre",
+          "texte": "Atteindre Port-Nacre (Mer suspendue)"
+        },
+        {
+          "id": "jardins",
+          "type": "drapeau",
+          "cible": "lieu:sylvecime",
+          "texte": "Atteindre Sylvécime (Jardins des Géants)"
+        }
+      ]
+    },
+    {
+      "id": "pretendants",
+      "resume": "Rencontrer les cinq prétendants au trône : Kaël à Port-Nacre, Aélis à Sylvécime, Sahir à Méridiane, Orsane à Verréole, et Vaëron.",
+      "lieu": {
+        "nom": "Méridiane",
+        "pos": [
+          150,
+          66,
+          1250
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "kael",
+          "type": "drapeau",
+          "cible": "kael_rencontre",
+          "texte": "Rencontrer Kaël (Port-Nacre)"
+        },
+        {
+          "id": "aelis",
+          "type": "drapeau",
+          "cible": "aelis_rencontree",
+          "texte": "Rencontrer Aélis (Sylvécime)"
+        },
+        {
+          "id": "sahir",
+          "type": "drapeau",
+          "cible": "sahir_rencontre",
+          "texte": "Rencontrer Sahir (Méridiane)"
+        },
+        {
+          "id": "orsane",
+          "type": "drapeau",
+          "cible": "orsane_rencontree",
+          "texte": "Rencontrer Orsane (Verréole)"
+        },
+        {
+          "id": "vaeron",
+          "type": "drapeau",
+          "cible": "vaeron_rencontre",
+          "texte": "Rencontrer Vaëron"
+        }
+      ]
+    },
+    {
+      "id": "capitale",
+      "resume": "Demander à Elouan, au quartier des portes, l'accès aux quartiers extérieurs de la capitale.",
+      "lieu": {
+        "nom": "Quartier des portes",
+        "pos": [
+          -900,
+          78,
+          -720
+        ],
+        "dimension": "les_limbes:limbes"
+      },
+      "objectifs": [
+        {
+          "id": "elouan",
+          "type": "parler",
+          "cible": "elouan",
+          "manuel": true,
+          "texte": "Parler à Elouan au quartier des portes"
+        }
+      ]
+    }
+  ],
+  "fin": [
+    {
+      "type": "experience",
+      "niveaux": 5
+    },
+    {
+      "type": "drapeau",
+      "nom": "acte_2_termine"
+    },
+    {
+      "type": "titre",
+      "titre": "Acte III",
+      "sous_titre": "Le Prétendant"
+    },
+    {
+      "type": "demarrer_quete",
+      "quete": "le_pretendant"
+    }
+  ]
+}

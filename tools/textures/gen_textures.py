@@ -538,6 +538,66 @@ def tex_lanterne_royale() -> Image.Image:
     return img
 
 
+def tex_lanterne_royale_eteinte() -> Image.Image:
+    """Lanterne royale sans flamme : même ferronnerie dorée, vitre grise."""
+    img = tex_lanterne_royale()
+    for y in range(16):
+        for x in range(16):
+            px = img.getpixel((x, y))
+            if px[3] and px[:3] not in (P["or_sombre"][:3], P["or"][:3]):
+                g = int(0.3 * px[0] + 0.5 * px[1] + 0.2 * px[2])
+                put(img, x, y, (g // 2 + 40, g // 2 + 40, g // 2 + 48, px[3]))
+    return img
+
+
+def tex_porte_royale() -> Image.Image:
+    """Voile de la porte royale : pierre de couronne et filets d'or, étoile au centre."""
+    img = new()
+    for y in range(16):
+        for x in range(16):
+            bord = x in (0, 15) or y in (0, 15)
+            c = "C9A227" if bord else ("E6E8F4" if (x + y) % 2 else "DDE0EE")
+            put(img, x, y, hex_to_rgba(c))
+    for (x, y) in [(7, 5), (8, 5), (7, 10), (8, 10), (5, 7), (5, 8), (10, 7), (10, 8), (7, 7), (8, 7), (7, 8), (8, 8), (6, 6), (9, 6), (6, 9), (9, 9)]:
+        put(img, x, y, hex_to_rgba("FFE08A"))
+    return img
+
+
+def tex_pont_royal(trame: bool) -> Image.Image:
+    img = new()
+    if trame:
+        for y in range(16):
+            for x in range(16):
+                put(img, x, y, hex_to_rgba("E3C97E", 40 if (x % 4 and y % 4) else 100))
+        return img
+    for y in range(16):
+        for x in range(16):
+            put(img, x, y, hex_to_rgba("F2E3B8", 170))
+    for d in range(16):
+        put(img, d, d, hex_to_rgba("FFF2B0", 220))
+        put(img, 15 - d, d, hex_to_rgba("FFF2B0", 220))
+    for x in range(16):
+        put(img, x, 0, hex_to_rgba("C9A227", 230))
+        put(img, x, 15, hex_to_rgba("C9A227", 230))
+    return img
+
+
+def tex_item_sceau_royal() -> Image.Image:
+    """Sceau du roi disparu : disque d'or pâle à l'étoile bleue, ruban."""
+    img = new()
+    for y in range(16):
+        for x in range(16):
+            d = ((x - 8) ** 2 + (y - 7) ** 2) ** 0.5
+            if d <= 5.5:
+                put(img, x, y, hex_to_rgba("E3C97E" if d > 4.5 else "FFE08A"))
+    for (x, y) in [(8, 4), (8, 5), (8, 6), (8, 7), (8, 8), (8, 9), (8, 10), (5, 7), (6, 7), (7, 7), (9, 7), (10, 7), (11, 7), (6, 5), (10, 9), (6, 9), (10, 5)]:
+        put(img, x, y, hex_to_rgba("2E3A6E"))
+    for y in range(12, 16):
+        put(img, 6, y, hex_to_rgba("B23A48"))
+        put(img, 9, y, hex_to_rgba("B23A48"))
+    return img
+
+
 def tex_petale(base: str, sombre: str, clair: str, seed: int) -> Image.Image:
     img = new()
     fill_noise(img, hex_to_rgba(base), palette=[hex_to_rgba(sombre), hex_to_rgba(base), hex_to_rgba(base), hex_to_rgba(clair)], scale=4, seed=seed)
@@ -625,6 +685,11 @@ def gen_blocks_regions() -> None:
     save(tex_pierre_regionale("EFE6D8", "CFC2AE", "FBF6EC", "D6C79C", 216, polie=True), out_path("block", "pierre_de_couronne_polie"))
     save(tex_pierre_regionale("EFE6D8", "CFC2AE", "FBF6EC", "E3C97E", 217, sculptee=True), out_path("block", "pierre_de_couronne_sculptee"))
     save(tex_lanterne_royale(), out_path("block", "lanterne_royale"))
+    save(tex_lanterne_royale_eteinte(), out_path("block", "lanterne_royale_eteinte"))
+    save(tex_porte_royale(), out_path("block", "porte_royale"))
+    save(tex_pont_royal(False), out_path("block", "pont_royal"))
+    save(tex_pont_royal(True), out_path("block", "pont_royal_trame"))
+    save(tex_item_sceau_royal(), out_path("item", "sceau_royal"))
 
 
 def gen_blocks() -> None:
@@ -1017,6 +1082,9 @@ def gen_items() -> None:
         "sentinelle_de_la_couronne": ("D8DDE6", "C9A227"),
         "spectre_de_la_cour": ("C9D0E8", "7FE6FF"),
         "cerf_royal": ("F2EBDD", "E6C76A"),
+        "chevalier_de_bois_blanc": ("EDE6D6", "5F9A4E"), "reflet_de_verre": ("C8F0FF", "FFFFFF"), "double_des_heures": ("D9C08C", "3A2A1A"),
+        "legionnaire_astral": ("2E3A6E", "C9A227"), "champion_des_heures": ("C98B3C", "FFE08A"), "fleur_de_vie": ("F2A5C8", "DFFFB0"),
+        "point_de_rupture": ("AEE6F8", "6B7A8A"), "banniere_astrale": ("2E3A6E", "FFF3C8"),
     }.items():
         save(tex_item_oeuf(hex_to_rgba(fond), hex_to_rgba(points)), out_path("item", "oeuf_" + nom_oeuf))
 
@@ -1177,6 +1245,22 @@ SKINS = {
     "marchand_1": {"seed": 37, "peau": "E8C4A8", "cheveux": "4A3326", "haut": "D9B99A", "bas": "6B5A4A", "accent": "A33E3E"},
     "marchand_2": {"seed": 38, "peau": "C58F6A", "cheveux": "1E1A18", "haut": "CDE9DF", "bas": "35455E", "accent": "E3C97E", "cheveux_longs": True, "longueur_cheveux": 2},
     # --- Personnages des régions (étape 5) ---
+    # --- Capitale et épreuves (étape 6) ---
+    "chambellan": {'seed': 101, 'peau': 'E6C7A8', 'cheveux': 'C9C9C9', 'haut': '2E3A6E', 'bas': '1C2447', 'accent': 'C9A227', 'longueur_cheveux': 2, 'manteau': '3A4A8A', 'col': 'FFE08A', 'broderie': True, 'epaulettes': 'C9A227'},
+    "heraut": {'seed': 102, 'peau': 'D9A77C', 'cheveux': '5A3A26', 'haut': 'B23A48', 'bas': '2E3A6E', 'accent': 'FFE08A', 'longueur_cheveux': 1, 'col': 'FFE08A', 'ceinture': 'C9A227'},
+    "archiviste_royale": {'seed': 103, 'peau': 'E9C4A8', 'cheveux': '8A5A3C', 'haut': '4A4668', 'bas': '2E2A40', 'accent': 'DDE0EE', 'longueur_cheveux': 4, 'cheveux_longs': True, 'manteau': '5D5E73', 'col': 'DDE0EE'},
+    "intendante_du_palais": {'seed': 104, 'peau': 'C98B5A', 'cheveux': '2B1E12', 'haut': '6E2E3A', 'bas': '3A2416', 'accent': 'E3C97E', 'longueur_cheveux': 3, 'tablier': 'E9E3DA', 'manches': 'E9E3DA'},
+    "conseiller_royal": {'seed': 105, 'peau': 'E6C7A8', 'cheveux': 'A9A9A9', 'haut': '3F4F78', 'bas': '2E3A6E', 'accent': 'C9A227', 'longueur_cheveux': 2, 'barbe': 'A9A9A9', 'manteau': '2E3A6E', 'col': 'DDE0EE'},
+    "ambassadeur_mer": {'seed': 106, 'peau': 'B5805C', 'cheveux': '2B1E12', 'haut': '2E5F8A', 'bas': '1E3660', 'accent': 'FFF8E2', 'longueur_cheveux': 1, 'manteau': '3C7FA8', 'col': 'FFF8E2', 'epaulettes': 'E3C97E'},
+    "ambassadrice_jardins": {'seed': 107, 'peau': 'E9C4A8', 'cheveux': '7A4A2A', 'haut': '5F9A4E', 'bas': '3E6B33', 'accent': 'F2A5C8', 'longueur_cheveux': 4, 'cheveux_longs': True, 'manteau': '8FC779', 'col': 'FFFFFF'},
+    "ambassadeur_verre": {'seed': 108, 'peau': 'F2E3D5', 'cheveux': 'F2F4FA', 'haut': '9BA4B3', 'bas': '6F7A86', 'accent': 'BFE6F2', 'longueur_cheveux': 2, 'manteau': 'D8DDE6', 'col': 'BFE6F2'},
+    "marchand_royal_1": {'seed': 109, 'peau': 'D9A77C', 'cheveux': '5A3A26', 'haut': 'A33E3E', 'bas': '4F3B2E', 'accent': 'E3C97E', 'longueur_cheveux': 2, 'tablier': 'D9CBB4', 'ceinture': 'B4934A'},
+    "marchand_royal_2": {'seed': 110, 'peau': 'C98B5A', 'cheveux': 'D9A066', 'haut': '2E5F8A', 'bas': '2E2A40', 'accent': 'FFE08A', 'longueur_cheveux': 3, 'cheveux_longs': True, 'tablier': 'E9E3DA'},
+    "artisan_royal_1": {'seed': 111, 'peau': 'B5805C', 'cheveux': '2B1E12', 'haut': '4A4668', 'bas': '2E2219', 'accent': 'C9A227', 'longueur_cheveux': 1, 'barbe': '2B1E12', 'tablier': '5A5A5A', 'manches': 'A33E3E'},
+    "artisan_royal_2": {'seed': 112, 'peau': 'E9C4A8', 'cheveux': '8A5A3C', 'haut': '7FB7CC', 'bas': '3A4668', 'accent': 'BFE6F2', 'longueur_cheveux': 3, 'tablier': 'D8DDE6'},
+    "maitre_des_jeux": {'seed': 113, 'peau': 'A86E42', 'cheveux': '2B1E12', 'haut': 'C98B3C', 'bas': '8E5C22', 'accent': 'FFE08A', 'longueur_cheveux': 1, 'manteau': 'E3C97E', 'col': 'FFF2B0', 'ceinture': '3A2A1A'},
+    "capitaine_lio": {'seed': 114, 'peau': 'D9A77C', 'cheveux': '8A5A3C', 'haut': '2E5F8A', 'bas': '3A4668', 'accent': 'FFF8E2', 'longueur_cheveux': 2, 'barbe': '8A5A3C', 'manteau': '3C7FA8', 'col': 'FFF8E2', 'ceinture': 'B4934A'},
+    "exploratrice_mina": {'seed': 115, 'peau': 'E9C4A8', 'cheveux': 'B23A48', 'haut': '4A92B8', 'bas': '4F3B2E', 'accent': 'FFF8E2', 'longueur_cheveux': 3, 'cheveux_longs': True, 'ceinture': 'B4934A'},
     "kael": {'seed': 41, 'peau': 'D9A77C', 'cheveux': '5A3A26', 'haut': '3C7FA8', 'bas': '2A3A4E', 'accent': 'FFF8E2', 'longueur_cheveux': 1, 'manteau': '2E5F8A', 'col': 'FFF8E2', 'epaulettes': 'E3C97E', 'ceinture': 'B4934A', 'broderie': True},
     "second_de_kael": {'seed': 42, 'peau': 'E9C4A8', 'cheveux': '8A5A3C', 'haut': '4A92B8', 'bas': '3A4668', 'accent': 'FFF8E2', 'longueur_cheveux': 3, 'cheveux_longs': True},
     "poissonniere": {'seed': 43, 'peau': 'B5805C', 'cheveux': 'D9A066', 'haut': '2E5F8A', 'bas': '5A5A5A', 'accent': 'FFF8E2', 'longueur_cheveux': 3},

@@ -1,0 +1,43 @@
+{
+  "nom": "Isaure",
+  "debut": [
+    {
+      "noeud": "accueil"
+    }
+  ],
+  "noeuds": {
+    "accueil": {
+      "texte": [
+        "Je taille le cristal des Montagnes. Deux éclats résonnants, et je vous rends un cristal entier qui chante."
+      ],
+      "choix": [
+        {
+          "texte": "Deux éclats contre un cristal résonnant.",
+          "si": [
+            {
+              "objet": {
+                "id": "les_limbes:eclat_resonnant",
+                "nombre": 2
+              }
+            }
+          ],
+          "actions": [
+            {
+              "type": "retirer",
+              "objet": "les_limbes:eclat_resonnant",
+              "nombre": 2
+            },
+            {
+              "type": "donner",
+              "objet": "les_limbes:cristal_resonnant",
+              "nombre": 1
+            }
+          ]
+        },
+        {
+          "texte": "Je reviendrai."
+        }
+      ]
+    }
+  }
+}

@@ -24,7 +24,9 @@ public final class Espece {
 		/** Ennemi à distance : se prépare visiblement, puis lance un éclat. */
 		ENNEMI_TIREUR,
 		/** Monture : pacte par l'appât, rappel au sifflet, saut (sol) ou vol. */
-		MONTURE
+		MONTURE,
+		/** Soutien de duel, immobile : soigne un prétendant, tient une armure ou protège une légion. */
+		SOUTIEN
 	}
 
 	public final String id;
@@ -57,6 +59,11 @@ public final class Espece {
 	public boolean geant = false;
 	public boolean nage = false;
 	public boolean seChauffe = false;
+	public boolean flotte = false;
+	public boolean banniere = false;
+	public boolean rupture = false;
+	public boolean protegeParBanniere = false;
+	public float soin = 0.0F;
 	@Nullable
 	public SoundEvent ambiant;
 	@Nullable
@@ -183,6 +190,27 @@ public final class Espece {
 
 	public Espece seChauffe() {
 		this.seChauffe = true;
+		return this;
+	}
+
+	public Espece soin(float soin) {
+		this.soin = soin;
+		return this;
+	}
+
+	public Espece rupture() {
+		this.rupture = true;
+		this.flotte = true;
+		return this;
+	}
+
+	public Espece banniere() {
+		this.banniere = true;
+		return this;
+	}
+
+	public Espece protegeParBanniere() {
+		this.protegeParBanniere = true;
 		return this;
 	}
 
